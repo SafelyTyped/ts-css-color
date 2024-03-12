@@ -20,3 +20,45 @@ For each release, changes are grouped under these headings:
 ## develop branch
 
 The following changes have been completed, and will be included in the next tagged release.
+
+- added `AnyCssColor` type
+- added `CssColorData` type
+- added `CssColor` class
+- added `makeCssColor()` smart constructor
+- added `MODULE_NAME` constant
+- added `UnsupportedCssColorDefinitionData` and `UnsupportedCssColorDefinitionError` class
+- added `CssExtendedColor` type
+- added `CssExtendedColors` type
+- added `CSS_EXTENDED_COLORS_TO_HEX` and `CSS_HEX_TO_EXTENDED_COLORS` constants
+- added `CssKeywordColorData` type
+- added `CssKeywordColor` class
+- added `CssHexColorData` type
+- added `CssHexColor` class
+- added `CssHslColorChannelsData` type
+- added `CssHslColorChannelsTuple` type
+- added `CssHslColorData` type
+- added `CssHslColor` class
+- added `CssHwbColorChannelsData` type
+- added `CssHwbColorChannelsTuple` type
+- added `CssHwbColorData` type
+- added `CssHwbColor` class
+- added `CssRgbColorChannelsData` type
+- added `CssRgbColorChannelsTuple` type
+- added `CssRgbColorData` type
+- added `CssRgbColor` class
+- added `contrastLevel()` inspector function
+- added `CssContrastLevels` type
+- added `contrastLevels()` inspector function
+- added `contrastRatio()` inspector function
+- added `darkModeContrastRatio()` inspector function
+- added `hasClearContrast()` inspector function
+- added `Hue` type
+- added `hues()` inspector function
+- added `isDark()` inspector function
+- added `isDull()` inspector function
+- added `isLight()` inspector function
+- added `lightModeContrastRatio()` inspector function
+- added `luma()` inspector function
+- added `relativeLuminance()` inspector function
+- added `Shade` type
+- added `shade()` inspector function
