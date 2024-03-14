@@ -36,6 +36,14 @@ import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
 import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition";
 
+/**
+ * isCssHexColorDefinition() is a type guard. Use it to prove to the
+ * Typescript compiler that the given input is an acceptable CSS color
+ * definition, using the CSS hex notation
+ *
+ * @param input -
+ * the value to guarantee
+ */
 export function isCssHexColorDefinition(
     input: unknown
 ): input is CssHexColorDefinition
