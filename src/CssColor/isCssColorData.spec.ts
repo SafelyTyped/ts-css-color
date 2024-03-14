@@ -36,104 +36,33 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 
 import { isCssColorData } from "@safelytyped/css-color";
+import { InvalidCssColorDataInputs, InvalidCssColorDataObjects, ValidCssColorData } from "./_fixtures/CssColorFixtures";
 
 describe("isCssColorData()", () => {
-    it("returns true when given a suitable object", () => {
-        // ----------------------------------------------------------------
-        // explain your test
+    ValidCssColorData.forEach((inputValue) => {
+        it("returns true when given a suitable object " + JSON.stringify(inputValue), () => {
+            // ----------------------------------------------------------------
+            // explain your test
 
-        // this test proves that an object that contains the right
-        // properties will pass validation
+            // this test proves that an object that contains the right
+            // properties will pass validation
 
-        // ----------------------------------------------------------------
-        // setup your test
+            // ----------------------------------------------------------------
+            // setup your test
 
-        const inputValue = {
-            name: "hello world",
-            definition: "#000000",
-        };
+            // ----------------------------------------------------------------
+            // perform the change
 
-        // ----------------------------------------------------------------
-        // perform the change
+            const actualResult = isCssColorData(inputValue);
 
-        const actualResult = isCssColorData(inputValue);
+            // ----------------------------------------------------------------
+            // test the results
 
-        // ----------------------------------------------------------------
-        // test the results
-
-        expect(actualResult).to.be.true;
+            expect(actualResult).to.be.true;
+        });
     });
 
-    [
-        {
-            inputValue: {
-                name: 100,
-                definition: "#000000",
-            },
-            description: "name property has wrong type",
-        },
-        {
-            inputValue: {
-                name: "whoohoo",
-                definition: 999,
-            },
-            description: "definition property has wrong type",
-        },
-        {
-            inputValue: {
-                definition: "#000000",
-            },
-            description: "name property is missing",
-        },
-        {
-            inputValue: {
-                name: "woohooo",
-            },
-            description: "definition property is missing",
-        },
-        {
-            inputValue: {
-                name: null,
-                definition: "#000000",
-            },
-            description: "name property is null",
-        },
-        {
-            inputValue: {
-                name: "whoohoo",
-                definition: null,
-            },
-            description: "definition property is null",
-        },
-        {
-            inputValue: {
-                name: undefined,
-                definition: "#000000",
-            },
-            description: "name property is undefined",
-        },
-        {
-            inputValue: {
-                name: "whoohoo",
-                definition: undefined,
-            },
-            description: "definition property is undefined",
-        },
-        {
-            inputValue: {
-                name: "    ",
-                definition: "#000000",
-            },
-            description: "name property is empty",
-        },
-        {
-            inputValue: {
-                name: "whoohoo",
-                definition: "    ",
-            },
-            description: "definition property is empty",
-        },
-    ].forEach(({inputValue, description}) => {
+    InvalidCssColorDataObjects.forEach(({inputValue, description}) => {
         it("returns false when given an object where " + description, () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -158,19 +87,7 @@ describe("isCssColorData()", () => {
         });
     });
 
-    [
-        null,
-        undefined,
-        [],
-        true,
-        false,
-        0,
-        -100,
-        100,
-        3.1415927,
-        () => true,
-        {}
-    ].forEach((inputValue) => {
+    InvalidCssColorDataInputs.forEach((inputValue) => {
         it("returns false when given " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
