@@ -56,6 +56,7 @@ export { CssKeywordColor } from "./CssKeywordColor/CssKeywordColor";
 
 export type { CssHexColorData } from "./CssHexColor/CssHexColor";
 export { CssHexColor } from "./CssHexColor/CssHexColor";
+export { validateCssHexColorDefinition } from "./CssHexColor/validateCssHexColorDefinition";
 
 export type { CssHslColorChannelsData } from "./CssHslColor/CssHslColor";
 export type { CssHslColorChannelsTuple } from "./CssHslColor/CssHslColor";

@@ -41,6 +41,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssKeywordColor` class
 - added `CssHexColorData` type
 - added `CssHexColor` class
+- added `validateCssHexColorDefinition()` type validator
 - added `CssHslColorChannelsData` type
 - added `CssHslColorChannelsTuple` type
 - added `CssHslColorData` type
