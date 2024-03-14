@@ -32,7 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateStringMatches, validateString } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateStringMatches, validateString, recast } from "@safelytyped/core-types";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition";
 
 const cssHexRegex = /#[A-Fa-f0-9]{6}/;
 
@@ -53,10 +54,11 @@ export function validateCssHexColorDefinition(
     {
         path = DEFAULT_DATA_PATH
     }: Partial<TypeValidatorOptions> = {}
-): AppErrorOr<string>
+): AppErrorOr<CssHexColorDefinition>
 {
     return validate(input)
         .next((x) => validateString(x, { path }))
         .next((x) => validateStringMatches(cssHexRegex, x, { path }))
+        .next((x) => recast<string, CssHexColorDefinition>(x))
         .value();
 }
