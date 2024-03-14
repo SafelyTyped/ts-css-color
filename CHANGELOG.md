@@ -21,6 +21,8 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### New
+
 - added `AnyCssColor` type
 - added `CssColorData` type
 - added `CssColor` class
@@ -62,3 +64,8 @@ The following changes have been completed, and will be included in the next tagg
 - added `relativeLuminance()` inspector function
 - added `Shade` type
 - added `shade()` inspector function
+
+### Tools
+
+- explicitly exclude TS files that only contain types from code coverage
+  - see [c8 issue #494](https://github.com/bcoe/c8/issues/494) for the bug report

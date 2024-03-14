@@ -68,7 +68,8 @@
     ],
     "exclude": [
       "**/_fixtures/*",
-      "**/*.spec.ts"
+      "**/*.spec.ts",
+      "src/Errors/**/*Data.ts"
     ]
   }
 }
