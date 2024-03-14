@@ -180,7 +180,7 @@ describe("mustBeCssColorData()", () => {
         () => true,
         {}
     ].forEach((inputValue) => {
-        it("rejects " + JSON.stringify(inputValue), () => {
+        it("throws an AppError when given " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
