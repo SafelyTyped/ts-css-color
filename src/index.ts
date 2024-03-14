@@ -42,6 +42,7 @@ export type { AnyCssColor } from "./CssColor/AnyCssColor";
 export type { CssColorData } from "./CssColor/CssColorData";
 export { CssColor } from "./CssColor/CssColor";
 export { makeCssColor } from "./CssColor/makeCssColor";
+export { validateCssColorData } from "./CssColor/validateCssColorData";
 
 export type { CssExtendedColor } from "./CssKeywordColor/CssExtendedColors";
 export type { CssExtendedColors } from "./CssKeywordColor/CssExtendedColors";
