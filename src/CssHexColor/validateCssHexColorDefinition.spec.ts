@@ -34,7 +34,7 @@
 
 import { describe } from "mocha";
 import { InvalidCssHexColorDefinitionInputs, InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
-import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
+import { validateCssHexColorDefinition } from "@safelytyped/css-color";
 import { AppError } from "@safelytyped/core-types";
 import { expect } from "chai";
 
