@@ -75,6 +75,8 @@ export { CssRgbColor } from "./CssRgbColor/CssRgbColor";
 // ----------------------------------------------------------------
 
 export { MODULE_NAME } from "./Errors/defaults/MODULE_NAME";
+export type { InvalidCssColorDataData } from "./Errors/InvalidCssColorData/InvalidCssColorDataData";
+export { InvalidCssColorDataError } from "./Errors/InvalidCssColorData/InvalidCssColorDataError";
 export type { UnsupportedCssColorDefinitionData } from "./Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionData";
 export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
 

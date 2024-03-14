@@ -28,6 +28,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssColor` class
 - added `makeCssColor()` smart constructor
 - added `MODULE_NAME` constant
+- added `InvalidCssColorDataData` and `InvalidCssColorDataError` class
 - added `UnsupportedCssColorDefinitionData` and `UnsupportedCssColorDefinitionError` class
 - added `CssExtendedColor` type
 - added `CssExtendedColors` type
