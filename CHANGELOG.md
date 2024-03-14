@@ -27,6 +27,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssColorData` type
 - added `CssColor` class
 - added `makeCssColor()` smart constructor
+- added `mustBeCssColorData()` type guarantee
 - added `validateCssColorData()` type validator
 - added `MODULE_NAME` constant
 - added `InvalidCssColorDataData` and `InvalidCssColorDataError` class
