@@ -42,6 +42,7 @@ export type { AnyCssColor } from "./CssColor/AnyCssColor";
 export type { CssColorData } from "./CssColor/CssColorData";
 export { CssColor } from "./CssColor/CssColor";
 export { makeCssColor } from "./CssColor/makeCssColor";
+export { makeCssColorData } from "./CssColor/makeCssColorData";
 export { isCssColorData } from "./CssColor/isCssColorData";
 export { mustBeCssColorData } from "./CssColor/mustBeCssColorData";
 export { validateCssColorData } from "./CssColor/validateCssColorData";
