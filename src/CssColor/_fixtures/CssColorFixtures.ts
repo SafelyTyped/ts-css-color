@@ -39,6 +39,23 @@ export const ValidCssColorData = [
     },
 ];
 
+export const InvalidCssColorDataParameters = [
+    {
+        inputValue: {
+            name: "    ",
+            definition: "#000000",
+        },
+        description: "name property is empty",
+    },
+    {
+        inputValue: {
+            name: "whoohoo",
+            definition: "    ",
+        },
+        description: "definition property is empty",
+    },
+];
+
 export const InvalidCssColorDataObjects = [
     {
         inputValue: {
@@ -94,20 +111,7 @@ export const InvalidCssColorDataObjects = [
         },
         description: "definition property is undefined",
     },
-    {
-        inputValue: {
-            name: "    ",
-            definition: "#000000",
-        },
-        description: "name property is empty",
-    },
-    {
-        inputValue: {
-            name: "whoohoo",
-            definition: "    ",
-        },
-        description: "definition property is empty",
-    },
+    ...InvalidCssColorDataParameters,
 ];
 
 export const InvalidCssColorDataInputs = [
