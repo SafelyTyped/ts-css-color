@@ -43,6 +43,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssHexColor` class
 - added `CssHexColorDefinition` type
 - added `isCssHexColorDefinition()` type guard
+- added `mustBeCssHexColorDefinition()` type guarantee
 - added `validateCssHexColorDefinition()` type validator
 - added `CssHslColorChannelsData` type
 - added `CssHslColorChannelsTuple` type
