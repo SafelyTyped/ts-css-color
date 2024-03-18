@@ -32,35 +32,51 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor";
+import { describe } from "mocha";
+import { relativeLuminance } from "@safelytyped/css-color";
+import { BLACK, WHITE } from "../defaults/defaultColors";
+import { expect } from "chai";
 
-/**
- * relativeLuminance() calculates the WCAG relative luminance of the
- * given `input` color
- *
- * This is an alternative to the {@link luma} value.
- *
- * @param input -
- * the color to calculate the relative luminance of
- * @returns the calculated relative luminance
- */
-export function relativeLuminance(input: AnyCssColor): number
-{
-    const { red, green, blue } = input.rgb().channelsData();
+describe("relativeLuminance()", () => {
+    it("returns 0.0 for black", () => {
+        // ----------------------------------------------------------------
+        // explain your test
 
-    // convert the channels to a number between 0-1
-    const rsRGB = red / 255;
-    const gsRGB = green / 255;
-    const bsRGB = blue / 255;
+        // this test proves that the lower boundary for relativeLuminance()
+        // is 0.0
 
-    // normalise the channel values
-    const r = rsRGB <= 0.03928 ? rsRGB / 12.92 : ((rsRGB+0.055) / 1.055) ** 2.4;
-    const g = gsRGB <= 0.03928 ? gsRGB / 12.92 : ((gsRGB+0.055) / 1.055) ** 2.4;
-    const b = bsRGB <= 0.03928 ? bsRGB / 12.92 : ((bsRGB+0.055) / 1.055) ** 2.4;
+        // ----------------------------------------------------------------
+        // setup your test
 
-    // calculate the relative luminance
-    const l = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        // ----------------------------------------------------------------
+        // perform the change
 
-    // all done
-    return l;
-}
+        const actualValue = relativeLuminance(BLACK);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.eql(0.0);
+    });
+
+    it("returns 1.0 for white", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that the upper boundary for relativeLuminance()
+        // is 1.0
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualValue = relativeLuminance(WHITE);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.eql(1.0);
+    });
+});
