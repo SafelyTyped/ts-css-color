@@ -34,12 +34,19 @@
 
 import { HashMap } from "@safelytyped/core-types";
 import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssKeywordColor/CssExtendedColors";
+import { DARK_COLORS, DULL_COLORS, LIGHT_COLORS } from "../../inspectors/_fixtures/colorShades";
 
 export const ValidCssHexColorDefinitions = [
-    ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX)
+    // we use Set() to dedupe the color definitions
+    ...new Set([
+        ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX),
+        ...LIGHT_COLORS,
+        ...DARK_COLORS,
+        ...DULL_COLORS
 
-    // add additional values here
-];
+        // add additional values here
+    ]),
+].sort();
 
 export const InvalidCssHexColorDefinitions = [
     "000000",

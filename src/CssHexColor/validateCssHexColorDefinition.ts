@@ -35,7 +35,7 @@
 import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateStringMatches, validateString, recast } from "@safelytyped/core-types";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition";
 
-const cssHexRegex = /#[A-Fa-f0-9]{6}/;
+const cssHexRegex = /#[A-Fa-f0-9]{6}|#[A-Fa-f0-9]{3}/;
 
 /**
  * validateCssHexColorDefinition() is a type validator. Use it to prove that
@@ -53,7 +53,7 @@ export function validateCssHexColorDefinition(
     input: unknown,
     {
         path = DEFAULT_DATA_PATH
-    }: Partial<TypeValidatorOptions> = {}
+    }: TypeValidatorOptions = {}
 ): AppErrorOr<CssHexColorDefinition>
 {
     return validate(input)
