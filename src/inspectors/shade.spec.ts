@@ -32,15 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
+import { describe, it } from "mocha";
 import { makeCssColor, shade } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { DARK_COLORS, DULL_COLORS, LIGHT_COLORS } from "./_fixtures/colorShades";
 
-describe("shade", () => {
-    describe("returns 'light' from colors that are lighter", () => {
-        [
-            "#ffffff",
-        ].forEach((inputValue) => {
+describe("shade()", () => {
+    it("returns 'light' from colors that are lighter", () => {
+        LIGHT_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -63,10 +62,8 @@ describe("shade", () => {
         });
     });
 
-    describe("returns 'dark' from colors that are darker", () => {
-        [
-            "#000000",
-        ].forEach((inputValue) => {
+    it("returns 'dark' from colors that are darker", () => {
+        DARK_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -89,10 +86,8 @@ describe("shade", () => {
         });
     });
 
-    describe("returns 'dull' from colors that are flat", () => {
-        [
-            "#777777",
-        ].forEach((inputValue) => {
+    it("returns 'dull' from colors that are flat", () => {
+        DULL_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 
