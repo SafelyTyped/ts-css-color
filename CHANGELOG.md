@@ -71,6 +71,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `isBlueHue()` inspector function
 - added `isCyanHue()` inspector function
 - added `isGrayHue()` inspector function
+- added `isGreenHue()` inspector function
 - added `isDark()` inspector function
 - added `isDull()` inspector function
 - added `isLight()` inspector function
