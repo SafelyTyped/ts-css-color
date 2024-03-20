@@ -64,15 +64,15 @@ type HuesMap = Partial<Record<Hue, string>>;
  * huesMap lists the hues that we calculate on their ranges
  */
 const huesMap: HuesMap = {
-    pink: "345-355",
-    orange: "37-44",
-    violet: "268-273",
-    purple: "272-300",
     yellow: "31-90",
+    orange: "37-44",
     green: "91-150",
     cyan: "151-210",
     blue: "211-270",
+    violet: "268-273",
+    purple: "272-300",
     magenta: "271-330",
+    pink: "345-355",
 };
 
 /**
