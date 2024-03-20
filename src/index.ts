@@ -100,7 +100,6 @@ export { type CssContrastLevels, contrastLevels } from "./inspectors/contrastLev
 export { contrastRatio } from "./inspectors/contrastRatio";
 export { darkModeContrastRatio } from "./inspectors/darkModeContrastRatio";
 export { hasClearContrast } from "./inspectors/hasClearContrast";
-export { type Hue, hues } from "./inspectors/hues";
 export { isDark } from "./inspectors/isDark";
 export { isDull } from "./inspectors/isDull";
 export { isLight } from "./inspectors/isLight";
@@ -108,3 +107,6 @@ export { lightModeContrastRatio } from "./inspectors/lightModeContrastRatio";
 export { luma } from "./inspectors/luma";
 export { relativeLuminance } from "./inspectors/relativeLuminance";
 export { type Shade, shade } from "./inspectors/shade";
+
+export { type Hue, hues } from "./inspectors/hues/hues";
+export { isGrayHue } from "./inspectors/hues/isGrayHue";
