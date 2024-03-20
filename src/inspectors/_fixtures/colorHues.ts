@@ -151,3 +151,7 @@ export const NON_YELLOW_COLORS = [
     ...PURPLE_COLORS,
     ...MAGENTA_COLORS,
 ];
+
+export const NON_WHITE_COLORS = [
+    ...BLACK_COLORS,
+];

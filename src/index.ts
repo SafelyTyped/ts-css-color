@@ -121,4 +121,5 @@ export { isPinkHue } from "./inspectors/hues/isPinkHue";
 export { isPurpleHue } from "./inspectors/hues/isPurpleHue";
 export { isRedHue } from "./inspectors/hues/isRedHue";
 export { isVioletHue } from "./inspectors/hues/isVioletHue";
+export { isWhiteHue } from "./inspectors/hues/isWhiteHue";
 export { isYellowHue } from "./inspectors/hues/isYellowHue";

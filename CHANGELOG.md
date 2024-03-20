@@ -78,6 +78,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `isPurpleHue()` inspector function
 - added `isRedHue()` inspector function
 - added `isVioletHue()` inspector function
+- added `isWhiteHue()` inspector function
 - added `isYellowHue()` inspector function
 - added `isDark()` inspector function
 - added `isDull()` inspector function
