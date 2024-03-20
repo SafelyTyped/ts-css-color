@@ -119,3 +119,8 @@ export const NON_MAGENTA_COLORS = [
     ...ORANGE_COLORS,
     ...GREEN_COLORS,
 ];
+
+export const NON_ORANGE_COLORS = [
+    ...MAGENTA_COLORS,
+    ...BLUE_COLORS,
+];
