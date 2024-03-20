@@ -115,3 +115,4 @@ export { isBlueHue } from "./inspectors/hues/isBlueHue";
 export { isCyanHue } from "./inspectors/hues/isCyanHue";
 export { isGreenHue } from "./inspectors/hues/isGreenHue";
 export { isGrayHue } from "./inspectors/hues/isGrayHue";
+export { isMagentaHue } from "./inspectors/hues/isMagentaHue";
