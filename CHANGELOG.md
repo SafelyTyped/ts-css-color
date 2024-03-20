@@ -66,6 +66,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `hasClearContrast()` inspector function
 - added `Hue` type
 - added `hues()` inspector function
+- added `isBlackHue()` inspector function
 - added `isGrayHue()` inspector function
 - added `isDark()` inspector function
 - added `isDull()` inspector function

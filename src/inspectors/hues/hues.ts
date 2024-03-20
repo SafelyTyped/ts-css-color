@@ -94,17 +94,17 @@ export function hues(input: AnyCssColor): Hue[]
     const { hue, saturation, luminosity } = input.hsl().channelsData();
 
     // special case
-    if (saturation < 10) {
+    if (saturation < 15) {
         retval.push("gray");
     }
 
     // special case
-    if (luminosity < 10) {
+    if (luminosity < 15) {
         retval.push("black");
     }
 
     // special case
-    if (luminosity > 90) {
+    if (luminosity > 85) {
         retval.push("white");
     }
 
