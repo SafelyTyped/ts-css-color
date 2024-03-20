@@ -62,7 +62,7 @@ export const ORANGE_COLORS = [
 ];
 
 export const VIOLET_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.violet,
+    CSS_EXTENDED_COLORS_TO_HEX.rebeccapurple,
 ];
 
 export const PURPLE_COLORS = [
@@ -139,4 +139,10 @@ export const NON_PURPLE_COLORS = [
 export const NON_RED_COLORS = [
     ...GREEN_COLORS,
     ...BLUE_COLORS,
+];
+
+export const NON_VIOLET_COLORS = [
+    ...YELLOW_COLORS,
+    ...ORANGE_COLORS,
+    ...CYAN_COLORS
 ];
