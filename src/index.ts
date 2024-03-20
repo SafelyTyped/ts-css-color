@@ -60,6 +60,7 @@ export type { CssHexColorDefinition } from "./CssHexColor/CssHexColorDefinition"
 export { isCssHexColorDefinition } from "./CssHexColor/isCssHexColorDefinition";
 export { makeCssHexColorDefinition } from "./CssHexColor/makeCssHexColorDefinition";
 export { mustBeCssHexColorDefinition } from "./CssHexColor/mustBeCssHexColorDefinition";
+export { normaliseCssHexColorDefinition } from "./CssHexColor/normaliseCssHexColorDefinition";
 export { validateCssHexColorDefinition } from "./CssHexColor/validateCssHexColorDefinition";
 
 export type { CssHslColorChannelsData } from "./CssHslColor/CssHslColor";
