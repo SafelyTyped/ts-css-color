@@ -67,7 +67,7 @@ const huesMap: HuesMap = {
     pink: "345-355",
     orange: "37-44",
     violet: "268-273",
-    purple: "272-280",
+    purple: "272-300",
     yellow: "31-90",
     green: "91-150",
     cyan: "151-210",

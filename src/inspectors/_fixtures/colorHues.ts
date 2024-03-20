@@ -129,3 +129,9 @@ export const NON_PINK_COLORS = [
     ...GREEN_COLORS,
     ...CYAN_COLORS,
 ];
+
+export const NON_PURPLE_COLORS = [
+    ...YELLOW_COLORS,
+    ...GREEN_COLORS,
+    ...ORANGE_COLORS,
+];
