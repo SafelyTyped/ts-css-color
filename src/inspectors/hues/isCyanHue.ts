@@ -32,80 +32,21 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssKeywordColor/CssExtendedColors";
+import type { AnyCssColor } from "../../CssColor/AnyCssColor";
+import { hues } from "./hues";
 
-export const GRAY_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.gray,
-    CSS_EXTENDED_COLORS_TO_HEX.dimgray,
-    CSS_EXTENDED_COLORS_TO_HEX.darkgray,
-];
-
-export const BLACK_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.black,
-    "#222",
-];
-
-export const WHITE_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.white,
-];
-
-export const RED_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.red,
-];
-
-export const PINK_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.pink,
-];
-
-export const ORANGE_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.orange,
-];
-
-export const VIOLET_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.violet,
-];
-
-export const PURPLE_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.purple,
-];
-
-export const YELLOW_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.yellow,
-];
-
-export const GREEN_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.green,
-];
-
-export const CYAN_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.cyan,
-];
-
-export const BLUE_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.blue,
-];
-
-export const MAGENTA_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.magenta,
-];
-
-export const NON_GRAY_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.rebeccapurple,
-];
-
-export const NON_BLACK_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.white,
-    CSS_EXTENDED_COLORS_TO_HEX.red,
-    CSS_EXTENDED_COLORS_TO_HEX.green,
-    CSS_EXTENDED_COLORS_TO_HEX.blue,
-];
-
-export const NON_BLUE_COLORS = [
-    ...YELLOW_COLORS,
-    ...ORANGE_COLORS,
-];
-
-export const NON_CYAN_COLORS = [
-    ...PURPLE_COLORS,
-    ...YELLOW_COLORS,
-];
+/**
+ * isCyanHue() returns true if the given `input` color is a cyan hue.
+ *
+ * @param input -
+ * the CssColor to inspect
+ * @returns
+ * - `true` if `input` is a cyna hue
+ * - `false` otherwise
+ */
+export function isCyanHue(
+    input: AnyCssColor
+): boolean
+{
+    return hues(input).some((hue) => hue === "cyan");
+}

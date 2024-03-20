@@ -112,4 +112,5 @@ export { type Shade, shade } from "./inspectors/shade";
 export { type Hue, hues } from "./inspectors/hues/hues";
 export { isBlackHue } from "./inspectors/hues/isBlackHue";
 export { isBlueHue } from "./inspectors/hues/isBlueHue";
+export { isCyanHue } from "./inspectors/hues/isCyanHue";
 export { isGrayHue } from "./inspectors/hues/isGrayHue";
