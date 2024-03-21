@@ -32,36 +32,50 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor";
-import { shade } from "./shade";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssKeywordColor/CssExtendedColors";
 
-/**
- * hasClearContrast() determines whether or not two given colors are
- * different from each other on a black-and-white scale.
- *
- * It's an alternative to the {@link contrastRatio}, useful for making
- * decisions outside of the WCAG approach.
- *
- * @param a - a color to compare
- * @param b - the other color to compare against
- * @returns
- * - `true` if one color is light and the other is dark
- * - `false` if either color is dull
- * - `false` if both colors are either light or dark
- */
-export function hasClearContrast(
-    a: AnyCssColor,
-    b: AnyCssColor
-): boolean
-{
-    const aShade = shade(a);
-    const bShade = shade(b);
+export const CONTRASTING_COLORS = [
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.white,
+        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.black,
+        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+    },
+];
 
-    // can't be clear contrast if either shade lands in the middle
-    if (aShade === "dull" || bShade === "dull") {
-        return false;
-    }
-
-    // can only be clear contrast if one is "light" and one is "dark"
-    return aShade != bShade;
-}
+export const NON_CONTRASTING_COLORS = [
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.black,
+        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.white,
+        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.red,
+        b: CSS_EXTENDED_COLORS_TO_HEX.red,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.green,
+        b: CSS_EXTENDED_COLORS_TO_HEX.green,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.blue,
+        b: CSS_EXTENDED_COLORS_TO_HEX.blue,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.blue,
+        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.orange,
+        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.yellow,
+        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+    },
+];
