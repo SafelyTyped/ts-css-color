@@ -32,37 +32,32 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor";
-import { relativeLuminance } from "./relativeLuminance";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssKeywordColor/CssExtendedColors";
 
-/**
- * contrastRatio() calculates the WCAG relative contrast between two
- * colors.
- *
- * You don't need to pass in the colors in any set order; this function
- * will work regardless.
- *
- * @param a -
- * one of the colors to compare
- * @param b -
- * the other color to compare
- * @returns the calculated contrast ratio, which you can then use in
- * other functions such as {@link contrastLevels}.
- *
- * The returned contrast ratio is rounded down to one decimal place.
- */
-export function contrastRatio(a: AnyCssColor, b: AnyCssColor): number
-{
-    const fgLuminance = relativeLuminance(a);
-    const bgLuminance = relativeLuminance(b);
-
-    let ratio = 0;
-    if (fgLuminance > bgLuminance) {
-        ratio = (fgLuminance + 0.05) / (bgLuminance + 0.05);
-    }
-    else {
-        ratio = (bgLuminance + 0.05) / (fgLuminance + 0.05);
-    }
-
-    return Math.trunc(ratio * 10) / 10;
-}
+export const EXPECTED_CONTRAST_RATIOS: { a: string; b: string; expectedValue: number }[] = [
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.black,
+        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+        expectedValue: 21,
+    },
+    {
+        a: CSS_EXTENDED_COLORS_TO_HEX.blue,
+        b: CSS_EXTENDED_COLORS_TO_HEX.yellow,
+        expectedValue: 8,
+    },
+    {
+        a: "#1f8ceb",
+        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        expectedValue: 6,
+    },
+    {
+        a: "#ff8c00",
+        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        expectedValue: 9,
+    },
+    {
+        a: "#ffd500",
+        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        expectedValue: 14.7,
+    },
+];
