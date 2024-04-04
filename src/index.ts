@@ -78,6 +78,7 @@ export type { CssRgbColorChannelsData } from "./CssRgbColor/CssRgbColorChannelsD
 export type { CssRgbColorChannelsTuple } from "./CssRgbColor/CssRgbColorChannelsTuple.type";
 export type { CssRgbColorData } from "./CssRgbColor/CssRgbColorData.type";
 export { CssRgbColor } from "./CssRgbColor/CssRgbColor";
+export { mustBeCssRgbColorData } from "./CssRgbColor/mustBeCssRgbColorData";
 export { mustBeCssRgbColorChannelsData } from "./CssRgbColor/mustBeCssRgbColorChannelsData";
 export { validateCssRgbColorChannelsData } from "./CssRgbColor/validateCssRgbColorChannelsData";
 export { validateCssRgbColorData } from "./CssRgbColor/validateCssRgbColorData";
