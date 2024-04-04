@@ -32,9 +32,21 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, UnsupportedTypeError } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, UnsupportedTypeError, isObject } from "@safelytyped/core-types";
 import type { CssColorData } from "../CssColor/CssColorData.type";
 
+/**
+ * validateCssColorDataHasChannels() is a data validator. Use it to prove
+ * that the given `input` has the expected `.channels` property.
+ *
+ * @param input
+ * - the {@link CssColorData} to inspect
+ * @param path
+ * - dot.notation.path through your nested data structures to `input`
+ * @returns
+ * - `input` type-casted to include the `.channels` property on success
+ * - a suitable `AppError` otherwise
+ */
 export function validateCssColorDataHasChannels(
     input: CssColorData,
     {
@@ -42,7 +54,9 @@ export function validateCssColorDataHasChannels(
     }: TypeValidatorOptions = {}
 ): AppErrorOr<CssColorData & { channels: object }>
 {
-    if (typeof (input as CssColorData & { channels: object }).channels !== "object") {
+    // we use `isObject()` here to prevent `null` and `array` types from being
+    // wrongly accepted as valid
+    if (!isObject((input as CssColorData & { channels: object }).channels)) {
         return new UnsupportedTypeError({
             public: {
                 dataPath: path,

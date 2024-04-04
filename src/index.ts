@@ -101,6 +101,14 @@ export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColor
 
 // ================================================================
 //
+// USEFUL HELPERS FOR BUILDING YOUR OWN CssColor CLASSES
+//
+// ----------------------------------------------------------------
+
+export { validateCssColorDataHasChannels } from "./helpers/validateCssColorDataHasChannels";
+
+// ================================================================
+//
 // INSPECTORS / CALCULATORS
 //
 // ----------------------------------------------------------------
