@@ -82,7 +82,7 @@ export function validateCssColorChannel<T extends object = object>(
         });
     }
 
-    if (channels[channelName] < min || channels[channelName] > max) {
+    if (channels[channelName] < min || channels[channelName] > max || Number.isNaN(channels[channelName])) {
         return new InvalidCssColorChannelValueError({
             public: {
                 dataPath: channelPath,

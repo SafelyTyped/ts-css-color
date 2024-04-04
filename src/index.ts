@@ -105,6 +105,7 @@ export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColor
 //
 // ----------------------------------------------------------------
 
+export { validateCssColorChannel } from "./helpers/validateCssColorChannel";
 export { validateCssColorDataHasChannels } from "./helpers/validateCssColorDataHasChannels";
 
 // ================================================================
