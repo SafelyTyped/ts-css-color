@@ -78,4 +78,12 @@ export const NON_CONTRASTING_COLORS = [
         a: CSS_EXTENDED_COLORS_TO_HEX.yellow,
         b: CSS_EXTENDED_COLORS_TO_HEX.white,
     },
+    {
+        a: "#888",
+        b: "#000",
+    },
+    {
+        a: "#FFF",
+        b: "#888",
+    },
 ];
