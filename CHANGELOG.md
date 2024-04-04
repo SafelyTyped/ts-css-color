@@ -59,6 +59,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssRgbColorChannelsTuple` type
 - added `CssRgbColorData` type
 - added `CssRgbColor` class
+- added `isCssRgbColorData()` type guard
 - added `isCssRgbColorChannelsData()` type guard
 - added `mustBeCssRgbColorData()` type guarantee
 - added `mustBeCssRgbColorChannelsData()` type guarantee
