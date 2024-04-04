@@ -33,34 +33,52 @@
 //
 
 /**
- * CssContrastLevels is a map of known WCAG contrast levels in their
+ * WcagContrastRatings is a map of known WCAG contrast criteria in their
  * context:
  *
+ * - A_normal - is this good enough for people with healthy vision? (based on ISO-9241)
  * - AA_normal - is this good enough for AA rating for body text?
  * - AA_large - is this good enough for AA rating for headlines?
+ * - AA_ui - is this good enough for AA rating for UI controls?
  * - AAA_normal - is this good enough for AAA rating for body text?
  * - AAA_large - is this good enough for AAA rating for headlines?
+ *
+ * NOTE that there is no AAA rating for UI controls at this time.
+ *
+ * See:
+ *
+ * - https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG/Perceivable/Color_contrast
+ * - https://www.w3.org/TR/WCAG21/#contrast-minimum
+ * - https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html
  */
-export type CssContrastLevels = {
+export type WcagContrastRatings = {
+    /**
+     * is this good enough for people with healthy vision? (based on ISO-9241)
+     */
+    "A_normal": boolean,
+
+    /**
+     * is this good enough for the WCAG AA rating for body text?
+     */
     "AA_normal": boolean,
+
+    /**
+     * is this good enough for the WCAG AA rating for headlines?
+     */
     "AA_large": boolean,
+
+    /**
+     * is this good enough for the WCAG AA rating for UI controls?
+     */
+    "AA_ui": boolean,
+
+    /**
+     * is this good enough for the WCAG AAA rating for body text?
+     */
     "AAA_normal": boolean,
+
+    /**
+     * is this good enough for the WCAG AAA rating for headlines?
+     */
     "AAA_large": boolean,
 };
-
-/**
- * contrastLevels works out whether the given contrastRatio meets
- * various WCAG guidelines for accessibility
- *
- * @param contrastRatio -
- * the contrast ratio to evaluate
- */
-export function contrastLevels(contrastRatio: number): CssContrastLevels
-{
-    return {
-        "AA_normal": contrastRatio >= 4.5,
-        "AA_large": contrastRatio >= 3.1,
-        "AAA_normal": contrastRatio >= 7.0,
-        "AAA_large": contrastRatio >= 4.5,
-    };
-}

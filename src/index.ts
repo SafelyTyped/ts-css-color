@@ -80,6 +80,14 @@ export { CssRgbColor } from "./CssRgbColor/CssRgbColor";
 
 // ================================================================
 //
+// OTHER USEFUL DATA TYPES
+//
+// ----------------------------------------------------------------
+
+export type { WcagContrastRatings } from "./WcagContrastRatings/WcagContrastRatings";
+
+// ================================================================
+//
 // ERRORS THAT WE CAN THROW
 //
 // ----------------------------------------------------------------
@@ -97,7 +105,7 @@ export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColor
 // ----------------------------------------------------------------
 
 export { contrastLevel } from "./inspectors/contrastLevel";
-export { type CssContrastLevels, contrastLevels } from "./inspectors/contrastLevels";
+export { wcagContrast } from "./inspectors/wcagContrast";
 export { contrastRatio } from "./inspectors/contrastRatio";
 export { darkModeContrastRatio } from "./inspectors/darkModeContrastRatio";
 export { hasClearContrast } from "./inspectors/hasClearContrast";

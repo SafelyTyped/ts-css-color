@@ -60,8 +60,6 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssRgbColorData` type
 - added `CssRgbColor` class
 - added `contrastLevel()` inspector function
-- added `CssContrastLevels` type
-- added `contrastLevels()` inspector function
 - added `contrastRatio()` inspector function
 - added `darkModeContrastRatio()` inspector function
 - added `hasClearContrast()` inspector function
@@ -88,6 +86,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `relativeLuminance()` inspector function
 - added `Shade` type
 - added `shade()` inspector function
+- added `wcagContrast()` inspector function
 
 ### Tools
 
