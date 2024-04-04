@@ -32,39 +32,66 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { describe } from "mocha";
+import { validateCssRgbColorData } from "@safelytyped/css-color";
+import { AppError, isAppError } from "@safelytyped/core-types";
 import { expect } from "chai";
-import { describe, it } from "mocha";
+import { InvalidCssRgbColorDataInputs, InvalidCssRgbColorDataObjects, ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
 
-import { mustBeCssColorData } from "@safelytyped/css-color";
-import { AppError } from "@safelytyped/core-types";
-import { InvalidCssColorDataInputs, InvalidCssColorDataObjects, ValidCssColorData } from "./_fixtures/CssColorFixtures";
-
-describe("mustBeCssColorData()", () => {
-    ValidCssColorData.forEach((inputValue) => {
-        it("returns `input` when given a suitable object " + JSON.stringify(inputValue), () => {
+describe("validateCssRgbColorData()", () => {
+    ValidCssRgbColorData.forEach((inputValue, index) => {
+        it("correctly validates test input #" + index.toString(), () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that an object that contains the right
-            // properties will pass validation
+            // this test proves that validateCssRgbColorData() accepts the
+            // data that we want it to
 
             // ----------------------------------------------------------------
             // setup your test
 
+
+
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualResult = mustBeCssColorData(inputValue);
+            const actualValue = validateCssRgbColorData(inputValue);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualResult).to.eqls(inputValue);
+            if (isAppError(actualValue)) {
+                console.log(actualValue);
+            }
+            expect(actualValue).is.not.instanceOf(AppError);
+        });
+
+        it("returns the given input when validation passes, using test input #" + index.toString(), () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that validateCssRgbColorData() returns the
+            // given input value on success
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = validateCssRgbColorData(inputValue);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).eqls(inputValue);
         });
     });
 
-    InvalidCssColorDataObjects.forEach(({inputValue, description}) => {
-        it("throws an AppError when given an object where " + description, () => {
+    InvalidCssRgbColorDataObjects.forEach(({inputValue, description}) => {
+        it("rejects an object where " + description, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -79,25 +106,17 @@ describe("mustBeCssColorData()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            let exceptionThrown = null;
-            let actualValue = null;
-            try {
-                actualValue = mustBeCssColorData(inputValue);
-            }
-            catch(e) {
-                exceptionThrown = e;
-            }
+            const actualValue = validateCssRgbColorData(inputValue);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).is.null;
-            expect(exceptionThrown).is.instanceOf(AppError);
+            expect(actualValue).is.instanceOf(AppError);
         });
     });
 
-    InvalidCssColorDataInputs.forEach((inputValue) => {
-        it("throws an AppError when given " + JSON.stringify(inputValue), () => {
+    InvalidCssRgbColorDataInputs.forEach((inputValue) => {
+        it("rejects " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -111,20 +130,12 @@ describe("mustBeCssColorData()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            let exceptionThrown = null;
-            let actualValue = null;
-            try {
-                actualValue = mustBeCssColorData(inputValue);
-            }
-            catch(e) {
-                exceptionThrown = e;
-            }
+            const actualValue = validateCssRgbColorData(inputValue);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).is.null;
-            expect(exceptionThrown).is.instanceOf(AppError);
+            expect(actualValue).is.instanceOf(AppError);
         });
     });
 });

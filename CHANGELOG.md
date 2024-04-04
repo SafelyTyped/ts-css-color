@@ -59,6 +59,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssRgbColorChannelsTuple` type
 - added `CssRgbColorData` type
 - added `CssRgbColor` class
+- added `validateCssRgbColorData()` type validator
 - added `validateCssColorChannel()` helper validator
 - added `validateCssColorDataHasChannels()` helper validator
 - added `contrastRatio()` inspector function

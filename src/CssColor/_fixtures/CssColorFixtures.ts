@@ -32,11 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { ValidCssRgbColorData } from "../../CssRgbColor/_fixtures/CssRgbColorData";
+
 export const ValidCssColorData = [
     {
         name: "hello world",
         definition: "#000000",
     },
+    ...ValidCssRgbColorData,
 ];
 
 export const InvalidCssColorDataParameters = [

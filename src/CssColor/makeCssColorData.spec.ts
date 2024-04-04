@@ -51,6 +51,11 @@ describe("makeCssColorData()", () => {
             // ----------------------------------------------------------------
             // setup your test
 
+            const expectedValue = {
+                name: inputValue.name,
+                definition: inputValue.definition,
+            };
+
             // ----------------------------------------------------------------
             // perform the change
 
@@ -62,7 +67,7 @@ describe("makeCssColorData()", () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualResult).to.eqls(inputValue);
+            expect(actualResult).to.eqls(expectedValue);
         });
     });
 

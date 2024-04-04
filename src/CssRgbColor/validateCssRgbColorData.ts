@@ -38,6 +38,18 @@ import { validateCssRgbColorChannelsData } from "./validateCssRgbColorChannelsDa
 import { validateCssColorData } from "../CssColor/validateCssColorData";
 import type { CssRgbColorData } from "./CssRgbColorData.type";
 
+/**
+ * validateCssRgbColorData() is a type validator. Use it to prove that the
+ * given `input` value is a {@link CssRgbColorData} value.
+ *
+ * @param input
+ * - the data to validate
+ * @param path
+ * - dot.notation.path through your nested data structure to where `input` is
+ * @returns
+ * - `input` (type-cast as a {@link CssRgbColorData}) on success
+ * - a suitable `AppError` otherwise
+ */
 export function validateCssRgbColorData(
     input: unknown,
     {

@@ -41,7 +41,7 @@ import { InvalidCssColorDataInputs, InvalidCssColorDataObjects, ValidCssColorDat
 
 describe("validateCssColorData()", () => {
     ValidCssColorData.forEach((inputValue) => {
-        it("returns true when given a suitable object " + JSON.stringify(inputValue), () => {
+        it("returns `input` when given a suitable object " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
