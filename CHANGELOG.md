@@ -59,7 +59,6 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssRgbColorChannelsTuple` type
 - added `CssRgbColorData` type
 - added `CssRgbColor` class
-- added `contrastLevel()` inspector function
 - added `contrastRatio()` inspector function
 - added `darkModeContrastRatio()` inspector function
 - added `hasClearContrast()` inspector function

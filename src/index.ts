@@ -104,7 +104,6 @@ export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColor
 //
 // ----------------------------------------------------------------
 
-export { contrastLevel } from "./inspectors/contrastLevel";
 export { wcagContrast } from "./inspectors/wcagContrast";
 export { contrastRatio } from "./inspectors/contrastRatio";
 export { darkModeContrastRatio } from "./inspectors/darkModeContrastRatio";
