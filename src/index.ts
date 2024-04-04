@@ -80,6 +80,7 @@ export type { CssRgbColorData } from "./CssRgbColor/CssRgbColorData.type";
 export { CssRgbColor } from "./CssRgbColor/CssRgbColor";
 export { isCssRgbColorData } from "./CssRgbColor/isCssRgbColorData";
 export { isCssRgbColorChannelsData } from "./CssRgbColor/isCssRgbColorChannelsData";
+export { makeCssRgbColorData } from "./CssRgbColor/makeCssRgbColorData";
 export { mustBeCssRgbColorData } from "./CssRgbColor/mustBeCssRgbColorData";
 export { mustBeCssRgbColorChannelsData } from "./CssRgbColor/mustBeCssRgbColorChannelsData";
 export { validateCssRgbColorChannelsData } from "./CssRgbColor/validateCssRgbColorChannelsData";

@@ -61,6 +61,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssRgbColor` class
 - added `isCssRgbColorData()` type guard
 - added `isCssRgbColorChannelsData()` type guard
+- added `makeCssRgbColorData()` smart constructor
 - added `mustBeCssRgbColorData()` type guarantee
 - added `mustBeCssRgbColorChannelsData()` type guarantee
 - added `validateCssRgbColorChannelsData()` type validator

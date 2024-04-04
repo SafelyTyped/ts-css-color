@@ -99,6 +99,36 @@ export const InvalidCssRgbColorDataObjects = [
         }
     },
     {
+        description: "red channel too small",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            channels: {
+                red: -1,
+                green: 100,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "red channel too large",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            channels: {
+                red: 256,
+                green: 100,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
         description: "green channel missing",
         inputValue: {
             name: "test",
@@ -107,6 +137,36 @@ export const InvalidCssRgbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 red: 100,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "green channel too small",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            channels: {
+                red: 100,
+                green: -1,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "green channel too large",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            channels: {
+                red: 100,
+                green: 256,
                 blue: 100,
                 alpha: 1,
             }
@@ -127,6 +187,36 @@ export const InvalidCssRgbColorDataObjects = [
         }
     },
     {
+        description: "blue channel too small",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: -1,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "blue channel too large",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: 256,
+                alpha: 1,
+            }
+        }
+    },
+    {
         description: "alpha channel missing",
         inputValue: {
             name: "test",
@@ -137,6 +227,169 @@ export const InvalidCssRgbColorDataObjects = [
                 red: 100,
                 green: 100,
                 blue: 100,
+            }
+        }
+    },
+    {
+        description: "alpha channel too small",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: 100,
+                alpha: -0.1,
+            }
+        }
+    },
+    {
+        description: "alpha channel too large",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: 100,
+                alpha: 1.1,
+            }
+        }
+    },
+];
+
+export const InvalidMakeCssRgbColorParameters = [
+    {
+        description: "name property empty",
+        inputValue: {
+            name: "",
+            definition: "test",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "definition property empty",
+        inputValue: {
+            name: "test",
+            definition: "",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "red channel too small",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                red: -1,
+                green: 100,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "red channel too large",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                red: 256,
+                green: 100,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "green channel too small",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                red: 100,
+                green: -1,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "green channel too large",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                red: 100,
+                green: 256,
+                blue: 100,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "blue channel too small",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: -1,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "blue channel too large",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: 256,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "alpha channel too small",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: 100,
+                alpha: -0.1,
+            }
+        }
+    },
+    {
+        description: "alpha channel too large",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                red: 100,
+                green: 100,
+                blue: 100,
+                alpha: 1.1,
             }
         }
     },
