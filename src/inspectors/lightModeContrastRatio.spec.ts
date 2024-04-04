@@ -34,7 +34,7 @@
 
 import { describe } from "mocha";
 import { lightModeContrastRatio } from "@safelytyped/css-color";
-import { BLACK, WHITE } from "../defaults/defaultColors";
+import { BLACK, WHITE } from "../defaults/defaultColors.const";
 import { expect } from "chai";
 
 describe("lightModeContrastRatio()", () => {

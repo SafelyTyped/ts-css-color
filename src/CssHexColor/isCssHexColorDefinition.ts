@@ -34,7 +34,7 @@
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
 import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 
 /**
  * isCssHexColorDefinition() is a type guard. Use it to prove to the

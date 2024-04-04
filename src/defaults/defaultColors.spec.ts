@@ -34,9 +34,10 @@
 
 import { describe } from "mocha";
 import { expect } from "chai";
-import { BLACK, WHITE } from "./defaultColors";
+import { BLACK, WHITE } from "./defaultColors.const";
+import { CssHexColor } from "../CssHexColor/CssHexColor";
 
-describe("BLACK (CssColor const)", () => {
+describe("BLACK (internal const)", () => {
     it("has the hex value of #000000", () => {
         // ----------------------------------------------------------------
         // explain your test
@@ -59,9 +60,28 @@ describe("BLACK (CssColor const)", () => {
 
         expect(actualHexValue).to.eql(expectedHexValue);
     });
+
+    it("is a CssHexColor", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that `makeCssColor()` has created the type
+        // of CssColor that we're expecting for this constant
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(BLACK).is.instanceOf(CssHexColor);
+    });
 });
 
-describe("WHITE (CssColor const)", () => {
+describe("WHITE (internal const)", () => {
     it("has the hex value of #ffffff", () => {
         // ----------------------------------------------------------------
         // explain your test
@@ -83,5 +103,24 @@ describe("WHITE (CssColor const)", () => {
         // test the results
 
         expect(actualHexValue).to.eql(expectedHexValue);
+    });
+
+    it("is a CssHexColor", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that `makeCssColor()` has created the type
+        // of CssColor that we're expecting for this constant
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(WHITE).is.instanceOf(CssHexColor);
     });
 });

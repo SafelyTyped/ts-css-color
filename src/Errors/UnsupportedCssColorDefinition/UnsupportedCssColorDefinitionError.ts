@@ -33,7 +33,7 @@
 //
 
 import { AppError, makeStructuredProblemReport, type AppErrorData } from "@safelytyped/core-types";
-import type { UnsupportedCssColorDefinitionData } from "./UnsupportedCssColorDefinitionData";
+import type { UnsupportedCssColorDefinitionData } from "./UnsupportedCssColorDefinitionData.type";
 import { MODULE_NAME } from "../defaults/MODULE_NAME";
 
 /**

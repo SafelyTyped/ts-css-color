@@ -33,7 +33,7 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import type { CssColorData } from "./CssColorData";
+import type { CssColorData } from "./CssColorData.type";
 import { validateCssColorData } from "./validateCssColorData";
 
 /**

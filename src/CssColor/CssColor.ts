@@ -36,8 +36,9 @@ import type { Maybe, PrimitiveHint } from "@safelytyped/core-types";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-import type { CssColorData } from "./CssColorData";
-import { CSS_HEX_TO_EXTENDED_COLORS, type CssExtendedColor } from "../CssKeywordColor/CssExtendedColors";
+import type { CssColorData } from "./CssColorData.type";
+import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
+import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 
 /**
  * CssColor holds the representation of a CSS color.

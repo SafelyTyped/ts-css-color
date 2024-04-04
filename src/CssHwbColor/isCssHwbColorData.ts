@@ -32,8 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorspace } from "./CssColorspaces";
+import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
+import { validateCssHwbColorData } from "./validateCssHwbColorData";
+import type { CssHwbColorData } from "./CssHwbColorData.type";
 
-export type CssColorspacedColor = {
-    colorSpace: CssColorspace;
+export function isCssHwbColorData(
+    input: unknown
+): input is CssHwbColorData
+{
+    return isType(validateCssHwbColorData, input, IS_TYPE_DEFAULT_OPTIONS);
 }

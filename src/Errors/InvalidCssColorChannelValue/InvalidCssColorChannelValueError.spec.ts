@@ -32,10 +32,23 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export function limit(
-    max: number,
-    input: number,
-): number
-{
-    return Math.max(0, Math.min(input, max));
-}
+import { expect } from "chai";
+import { describe } from "mocha";
+
+import { InvalidCssColorChannelValueError } from "./InvalidCssColorChannelValueError";
+import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+
+describe("InvalidCssColorChannelValueError", () => {
+    describe(".constructor", () => {
+        it("creates a Javascript error", () => {
+            const unit = new InvalidCssColorChannelValueError({
+                public: {
+                    dataPath: DEFAULT_DATA_PATH,
+                    invalidValue: NaN,
+                }
+            });
+
+            expect(unit).to.be.instanceOf(Error);
+        });
+    });
+});

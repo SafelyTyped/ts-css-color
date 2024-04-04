@@ -32,9 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorspacedColor } from "./CssColorspacedColor";
+import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
+import { validateCssExtendedColor } from "./validateCssExtendedColor";
+import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 
-export interface CssSrgbColorSpace extends CssColorspacedColor
+export function isCssExtendedColor(
+    input: unknown
+): input is CssExtendedColor
 {
-    colorSpace: "sRGB";
+    return isType(validateCssExtendedColor, input, IS_TYPE_DEFAULT_OPTIONS);
 }

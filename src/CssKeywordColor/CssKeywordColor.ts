@@ -34,25 +34,15 @@
 
 import type { Maybe } from "@safelytyped/core-types";
 import { CssColor } from "../CssColor/CssColor";
-import type { CssColorData } from "../CssColor/CssColorData";
 import { makeCssColor } from "../CssColor/makeCssColor";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssRgbColor, CssRgbColorChannelsData, CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColor";
-import { CSS_EXTENDED_COLORS_TO_HEX, type CssExtendedColor } from "./CssExtendedColors";
-
-/**
- * CssKeywordColorData represents a CSS color that's defined using one
- * of the CSS extended color names.
- *
- * We reuse the `definition` field from {@link CssColorData} to hold
- * the keyword.
- */
-export interface CssKeywordColorData extends CssColorData, CssSrgbColorSpace
-{
-    readonly _type: "@safelytyped/css-color/CssKeywordColor";
-}
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
+import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
+import type { CssKeywordColorData } from "./CssKeywordColorData.type";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
+import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
@@ -68,21 +58,17 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
 
     public hsl(): CssHslColor
     {
-        return this.rgb().hsl();
+        return makeCssColor(this.hex()).hsl();
     }
 
     public hwb(): CssHwbColor
     {
-        return this.rgb().hwb();
+        return makeCssColor(this.hex()).hwb();
     }
 
     public rgb(): CssRgbColor
     {
-        // get the hex for this color
-        const hex = CSS_EXTENDED_COLORS_TO_HEX[this.data.definition as CssExtendedColor];
-
-        // will always return a CssRgbColor
-        return makeCssColor(hex) as CssRgbColor;
+        return makeCssColor(this.hex()).rgb();
     }
 
     // ================================================================
@@ -114,6 +100,10 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
     public channelsTuple(): CssRgbColorChannelsTuple
     {
         return this.rgb().channelsTuple();
+    }
+
+    public hex(): string {
+        return CSS_EXTENDED_COLORS_TO_HEX[this.data.definition as CssExtendedColor];
     }
 
     public keyword(): Maybe<CssExtendedColor>

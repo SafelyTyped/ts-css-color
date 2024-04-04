@@ -32,8 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor";
-import { BLACK } from "../defaults/defaultColors";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { BLACK } from "../defaults/defaultColors.const";
 import { contrastRatio } from "./contrastRatio";
 
 /**

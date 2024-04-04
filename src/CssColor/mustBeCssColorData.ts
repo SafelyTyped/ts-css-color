@@ -34,7 +34,7 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "./validateCssColorData";
-import type { CssColorData } from "./CssColorData";
+import type { CssColorData } from "./CssColorData.type";
 
 /**
  * mustBeCssColorData() is a type guarantee. Use it to ensure that the
@@ -55,7 +55,7 @@ export function mustBeCssColorData(
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
-    }: Partial<TypeGuaranteeOptions> = {}
+    }: TypeGuaranteeOptions = {}
 ): CssColorData
 {
     return mustBe(input, { onError })

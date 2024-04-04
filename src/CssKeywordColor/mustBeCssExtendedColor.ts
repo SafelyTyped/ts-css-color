@@ -32,15 +32,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssKeywordColor/CssExtendedColors";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { validateCssExtendedColor } from "./validateCssExtendedColor";
+import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 
-// this is a list of colors that we use in our operations
-//
-// for performance, it makes sense to create them just once, when
-// the library is initialised
-//
-// there's no need to export these outside the package
-
-export const BLACK = makeCssColor(CSS_EXTENDED_COLORS_TO_HEX.black);
-export const WHITE = makeCssColor(CSS_EXTENDED_COLORS_TO_HEX.white);
+export function mustBeCssExtendedColor(
+    input: unknown,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {}
+): CssExtendedColor
+{
+    return mustBe(input, { onError })
+        .next((x) => validateCssExtendedColor(x, { path }))
+        .value();
+}

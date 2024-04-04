@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, validate, type TypeValidatorOptions, validateObject, type AppErrorOr, UnsupportedTypeError } from "@safelytyped/core-types";
-import type { CssColorData } from "./CssColorData";
+import type { CssColorData } from "./CssColorData.type";
 import { InvalidCssColorDataError } from "../Errors/InvalidCssColorData/InvalidCssColorDataError";
 
 /**
@@ -52,7 +52,7 @@ export function validateCssColorData(
     input: unknown,
     {
         path = DEFAULT_DATA_PATH
-    }: Partial<TypeValidatorOptions> = {}
+    }: TypeValidatorOptions = {}
 ): AppErrorOr<CssColorData>
 {
     return validate(input)
@@ -65,7 +65,7 @@ function validateObjectIsCssColorData(
     input: object,
     {
         path = DEFAULT_DATA_PATH
-    }: Partial<TypeValidatorOptions> = {}
+    }: TypeValidatorOptions = {}
 ): AppErrorOr<CssColorData>
 {
     if (typeof (input as CssColorData).name !== "string") {

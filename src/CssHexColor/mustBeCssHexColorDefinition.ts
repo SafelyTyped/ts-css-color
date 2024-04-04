@@ -34,12 +34,15 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import { normaliseCssHexColorDefinition } from "./normaliseCssHexColorDefinition";
 
 /**
  * mustBeCssHexColorDefinition() is a type guarantee. Use it to ensure that
  * the given input is an acceptable CSS color definition, and that it uses
  * the CSS hex notation.
+ *
+ * We throw a suitable AppError if validation fails.
  *
  * @param input -
  * the data to guarantee
@@ -47,16 +50,24 @@ import type { CssHexColorDefinition } from "./CssHexColorDefinition";
  * dot.notation.path to this value in your nested data structures
  * @param onError -
  * we will call this if `input` fails validation
+ * @returns
+ * - the normalised form of `input` if validation passes
  */
 export function mustBeCssHexColorDefinition(
     input: unknown,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
-    }: Partial<TypeGuaranteeOptions> = {}
+    }: TypeGuaranteeOptions = {}
 ): CssHexColorDefinition
 {
     return mustBe(input, { onError })
+        // all validation steps go here
         .next((x) => validateCssHexColorDefinition(x, { path }))
+
+        // now that validation is over, we can normalise the return value
+        .next((x) => normaliseCssHexColorDefinition(x))
+
+        // all done
         .value();
 }

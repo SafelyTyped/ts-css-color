@@ -35,40 +35,13 @@
 import * as colorConvert from "color-convert";
 
 import { CssColor } from "../CssColor/CssColor";
-import type { CssColorData } from "../CssColor/CssColorData";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-
-/**
- * CssRgbColorChannelsData represents the channels of a CSS RGBA color,
- * as an object.
- */
-export interface CssRgbColorChannelsData {
-    "red": number;
-    "green": number;
-    "blue": number;
-    "alpha": number;
-}
-
-/**
- * CssRgbColorChannelsTuple represents the channels of a CSS RGB color,
- * as an array.
- *
- * NOTE that we deliberately leave out the alpha channel, to keep the
- * underlying `color-convert` package happy.
- */
-export type CssRgbColorChannelsTuple = [ number, number, number ];
-
-/**
- * CssRgbColorData represents the data for a CSS color that was defined
- * in the RGBA format.
- */
-export interface CssRgbColorData extends CssColorData, CssSrgbColorSpace {
-    channels: CssRgbColorChannelsData;
-
-    readonly "_type": "@safelytyped/css-color/CssRgbColorData";
-}
+import { makeCssHwbColorData } from "../CssHwbColor/makeCssHwbColorData";
+import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
+import type { CssRgbColorData } from "./CssRgbColorData.type";
+import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
+import type { CssRgbColorChannelsTuple } from "./CssRgbColorChannelsTuple.type";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
@@ -80,36 +53,36 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
     {
         const model = colorConvert.rgb.hsl(this.channelsTuple());
 
-        return new CssHslColor({
-            name: this.data.name,
-            definition: this.data.definition,
-            channels: {
-                hue: model[0],
-                saturation: model[1],
-                luminosity: model[2],
-                alpha: this.data.channels.alpha,
-            },
-            colorSpace: this.data.colorSpace,
-            _type: "@safelytyped/css-color/CssHslColorData",
-        });
+        return new CssHslColor(
+            makeCssHslColorData(
+                this.data.name,
+                this.data.definition,
+                {
+                    hue: model[0],
+                    saturation: model[1],
+                    luminosity: model[2],
+                    alpha: this.data.channels.alpha,
+                },
+            )
+        );
     }
 
     public hwb(): CssHwbColor
     {
         const model = colorConvert.rgb.hwb(this.channelsTuple());
 
-        return new CssHwbColor({
-            name: this.data.name,
-            definition: this.data.definition,
-            channels: {
-                hue: model[0],
-                whiteness: model[1],
-                blackness: model[2],
-                alpha: this.data.channels.alpha,
-            },
-            colorSpace: this.data.colorSpace,
-            _type: "@safelytyped/css-color/CssHwbColorData",
-        });
+        return new CssHwbColor(
+            makeCssHwbColorData(
+                this.data.name,
+                this.data.definition,
+                {
+                    hue: model[0],
+                    whiteness: model[1],
+                    blackness: model[2],
+                    alpha: this.data.channels.alpha,
+                },
+            ),
+        );
     }
 
     public rgb(): CssRgbColor

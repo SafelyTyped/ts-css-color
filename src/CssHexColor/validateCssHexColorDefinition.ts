@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateStringMatches, validateString, recast } from "@safelytyped/core-types";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 
 const cssHexRegex = /#[A-Fa-f0-9]{6}|#[A-Fa-f0-9]{3}/;
 

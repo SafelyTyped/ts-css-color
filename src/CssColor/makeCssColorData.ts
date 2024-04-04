@@ -32,9 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, makeNominalType, type TypeGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { CssColorData } from "./CssColorData";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type TypeGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import type { CssColorData } from "./CssColorData.type";
 import { mustBeCssColorData } from "./mustBeCssColorData";
+import { makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
 
 /**
  * makeCssColorData() is a smart constructor. Use it to build a
@@ -60,11 +61,11 @@ export function makeCssColorData(
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
-    }: Partial<TypeGuaranteeOptions> = {},
+    }: TypeGuaranteeOptions = {},
     ...fnOpts: FunctionalOption<CssColorData>[]
 ): CssColorData
 {
-    return makeNominalType(
+    return makeNominalTypeFromTypeGuarantee(
         mustBeCssColorData,
         {
             name: colorName,

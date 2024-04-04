@@ -33,7 +33,7 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../../CssColor/AnyCssColor";
+import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
 
 /**
  * Hue is a type. It represents all of the valid color hues that we

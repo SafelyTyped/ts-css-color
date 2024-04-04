@@ -35,19 +35,13 @@
 import * as colorConvert from "color-convert";
 
 import { CssColor } from "../CssColor/CssColor";
-import type { CssColorData } from "../CssColor/CssColorData";
-import type { CssColorspacedColor } from "../CssColorspace/CssColorspacedColor";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { CssRgbColor, type CssRgbColorChannelsData, type CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColor";
-
-/**
- * CssHexColorData represents a CSS color that's defined in `#RRGGBB` format.
- */
-export interface CssHexColorData extends CssColorData, CssColorspacedColor
-{
-    _type: "@safelytyped/css-color/CssHexColor";
-}
+import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
+import type { CssHexColorData } from "./CssHexColorData.type";
+import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
+import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
@@ -87,18 +81,18 @@ export class CssHexColor extends CssColor<CssHexColorData>
     {
         const rgb = colorConvert.hex.rgb(this.hex());
 
-        return new CssRgbColor({
-            name: this.data.name,
-            definition: this.data.definition,
-            channels: {
-                red: rgb[0],
-                green: rgb[1],
-                blue: rgb[2],
-                alpha: 0,
-            },
-            colorSpace: "sRGB",
-            _type: "@safelytyped/css-color/CssRgbColorData",
-        });
+        return new CssRgbColor(
+            makeCssRgbColorData(
+                this.data.name,
+                this.data.definition,
+                {
+                    red: rgb[0],
+                    green: rgb[1],
+                    blue: rgb[2],
+                    alpha: 0,
+                },
+            ),
+        );
     }
 
     // ================================================================

@@ -34,15 +34,20 @@
 
 import * as colorString from "color-string";
 
-import type { AnyCssColor } from "./AnyCssColor";
+import type { AnyCssColor } from "./AnyCssColor.type";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssKeywordColor/CssExtendedColors";
 import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type OnError, type DataPath, type FunctionalOption, applyFunctionalOptions } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type OnError, type DataPath, type FunctionalOption, applyFunctionalOptions, type DataValidatorOptions } from "@safelytyped/core-types";
 import { CssHexColor } from "../CssHexColor/CssHexColor";
+import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
+import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
+import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
+import { makeCssHwbColorData } from "../CssHwbColor/makeCssHwbColorData";
+import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -73,7 +78,7 @@ export function makeCssColor(
         onError?: OnError,
         path?: DataPath,
     } = {},
-    ...fnOpts: FunctionalOption<AnyCssColor>[]
+    ...fnOpts: FunctionalOption<AnyCssColor, DataValidatorOptions>[]
 ): AnyCssColor
 {
     // shorthand
@@ -81,13 +86,10 @@ export function makeCssColor(
 
     // special case - do we have a CSS keyword color?
     if (cssDefinition in CSS_EXTENDED_COLORS_TO_HEX) {
-        return applyFunctionalOptions(
-            new CssKeywordColor({
-                "name": colorName,
-                "definition": cssDefinition,
-                "colorSpace": "sRGB",
-                "_type": "@safelytyped/css-color/CssKeywordColor",
-            }),
+        return applyFunctionalOptions<AnyCssColor, DataValidatorOptions>(
+            new CssKeywordColor(
+                makeCssKeywordColorData(colorName, cssDefinition, { path, onError })
+            ),
             opts,
             ...fnOpts
         );
@@ -96,12 +98,9 @@ export function makeCssColor(
     // special case - do we have a CSS hex color?
     if (cssDefinition.startsWith("#")) {
         return applyFunctionalOptions(
-            new CssHexColor({
-                name: colorName,
-                definition: cssDefinition,
-                colorSpace: "sRGB",
-                _type: "@safelytyped/css-color/CssHexColor"
-            }),
+            new CssHexColor(
+                makeCssHexColorData(colorName, cssDefinition, { path, onError })
+            ),
             opts,
             ...fnOpts
         );
@@ -126,53 +125,56 @@ export function makeCssColor(
     switch(model.model) {
     case "hsl":
         return applyFunctionalOptions(
-            new CssHslColor({
-                name: colorName,
-                definition: cssDefinition,
-                channels: {
-                    hue: model.value[0],
-                    saturation: model.value[1],
-                    luminosity: model.value[2],
-                    alpha: model.value[3],
-                },
-                colorSpace: "sRGB",
-                _type: "@safelytyped/css-color/CssHslColorData",
-            }),
+            new CssHslColor(
+                makeCssHslColorData(
+                    colorName,
+                    cssDefinition,
+                    {
+                        hue: model.value[0],
+                        saturation: model.value[1],
+                        luminosity: model.value[2],
+                        alpha: model.value[3],
+                    },
+                    { path, onError }
+                )
+            ),
             opts,
             ...fnOpts
         );
     case "hwb":
         return applyFunctionalOptions(
-            new CssHwbColor({
-                name: colorName,
-                definition: cssDefinition,
-                channels: {
-                    hue: model.value[0],
-                    whiteness: model.value[1],
-                    blackness: model.value[2],
-                    alpha: model.value[3],
-                },
-                colorSpace: "sRGB",
-                _type: "@safelytyped/css-color/CssHwbColorData",
-            }),
+            new CssHwbColor(
+                makeCssHwbColorData(
+                    colorName,
+                    cssDefinition,
+                    {
+                        hue: model.value[0],
+                        whiteness: model.value[1],
+                        blackness: model.value[2],
+                        alpha: model.value[3],
+                    },
+                    { path, onError }
+                )
+            ),
             opts,
             ...fnOpts
         );
 
     case "rgb":
         return applyFunctionalOptions(
-            new CssRgbColor({
-                name: colorName,
-                definition: cssDefinition,
-                channels: {
-                    red: model.value[0],
-                    green: model.value[1],
-                    blue: model.value[2],
-                    alpha: model.value[3],
-                },
-                colorSpace: "sRGB",
-                _type: "@safelytyped/css-color/CssRgbColorData",
-            }),
+            new CssRgbColor(
+                makeCssRgbColorData(
+                    colorName,
+                    cssDefinition,
+                    {
+                        red: model.value[0],
+                        green: model.value[1],
+                        blue: model.value[2],
+                        alpha: model.value[3],
+                    },
+                    { path, onError }
+                )
+            ),
             opts,
             ...fnOpts
         );

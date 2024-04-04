@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../../CssColor/AnyCssColor";
+import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
 import { hues } from "./hues";
 
 /**

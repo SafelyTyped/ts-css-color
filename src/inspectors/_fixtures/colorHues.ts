@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssKeywordColor/CssExtendedColors";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "@safelytyped/css-color";
 
 export const GRAY_COLORS = [
     CSS_EXTENDED_COLORS_TO_HEX.gray,

@@ -33,7 +33,7 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssKeywordColor/CssExtendedColors";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "@safelytyped/css-color";
 import { DARK_COLORS, DULL_COLORS, LIGHT_COLORS } from "../../inspectors/_fixtures/colorShades";
 
 export const ValidCssHexColorDefinitions = [

@@ -32,10 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions, makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { mustBeCssHexColorDefinition } from "./mustBeCssHexColorDefinition";
-import { makeBrandedType } from "../helpers/makeBrandedType";
 
 /**
  * makeCssHexColorDefinition() is a smart constructor. Use it to safely
@@ -56,13 +55,13 @@ export function makeCssHexColorDefinition(
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
-    }: Partial<TypeGuaranteeOptions> = {},
+    }: TypeGuaranteeOptions = {},
     ...fnOpts: FunctionalOption<CssHexColorDefinition>[]
 )
 {
-    return makeBrandedType(
+    return makeNominalTypeFromTypeGuarantee(
         mustBeCssHexColorDefinition,
-        input.toLowerCase(),
+        input,
         { path, onError },
         ...fnOpts
     );

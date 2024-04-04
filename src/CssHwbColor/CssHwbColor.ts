@@ -35,27 +35,11 @@
 import * as colorConvert from "color-convert";
 
 import { CssColor } from "../CssColor/CssColor";
-import type { CssColorData } from "../CssColor/CssColorData";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace";
-import { CssHslColor, type CssHslColorChannelsTuple } from "../CssHslColor/CssHslColor";
 import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-
-export interface CssHwbColorChannelsData {
-    hue: number;
-    whiteness: number;
-    blackness: number;
-
-    alpha: number;
-}
-
-export type CssHwbColorChannelsTuple = [ number, number, number ];
-
-export interface CssHwbColorData extends CssColorData, CssSrgbColorSpace
-{
-    channels: CssHwbColorChannelsData;
-
-    readonly _type: "@safelytyped/css-color/CssHwbColorData";
-}
+import { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannelsTuple.type";
+import type { CssHwbColorData } from "./CssHwbColorData.type";
+import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
 
 export class CssHwbColor extends CssColor<CssHwbColorData>
 {
