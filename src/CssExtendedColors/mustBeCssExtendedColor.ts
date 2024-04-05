@@ -33,8 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { validateCssExtendedColor } from "../CssExtendedColors/validateCssExtendedColor";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
+import { validateCssExtendedColor } from "./validateCssExtendedColor";
+import type { CssExtendedColor } from "./CssExtendedColor.type";
 
 export function mustBeCssExtendedColor(
     input: unknown,
