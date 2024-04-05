@@ -397,7 +397,7 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".hex()", () => {
+    describe(".keyword()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the CSS color name (if available)", () => {
                 // ----------------------------------------------------------------
