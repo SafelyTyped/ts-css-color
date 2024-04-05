@@ -40,7 +40,7 @@ import { expect } from "chai";
 describe('CssRgbColor', () => {
     describe(".constructor", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("can be instantiated when given a valid CssRgbColorData input " + JSON.stringify(validFixture), () => {
+            it("can be instantiated when given a valid CssRgbColorData input " + validFixture.name, () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -76,7 +76,7 @@ describe('CssRgbColor', () => {
 
     describe(".rgb()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns itself when converted to RGB, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns itself when converted to RGB", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -110,7 +110,7 @@ describe('CssRgbColor', () => {
 
     describe(".hsl()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("converts the original color to HSL format, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] converts the original color to HSL format", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -138,7 +138,7 @@ describe('CssRgbColor', () => {
                 expect(actualResult.channelsData()).to.eql(validFixture.hslChannels);
             });
 
-            it("preserves the original color name, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -166,7 +166,7 @@ describe('CssRgbColor', () => {
                 expect(actualResult.name()).to.eql(validFixture.name);
             });
 
-            it("preserves the original color definition, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -199,7 +199,7 @@ describe('CssRgbColor', () => {
 
     describe(".hwb()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("converts the original color to HWB format, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] converts the original color to HWB format", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -227,7 +227,7 @@ describe('CssRgbColor', () => {
                 expect(actualResult.channelsData()).to.eql(validFixture.hwbChannels);
             });
 
-            it("preserves the original color name, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -255,7 +255,7 @@ describe('CssRgbColor', () => {
                 expect(actualResult.name()).to.eql(validFixture.name);
             });
 
-            it("preserves the original color definition, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -294,7 +294,7 @@ describe('CssRgbColor', () => {
 
     describe(".channelsData()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the RGBA channels as an object, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the RGBA channels as an object", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -326,7 +326,7 @@ describe('CssRgbColor', () => {
 
     describe(".channelsTuple()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the RGB channels as an array, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the RGB channels as an array", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -364,7 +364,7 @@ describe('CssRgbColor', () => {
 
     describe(".hex()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the RGB channels as a CSS hex color, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the RGB channels as a CSS hex color", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -399,7 +399,7 @@ describe('CssRgbColor', () => {
 
     describe(".hex()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the CSS color name (if available), using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the CSS color name (if available)", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -434,7 +434,7 @@ describe('CssRgbColor', () => {
 
     describe(".toString()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the color's definition, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the color's definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -474,7 +474,7 @@ describe('CssRgbColor', () => {
 
     describe("auto-conversion to number", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the color's definition, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the color's definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -510,7 +510,7 @@ describe('CssRgbColor', () => {
 
     describe("auto-conversion to string", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the color's definition, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the color's definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -551,7 +551,7 @@ describe('CssRgbColor', () => {
 
     describe(".red()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the R channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the R channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -586,7 +586,7 @@ describe('CssRgbColor', () => {
 
     describe(".green()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the G channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the G channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -621,7 +621,7 @@ describe('CssRgbColor', () => {
 
     describe(".blue()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the B channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -656,7 +656,7 @@ describe('CssRgbColor', () => {
 
     describe(".alpha()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the A channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the A channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -691,7 +691,7 @@ describe('CssRgbColor', () => {
 
     describe(".hue()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the H channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -726,7 +726,7 @@ describe('CssRgbColor', () => {
 
     describe(".saturation()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the S channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the S channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -761,7 +761,7 @@ describe('CssRgbColor', () => {
 
     describe(".luminosity()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the L channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -796,7 +796,7 @@ describe('CssRgbColor', () => {
 
     describe(".whiteness()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the W channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the W channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -831,7 +831,7 @@ describe('CssRgbColor', () => {
 
     describe(".blackness()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the B channel as a number, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -872,7 +872,7 @@ describe('CssRgbColor', () => {
 
     describe(".name()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the named color, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the named color", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -904,7 +904,7 @@ describe('CssRgbColor', () => {
 
     describe(".definition()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
-            it("returns the color's original definition, using test input " + JSON.stringify(validFixture), () => {
+            it("[fixture " + validFixture.name + "] returns the color's original definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -933,11 +933,4 @@ describe('CssRgbColor', () => {
             });
         });
     });
-
-    // ================================================================
-    //
-    // COMPONENT VALUES
-    //
-    // ----------------------------------------------------------------
-
 });
