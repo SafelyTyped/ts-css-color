@@ -42,6 +42,7 @@ import { makeCssHwbColorData } from "../CssHwbColor/makeCssHwbColorData";
 import type { CssHslColorData } from "./CssHslColorData.type";
 import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
 import type { CssHslColorChannelsTuple } from "./CssHslColorChannelsTuple.type";
+import { roundUp } from "@safelytyped/math-rounding";
 
 /**
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
@@ -80,16 +81,16 @@ export class CssHslColor extends CssColor<CssHslColorData>
 
     public hwb(): CssHwbColor
     {
-        const model = colorConvert.hsl.hwb(this.channelsTuple());
+        const model = colorConvert.hsl.hwb.raw(this.channelsTuple());
 
         return new CssHwbColor(
             makeCssHwbColorData(
                 this.data.name,
                 this.data.definition,
                 {
-                    hue: model[0],
-                    whiteness: model[1],
-                    blackness: model[2],
+                    hue: roundUp(2, model[0]),
+                    whiteness: roundUp(2, model[1]),
+                    blackness: roundUp(2, model[2]),
                     alpha: this.data.channels.alpha,
                 },
             ),
