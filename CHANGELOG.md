@@ -51,6 +51,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssHslColorChannelsTuple` type
 - added `CssHslColorData` type
 - added `CssHslColor` class
+- added `isCssHslColorChannelsData()` type guard
 - added `isCssHslColorData()` type guard
 - added `makeCssHslColorData()` smart constructor
 - added `mustBeCssHslColorChannelsData()` type guarantee
