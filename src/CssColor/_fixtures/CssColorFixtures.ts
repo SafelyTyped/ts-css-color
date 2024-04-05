@@ -32,102 +32,91 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { ValidCssRgbColorData } from "../../CssRgbColor/_fixtures/CssRgbColorData";
+import type { Maybe } from "@safelytyped/core-types";
+import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
+import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
+import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
 
-export const ValidCssColorData = [
+export type ValidCssColor = {
+    name: string;
+    definition: string;
+    hslChannels: CssHslColorChannelsData;
+    hwbChannels: CssHwbColorChannelsData;
+    rgbChannels: CssRgbColorChannelsData;
+    hex: string;
+    namedColor: Maybe<string>;
+}
+export const ValidCssColors: ValidCssColor[] = [
     {
-        name: "hello world",
-        definition: "#000000",
+        name: "all-100",
+        definition: "rgb(100,100,100)",
+        hslChannels: {
+            hue: 0,
+            saturation: 0,
+            luminosity: 39.22,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 0,
+            whiteness: 39.22,
+            blackness: 60.78,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 100,
+            green: 100,
+            blue: 100,
+            alpha: 1,
+        },
+        hex: "#646464",
+        namedColor: undefined,
     },
-    ...ValidCssRgbColorData,
+    {
+        name: "apple-moss",
+        definition: "#008040",
+        hslChannels: {
+            hue: 150,
+            saturation: 100,
+            luminosity: 25.1,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 150,
+            whiteness: 0,
+            blackness: 49.8,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 0,
+            green: 128,
+            blue: 64,
+            alpha: 1,
+        },
+        hex: "#008040",
+        namedColor: undefined,
+    },
+    {
+        name: "red",
+        definition: "#ffffff",
+        hslChannels: {
+            hue: 0,
+            saturation: 100,
+            luminosity: 50,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 0,
+            whiteness: 0,
+            blackness: 0,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 255,
+            green: 0,
+            blue: 0,
+            alpha: 1,
+        },
+        hex: "#ff0000",
+        namedColor: "red",
+    },
 ];
-
-export const InvalidCssColorDataParameters = [
-    {
-        inputValue: {
-            name: "    ",
-            definition: "#000000",
-        },
-        description: "name property is empty",
-    },
-    {
-        inputValue: {
-            name: "whoohoo",
-            definition: "    ",
-        },
-        description: "definition property is empty",
-    },
-];
-
-export const InvalidCssColorDataObjects = [
-    {
-        inputValue: {
-            name: 100,
-            definition: "#000000",
-        },
-        description: "name property has wrong type",
-    },
-    {
-        inputValue: {
-            name: "whoohoo",
-            definition: 999,
-        },
-        description: "definition property has wrong type",
-    },
-    {
-        inputValue: {
-            definition: "#000000",
-        },
-        description: "name property is missing",
-    },
-    {
-        inputValue: {
-            name: "woohooo",
-        },
-        description: "definition property is missing",
-    },
-    {
-        inputValue: {
-            name: null,
-            definition: "#000000",
-        },
-        description: "name property is null",
-    },
-    {
-        inputValue: {
-            name: "whoohoo",
-            definition: null,
-        },
-        description: "definition property is null",
-    },
-    {
-        inputValue: {
-            name: undefined,
-            definition: "#000000",
-        },
-        description: "name property is undefined",
-    },
-    {
-        inputValue: {
-            name: "whoohoo",
-            definition: undefined,
-        },
-        description: "definition property is undefined",
-    },
-    ...InvalidCssColorDataParameters,
-];
-
-export const InvalidCssColorDataInputs = [
-    null,
-    undefined,
-    [],
-    true,
-    false,
-    0,
-    -100,
-    100,
-    3.1415927,
-    () => true,
-    {},
-    "#ffffff",
-]

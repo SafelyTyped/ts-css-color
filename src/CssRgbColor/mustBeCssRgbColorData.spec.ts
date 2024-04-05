@@ -37,7 +37,8 @@ import { describe, it } from "mocha";
 
 import { mustBeCssRgbColorData } from "@safelytyped/css-color";
 import { AppError } from "@safelytyped/core-types";
-import { InvalidCssRgbColorDataInputs, InvalidCssRgbColorDataObjects, ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
+import { InvalidCssRgbColorDataObjects, ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
+import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
 
 describe("mustBeCssRgbColorData()", () => {
     ValidCssRgbColorData.forEach((inputValue) => {
@@ -96,7 +97,7 @@ describe("mustBeCssRgbColorData()", () => {
         });
     });
 
-    InvalidCssRgbColorDataInputs.forEach((inputValue) => {
+    InvalidCssColorDataInputs.forEach((inputValue) => {
         it("throws an AppError when given " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test

@@ -32,94 +32,57 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { ValidCssHwbColorData } from "../../CssHwbColor/_fixtures/CssHwbColorData";
-import { ValidCssRgbColorData } from "../../CssRgbColor/_fixtures/CssRgbColorData";
+import type { CssHwbColorChannelsData } from "../CssHwbColorChannelsData.type";
 
-export const ValidCssColorData = [
+export const ValidCssHwbColorChannelsData: CssHwbColorChannelsData[] = [
     {
-        name: "hello world",
-        definition: "#000000",
-    },
-    ...ValidCssHwbColorData,
-    ...ValidCssRgbColorData,
-];
-
-export const InvalidCssColorDataParameters = [
-    {
-        inputValue: {
-            name: "    ",
-            definition: "#000000",
-        },
-        description: "name property is empty",
-    },
-    {
-        inputValue: {
-            name: "whoohoo",
-            definition: "    ",
-        },
-        description: "definition property is empty",
+        hue: 0,
+        whiteness: 39.22,
+        blackness: 60.78,
+        alpha: 1,
     },
 ];
 
-export const InvalidCssColorDataObjects = [
+export const InvalidCssHwbColorChannelsDataObjects = [
     {
-        inputValue: {
-            name: 100,
-            definition: "#000000",
-        },
-        description: "name property has wrong type",
+        description: "channels completely missing",
+        inputValue: {}
     },
     {
+        description: "hue channel missing",
         inputValue: {
-            name: "whoohoo",
-            definition: 999,
-        },
-        description: "definition property has wrong type",
+            whiteness: 39.22,
+            blackness: 60.78,
+            alpha: 1,
+        }
     },
     {
+        description: "whiteness channel missing",
         inputValue: {
-            definition: "#000000",
-        },
-        description: "name property is missing",
+            hue: 0,
+            blackness: 60.78,
+            alpha: 1,
+        }
     },
     {
+        description: "blackness channel missing",
         inputValue: {
-            name: "woohooo",
-        },
-        description: "definition property is missing",
+            hue: 0,
+            whiteness: 39.22,
+            alpha: 1,
+        }
     },
     {
+        description: "alpha channel missing",
         inputValue: {
-            name: null,
-            definition: "#000000",
-        },
-        description: "name property is null",
+            hue: 0,
+            whiteness: 39.22,
+            blackness: 60.78,
+        }
     },
-    {
-        inputValue: {
-            name: "whoohoo",
-            definition: null,
-        },
-        description: "definition property is null",
-    },
-    {
-        inputValue: {
-            name: undefined,
-            definition: "#000000",
-        },
-        description: "name property is undefined",
-    },
-    {
-        inputValue: {
-            name: "whoohoo",
-            definition: undefined,
-        },
-        description: "definition property is undefined",
-    },
-    ...InvalidCssColorDataParameters,
 ];
 
-export const InvalidCssColorDataInputs = [
+export const InvalidCssHwbColorChannelsDataInputs = [
     null,
     undefined,
     [],

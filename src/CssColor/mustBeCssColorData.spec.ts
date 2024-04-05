@@ -37,7 +37,7 @@ import { describe, it } from "mocha";
 
 import { mustBeCssColorData } from "@safelytyped/css-color";
 import { AppError } from "@safelytyped/core-types";
-import { InvalidCssColorDataInputs, InvalidCssColorDataObjects, ValidCssColorData } from "./_fixtures/CssColorFixtures";
+import { InvalidCssColorDataInputs, InvalidCssColorDataObjects, ValidCssColorData } from "./_fixtures/CssColorDataFixtures";
 
 describe("mustBeCssColorData()", () => {
     ValidCssColorData.forEach((inputValue) => {

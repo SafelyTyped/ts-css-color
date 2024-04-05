@@ -36,7 +36,8 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 
 import { isCssRgbColorData } from "@safelytyped/css-color";
-import { InvalidCssRgbColorDataInputs, InvalidCssRgbColorDataObjects, ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
+import { InvalidCssRgbColorDataObjects, ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
+import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
 
 describe("isCssRgbColorData()", () => {
     ValidCssRgbColorData.forEach((inputValue) => {
@@ -87,7 +88,7 @@ describe("isCssRgbColorData()", () => {
         });
     });
 
-    InvalidCssRgbColorDataInputs.forEach((inputValue) => {
+    InvalidCssColorDataInputs.forEach((inputValue) => {
         it("returns false when given " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test

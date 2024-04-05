@@ -35,32 +35,32 @@
 import type { Maybe } from "@safelytyped/core-types";
 import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
-import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
-import type { CssRgbColorData } from "../CssRgbColorData.type";
+import type { CssHwbColorData } from "../CssHwbColorData.type";
+import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
 
-type ValidCssRgbColor = CssRgbColorData & {
+type ValidCssHwbColor = CssHwbColorData & {
     hslChannels: CssHslColorChannelsData;
-    hwbChannels: CssHwbColorChannelsData;
+    rgbChannels: CssRgbColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
 }
-export const ValidCssRgbColorData: ValidCssRgbColor[] = [];
+export const ValidCssHwbColorData: ValidCssHwbColor[] = [];
 
 ValidCssColors.forEach((fixture) => {
-    ValidCssRgbColorData.push({
+    ValidCssHwbColorData.push({
         name: fixture.name,
         definition: fixture.definition,
-        channels: fixture.rgbChannels,
-        "_type": "@safelytyped/css-color/CssRgbColorData",
+        channels: fixture.hwbChannels,
+        "_type": "@safelytyped/css-color/CssHwbColorData",
         colorSpace: "sRGB",
         hslChannels: fixture.hslChannels,
-        hwbChannels: fixture.hwbChannels,
+        rgbChannels: fixture.rgbChannels,
         hex: fixture.hex,
         namedColor: fixture.namedColor,
     });
 });
 
-export const InvalidCssRgbColorDataObjects = [
+export const InvalidCssHwbColorDataObjects = [
     {
         description: "not CssColorData: name property missing",
         inputValue: {
@@ -68,9 +68,9 @@ export const InvalidCssRgbColorDataObjects = [
             "_type": "@safelytyped/css-color/CssRgbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
@@ -79,12 +79,12 @@ export const InvalidCssRgbColorDataObjects = [
         description: "not CssColorData: definition property missing",
         inputValue: {
             name: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
@@ -98,133 +98,133 @@ export const InvalidCssRgbColorDataObjects = [
         }
     },
     {
-        description: "red channel missing",
+        description: "hue channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                green: 100,
-                blue: 100,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "red channel too small",
+        description: "hue channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: -1,
-                green: 100,
-                blue: 100,
+                hue: -1,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "red channel too large",
+        description: "hue channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 256,
-                green: 100,
-                blue: 100,
+                hue: 361,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "green channel missing",
+        description: "whiteness channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                blue: 100,
+                hue: 0,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "green channel too small",
+        description: "whiteness channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: -1,
-                blue: 100,
+                hue: 0,
+                whiteness: -0.1,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "green channel too large",
+        description: "whiteness channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 256,
-                blue: 100,
+                hue: 0,
+                whiteness: 100.1,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "blue channel missing",
+        description: "blackness channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
+                hue: 0,
+                whiteness: 39.22,
                 alpha: 1,
             }
         }
     },
     {
-        description: "blue channel too small",
+        description: "blackness channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: -1,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: -0.1,
                 alpha: 1,
             }
         }
     },
     {
-        description: "blue channel too large",
+        description: "blackness channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 256,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 100.1,
                 alpha: 1,
             }
         }
@@ -234,12 +234,12 @@ export const InvalidCssRgbColorDataObjects = [
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwnColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
             }
         }
     },
@@ -248,12 +248,12 @@ export const InvalidCssRgbColorDataObjects = [
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: -0.1,
             }
         }
@@ -263,28 +263,28 @@ export const InvalidCssRgbColorDataObjects = [
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1.1,
             }
         }
     },
 ];
 
-export const InvalidMakeCssRgbColorParameters = [
+export const InvalidMakeCssHwbColorParameters = [
     {
         description: "name property empty",
         inputValue: {
             name: "",
             definition: "test",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
@@ -295,87 +295,87 @@ export const InvalidMakeCssRgbColorParameters = [
             name: "test",
             definition: "",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "red channel too small",
+        description: "hue channel too small",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                red: -1,
-                green: 100,
-                blue: 100,
+                hue: -0.1,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "red channel too large",
+        description: "hue channel too large",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                red: 256,
-                green: 100,
-                blue: 100,
+                hue: -0.1,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "green channel too small",
+        description: "whiteness channel too small",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                red: 100,
-                green: -1,
-                blue: 100,
+                hue: 0,
+                whiteness: -0.1,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "green channel too large",
+        description: "whiteness channel too large",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                red: 100,
-                green: 256,
-                blue: 100,
+                hue: 0,
+                whiteness: 100.1,
+                blackness: 60.78,
                 alpha: 1,
             }
         }
     },
     {
-        description: "blue channel too small",
+        description: "blackness channel too small",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                red: 100,
-                green: 100,
-                blue: -1,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: -0.1,
                 alpha: 1,
             }
         }
     },
     {
-        description: "blue channel too large",
+        description: "blackness channel too large",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 256,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 100.1,
                 alpha: 1,
             }
         }
@@ -386,9 +386,9 @@ export const InvalidMakeCssRgbColorParameters = [
             name: "test",
             definition: "test",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: -0.1,
             }
         }
@@ -399,9 +399,9 @@ export const InvalidMakeCssRgbColorParameters = [
             name: "test",
             definition: "test",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                hue: 0,
+                whiteness: 39.22,
+                blackness: 60.78,
                 alpha: 1.1,
             }
         }
