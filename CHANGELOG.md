@@ -55,6 +55,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssHwbColorChannelsTuple` type
 - added `CssHwbColorData` type
 - added `CssHwbColor` class
+- added `validateCssHwbColorChannelsData()` type validator
 - added `CssRgbColorChannelsData` type
 - added `CssRgbColorChannelsTuple` type
 - added `CssRgbColorData` type

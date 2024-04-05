@@ -73,6 +73,7 @@ export type { CssHwbColorChannelsData } from "./CssHwbColor/CssHwbColorChannelsD
 export type { CssHwbColorChannelsTuple } from "./CssHwbColor/CssHwbColorChannelsTuple.type";
 export type { CssHwbColorData } from "./CssHwbColor/CssHwbColorData.type";
 export { CssHwbColor } from "./CssHwbColor/CssHwbColor";
+export { validateCssHwbColorChannelsData } from "./CssHwbColor/validateCssHwbColorChannelsData";
 
 export type { CssRgbColorChannelsData } from "./CssRgbColor/CssRgbColorChannelsData.type";
 export type { CssRgbColorChannelsTuple } from "./CssRgbColor/CssRgbColorChannelsTuple.type";
