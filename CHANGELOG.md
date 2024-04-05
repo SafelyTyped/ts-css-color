@@ -37,6 +37,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssExtendedColor` type
 - added `CssExtendedColors` type
 - added `CSS_EXTENDED_COLORS_TO_HEX` and `CSS_HEX_TO_EXTENDED_COLORS` constants
+- added `mustBeCssExtendedColor()` type guarantee
 - added `validateCssExtendedColor()` type validator
 - added `CssKeywordColorData` type
 - added `CssKeywordColor` class
