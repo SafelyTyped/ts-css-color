@@ -58,6 +58,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `mustBeCssHwbColorChannelsData()` type guarantee
 - added `isCssHwbColorChannelsData()` type guard
 - added `isCssHwbColorData()` type guard
+- added `makeCssHwbColorData()` smart constructor
 - added `mustBeCssHwbColorData()` type guarantee
 - added `validateCssHwbColorChannelsData()` type validator
 - added `validateCssHwbColorData()` type validator
