@@ -51,8 +51,9 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssHslColorChannelsTuple` type
 - added `CssHslColorData` type
 - added `CssHslColor` class
-- added `mustBeCssHslColorChannelsData()` type validator
-- added `mustBeCssHslColorData()` type validator
+- added `makeCssHslColorData()` smart constructor
+- added `mustBeCssHslColorChannelsData()` type guarantee
+- added `mustBeCssHslColorData()` type guarantee
 - added `validateCssHslColorChannelsData()` type validator
 - added `validateCssHslColorData()` type validator
 - added `CssHwbColorChannelsData` type

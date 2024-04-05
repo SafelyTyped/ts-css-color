@@ -275,7 +275,7 @@ export const InvalidCssHslColorDataObjects = [
     },
 ];
 
-export const InvalidMakeCssRgbColorParameters = [
+export const InvalidMakeCssHslColorParameters = [
     {
         description: "name property empty",
         inputValue: {
