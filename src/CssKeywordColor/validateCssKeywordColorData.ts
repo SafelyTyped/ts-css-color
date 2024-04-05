@@ -35,7 +35,7 @@
 import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, extendDataPath, recastIfValid } from "@safelytyped/core-types";
 import type { CssKeywordColorData } from "./CssKeywordColorData.type";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssExtendedColor } from "./validateCssExtendedColor";
+import { validateCssExtendedColor } from "../CssExtendedColors/validateCssExtendedColor";
 
 export function validateCssKeywordColorData(
     input: unknown,

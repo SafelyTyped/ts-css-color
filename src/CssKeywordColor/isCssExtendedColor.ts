@@ -33,7 +33,7 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import { validateCssExtendedColor } from "./validateCssExtendedColor";
+import { validateCssExtendedColor } from "../CssExtendedColors/validateCssExtendedColor";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 
 export function isCssExtendedColor(

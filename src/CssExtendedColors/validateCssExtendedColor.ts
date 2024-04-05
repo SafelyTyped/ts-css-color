@@ -34,8 +34,8 @@
 
 import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateString, HashMap } from "@safelytyped/core-types";
 import { InvalidCssColorNameError } from "../Errors/InvalidCssColorName/InvalidCssColorNameError";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
+import type { CssExtendedColor } from "./CssExtendedColor.type";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "./CssExtendedColors.const";
 
 export function validateCssExtendedColor(
     input: unknown,

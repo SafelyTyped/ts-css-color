@@ -51,6 +51,7 @@ export type { CssExtendedColor } from "./CssExtendedColors/CssExtendedColor.type
 export type { CssExtendedColors } from "./CssExtendedColors/CssExtendedColors.type";
 export { CSS_EXTENDED_COLORS_TO_HEX } from "./CssExtendedColors/CssExtendedColors.const";
 export { CSS_HEX_TO_EXTENDED_COLORS } from "./CssExtendedColors/CssExtendedColors.const";
+export { validateCssExtendedColor } from "./CssExtendedColors/validateCssExtendedColor";
 
 export type { CssKeywordColorData } from "./CssKeywordColor/CssKeywordColorData.type";
 export { CssKeywordColor } from "./CssKeywordColor/CssKeywordColor";
