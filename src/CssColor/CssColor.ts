@@ -39,6 +39,7 @@ import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssColorData } from "./CssColorData.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
+import { roundTo } from "@safelytyped/math-rounding";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -62,6 +63,26 @@ export abstract class CssColor<E extends CssColorData> {
      * @memberof CssColor
      */
     protected readonly data: E;
+
+    /**
+     * how many decimal places do we want to preserve when converting
+     * between different color formats?
+     *
+     * @protected
+     * @memberof CssColor
+     */
+    protected conversionPrecision = 2;
+
+    /**
+     * how do we want to go about rounding numbers, when we convert between
+     * different color formats?
+     *
+     * by default, we just want to round
+     *
+     * @protected
+     * @memberof CssColor
+     */
+    protected conversionRoundingFunc = Math.round;
 
     /**
      * constructor
@@ -272,5 +293,57 @@ export abstract class CssColor<E extends CssColorData> {
     public luminosity(): number
     {
         return this.hsl().channelsData().luminosity;
+    }
+
+    /**
+     * whiteness() returns the `w` component from the hwb definition,
+     * as a number between 0-100
+     *
+     * @returns the `w` component from the hwb definition
+     */
+    public whiteness(): number
+    {
+        return this.hwb().channelsData().whiteness;
+    }
+
+    /**
+     * blackness() returns the `b` component from the hwb definition,
+     * as a number between 0-100
+     *
+     * @returns the `b` component from the hwb definition
+     */
+    public blackness(): number
+    {
+        return this.hwb().channelsData().blackness;
+    }
+
+    // ================================================================
+    //
+    // INTERNAL HELPERS
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * round() is an internal helper method. Use it when you need to
+     * round numbers during converting to other formats.
+     *
+     * By default, it uses Math.round() internally, and rounds to two
+     * decimal places.
+     *
+     * You can change this by changing the {@link this.conversionRoundingFunc}
+     * and/or {@link this.conversionPrecision} object properties as required.
+     *
+     * @param input
+     * - the value to round
+     * @returns
+     * - the rounded number
+     */
+    protected round(input: number): number
+    {
+        return roundTo(
+            this.conversionRoundingFunc,
+            this.conversionPrecision,
+            input,
+        );
     }
 }

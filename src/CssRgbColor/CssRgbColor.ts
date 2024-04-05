@@ -51,16 +51,16 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
 {
     public hsl(): CssHslColor
     {
-        const model = colorConvert.rgb.hsl(this.channelsTuple());
+        const model = colorConvert.rgb.hsl.raw(this.channelsTuple());
 
         return new CssHslColor(
             makeCssHslColorData(
                 this.data.name,
                 this.data.definition,
                 {
-                    hue: model[0],
-                    saturation: model[1],
-                    luminosity: model[2],
+                    hue: this.round(model[0]),
+                    saturation: this.round(model[1]),
+                    luminosity: this.round(model[2]),
                     alpha: this.data.channels.alpha,
                 },
             )
@@ -69,16 +69,16 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
 
     public hwb(): CssHwbColor
     {
-        const model = colorConvert.rgb.hwb(this.channelsTuple());
+        const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
 
         return new CssHwbColor(
             makeCssHwbColorData(
                 this.data.name,
                 this.data.definition,
                 {
-                    hue: model[0],
-                    whiteness: model[1],
-                    blackness: model[2],
+                    hue: this.round(model[0]),
+                    whiteness: this.round(model[1]),
+                    blackness: this.round(model[2]),
                     alpha: this.data.channels.alpha,
                 },
             ),

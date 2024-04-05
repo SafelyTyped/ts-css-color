@@ -32,6 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { roundDown } from "@safelytyped/math-rounding";
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
 import { relativeLuminance } from "./relativeLuminance";
 
@@ -64,5 +65,5 @@ export function contrastRatio(a: AnyCssColor, b: AnyCssColor): number
         ratio = (bgLuminance + 0.05) / (fgLuminance + 0.05);
     }
 
-    return Math.trunc(ratio * 10) / 10;
+    return roundDown(1, ratio);
 }

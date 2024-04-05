@@ -51,15 +51,15 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
 
     public hsl(): CssHslColor
     {
-        const model = colorConvert.hwb.hsl(this.channelsTuple());
+        const model = colorConvert.hwb.hsl.raw(this.channelsTuple());
 
         return new CssHslColor({
             name: this.data.name,
             definition: this.data.definition,
             channels: {
-                hue: model[0],
-                saturation: model[1],
-                luminosity: model[2],
+                hue: this.round(model[0]),
+                saturation: this.round(model[1]),
+                luminosity: this.round(model[2]),
                 alpha: this.data.channels.alpha,
             },
             colorSpace: this.data.colorSpace,
@@ -74,15 +74,15 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
 
     public rgb(): CssRgbColor
     {
-        const model = colorConvert.hwb.rgb(this.channelsTuple());
+        const model = colorConvert.hwb.rgb.raw(this.channelsTuple());
 
         return new CssRgbColor({
             name: this.data.name,
             definition: this.data.definition,
             channels: {
-                red: model[0],
-                green: model[1],
-                blue: model[2],
+                red: this.round(model[0]),
+                green: this.round(model[1]),
+                blue: this.round(model[2]),
                 alpha: this.data.channels.alpha,
             },
             colorSpace: this.data.colorSpace,

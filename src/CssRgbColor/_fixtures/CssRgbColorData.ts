@@ -43,7 +43,82 @@ export const ValidCssRgbColorData = [
             green: 100,
             blue: 100,
             alpha: 1,
-        }
+        },
+
+        // additional properties here are used to validate CssRgbColor
+        // class tests ...
+        hslChannels: {
+            hue: 0,
+            saturation: 0,
+            luminosity: 39.22,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 0,
+            whiteness: 39.22,
+            blackness: 60.78,
+            alpha: 1,
+        },
+        hex: "#646464",
+        namedColor: undefined,
+    },
+    {
+        name: "apple-moss",
+        definition: "#008040",
+        "_type": "@safelytyped/css-color/CssRgbColorData",
+        colorSpace: "sRGB",
+        channels: {
+            red: 0,
+            green: 128,
+            blue: 64,
+            alpha: 1,
+        },
+
+        // additional properties here are used to validate CssRgbColor
+        // class tests ...
+        hslChannels: {
+            hue: 150,
+            saturation: 100,
+            luminosity: 25.1,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 150,
+            whiteness: 0,
+            blackness: 49.8,
+            alpha: 1,
+        },
+        hex: "#008040",
+        namedColor: undefined,
+    },
+    {
+        name: "red",
+        definition: "#ffffff",
+        "_type": "@safelytyped/css-color/CssRgbColorData",
+        colorSpace: "sRGB",
+        channels: {
+            red: 255,
+            green: 0,
+            blue: 0,
+            alpha: 1,
+        },
+
+        // additional properties here are used to validate CssRgbColor
+        // class tests ...
+        hslChannels: {
+            hue: 0,
+            saturation: 100,
+            luminosity: 50,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 0,
+            whiteness: 0,
+            blackness: 0,
+            alpha: 1,
+        },
+        hex: "#ff0000",
+        namedColor: "red",
     },
 ];
 
