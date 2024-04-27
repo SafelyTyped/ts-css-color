@@ -33,9 +33,19 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import { validateCssExtendedColor } from "../CssExtendedColors/validateCssExtendedColor";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
+import type { CssExtendedColor } from "src/CssExtendedColors/CssExtendedColor.type";
+import { validateCssExtendedColor } from "src/CssExtendedColors/validateCssExtendedColor";
 
+/**
+ * isCssExtendedColor() is a type guard. Use it to prove that the given
+ * input is a {@link CssExtendedColor}.
+ *
+ * @param input
+ * - the value to check
+ * @returns
+ * - `true` if `input` is a valid {@link CssExtendedColor}
+ * - `false` otherwise
+ */
 export function isCssExtendedColor(
     input: unknown
 ): input is CssExtendedColor
