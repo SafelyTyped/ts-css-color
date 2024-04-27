@@ -42,6 +42,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `validateCssExtendedColor()` type validator
 - added `CssKeywordColorData` type
 - added `CssKeywordColor` class
+- added `mustBeCssKeywordColorData()` type guarantee
 - added `validateCssKeywordColor()` type validator
 - added `CssHexColorData` type
 - added `CssHexColor` class

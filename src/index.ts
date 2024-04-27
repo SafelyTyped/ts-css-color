@@ -57,6 +57,7 @@ export { validateCssExtendedColor } from "./CssExtendedColors/validateCssExtende
 
 export type { CssKeywordColorData } from "./CssKeywordColor/CssKeywordColorData.type";
 export { CssKeywordColor } from "./CssKeywordColor/CssKeywordColor";
+export { mustBeCssKeywordColorData } from "./CssKeywordColor/mustBeCssKeywordColorData";
 export { validateCssKeywordColorData } from "./CssKeywordColor/validateCssKeywordColorData";
 
 export type { CssHexColorData } from "./CssHexColor/CssHexColorData.type";
