@@ -42,11 +42,11 @@ export const ValidCssHexColorData = [
         definition: "#000",
     },
     {
-        name: "whte (6-char definition)",
+        name: "white (6-char definition)",
         definition: "#ffffff",
     },
     {
-        name: "whte (3-char definition)",
+        name: "white (3-char definition)",
         definition: "#fff",
     },
 ];

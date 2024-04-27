@@ -32,16 +32,43 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Branded } from "@safelytyped/core-types";
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace.type";
+export const ValidCssKeywordColorData = [
+    {
+        name: "black",
+        definition: "black",
+    },
+    {
+        name: "white",
+        definition: "white",
+    }
+];
 
-/**
- * CssKeywordColorData represents a CSS color that's defined using one
- * of the CSS extended color names.
- *
- * We reuse the `definition` field from {@link CssColorData} to hold
- * the keyword.
- */
+export const InvalidCssKeywordColorDataObjects = [
+    {
+        description: "missing 'name' field",
+        inputValue: {
+            definition: "black",
+        }
+    },
+    {
+        description: "missing 'definition' field",
+        inputValue: {
+            name: "black",
+        }
+    },
+];
 
-export type CssKeywordColorData = Branded<CssColorData & CssSrgbColorSpace, "@safelytyped/css-color/CssKeywordColor">;
+export const InvalidCssKeywordColorDataInput = [
+    null,
+    undefined,
+    [],
+    true,
+    false,
+    0,
+    -100,
+    100,
+    3.1415927,
+    () => true,
+    {},
+    "#ffffff",
+];
