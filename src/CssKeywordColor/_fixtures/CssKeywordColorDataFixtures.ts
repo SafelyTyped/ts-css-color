@@ -32,15 +32,40 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const ValidCssKeywordColorData = [
-    {
-        name: "black",
-        definition: "black",
-    },
-    {
-        name: "white",
-        definition: "white",
+import type { Maybe } from "@safelytyped/core-types";
+import type { CssHslColorChannelsData, CssHwbColorChannelsData, CssKeywordColorData, CssRgbColorChannelsData } from "@safelytyped/css-color";
+import { ValidCssColors } from "src/CssColor/_fixtures/CssColorFixtures";
+
+type ValidCssKeywordColorData = CssKeywordColorData & {
+    rgbChannels: CssRgbColorChannelsData;
+    hslChannels: CssHslColorChannelsData;
+    hwbChannels: CssHwbColorChannelsData;
+    hex: string;
+    namedColor: Maybe<string>;
+}
+export const ValidCssKeywordColorData: ValidCssKeywordColorData[] = [];
+
+ValidCssColors.forEach((fixture) => {
+    if (fixture.namedColor) {
+        ValidCssKeywordColorData.push({
+            name: fixture.name,
+            definition: fixture.namedColor,
+            "_type": "@safelytyped/css-color/CssKeywordColor",
+            colorSpace: "sRGB",
+            hslChannels: fixture.hslChannels,
+            hwbChannels: fixture.hwbChannels,
+            rgbChannels: fixture.rgbChannels,
+            hex: fixture.hex,
+            namedColor: fixture.namedColor,
+        });
     }
+});
+
+export const InvalidCssKeywordColorData = [
+    {
+        name: "not-a-color",
+        definition: "not-a-color",
+    },
 ];
 
 export const InvalidCssKeywordColorDataObjects = [

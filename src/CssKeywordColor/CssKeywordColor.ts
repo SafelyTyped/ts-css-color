@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Maybe } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe } from "@safelytyped/core-types";
 import { CssColor } from "../CssColor/CssColor";
 import { makeCssColor } from "../CssColor/makeCssColor";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
@@ -43,6 +43,7 @@ import type { CssKeywordColorData } from "./CssKeywordColorData.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
 import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
+import type { CssHslColorData, CssHwbColorData, CssRgbColorData } from "@safelytyped/css-color";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
@@ -56,19 +57,82 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
     //
     // ----------------------------------------------------------------
 
-    public hsl(): CssHslColor
+    public hsl(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
+    ): CssHslColor
     {
-        return makeCssColor(this.hex()).hsl();
+        // this should inject the original definition into the returned
+        // color object
+        const definition = this.definition();
+        const extraOpt = function (item: CssHslColorData) {
+            item.definition = definition;
+            return item;
+        };
+        fnOpts.push(extraOpt);
+
+        return makeCssColor(
+            this.hex(),
+            { colorName: this.data.name },
+        ).hsl(
+            {path, onError},
+            ...fnOpts,
+        );
     }
 
-    public hwb(): CssHwbColor
+    public hwb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
+    ): CssHwbColor
     {
-        return makeCssColor(this.hex()).hwb();
+        // this should inject the original definition into the returned
+        // color object
+        const definition = this.definition();
+        const extraOpt = function (item: CssHwbColorData) {
+            item.definition = definition;
+            return item;
+        };
+        fnOpts.push(extraOpt);
+
+        return makeCssColor(
+            this.hex(),
+            { colorName: this.data.name },
+        ).hwb(
+            { path, onError },
+            ...fnOpts,
+        );
     }
 
-    public rgb(): CssRgbColor
+    public rgb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    ): CssRgbColor
     {
-        return makeCssColor(this.hex()).rgb();
+        // this should inject the original definition into the returned
+        // color object
+        const definition = this.definition();
+        const extraOpt = function (item: CssRgbColorData) {
+            item.definition = definition;
+            return item;
+        };
+        fnOpts.push(extraOpt);
+
+        return makeCssColor(
+            this.hex(),
+            { colorName: this.data.name },
+        ).rgb(
+            { path, onError },
+            ...fnOpts,
+        );
     }
 
     // ================================================================
@@ -109,5 +173,17 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
     public keyword(): Maybe<CssExtendedColor>
     {
         return this.data.definition as CssExtendedColor;
+    }
+
+    // ================================================================
+    //
+    // COMPONENT VALUES
+    //
+    // ----------------------------------------------------------------
+
+    public alpha(): number
+    {
+        // all known keywords have an alpha channel of 1
+        return 1;
     }
 }

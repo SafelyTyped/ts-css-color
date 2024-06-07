@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Maybe, PrimitiveHint } from "@safelytyped/core-types";
+import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
@@ -40,6 +40,7 @@ import type { CssColorData } from "./CssColorData.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import { roundTo } from "@safelytyped/math-rounding";
+import type { CssHslColorData, CssHwbColorData, CssRgbColorData } from "@safelytyped/css-color";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -102,17 +103,26 @@ export abstract class CssColor<E extends CssColorData> {
      * @returns {CssRgbColor}
      * @memberof CssColor
      */
-    public abstract rgb(): CssRgbColor;
+    public abstract rgb(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
+    ): CssRgbColor;
 
     /**
      * hsl() converts this color to the CSS hsl() format
      */
-    public abstract hsl(): CssHslColor;
+    public abstract hsl(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssHslColorData, TypeGuaranteeOptions>[]
+    ): CssHslColor;
 
     /**
      * hwb() converts this color to the CSS hwb() format
      */
-    public abstract hwb(): CssHwbColor;
+    public abstract hwb(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
+    ): CssHwbColor;
 
     // ================================================================
     //
@@ -257,10 +267,7 @@ export abstract class CssColor<E extends CssColorData> {
      *
      * @returns the `alpha` channel of this color
      */
-    public alpha(): number
-    {
-        return this.rgb().channelsData().alpha;
-    }
+    public abstract alpha(): number;
 
     /**
      * hue() returns the `h` component from the hsl definition, as a number

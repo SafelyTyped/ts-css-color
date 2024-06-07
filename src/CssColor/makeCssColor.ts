@@ -40,7 +40,7 @@ import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type OnError, type DataPath, type FunctionalOption, applyFunctionalOptions, type DataValidatorOptions } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type OnError, type DataPath, type FunctionalOption, applyFunctionalOptions, type DataValidatorOptions, type DataGuaranteeOptions } from "@safelytyped/core-types";
 import { CssHexColor } from "../CssHexColor/CssHexColor";
 import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
 import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
@@ -78,7 +78,7 @@ export function makeCssColor(
         onError?: OnError,
         path?: DataPath,
     } = {},
-    ...fnOpts: FunctionalOption<AnyCssColor, DataValidatorOptions>[]
+    ...fnOpts: FunctionalOption<AnyCssColor, DataGuaranteeOptions>[]
 ): AnyCssColor
 {
     // shorthand

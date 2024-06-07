@@ -97,7 +97,7 @@ export const ValidCssColors: ValidCssColor[] = [
     },
     {
         name: "red",
-        definition: "#ffffff",
+        definition: "#ff0000",
         hslChannels: {
             hue: 0,
             saturation: 100,
@@ -118,5 +118,53 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#ff0000",
         namedColor: "red",
+    },
+    {
+        name: "black",
+        definition: "#000",
+        hslChannels: {
+            hue: 0,
+            saturation: 0,
+            luminosity: 0,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 0,
+            whiteness: 0,
+            blackness: 100,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 0,
+            green: 0,
+            blue: 0,
+            alpha: 1,
+        },
+        hex: "#000000",
+        namedColor: "black",
+    },
+    {
+        name: "white",
+        definition: "#ffffff",
+        hslChannels: {
+            hue: 0,
+            saturation: 0,
+            luminosity: 100,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 0,
+            whiteness: 100,
+            blackness: 0,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 255,
+            green: 255,
+            blue: 255,
+            alpha: 1,
+        },
+        hex: "#ffffff",
+        namedColor: "white",
     },
 ];

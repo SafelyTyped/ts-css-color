@@ -42,6 +42,9 @@ import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
 import type { CssRgbColorData } from "./CssRgbColorData.type";
 import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
 import type { CssRgbColorChannelsTuple } from "./CssRgbColorChannelsTuple.type";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import type { CssHslColorData } from "src/CssHslColor/CssHslColorData.type";
+import { makeCssRgbColorData, type CssHwbColorData } from "@safelytyped/css-color";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
@@ -49,7 +52,13 @@ import type { CssRgbColorChannelsTuple } from "./CssRgbColorChannelsTuple.type";
  */
 export class CssRgbColor extends CssColor<CssRgbColorData>
 {
-    public hsl(): CssHslColor
+    public hsl(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
+    ): CssHslColor
     {
         const model = colorConvert.rgb.hsl.raw(this.channelsTuple());
 
@@ -63,11 +72,19 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
                     luminosity: this.round(model[2]),
                     alpha: this.data.channels.alpha,
                 },
+                { path, onError },
+                ...fnOpts
             )
         );
     }
 
-    public hwb(): CssHwbColor
+    public hwb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
+    ): CssHwbColor
     {
         const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
 
@@ -81,13 +98,34 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
                     blackness: this.round(model[2]),
                     alpha: this.data.channels.alpha,
                 },
+                { path, onError },
+                ...fnOpts,
             ),
         );
     }
 
-    public rgb(): CssRgbColor
+    public rgb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    ): CssRgbColor
     {
-        return this;
+        // performance optimisation
+        if (fnOpts.length === 0) {
+            return this;
+        }
+
+        return new CssRgbColor(
+            makeCssRgbColorData(
+                this.data.name,
+                this.data.definition,
+                this.data.channels,
+                {path, onError},
+                ...fnOpts,
+            ),
+        );
     }
 
     // ================================================================

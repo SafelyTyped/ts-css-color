@@ -41,6 +41,8 @@ import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannel
 import type { CssHwbColorData } from "./CssHwbColorData.type";
 import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
 import { roundDown } from "@safelytyped/math-rounding";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssHslColorData, makeCssHwbColorData, type CssHslColorData } from "@safelytyped/css-color";
 
 export class CssHwbColor extends CssColor<CssHwbColorData>
 {
@@ -50,27 +52,54 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
     //
     // ----------------------------------------------------------------
 
-    public hsl(): CssHslColor
+    public hsl(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
+    ): CssHslColor
     {
         const model = colorConvert.hwb.hsl.raw(this.channelsTuple());
 
-        return new CssHslColor({
-            name: this.data.name,
-            definition: this.data.definition,
-            channels: {
-                hue: this.round(model[0]),
-                saturation: this.round(model[1]),
-                luminosity: this.round(model[2]),
-                alpha: this.data.channels.alpha,
-            },
-            colorSpace: this.data.colorSpace,
-            _type: "@safelytyped/css-color/CssHslColorData",
-        });
+        return new CssHslColor(
+            makeCssHslColorData(
+                this.data.name,
+                this.data.definition,
+                {
+                    hue: this.round(model[0]),
+                    saturation: this.round(model[1]),
+                    luminosity: this.round(model[2]),
+                    alpha: this.data.channels.alpha,
+                },
+                { path, onError },
+                ...fnOpts,
+            )
+        );
     }
 
-    public hwb(): CssHwbColor
+    public hwb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
+    ): CssHwbColor
     {
-        return this;
+        // performance optimisation
+        if (fnOpts.length === 0) {
+            return this;
+        }
+
+        return new CssHwbColor(
+            makeCssHwbColorData(
+                this.data.name,
+                this.data.definition,
+                this.data.channels,
+                { path, onError },
+                ...fnOpts
+            )
+        );
     }
 
     public rgb(): CssRgbColor

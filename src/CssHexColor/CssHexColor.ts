@@ -42,6 +42,9 @@ import type { CssHexColorData } from "./CssHexColorData.type";
 import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
 import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import type { CssHslColorData } from "src/CssHslColor/CssHslColorData.type";
+import type { CssHwbColorData, CssRgbColorData } from "@safelytyped/css-color";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
@@ -67,17 +70,42 @@ export class CssHexColor extends CssColor<CssHexColorData>
     //
     // ----------------------------------------------------------------
 
-    public hsl(): CssHslColor
+    public hsl(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
+    ): CssHslColor
     {
-        return this.rgb().hsl();
+        return this.rgb()
+            .hsl(
+                {path, onError},
+                ...fnOpts,
+            );
     }
 
-    public hwb(): CssHwbColor
+    public hwb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
+    ): CssHwbColor
     {
-        return this.rgb().hwb();
+        return this.rgb().hwb(
+            {path, onError},
+            ...fnOpts,
+        );
     }
 
-    public rgb(): CssRgbColor
+    public rgb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    ): CssRgbColor
     {
         const rgb = colorConvert.hex.rgb(this.hex());
 
@@ -89,8 +117,10 @@ export class CssHexColor extends CssColor<CssHexColorData>
                     red: rgb[0],
                     green: rgb[1],
                     blue: rgb[2],
-                    alpha: 0,
+                    alpha: 1,
                 },
+                {path, onError},
+                ...fnOpts,
             ),
         );
     }
@@ -129,5 +159,16 @@ export class CssHexColor extends CssColor<CssHexColorData>
     public hex(): string
     {
         return this.data.definition;
+    }
+
+    // ================================================================
+    //
+    // COMPONENT VALUES
+    //
+    // ----------------------------------------------------------------
+
+    public alpha(): number
+    {
+        return this.rgb().alpha();
     }
 }

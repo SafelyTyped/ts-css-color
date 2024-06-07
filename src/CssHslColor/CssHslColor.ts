@@ -43,6 +43,8 @@ import type { CssHslColorData } from "./CssHslColorData.type";
 import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
 import type { CssHslColorChannelsTuple } from "./CssHslColorChannelsTuple.type";
 import { roundUp } from "@safelytyped/math-rounding";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import { makeCssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 
 /**
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
@@ -56,7 +58,13 @@ export class CssHslColor extends CssColor<CssHslColorData>
     //
     // ----------------------------------------------------------------
 
-    public rgb(): CssRgbColor
+    public rgb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    ): CssRgbColor
     {
         const model = colorConvert.hsl.rgb(this.channelsTuple());
 
@@ -70,16 +78,43 @@ export class CssHslColor extends CssColor<CssHslColorData>
                     blue: model[2],
                     alpha: this.data.channels.alpha,
                 },
+                { path, onError },
+                ...fnOpts,
             ),
         );
     }
 
-    public hsl(): CssHslColor
+    public hsl(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
+    ): CssHslColor
     {
-        return this;
+        // performance optimisation
+        if (fnOpts.length === 0) {
+            return this;
+        }
+
+        return new CssHslColor(
+            makeCssHslColorData(
+                this.data.name,
+                this.data.definition,
+                this.data.channels,
+                { path, onError },
+                ...fnOpts
+            )
+        );
     }
 
-    public hwb(): CssHwbColor
+    public hwb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
+    ): CssHwbColor
     {
         const model = colorConvert.hsl.hwb.raw(this.channelsTuple());
 
@@ -93,6 +128,8 @@ export class CssHslColor extends CssColor<CssHslColorData>
                     blackness: roundUp(2, model[2]),
                     alpha: this.data.channels.alpha,
                 },
+                { path, onError },
+                ...fnOpts,
             ),
         );
     }
@@ -133,6 +170,11 @@ export class CssHslColor extends CssColor<CssHslColorData>
     // COMPONENT VALUES
     //
     // ----------------------------------------------------------------
+
+    public alpha(): number
+    {
+        return this.data.channels.alpha;
+    }
 
     public hue(): number
     {
