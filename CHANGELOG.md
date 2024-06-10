@@ -49,6 +49,7 @@ The following changes have been completed, and will be included in the next tagg
 - added `CssHexColorData` type
 - added `CssHexColor` class
 - added `CssHexColorDefinition` type
+- added `isCssHexColorData()` type guard
 - added `isCssHexColorDefinition()` type guard
 - added `makeCssHexColorDefinition()` smart constructor
 - added `mustBeCssHexColorDefinition()` type guarantee
