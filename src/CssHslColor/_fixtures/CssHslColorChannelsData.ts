@@ -38,7 +38,7 @@ export const ValidCssHslColorChannelsData: CssHslColorChannelsData[] = [
     {
         hue: 0,
         saturation: 0,
-        luminosity: 39.22,
+        luminosity: 39,
         alpha: 1,
     },
 ];
@@ -52,7 +52,7 @@ export const InvalidCssHslColorChannelsDataObjects = [
         description: "hue channel missing",
         inputValue: {
             saturation: 0,
-            luminosity: 39.22,
+            luminosity: 39,
             alpha: 1,
         }
     },
@@ -60,7 +60,7 @@ export const InvalidCssHslColorChannelsDataObjects = [
         description: "saturation channel missing",
         inputValue: {
             hue: 0,
-            luminosity: 39.22,
+            luminosity: 39,
             alpha: 1,
         }
     },
@@ -77,7 +77,7 @@ export const InvalidCssHslColorChannelsDataObjects = [
         inputValue: {
             hue: 0,
             saturation: 0,
-            luminosity: 39.22,
+            luminosity: 39,
         }
     },
 ];

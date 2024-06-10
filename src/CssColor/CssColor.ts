@@ -72,7 +72,7 @@ export abstract class CssColor<E extends CssColorData> {
      * @protected
      * @memberof CssColor
      */
-    protected conversionPrecision = 2;
+    protected conversionPrecision = 0;
 
     /**
      * how do we want to go about rounding numbers, when we convert between

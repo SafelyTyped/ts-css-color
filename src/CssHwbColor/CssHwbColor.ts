@@ -40,7 +40,6 @@ import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannelsTuple.type";
 import type { CssHwbColorData } from "./CssHwbColorData.type";
 import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
-import { roundDown } from "@safelytyped/math-rounding";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
 import { makeCssHslColorData, makeCssHwbColorData, type CssHslColorData } from "@safelytyped/css-color";
 
@@ -110,9 +109,9 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
             name: this.data.name,
             definition: this.data.definition,
             channels: {
-                red: roundDown(0, model[0]),
-                green: roundDown(0, model[1]),
-                blue: roundDown(0, model[2]),
+                red: this.round(model[0]),
+                green: this.round(model[1]),
+                blue: this.round(model[2]),
                 alpha: this.data.channels.alpha,
             },
             colorSpace: this.data.colorSpace,

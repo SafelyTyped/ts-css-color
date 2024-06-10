@@ -32,6 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { ValidCssHslColorData } from "../../CssHslColor/_fixtures/CssHslColorData";
 import { ValidCssHwbColorData } from "../../CssHwbColor/_fixtures/CssHwbColorData";
 import { ValidCssRgbColorData } from "../../CssRgbColor/_fixtures/CssRgbColorData";
 
@@ -40,6 +41,7 @@ export const ValidCssColorData = [
         name: "hello world",
         definition: "#000000",
     },
+    ...ValidCssHslColorData,
     ...ValidCssHwbColorData,
     ...ValidCssRgbColorData,
 ];

@@ -47,17 +47,19 @@ type ValidCssRgbColor = CssRgbColorData & {
 export const ValidCssRgbColorData: ValidCssRgbColor[] = [];
 
 ValidCssColors.forEach((fixture) => {
-    ValidCssRgbColorData.push({
-        name: fixture.name,
-        definition: fixture.definition,
-        channels: fixture.rgbChannels,
-        "_type": "@safelytyped/css-color/CssRgbColorData",
-        colorSpace: "sRGB",
-        hslChannels: fixture.hslChannels,
-        hwbChannels: fixture.hwbChannels,
-        hex: fixture.hex,
-        namedColor: fixture.namedColor,
-    });
+    if (fixture.definition.includes("#") || fixture.definition.includes('rgb')) {
+        ValidCssRgbColorData.push({
+            name: fixture.name,
+            definition: fixture.definition,
+            channels: fixture.rgbChannels,
+            "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorSpace: "sRGB",
+            hslChannels: fixture.hslChannels,
+            hwbChannels: fixture.hwbChannels,
+            hex: fixture.hex,
+            namedColor: fixture.namedColor,
+        });
+    }
 });
 
 export const InvalidCssRgbColorDataObjects = [

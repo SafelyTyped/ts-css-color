@@ -47,17 +47,19 @@ type ValidCssHslColor = CssHslColorData & {
 export const ValidCssHslColorData: ValidCssHslColor[] = [];
 
 ValidCssColors.forEach((fixture) => {
-    ValidCssHslColorData.push({
-        name: fixture.name,
-        definition: fixture.definition,
-        channels: fixture.hslChannels,
-        "_type": "@safelytyped/css-color/CssHslColorData",
-        colorSpace: "sRGB",
-        hwbChannels: fixture.hwbChannels,
-        rgbChannels: fixture.rgbChannels,
-        hex: fixture.hex,
-        namedColor: fixture.namedColor,
-    });
+    if (fixture.definition.includes('hsl')) {
+        ValidCssHslColorData.push({
+            name: fixture.name,
+            definition: fixture.definition,
+            channels: fixture.hslChannels,
+            "_type": "@safelytyped/css-color/CssHslColorData",
+            colorSpace: "sRGB",
+            hwbChannels: fixture.hwbChannels,
+            rgbChannels: fixture.rgbChannels,
+            hex: fixture.hex,
+            namedColor: fixture.namedColor,
+        });
+    }
 });
 
 export const InvalidCssHslColorDataObjects = [
@@ -70,7 +72,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -84,7 +86,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -106,7 +108,7 @@ export const InvalidCssHslColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -121,7 +123,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: -0.1,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -136,7 +138,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: 361,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -150,7 +152,7 @@ export const InvalidCssHslColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -165,7 +167,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: 0,
                 saturation: -0.1,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -180,7 +182,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: 0,
                 saturation: 100.1,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -239,7 +241,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
             }
         }
     },
@@ -253,7 +255,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: -0.1,
             }
         }
@@ -268,7 +270,7 @@ export const InvalidCssHslColorDataObjects = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1.1,
             }
         }
@@ -284,7 +286,7 @@ export const InvalidMakeCssHslColorParameters = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -297,7 +299,7 @@ export const InvalidMakeCssHslColorParameters = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -310,7 +312,7 @@ export const InvalidMakeCssHslColorParameters = [
             channels: {
                 hue: -0.1,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -323,7 +325,7 @@ export const InvalidMakeCssHslColorParameters = [
             channels: {
                 hue: 360.1,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -336,7 +338,7 @@ export const InvalidMakeCssHslColorParameters = [
             channels: {
                 hue: 0,
                 saturation: -0.1,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -349,7 +351,7 @@ export const InvalidMakeCssHslColorParameters = [
             channels: {
                 hue: 0,
                 saturation: 100.1,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1,
             }
         }
@@ -388,7 +390,7 @@ export const InvalidMakeCssHslColorParameters = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: -0.1,
             }
         }
@@ -401,7 +403,7 @@ export const InvalidMakeCssHslColorParameters = [
             channels: {
                 hue: 0,
                 saturation: 0,
-                luminosity: 39.22,
+                luminosity: 39,
                 alpha: 1.1,
             }
         }

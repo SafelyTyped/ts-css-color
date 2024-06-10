@@ -42,7 +42,6 @@ import { makeCssHwbColorData } from "../CssHwbColor/makeCssHwbColorData";
 import type { CssHslColorData } from "./CssHslColorData.type";
 import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
 import type { CssHslColorChannelsTuple } from "./CssHslColorChannelsTuple.type";
-import { roundUp } from "@safelytyped/math-rounding";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import { makeCssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 
@@ -66,16 +65,16 @@ export class CssHslColor extends CssColor<CssHslColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        const model = colorConvert.hsl.rgb(this.channelsTuple());
+        const model = colorConvert.hsl.rgb.raw(this.channelsTuple());
 
         return new CssRgbColor(
             makeCssRgbColorData(
                 this.data.name,
                 this.data.definition,
                 {
-                    red: model[0],
-                    green: model[1],
-                    blue: model[2],
+                    red: this.round(model[0]),
+                    green: this.round(model[1]),
+                    blue: this.round(model[2]),
                     alpha: this.data.channels.alpha,
                 },
                 { path, onError },
@@ -123,9 +122,9 @@ export class CssHslColor extends CssColor<CssHslColorData>
                 this.data.name,
                 this.data.definition,
                 {
-                    hue: roundUp(2, model[0]),
-                    whiteness: roundUp(2, model[1]),
-                    blackness: roundUp(2, model[2]),
+                    hue: this.round(model[0]),
+                    whiteness: this.round(model[1]),
+                    blackness: this.round(model[2]),
                     alpha: this.data.channels.alpha,
                 },
                 { path, onError },

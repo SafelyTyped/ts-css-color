@@ -37,8 +37,8 @@ import type { CssHwbColorChannelsData } from "../CssHwbColorChannelsData.type";
 export const ValidCssHwbColorChannelsData: CssHwbColorChannelsData[] = [
     {
         hue: 0,
-        whiteness: 39.22,
-        blackness: 60.78,
+        whiteness: 39,
+        blackness: 61,
         alpha: 1,
     },
 ];
@@ -51,8 +51,8 @@ export const InvalidCssHwbColorChannelsDataObjects = [
     {
         description: "hue channel missing",
         inputValue: {
-            whiteness: 39.22,
-            blackness: 60.78,
+            whiteness: 39,
+            blackness: 61,
             alpha: 1,
         }
     },
@@ -60,7 +60,7 @@ export const InvalidCssHwbColorChannelsDataObjects = [
         description: "whiteness channel missing",
         inputValue: {
             hue: 0,
-            blackness: 60.78,
+            blackness: 61,
             alpha: 1,
         }
     },
@@ -68,7 +68,7 @@ export const InvalidCssHwbColorChannelsDataObjects = [
         description: "blackness channel missing",
         inputValue: {
             hue: 0,
-            whiteness: 39.22,
+            whiteness: 39,
             alpha: 1,
         }
     },
@@ -76,8 +76,8 @@ export const InvalidCssHwbColorChannelsDataObjects = [
         description: "alpha channel missing",
         inputValue: {
             hue: 0,
-            whiteness: 39.22,
-            blackness: 60.78,
+            whiteness: 39,
+            blackness: 61,
         }
     },
 ];

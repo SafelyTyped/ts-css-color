@@ -53,13 +53,13 @@ export const ValidCssColors: ValidCssColor[] = [
         hslChannels: {
             hue: 0,
             saturation: 0,
-            luminosity: 39.22,
+            luminosity: 39,
             alpha: 1,
         },
         hwbChannels: {
             hue: 0,
-            whiteness: 39.22,
-            blackness: 60.78,
+            whiteness: 39,
+            blackness: 61,
             alpha: 1,
         },
         rgbChannels: {
@@ -77,13 +77,13 @@ export const ValidCssColors: ValidCssColor[] = [
         hslChannels: {
             hue: 150,
             saturation: 100,
-            luminosity: 25.1,
+            luminosity: 25,
             alpha: 1,
         },
         hwbChannels: {
             hue: 150,
             whiteness: 0,
-            blackness: 49.8,
+            blackness: 50,
             alpha: 1,
         },
         rgbChannels: {
@@ -166,5 +166,53 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#ffffff",
         namedColor: "white",
+    },
+    {
+        name: "skyblue",
+        definition: "hsl(196, 100%, 64%)",
+        hslChannels: {
+            hue: 196,
+            saturation: 100,
+            luminosity: 64,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 196,
+            whiteness: 28,
+            blackness: 0,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 71,
+            green: 206,
+            blue: 255,
+            alpha: 1,
+        },
+        hex: "#47ceff",
+        namedColor: undefined,
+    },
+    {
+        name: "palegreen",
+        definition: "hwb(100,76%,12%)",
+        hwbChannels: {
+            hue: 100,
+            whiteness: 76,
+            blackness: 12,
+            alpha: 1,
+        },
+        hslChannels: {
+            hue: 100,
+            saturation: 33,
+            luminosity: 82,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 204,
+            green: 224,
+            blue: 194,
+            alpha: 1,
+        },
+        hex: "#cce0c2",
+        namedColor: undefined,
     },
 ];

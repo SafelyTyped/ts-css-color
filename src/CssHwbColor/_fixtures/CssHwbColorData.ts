@@ -47,17 +47,19 @@ type ValidCssHwbColor = CssHwbColorData & {
 export const ValidCssHwbColorData: ValidCssHwbColor[] = [];
 
 ValidCssColors.forEach((fixture) => {
-    ValidCssHwbColorData.push({
-        name: fixture.name,
-        definition: fixture.definition,
-        channels: fixture.hwbChannels,
-        "_type": "@safelytyped/css-color/CssHwbColorData",
-        colorSpace: "sRGB",
-        hslChannels: fixture.hslChannels,
-        rgbChannels: fixture.rgbChannels,
-        hex: fixture.hex,
-        namedColor: fixture.namedColor,
-    });
+    if (fixture.definition.includes('hwb')) {
+        ValidCssHwbColorData.push({
+            name: fixture.name,
+            definition: fixture.definition,
+            channels: fixture.hwbChannels,
+            "_type": "@safelytyped/css-color/CssHwbColorData",
+            colorSpace: "sRGB",
+            hslChannels: fixture.hslChannels,
+            rgbChannels: fixture.rgbChannels,
+            hex: fixture.hex,
+            namedColor: fixture.namedColor,
+        });
+    }
 });
 
 export const InvalidCssHwbColorDataObjects = [
@@ -69,8 +71,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -83,8 +85,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -105,8 +107,8 @@ export const InvalidCssHwbColorDataObjects = [
             "_type": "@safelytyped/css-color/CssHwbColorData",
             colorSpace: "sRGB",
             channels: {
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -120,8 +122,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: -1,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -135,8 +137,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 361,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -150,7 +152,7 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                blackness: 60.78,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -165,7 +167,7 @@ export const InvalidCssHwbColorDataObjects = [
             channels: {
                 hue: 0,
                 whiteness: -0.1,
-                blackness: 60.78,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -179,8 +181,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 100.1,
-                blackness: 60.78,
+                whiteness: 101,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -194,7 +196,7 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
+                whiteness: 39,
                 alpha: 1,
             }
         }
@@ -208,8 +210,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: -0.1,
+                whiteness: 39,
+                blackness: -1,
                 alpha: 1,
             }
         }
@@ -223,8 +225,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 100.1,
+                whiteness: 39,
+                blackness: 101,
                 alpha: 1,
             }
         }
@@ -238,8 +240,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
             }
         }
     },
@@ -252,8 +254,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: -0.1,
             }
         }
@@ -267,8 +269,8 @@ export const InvalidCssHwbColorDataObjects = [
             colorSpace: "sRGB",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1.1,
             }
         }
@@ -283,8 +285,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -296,8 +298,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -309,8 +311,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: -0.1,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -322,8 +324,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: -0.1,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -335,8 +337,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: 0,
-                whiteness: -0.1,
-                blackness: 60.78,
+                whiteness: -1,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -348,8 +350,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: 0,
-                whiteness: 100.1,
-                blackness: 60.78,
+                whiteness: 101,
+                blackness: 61,
                 alpha: 1,
             }
         }
@@ -361,8 +363,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: -0.1,
+                whiteness: 39,
+                blackness: -1,
                 alpha: 1,
             }
         }
@@ -374,8 +376,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 100.1,
+                whiteness: 39,
+                blackness: 101,
                 alpha: 1,
             }
         }
@@ -387,8 +389,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: -0.1,
             }
         }
@@ -400,8 +402,8 @@ export const InvalidMakeCssHwbColorParameters = [
             definition: "test",
             channels: {
                 hue: 0,
-                whiteness: 39.22,
-                blackness: 60.78,
+                whiteness: 39,
+                blackness: 61,
                 alpha: 1.1,
             }
         }
