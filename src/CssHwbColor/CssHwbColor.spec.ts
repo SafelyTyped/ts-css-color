@@ -33,9 +33,10 @@
 //
 
 import { describe, it } from "mocha";
-import { CssHwbColor, makeCssHwbColorData } from "@safelytyped/css-color";
+import { CssHwbColor, makeCssHwbColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { ValidCssHwbColorData } from "./_fixtures/CssHwbColorData";
 import { expect } from "chai";
+import type { DataGuaranteeOptions } from "@safelytyped/core-types";
 
 describe('CssHwbColor', () => {
     describe(".constructor", () => {
@@ -105,6 +106,47 @@ describe('CssHwbColor', () => {
                 expect(actualValue.definition()).eqls(validFixture.definition);
                 expect(actualValue.channelsData()).eqls(validFixture.channels);
             });
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HWB method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHwbColorData(
+                "original",
+                "hwb(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    whiteness: 0,
+                    blackness: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHwbColor(inputValue);
+
+            const f1 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hwb({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('original');
+            expect(unit.definition()).eqls('hwb(255, 0%, 0%)');
         });
     });
 
@@ -195,6 +237,48 @@ describe('CssHwbColor', () => {
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
         });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HSL method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHwbColorData(
+                "original",
+                "hwb(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    whiteness: 0,
+                    blackness: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHwbColor(inputValue);
+
+            const f1 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsl({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('original');
+            expect(unit.definition()).eqls('hwb(255, 0%, 0%)');
+        });
+
     });
 
     describe(".rgb()", () => {
@@ -283,6 +367,47 @@ describe('CssHwbColor', () => {
 
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the RGB method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHwbColorData(
+                "original",
+                "hwb(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    whiteness: 0,
+                    blackness: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHwbColor(inputValue);
+
+            const f1 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.rgb({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('original');
+            expect(unit.definition()).eqls('hwb(255, 0%, 0%)');
         });
     });
 

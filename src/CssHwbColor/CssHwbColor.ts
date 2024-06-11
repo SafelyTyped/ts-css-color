@@ -41,7 +41,7 @@ import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannel
 import type { CssHwbColorData } from "./CssHwbColorData.type";
 import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssHslColorData, makeCssHwbColorData, type CssHslColorData } from "@safelytyped/css-color";
+import { makeCssHslColorData, makeCssHwbColorData, makeCssRgbColorData, type CssHslColorData, type CssRgbColorData } from "@safelytyped/css-color";
 
 export class CssHwbColor extends CssColor<CssHwbColorData>
 {
@@ -101,22 +101,30 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
         );
     }
 
-    public rgb(): CssRgbColor
+    public rgb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    ): CssRgbColor
     {
         const model = colorConvert.hwb.rgb.raw(this.channelsTuple());
 
-        return new CssRgbColor({
-            name: this.data.name,
-            definition: this.data.definition,
-            channels: {
-                red: this.round(model[0]),
-                green: this.round(model[1]),
-                blue: this.round(model[2]),
-                alpha: this.data.channels.alpha,
-            },
-            colorSpace: this.data.colorSpace,
-            _type: "@safelytyped/css-color/CssRgbColorData",
-        });
+        return new CssRgbColor(
+            makeCssRgbColorData(
+                this.data.name,
+                this.data.definition,
+                {
+                    red: this.round(model[0]),
+                    green: this.round(model[1]),
+                    blue: this.round(model[2]),
+                    alpha: this.data.channels.alpha,
+                },
+                { path, onError },
+                ...fnOpts,
+            )
+        );
     }
 
     // ================================================================

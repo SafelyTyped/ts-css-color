@@ -33,9 +33,10 @@
 //
 
 import { describe, it } from "mocha";
-import { CssRgbColor, makeCssRgbColorData } from "@safelytyped/css-color";
+import { CssRgbColor, makeCssRgbColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
 import { expect } from "chai";
+import type { DataGuaranteeOptions } from "@safelytyped/core-types";
 
 describe('CssRgbColor', () => {
     describe(".constructor", () => {
@@ -105,6 +106,47 @@ describe('CssRgbColor', () => {
                 expect(actualValue.definition()).eqls(validFixture.definition);
                 expect(actualValue.channelsData()).eqls(validFixture.channels);
             });
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the RGB method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            const f1 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.rgb({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('red');
+            expect(unit.definition()).eqls('#ff0000');
         });
     });
 
@@ -195,6 +237,47 @@ describe('CssRgbColor', () => {
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
         });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HSL method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            const f1 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsl({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('red');
+            expect(unit.definition()).eqls('#ff0000');
+        });
     });
 
     describe(".hwb()", () => {
@@ -283,6 +366,47 @@ describe('CssRgbColor', () => {
 
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HWB method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            const f1 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hwb({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('red');
+            expect(unit.definition()).eqls('#ff0000');
         });
     });
 
