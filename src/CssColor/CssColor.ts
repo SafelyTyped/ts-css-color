@@ -134,6 +134,7 @@ export abstract class CssColor<E extends CssColorData> {
      * hex() returns this color in CSS hex format (#RRGGBB)
      *
      * the returned string will always be in lowercase
+     * the returned string will always be 7 chars long
      */
     public hex(): string
     {

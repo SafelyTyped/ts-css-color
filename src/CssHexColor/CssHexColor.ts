@@ -158,7 +158,18 @@ export class CssHexColor extends CssColor<CssHexColorData>
 
     public hex(): string
     {
-        return this.data.definition;
+        // general case
+        if (this.data.definition.length > 4) {
+            return this.data.definition;
+        }
+
+        // if we get here, we need to convert the hex string to
+        // full-length
+        const r = this.data.definition.substring(1, 2);
+        const g = this.data.definition.substring(2, 3);
+        const b = this.data.definition.substring(3, 4);
+
+        return "#" + r + r + g + g + b + b;
     }
 
     // ================================================================

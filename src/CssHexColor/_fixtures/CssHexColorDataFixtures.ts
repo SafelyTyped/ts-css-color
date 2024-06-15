@@ -32,24 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const ValidCssHexColorData = [
-    {
-        name: "black (6-char definition)",
-        definition: "#000000",
-    },
-    {
-        name: "black (3-char definition)",
-        definition: "#000",
-    },
-    {
-        name: "white (6-char definition)",
-        definition: "#ffffff",
-    },
-    {
-        name: "white (3-char definition)",
-        definition: "#fff",
-    },
-];
+import { ValidCssColors, type ValidCssColor } from "src/CssColor/_fixtures/CssColorFixtures";
+
+export const ValidCssHexColorData: ValidCssColor[] = [];
+ValidCssColors.forEach((fixture) => {
+    if (fixture.definition.startsWith('#')) {
+        ValidCssHexColorData.push(fixture);
+    }
+});
 
 export const InvalidCssHexColorDataParameters = [
     {

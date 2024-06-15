@@ -120,7 +120,31 @@ export const ValidCssColors: ValidCssColor[] = [
         namedColor: "red",
     },
     {
-        name: "black",
+        name: "black (6 char definition)",
+        definition: "#000000",
+        hslChannels: {
+            hue: 0,
+            saturation: 0,
+            luminosity: 0,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 0,
+            whiteness: 0,
+            blackness: 100,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 0,
+            green: 0,
+            blue: 0,
+            alpha: 1,
+        },
+        hex: "#000000",
+        namedColor: "black",
+    },
+    {
+        name: "black (3 char definition)",
         definition: "#000",
         hslChannels: {
             hue: 0,
@@ -144,8 +168,32 @@ export const ValidCssColors: ValidCssColor[] = [
         namedColor: "black",
     },
     {
-        name: "white",
+        name: "white (6 char definition)",
         definition: "#ffffff",
+        hslChannels: {
+            hue: 0,
+            saturation: 0,
+            luminosity: 100,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 0,
+            whiteness: 100,
+            blackness: 0,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 255,
+            green: 255,
+            blue: 255,
+            alpha: 1,
+        },
+        hex: "#ffffff",
+        namedColor: "white",
+    },
+    {
+        name: "white (3 char definition)",
+        definition: "#fff",
         hslChannels: {
             hue: 0,
             saturation: 0,

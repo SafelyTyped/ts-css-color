@@ -81,7 +81,10 @@ describe("makeCssHexColorData()", () => {
             // ----------------------------------------------------------------
             // setup your test
 
-
+            const expectedValue: CssHexColorData = {
+                name: inputValue.name,
+                definition: inputValue.definition,
+            } as CssHexColorData;
 
             // ----------------------------------------------------------------
             // perform the change
@@ -102,7 +105,7 @@ describe("makeCssHexColorData()", () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.eqls(inputValue);
+            expect(actualValue).to.eqls(expectedValue);
             expect(errorThrown).to.be.null;
         });
     });
