@@ -1,0 +1,15 @@
+{
+    "entryPoints": [ "src/index.ts" ],
+    "out": "reference-docs",
+    "categorizeByGroup": true,
+    "externalPattern": [
+        "**/_fixtures/**",
+        "**/*.spec.*"
+    ],
+    "excludeInternal": true,
+    "excludeReferences": true,
+
+    "entryPointStrategy": "resolve",
+    "plugin": ["typedoc-theme-hierarchy"],
+    "name": "SafelyTyped CSS Color"
+}
