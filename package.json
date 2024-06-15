@@ -1,8 +1,11 @@
 {
   "name": "@safelytyped/css-color",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Safe type for CSS color values",
-  "repository": "github:SafelyTyped/ts-css-color",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SafelyTyped/ts-css-color.git"
+  },
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "types": "lib/types/index.d.ts",
