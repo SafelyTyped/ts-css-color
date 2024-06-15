@@ -1,6 +1,6 @@
 {
   "name": "@safelytyped/css-color",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Safe type for CSS color values",
   "repository": "github:SafelyTyped/ts-css-color",
   "main": "lib/cjs/index.js",
