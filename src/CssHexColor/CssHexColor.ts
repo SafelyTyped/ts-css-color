@@ -43,7 +43,7 @@ import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
 import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { CssHslColorData } from "src/CssHslColor/CssHslColorData.type";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData, CssRgbColorData } from "@safelytyped/css-color";
 
 /**

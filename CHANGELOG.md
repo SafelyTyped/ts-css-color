@@ -21,6 +21,14 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### v1.0.2
+
+Released Sunday, 16th June 2024.
+
+### Fixes
+
+* Fix import path problems in CommonJS build
+
 ## v1.0.1
 
 Released Saturday, 15th June 2024.

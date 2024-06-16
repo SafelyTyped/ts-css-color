@@ -36,7 +36,7 @@ import { AppError } from "@safelytyped/core-types";
 import { CssColor, makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { InvalidCssColorDataParameters, ValidCssColorData } from "src/CssColor/_fixtures/CssColorDataFixtures";
+import { InvalidCssColorDataParameters, ValidCssColorData } from "./_fixtures/CssColorDataFixtures";
 
 describe('makeCssColor()', () => {
     ValidCssColorData.forEach((inputValue) => {
