@@ -34,7 +34,7 @@
 
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { InvalidCssKeywordColorDataInput, InvalidCssKeywordColorDataObjects, ValidCssKeywordColorData } from "src/CssKeywordColor/_fixtures/CssKeywordColorDataFixtures";
+import { InvalidCssKeywordColorDataInput, InvalidCssKeywordColorDataObjects, ValidCssKeywordColorData } from "./_fixtures/CssKeywordColorDataFixtures";
 import { isCssKeywordColorData } from "@safelytyped/css-color";
 
 describe("isCssKeywordColorData()", () => {

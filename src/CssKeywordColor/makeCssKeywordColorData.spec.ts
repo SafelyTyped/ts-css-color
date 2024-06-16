@@ -34,7 +34,7 @@
 
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { InvalidCssKeywordColorData, ValidCssKeywordColorData } from "src/CssKeywordColor/_fixtures/CssKeywordColorDataFixtures";
+import { InvalidCssKeywordColorData, ValidCssKeywordColorData } from "./_fixtures/CssKeywordColorDataFixtures";
 import { makeCssKeywordColorData, type CssKeywordColorData } from "@safelytyped/css-color";
 import { AppError } from "@safelytyped/core-types";
 

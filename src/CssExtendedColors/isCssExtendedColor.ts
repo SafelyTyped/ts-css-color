@@ -33,8 +33,8 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import type { CssExtendedColor } from "src/CssExtendedColors/CssExtendedColor.type";
-import { validateCssExtendedColor } from "src/CssExtendedColors/validateCssExtendedColor";
+import type { CssExtendedColor } from "./CssExtendedColor.type";
+import { validateCssExtendedColor } from "./validateCssExtendedColor";
 
 /**
  * isCssExtendedColor() is a type guard. Use it to prove that the given

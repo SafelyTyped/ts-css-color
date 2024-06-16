@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { ValidCssColors, type ValidCssColor } from "src/CssColor/_fixtures/CssColorFixtures";
+import { ValidCssColors, type ValidCssColor } from "../../CssColor/_fixtures/CssColorFixtures";
 
 export const ValidCssHexColorData: ValidCssColor[] = [];
 ValidCssColors.forEach((fixture) => {
