@@ -25,6 +25,7 @@ The following changes have been completed, and will be included in the next tagg
 
 * Added `isMonochrome()` inspector function
 * Added `tonality()` inspector function (to eventually replace `shade()`)
+* Added `isMidtone()` inspector function (to eventually replace `isDull()`)
 
 ### Fixes
 
