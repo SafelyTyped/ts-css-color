@@ -43,6 +43,7 @@ The following changes have been completed, and will be included in the next tagg
   * upgraded associated linting plugins to match
 * upgraded to Typescript v5.7
 * upgraded @swc/cli to v0.6.0
+* upgrade CI to use Node v22 and v23
 
 ## v1.0.2
 
