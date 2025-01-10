@@ -151,6 +151,7 @@ export { hasClearContrast } from "./inspectors/hasClearContrast";
 export { isDark } from "./inspectors/isDark";
 export { isDull } from "./inspectors/isDull";
 export { isLight } from "./inspectors/isLight";
+export { isMonochrome } from "./inspectors/isMonochome";
 export { lightModeContrastRatio } from "./inspectors/lightModeContrastRatio";
 export { luma } from "./inspectors/luma";
 export { relativeLuminance } from "./inspectors/relativeLuminance";
