@@ -156,6 +156,7 @@ export { lightModeContrastRatio } from "./inspectors/lightModeContrastRatio";
 export { luma } from "./inspectors/luma";
 export { relativeLuminance } from "./inspectors/relativeLuminance";
 export { type Shade, shade } from "./inspectors/shade";
+export { type Tonality, tonality } from "./inspectors/tonality";
 
 export { type Hue, hues } from "./inspectors/hues/hues";
 export { isBlackHue } from "./inspectors/hues/isBlackHue";

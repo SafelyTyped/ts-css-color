@@ -24,6 +24,7 @@ The following changes have been completed, and will be included in the next tagg
 ### New
 
 * Added `isMonochrome()` inspector function
+* Added `tonality()` inspector function (to eventually replace `shade()`)
 
 ### Fixes
 

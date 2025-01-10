@@ -32,18 +32,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { makeCssColor, isLight } from "@safelytyped/css-color";
+import { describe, it } from "mocha";
+import { makeCssColor, tonality } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "./_fixtures/colorShades";
 
-describe("isLight()", () => {
-    it("returns 'true' from colors that are lighter", () => {
+describe("tonality()", () => {
+    it("returns 'light' from colors that are lighter", () => {
         LIGHT_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that isLight() understands lighter colours
+            // this test proves that tonality() understands lighter colours
 
             // ----------------------------------------------------------------
             // setup your test
@@ -53,21 +53,21 @@ describe("isLight()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = isLight(color);
+            const actualValue = tonality(color);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.true;
+            expect(actualValue).to.eql("light");
         });
     });
 
-    it("returns 'false' from colors that are darker", () => {
+    it("returns 'dark' from colors that are darker", () => {
         DARK_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that isLight() understands darker colours
+            // this test proves that tonality() understands darker colours
 
             // ----------------------------------------------------------------
             // setup your test
@@ -77,21 +77,22 @@ describe("isLight()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = isLight(color);
+            const actualValue = tonality(color);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.false;
+            expect(actualValue).to.eql("dark");
         });
     });
 
-    it("returns 'false' from colors that are flat", () => {
+    it("returns 'midtone' from colors that are flat", () => {
         MIDTONE_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that isLight() understands flat colours
+            // this test proves that tonality() understands colours that are
+            // neither bright nor dark
 
             // ----------------------------------------------------------------
             // setup your test
@@ -101,12 +102,12 @@ describe("isLight()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = isLight(color);
+            const actualValue = tonality(color);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.false;
+            expect(actualValue).to.eql("midtone");
         });
     });
 });
