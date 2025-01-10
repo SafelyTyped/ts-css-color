@@ -57,4 +57,4 @@ export type CssColorData = {
      * @type {string}
      */
     definition: string;
-}
+};

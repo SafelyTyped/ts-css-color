@@ -36,4 +36,4 @@ import type { CssColorspace } from "./CssColorspaces.type";
 
 export type CssColorspacedColor = {
     colorSpace: CssColorspace;
-}
+};

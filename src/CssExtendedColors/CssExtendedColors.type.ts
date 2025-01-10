@@ -40,4 +40,4 @@ import type { CssExtendedColor } from "./CssExtendedColor.type";
  */
 export type CssExtendedColors = {
     [P in CssExtendedColor]: string;
-}
+};

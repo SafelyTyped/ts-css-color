@@ -123,60 +123,60 @@ export function makeCssColor(
     }
 
     switch(model.model) {
-    case "hsl":
-        return applyFunctionalOptions(
-            new CssHslColor(
-                makeCssHslColorData(
-                    colorName,
-                    cssDefinition,
-                    {
-                        hue: model.value[0],
-                        saturation: model.value[1],
-                        luminosity: model.value[2],
-                        alpha: model.value[3],
-                    },
-                    { path, onError }
-                )
-            ),
-            opts,
-            ...fnOpts
-        );
-    case "hwb":
-        return applyFunctionalOptions(
-            new CssHwbColor(
-                makeCssHwbColorData(
-                    colorName,
-                    cssDefinition,
-                    {
-                        hue: model.value[0],
-                        whiteness: model.value[1],
-                        blackness: model.value[2],
-                        alpha: model.value[3],
-                    },
-                    { path, onError }
-                )
-            ),
-            opts,
-            ...fnOpts
-        );
+        case "hsl":
+            return applyFunctionalOptions(
+                new CssHslColor(
+                    makeCssHslColorData(
+                        colorName,
+                        cssDefinition,
+                        {
+                            hue: model.value[0],
+                            saturation: model.value[1],
+                            luminosity: model.value[2],
+                            alpha: model.value[3],
+                        },
+                        { path, onError }
+                    )
+                ),
+                opts,
+                ...fnOpts
+            );
+        case "hwb":
+            return applyFunctionalOptions(
+                new CssHwbColor(
+                    makeCssHwbColorData(
+                        colorName,
+                        cssDefinition,
+                        {
+                            hue: model.value[0],
+                            whiteness: model.value[1],
+                            blackness: model.value[2],
+                            alpha: model.value[3],
+                        },
+                        { path, onError }
+                    )
+                ),
+                opts,
+                ...fnOpts
+            );
 
-    case "rgb":
-        return applyFunctionalOptions(
-            new CssRgbColor(
-                makeCssRgbColorData(
-                    colorName,
-                    cssDefinition,
-                    {
-                        red: model.value[0],
-                        green: model.value[1],
-                        blue: model.value[2],
-                        alpha: model.value[3],
-                    },
-                    { path, onError }
-                )
-            ),
-            opts,
-            ...fnOpts
-        );
+        case "rgb":
+            return applyFunctionalOptions(
+                new CssRgbColor(
+                    makeCssRgbColorData(
+                        colorName,
+                        cssDefinition,
+                        {
+                            red: model.value[0],
+                            green: model.value[1],
+                            blue: model.value[2],
+                            alpha: model.value[3],
+                        },
+                        { path, onError }
+                    )
+                ),
+                opts,
+                ...fnOpts
+            );
     }
 }

@@ -37,4 +37,4 @@ import type { CssColorspacedColor } from "./CssColorspacedColor.type";
 export type CssSrgbColorSpace = CssColorspacedColor &
 {
     colorSpace: "sRGB";
-}
+};

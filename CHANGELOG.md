@@ -37,6 +37,11 @@ The following changes have been completed, and will be included in the next tagg
 * deprecated `shade()` (use `tonality()` instead)
 * deprecated `isDull()` (use `isMidtone()` instead)
 
+### Tooling
+
+* upgraded to eslint v9
+  * upgraded associated linting plugins to match
+
 ## v1.0.2
 
 Released Sunday, 16th June 2024.
