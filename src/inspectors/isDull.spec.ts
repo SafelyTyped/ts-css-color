@@ -35,7 +35,7 @@
 import { describe } from "mocha";
 import { makeCssColor, isDull } from "@safelytyped/css-color";
 import { expect } from "chai";
-import { DARK_COLORS, DULL_COLORS, LIGHT_COLORS } from "./_fixtures/colorShades";
+import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "./_fixtures/colorShades";
 
 describe("isDull()", () => {
     it("returns 'false' from colors that are lighter", () => {
@@ -87,7 +87,7 @@ describe("isDull()", () => {
     });
 
     it("returns 'true' from colors that are flat", () => {
-        DULL_COLORS.forEach((inputValue) => {
+        MIDTONE_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -33,17 +33,17 @@
 //
 
 import { describe } from "mocha";
-import { makeCssColor, isLight } from "@safelytyped/css-color";
+import { makeCssColor, isMidtone } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "./_fixtures/colorShades";
 
-describe("isLight()", () => {
-    it("returns 'true' from colors that are lighter", () => {
+describe("isMidtone()", () => {
+    it("returns 'false' from colors that are lighter", () => {
         LIGHT_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that isLight() understands lighter colours
+            // this test proves that isMidtone() understands lighter colours
 
             // ----------------------------------------------------------------
             // setup your test
@@ -53,12 +53,12 @@ describe("isLight()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = isLight(color);
+            const actualValue = isMidtone(color);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.true;
+            expect(actualValue).to.be.false;
         });
     });
 
@@ -67,7 +67,7 @@ describe("isLight()", () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that isLight() understands darker colours
+            // this test proves that isMidtone() understands darker colours
 
             // ----------------------------------------------------------------
             // setup your test
@@ -77,7 +77,7 @@ describe("isLight()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = isLight(color);
+            const actualValue = isMidtone(color);
 
             // ----------------------------------------------------------------
             // test the results
@@ -86,12 +86,13 @@ describe("isLight()", () => {
         });
     });
 
-    it("returns 'false' from colors that are flat", () => {
+    it("returns 'true' from colors that are neither light nor dark", () => {
         MIDTONE_COLORS.forEach((inputValue) => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that isLight() understands flat colours
+            // this test proves that isMidtone() understands the colours that
+            // are in-between
 
             // ----------------------------------------------------------------
             // setup your test
@@ -101,12 +102,12 @@ describe("isLight()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = isLight(color);
+            const actualValue = isMidtone(color);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.false;
+            expect(actualValue).to.be.true;
         });
     });
 });

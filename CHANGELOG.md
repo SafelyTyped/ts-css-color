@@ -21,7 +21,35 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
-### v1.0.2
+## v1.1.0
+
+Released Friday, 10th January 2025.
+
+### New
+
+* Added `isMonochrome()` inspector function
+* Added `tonality()` inspector function (to eventually replace `shade()`)
+* Added `isMidtone()` inspector function (to eventually replace `isDull()`)
+
+### Fixes
+
+* `hues()` no longer reports monochrome colors as having a `red` hue
+* package now works when used with `npm link`
+
+### Deprecations
+
+* deprecated `shade()` (use `tonality()` instead)
+* deprecated `isDull()` (use `isMidtone()` instead)
+
+### Tooling
+
+* upgraded to eslint v9
+  * upgraded associated linting plugins to match
+* upgraded to Typescript v5.7
+* upgraded @swc/cli to v0.6.0
+* upgrade CI to use Node v22 and v23
+
+## v1.0.2
 
 Released Sunday, 16th June 2024.
 

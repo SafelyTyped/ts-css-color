@@ -46,6 +46,8 @@ export type Shade = "light" | "dark" | "dull";
  *
  * @param input - the color to examine
  * @returns the calculated shade
+ *
+ * @deprecated use {@link tonality} instead
  */
 export function shade(input: AnyCssColor): Shade
 {

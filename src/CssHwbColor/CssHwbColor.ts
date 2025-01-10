@@ -41,7 +41,12 @@ import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannel
 import type { CssHwbColorData } from "./CssHwbColorData.type";
 import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssHslColorData, makeCssHwbColorData, makeCssRgbColorData, type CssHslColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
+import { makeCssHwbColorData } from "./makeCssHwbColorData";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
+
 
 export class CssHwbColor extends CssColor<CssHwbColorData>
 {

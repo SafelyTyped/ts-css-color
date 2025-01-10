@@ -40,7 +40,9 @@ import type { CssColorData } from "./CssColorData.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import { roundTo } from "@safelytyped/math-rounding";
-import type { CssHslColorData, CssHwbColorData, CssRgbColorData } from "@safelytyped/css-color";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 
 /**
  * CssColor holds the representation of a CSS color.

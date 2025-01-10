@@ -42,7 +42,7 @@ export const DARK_COLORS = [
     "#000000",
 ];
 
-export const DULL_COLORS = [
+export const MIDTONE_COLORS = [
     "#888",
     "#888888",
 ];

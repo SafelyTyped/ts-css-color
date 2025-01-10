@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,39 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { HashMap } from "@safelytyped/core-types";
-import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "../../inspectors/_fixtures/colorShades";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssExtendedColors/CssExtendedColors.const";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
 
-export const ValidCssHexColorDefinitions = [
-    // we use Set() to dedupe the color definitions
-    ...new Set([
-        ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX),
-        ...LIGHT_COLORS,
-        ...DARK_COLORS,
-        ...MIDTONE_COLORS
-
-        // add additional values here
-    ]),
-].sort();
-
-export const InvalidCssHexColorDefinitions = [
-    "000000",
-    "",
-    "  ",
-    "   ",
-];
-
-export const InvalidCssHexColorDefinitionInputs = [
-    null,
-    undefined,
-    [],
-    true,
-    false,
-    0,
-    -100,
-    100,
-    3.1415927,
-    () => true,
-    {},
-];
+/**
+ * isMonochrome() returns `true` if the given input color is black, white,
+ * or a pure gray color.
+ *
+ * @param input
+ * @returns
+ */
+export function isMonochrome(input: AnyCssColor): boolean
+{
+    const { red, green, blue } = input.rgb().channelsData();
+    return red === green && green === blue;
+}

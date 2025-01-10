@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,39 +32,20 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { HashMap } from "@safelytyped/core-types";
-import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "../../inspectors/_fixtures/colorShades";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssExtendedColors/CssExtendedColors.const";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { tonality } from "./tonality";
 
-export const ValidCssHexColorDefinitions = [
-    // we use Set() to dedupe the color definitions
-    ...new Set([
-        ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX),
-        ...LIGHT_COLORS,
-        ...DARK_COLORS,
-        ...MIDTONE_COLORS
-
-        // add additional values here
-    ]),
-].sort();
-
-export const InvalidCssHexColorDefinitions = [
-    "000000",
-    "",
-    "  ",
-    "   ",
-];
-
-export const InvalidCssHexColorDefinitionInputs = [
-    null,
-    undefined,
-    [],
-    true,
-    false,
-    0,
-    -100,
-    100,
-    3.1415927,
-    () => true,
-    {},
-];
+/**
+ * isMidtone() returns true if the given `input` color is neither a light
+ * nor a dark color (as determined by {@link tonality}).
+ *
+ * @param input -
+ * the color to examine
+ * @returns
+ * - `true` if the color is a midtone
+ * - `false` otherwise
+ */
+export function isMidtone(input: AnyCssColor): boolean
+{
+    return tonality(input) === "midtone";
+}

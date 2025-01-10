@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,39 +32,31 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { HashMap } from "@safelytyped/core-types";
-import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "../../inspectors/_fixtures/colorShades";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssExtendedColors/CssExtendedColors.const";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { luma } from "./luma";
 
-export const ValidCssHexColorDefinitions = [
-    // we use Set() to dedupe the color definitions
-    ...new Set([
-        ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX),
-        ...LIGHT_COLORS,
-        ...DARK_COLORS,
-        ...MIDTONE_COLORS
+/**
+ * Tonality is a set of valid return values from the {@link tonality} function
+ */
+export type Tonality = "light" | "dark" | "midtone";
 
-        // add additional values here
-    ]),
-].sort();
+/**
+ * tonality() uses the {@link luma} to work out whether the given `input`
+ * color is "light", "dark" or "midtone"
+ *
+ * @param input - the color to examine
+ * @returns the calculated tonality
+ */
+export function tonality(input: AnyCssColor): Tonality
+{
+    const y = luma(input);
 
-export const InvalidCssHexColorDefinitions = [
-    "000000",
-    "",
-    "  ",
-    "   ",
-];
+    if (y < 128) {
+        return "dark";
+    }
+    if (y > 191) {
+        return "light";
+    }
 
-export const InvalidCssHexColorDefinitionInputs = [
-    null,
-    undefined,
-    [],
-    true,
-    false,
-    0,
-    -100,
-    100,
-    3.1415927,
-    () => true,
-    {},
-];
+    return "midtone";
+}
