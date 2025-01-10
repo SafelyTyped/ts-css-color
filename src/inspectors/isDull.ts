@@ -44,6 +44,8 @@ import { shade } from "./shade";
  * @returns
  * - `true` if the color is dull
  * - `false` if the color is light or dark
+ *
+ * @deprecated use {@link isMidtone} instead
  */
 export function isDull(input: AnyCssColor): boolean
 {

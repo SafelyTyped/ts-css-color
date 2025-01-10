@@ -34,6 +34,7 @@ The following changes have been completed, and will be included in the next tagg
 ### Deprecations
 
 * deprecated `shade()` (use `tonality()` instead)
+* deprecated `isDull()` (use `isMidtone()` instead)
 
 ## v1.0.2
 
