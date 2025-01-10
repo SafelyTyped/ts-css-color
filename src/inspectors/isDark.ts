@@ -33,19 +33,19 @@
 //
 
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { shade } from "./shade";
+import { tonality } from "./tonality";
 
 /**
  * isDark() returns true if the given `input` color is a dark color
- * (as determined by {@link shade}).
+ * (as determined by {@link tonality}).
  *
  * @param input -
  * the color to examine
  * @returns
  * - `true` if the color is dark
- * - `false` if the color is dull or light
+ * - `false` otherwise
  */
 export function isDark(input: AnyCssColor): boolean
 {
-    return shade(input) == "dark";
+    return tonality(input) == "dark";
 }

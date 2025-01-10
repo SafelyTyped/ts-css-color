@@ -30,6 +30,10 @@ The following changes have been completed, and will be included in the next tagg
 
 * `hues()` no longer reports monochrome colors as having a `red` hue
 
+### Deprecations
+
+* deprecated `shade()` (use `tonality()` instead)
+
 ## v1.0.2
 
 Released Sunday, 16th June 2024.

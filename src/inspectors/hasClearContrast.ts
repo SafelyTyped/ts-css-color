@@ -33,7 +33,7 @@
 //
 
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { shade } from "./shade";
+import { tonality } from "./tonality";
 
 /**
  * hasClearContrast() determines whether or not two given colors are
@@ -46,22 +46,23 @@ import { shade } from "./shade";
  * @param b - the other color to compare against
  * @returns
  * - `true` if one color is light and the other is dark
- * - `false` if either color is dull
- * - `false` if both colors are either light or dark
+ * - `false` if either color is a midtone
+ * - `false` if both colors are light
+ * - `false` if both colors are dark
  */
 export function hasClearContrast(
     a: AnyCssColor,
     b: AnyCssColor
 ): boolean
 {
-    const aShade = shade(a);
-    const bShade = shade(b);
+    const toneA = tonality(a);
+    const toneB = tonality(b);
 
-    // can't be clear contrast if either shade lands in the middle
-    if (aShade === "dull" || bShade === "dull") {
+    // can't be clear contrast if either color lands in the middle
+    if (toneA === "midtone" || toneB === "midtone") {
         return false;
     }
 
     // can only be clear contrast if one is "light" and one is "dark"
-    return aShade != bShade;
+    return toneA != toneB;
 }
