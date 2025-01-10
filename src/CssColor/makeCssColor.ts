@@ -112,6 +112,7 @@ export function makeCssColor(
     // did we get a model in the first place?
     if (model === null) {
         // no we did not
+        // eslint-disable-next-line @typescript-eslint/only-throw-error
         throw onError(
             new UnsupportedCssColorDefinitionError({
                 public: {

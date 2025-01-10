@@ -41,6 +41,8 @@ The following changes have been completed, and will be included in the next tagg
 
 * upgraded to eslint v9
   * upgraded associated linting plugins to match
+* upgraded to Typescript v5.7
+* upgraded @swc/cli to v0.6.0
 
 ## v1.0.2
 
