@@ -25,6 +25,10 @@ The following changes have been completed, and will be included in the next tagg
 
 * Added `isMonochrome()` inspector function
 
+### Fixes
+
+* `hues()` no longer reports monochrome colors as having a `red` hue
+
 ## v1.0.2
 
 Released Sunday, 16th June 2024.

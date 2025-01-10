@@ -34,6 +34,7 @@
 
 import { HashMap } from "@safelytyped/core-types";
 import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
+import { isMonochrome } from "../isMonochome";
 
 /**
  * Hue is a type. It represents all of the valid color hues that we
@@ -88,10 +89,33 @@ const huesMap: HuesMap = {
 export function hues(input: AnyCssColor): Hue[]
 {
     // our return value
+    let retval = grayHues(input);
+
+    // special case - we need to bail early if this is a true monochrome
+    // color
+    //
+    // it doesn't make sense to look at the color hue in this case
+    if (isMonochrome(input)) {
+        return retval;
+    }
+
+    // at this point, we can add in the color hues
+    retval = [
+        ...retval,
+        ...colorHues(input)
+    ];
+
+    // all done
+    return retval;
+}
+
+function grayHues(input: AnyCssColor): Hue[]
+{
+    // our return value
     const retval: Hue[] = [];
 
     // what is the hue?
-    const { hue, saturation, luminosity } = input.hsl().channelsData();
+    const { saturation, luminosity } = input.hsl().channelsData();
 
     // special case
     if (saturation < 15) {
@@ -107,6 +131,18 @@ export function hues(input: AnyCssColor): Hue[]
     if (luminosity > 85) {
         retval.push("white");
     }
+
+    // all done
+    return retval;
+}
+
+function colorHues(input: AnyCssColor): Hue[]
+{
+    // our return value
+    const retval: Hue[] = [];
+
+    // what is the hue?
+    const hue = input.hue();
 
     // special case
     if (hue > 330 || hue < 30) {

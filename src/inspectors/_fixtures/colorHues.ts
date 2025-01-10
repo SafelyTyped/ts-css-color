@@ -139,6 +139,7 @@ export const NON_PURPLE_COLORS = [
 export const NON_RED_COLORS = [
     ...GREEN_COLORS,
     ...BLUE_COLORS,
+    "#fafafa", // tw-neutral-50
 ];
 
 export const NON_VIOLET_COLORS = [
