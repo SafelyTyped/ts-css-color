@@ -33,8 +33,8 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "@safelytyped/css-color";
 import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "../../inspectors/_fixtures/colorShades";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssExtendedColors/CssExtendedColors.const";
 
 export const ValidCssHexColorDefinitions = [
     // we use Set() to dedupe the color definitions

@@ -30,6 +30,7 @@ The following changes have been completed, and will be included in the next tagg
 ### Fixes
 
 * `hues()` no longer reports monochrome colors as having a `red` hue
+* package now works when used with `npm link`
 
 ### Deprecations
 

@@ -51,10 +51,10 @@ export function tonality(input: AnyCssColor): Tonality
 {
     const y = luma(input);
 
-    if (y < 100) {
+    if (y < 128) {
         return "dark";
     }
-    if (y > 155) {
+    if (y > 191) {
         return "light";
     }
 

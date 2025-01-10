@@ -44,7 +44,8 @@ import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannels
 import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData, CssRgbColorData } from "@safelytyped/css-color";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`

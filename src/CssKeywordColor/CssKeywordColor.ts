@@ -43,7 +43,9 @@ import type { CssKeywordColorData } from "./CssKeywordColorData.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
 import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
-import type { CssHslColorData, CssHwbColorData, CssRgbColorData } from "@safelytyped/css-color";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
