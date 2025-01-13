@@ -33,47 +33,82 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
-import { isMonochrome } from "../isMonochome";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { isMonochrome } from "./isMonochome";
 
 /**
  * Hue is a type. It represents all of the valid color hues that we
  * can classify a color into.
  */
 export type Hue =
+    // achromatic
     "black"
     | "white"
     | "gray"
     | "red"
-    | "pink"
+    | "brown"
     | "orange"
-    | "violet"
-    | "purple"
     | "yellow"
+    | "lime"
+    | "chartreuse"
     | "green"
+    | "springgreen"
+    | "teal"
     | "cyan"
+    | "azure"
+    | "indigo"
     | "blue"
+    | "violet"
     | "magenta"
+    | "fuchsia"
+    | "purple"
+    | "rose"
+    | "pink"
     ;
+
+type PolarRangeChecker = (min: number, max: number, hue: number) => boolean;
+
+const fallsInRange: PolarRangeChecker =
+    (min: number, max: number, value: number) =>
+        (max > min)
+            ? (value >= min) && (value < max)
+            : (value >= min) || (value < max);
+
+
+type HueRangeChecker = (hue: number) => boolean;
 
 /**
  * HuesMap is a type, mapping named {@link Hue}s onto their valid ranges.
  */
-type HuesMap = Partial<Record<Hue, string>>;
+type HuesMap = Partial<Record<Hue, HueRangeChecker>>;
 
 /**
- * huesMap lists the hues that we calculate on their ranges
+ * huesMap lists the ranges for each hue
+ *
+ * color hue classifications seem to be highly subjective, and many
+ * of the CSS extended colors do not fall into the hue that you might
+ * expect!
  */
-const huesMap: HuesMap = {
-    yellow: "31-90",
-    orange: "37-44",
-    green: "91-150",
-    cyan: "151-210",
-    blue: "211-270",
-    violet: "268-273",
-    purple: "272-300",
-    magenta: "271-330",
-    pink: "345-355",
+const CHROMA_HUES_MAP: HuesMap = {
+    red: (x) => fallsInRange(355, 30, x),
+    brown: (x) => fallsInRange(5, 20, x),
+    orange: (x) => fallsInRange(25, 55, x),
+    yellow: (x) => fallsInRange(55, 85, x),
+    lime: (x) => fallsInRange(65, 75, x),
+    chartreuse: (x) => fallsInRange(85, 115, x),
+    green: (x) => fallsInRange(115, 145, x),
+    springgreen: (x) => fallsInRange(145, 175, x),
+    teal: (x) => fallsInRange(168, 180, x),
+    cyan: (x) => fallsInRange(175, 215, x),
+    azure: (x) => fallsInRange(205, 235, x),
+    blue: (x) => fallsInRange(235, 270, x),
+    indigo: (x) => fallsInRange(250, 265, x),
+    violet: (x) => fallsInRange(265, 295, x),
+    magenta: (x) => fallsInRange(295, 325, x),
+    fuchsia: (x) => fallsInRange(295, 325, x),
+    purple: (x) => fallsInRange(295, 325, x),
+    rose: (x) => fallsInRange(325, 345, x),
+    pink: (x) => fallsInRange(345, 355, x),
 };
 
 /**
@@ -138,28 +173,15 @@ function grayHues(input: AnyCssColor): Hue[]
 
 function colorHues(input: AnyCssColor): Hue[]
 {
-    // our return value
-    const retval: Hue[] = [];
-
     // what is the hue?
     const hue = input.hue();
 
-    // special case
-    if (hue > 330 || hue < 30) {
-        retval.push("red");
-    }
-
-    // general case
-    HashMap.forEach(huesMap, (range, hueName) => {
-        const parts = range.split("-");
-        const min = parseInt(parts[0]);
-        const max = parseInt(parts[1]);
-
-        if (hue >= min && hue <= max) {
-            retval.push(hueName as Hue);
-        }
-    });
+    // our return value
+    const filteredHuesMap = HashMap.filter(
+        CHROMA_HUES_MAP,
+        (checker) => checker(hue)
+    );
 
     // all done
-    return retval;
+    return HashMap.keys(filteredHuesMap) as Hue[];
 }

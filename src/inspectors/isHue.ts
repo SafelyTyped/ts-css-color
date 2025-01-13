@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,23 +32,21 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
-import { isHue } from "../isHue";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { hues, type Hue } from "./hues";
 
 /**
- * isWhiteHue() returns true if the given `input` color is a white hue.
+ * isHue() returns `true` if the given `input` maps onto all of the given
+ * `requiredHues`
  *
- * @param input -
- * the CssColor to inspect
- * @returns
- * - `true` if `input` is a white hue
- * - `false` otherwise
- *
- * @deprecated Use `isHue(input, "white")` instead.
+ * @param input - the color to inspect
+ * @param requiredHues - one or more hues to check for
  */
-export function isWhiteHue(
-    input: AnyCssColor
+export function isHue(
+    input: AnyCssColor,
+    ...requiredHues: Hue[]
 ): boolean
 {
-    return isHue(input, "white");
+    const inputHues = hues(input);
+    return requiredHues.every(hue => inputHues.includes(hue));
 }

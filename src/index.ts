@@ -159,7 +159,8 @@ export { relativeLuminance } from "./inspectors/relativeLuminance";
 export { type Shade, shade } from "./inspectors/shade";
 export { type Tonality, tonality } from "./inspectors/tonality";
 
-export { type Hue, hues } from "./inspectors/hues/hues";
+export { type Hue, hues } from "./inspectors/hues";
+export { isHue } from "./inspectors/isHue";
 export { isBlackHue } from "./inspectors/hues/isBlackHue";
 export { isBlueHue } from "./inspectors/hues/isBlueHue";
 export { isCyanHue } from "./inspectors/hues/isCyanHue";
