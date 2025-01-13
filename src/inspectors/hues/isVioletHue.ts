@@ -33,7 +33,7 @@
 //
 
 import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
-import { hues } from "./hues";
+import { isHue } from "../isHue";
 
 /**
  * isVioletHue() returns true if the given `input` color is a violet hue.
@@ -43,10 +43,12 @@ import { hues } from "./hues";
  * @returns
  * - `true` if `input` is a violet hue
  * - `false` otherwise
+ *
+ * @deprecated Use `isHue(input, "violet")` instead.
  */
 export function isVioletHue(
     input: AnyCssColor
 ): boolean
 {
-    return hues(input).some((hue) => hue === "violet");
+    return isHue(input, "violet");
 }

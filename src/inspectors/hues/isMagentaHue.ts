@@ -33,7 +33,7 @@
 //
 
 import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
-import { hues } from "./hues";
+import { isHue } from "../isHue";
 
 /**
  * isMagentaHue() returns true if the given `input` color is a magenta hue.
@@ -43,10 +43,12 @@ import { hues } from "./hues";
  * @returns
  * - `true` if `input` is a magenta hue
  * - `false` otherwise
+ *
+ * @deprecated Use `isHue(input, "orange")` instead.
  */
 export function isMagentaHue(
     input: AnyCssColor
 ): boolean
 {
-    return hues(input).some((hue) => hue === "magenta");
+    return isHue(input, "magenta");
 }

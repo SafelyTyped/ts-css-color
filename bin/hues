@@ -1,0 +1,16 @@
+#! /usr/bin/env node
+
+import { CSS_EXTENDED_COLORS_TO_HEX, hues, makeCssColor } from "../lib/cjs/index.js";
+
+const hueToFind = process.argv[2];
+
+Object.keys(CSS_EXTENDED_COLORS_TO_HEX).forEach(
+    (key) => {
+        const cssColor = makeCssColor(CSS_EXTENDED_COLORS_TO_HEX[key]);
+        const colorHues = hues(cssColor);
+
+        if (colorHues.includes(hueToFind)) {
+            console.log(key);
+        }
+    }
+)

@@ -32,129 +32,462 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CSS_EXTENDED_COLORS_TO_HEX } from "@safelytyped/css-color";
-
-export const GRAY_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.gray,
-    CSS_EXTENDED_COLORS_TO_HEX.dimgray,
-    CSS_EXTENDED_COLORS_TO_HEX.darkgray,
-];
-
 export const BLACK_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.black,
+    "black",
     "#222",
 ];
 
 export const WHITE_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.white,
+    "white",
+];
+
+export const GRAY_COLORS = [
+    "gray",
+    "dimgray",
+    "darkgray",
 ];
 
 export const RED_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.red,
+    "red",
+    "tomato",
 ];
 
-export const PINK_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.pink,
+export const BROWN_COLORS = [
+    "coral",
 ];
 
 export const ORANGE_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.orange,
-];
-
-export const VIOLET_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.rebeccapurple,
-];
-
-export const PURPLE_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.purple,
+    "orange",
+    "gold",
+    "linen",
 ];
 
 export const YELLOW_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.yellow,
+    "yellow",
+    "olive",
 ];
 
+export const LIME_COLORS = [
+    "#E6EE9C",
+];
+export const CHARTREUSE_COLORS = [
+    "chartreuse",
+];
 export const GREEN_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.green,
+    "green",
+    "lime",
+    "limegreen",
+];
+
+export const SPRINGGREEN_COLORS = [
+    "mintcream",
+];
+
+export const TEAL_COLORS = [
+    "turquoise",
 ];
 
 export const CYAN_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.cyan,
+    "cyan",
+    "powderblue",
+    "skyblue",
+];
+
+export const AZURE_COLORS = [
+    "cornflowerblue",
+];
+
+export const INDIGO_COLORS = [
+    "#7E57C2",
 ];
 
 export const BLUE_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.blue,
+    "blue",
+    "navy",
+];
+
+export const VIOLET_COLORS = [
+    "rebeccapurple",
 ];
 
 export const MAGENTA_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.magenta,
+    "magenta",
 ];
 
-export const NON_GRAY_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.rebeccapurple,
+export const FUCHSIA_COLORS = [
+    "magenta",
+];
+
+export const PURPLE_COLORS = [
+    "purple",
+    "magenta",
+];
+
+export const ROSE_COLORS = [
+    "hotpink",
+];
+
+export const PINK_COLORS = [
+    "crimson",
+    "pink",
 ];
 
 export const NON_BLACK_COLORS = [
-    CSS_EXTENDED_COLORS_TO_HEX.white,
-    CSS_EXTENDED_COLORS_TO_HEX.red,
-    CSS_EXTENDED_COLORS_TO_HEX.green,
-    CSS_EXTENDED_COLORS_TO_HEX.blue,
-];
-
-export const NON_BLUE_COLORS = [
-    ...YELLOW_COLORS,
-    ...ORANGE_COLORS,
-];
-
-export const NON_CYAN_COLORS = [
-    ...PURPLE_COLORS,
-    ...YELLOW_COLORS,
-];
-
-export const NON_GREEN_COLORS = [
-    ...PINK_COLORS,
-    ...MAGENTA_COLORS,
-];
-
-export const NON_MAGENTA_COLORS = [
-    ...ORANGE_COLORS,
-    ...GREEN_COLORS,
-];
-
-export const NON_ORANGE_COLORS = [
-    ...MAGENTA_COLORS,
-    ...BLUE_COLORS,
-];
-
-export const NON_PINK_COLORS = [
-    ...GREEN_COLORS,
-    ...CYAN_COLORS,
-];
-
-export const NON_PURPLE_COLORS = [
-    ...YELLOW_COLORS,
-    ...GREEN_COLORS,
-    ...ORANGE_COLORS,
-];
-
-export const NON_RED_COLORS = [
-    ...GREEN_COLORS,
-    ...BLUE_COLORS,
-    "#fafafa", // tw-neutral-50
-];
-
-export const NON_VIOLET_COLORS = [
-    ...YELLOW_COLORS,
-    ...ORANGE_COLORS,
-    ...CYAN_COLORS
-];
-
-export const NON_YELLOW_COLORS = [
-    ...PURPLE_COLORS,
-    ...MAGENTA_COLORS,
+    "white",
+    "red",
+    "green",
+    "blue",
 ];
 
 export const NON_WHITE_COLORS = [
     ...BLACK_COLORS,
+];
+
+export const NON_GRAY_COLORS = [
+    "rebeccapurple",
+];
+
+export const NON_RED_COLORS = [
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+    "#fafafa", // tw-neutral-50
+];
+
+export const NON_BROWN_COLORS = [
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_ORANGE_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_YELLOW_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_LIME_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_CHARTREUSE_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_GREEN_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_SPRINGGREEN_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_TEAL_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_CYAN_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_AZURE_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_INDIGO_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_BLUE_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_VIOLET_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_MAGENTA_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_FUCHSIA_COLORS = NON_MAGENTA_COLORS;
+export const NON_PURPLE_COLORS = NON_MAGENTA_COLORS;
+
+export const NON_ROSE_COLORS = [
+    ...RED_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
+    ...YELLOW_COLORS,
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...PINK_COLORS,
+];
+
+export const NON_PINK_COLORS = [
+    ...AZURE_COLORS,
+    ...BLUE_COLORS,
+    ...CYAN_COLORS,
+    ...GREEN_COLORS,
+    ...LIME_COLORS,
+    ...ORANGE_COLORS,
+    ...PURPLE_COLORS,
+    ...RED_COLORS,
+    ...TEAL_COLORS,
+    ...VIOLET_COLORS,
+    ...YELLOW_COLORS,
 ];
 
 export const MONOCHROME_COLORS = [
@@ -162,14 +495,23 @@ export const MONOCHROME_COLORS = [
 ];
 
 export const NON_MONOCHROME_COLORS = [
-    ...BLUE_COLORS,
-    ...CYAN_COLORS,
-    ...GREEN_COLORS,
-    ...MAGENTA_COLORS,
-    ...ORANGE_COLORS,
-    ...PINK_COLORS,
-    ...PURPLE_COLORS,
     ...RED_COLORS,
-    ...VIOLET_COLORS,
+    ...BROWN_COLORS,
+    ...ORANGE_COLORS,
     ...YELLOW_COLORS,
-]
+    ...LIME_COLORS,
+    ...CHARTREUSE_COLORS,
+    ...GREEN_COLORS,
+    ...SPRINGGREEN_COLORS,
+    ...TEAL_COLORS,
+    ...CYAN_COLORS,
+    ...AZURE_COLORS,
+    ...INDIGO_COLORS,
+    ...BLUE_COLORS,
+    ...VIOLET_COLORS,
+    ...MAGENTA_COLORS,
+    ...FUCHSIA_COLORS,
+    ...PURPLE_COLORS,
+    ...ROSE_COLORS,
+    ...PINK_COLORS,
+];

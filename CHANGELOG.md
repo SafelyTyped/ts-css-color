@@ -21,6 +21,39 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### New
+
+* Added `isHue()` inspector function
+* Added support for extra hues
+  * `brown`
+  * `lime`
+  * `chartreuse`
+  * `springgreen`
+  * `teal`
+  * `azure`
+  * `indigo`
+  * `fuchsia`
+  * `rose`
+
+### Fixes
+
+* (hopefully!) improved color hue classifications
+
+### Deprecations
+
+* deprecated `isBlackHue()`
+* deprecated `isBlueHue()`
+* deprecated `isCyanHue()`
+* deprecated `isGrayHue()`
+* deprecated `isGreenHue()`
+* deprecated `isOrangeHue()`
+* deprecated `isPinkHue()`
+* deprecated `isPurpleHue()`
+* deprecated `isRedHue()`
+* deprecated `isVioletHue()`
+* deprecated `isWhiteHue()`
+* deprecated `isYellowHue()`
+
 ## v1.1.0
 
 Released Friday, 10th January 2025.

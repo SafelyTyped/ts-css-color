@@ -1,0 +1,10 @@
+#! /usr/bin/env node
+
+import { hues, makeCssColor } from "../lib/cjs/index.js";
+
+const colorDef = process.argv[2];
+const cssColor = makeCssColor(colorDef);
+const colorHues = hues(cssColor);
+
+console.log("hues: " + colorHues.join(", "));
+console.log("hsl(" + cssColor.hsl().channelsTuple().join(", ") + ")");
