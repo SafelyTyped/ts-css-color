@@ -98,7 +98,7 @@ export const AZURE_COLORS = [
 ];
 
 export const INDIGO_COLORS = [
-    "#7E57C2",
+    "#5C6BC0",
 ];
 
 export const BLUE_COLORS = [
