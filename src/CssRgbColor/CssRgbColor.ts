@@ -46,6 +46,8 @@ import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGua
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssRgbColorData } from "./makeCssRgbColorData";
+import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
@@ -155,9 +157,9 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         ];
     }
 
-    public hex(): string
+    public hex(): CssHexColorDefinition
     {
-        return "#" + colorConvert.rgb.hex(this.channelsTuple()).toLowerCase();
+        return makeCssHexColorDefinition("#" + colorConvert.rgb.hex(this.channelsTuple()).toLowerCase());
     }
 
     // ================================================================

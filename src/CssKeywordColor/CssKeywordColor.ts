@@ -46,6 +46,8 @@ import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannel
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
+import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
@@ -168,8 +170,8 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         return this.rgb().channelsTuple();
     }
 
-    public hex(): string {
-        return CSS_EXTENDED_COLORS_TO_HEX[this.data.definition as CssExtendedColor];
+    public hex(): CssHexColorDefinition {
+        return makeCssHexColorDefinition(CSS_EXTENDED_COLORS_TO_HEX[this.data.definition as CssExtendedColor]);
     }
 
     public keyword(): Maybe<CssExtendedColor>
