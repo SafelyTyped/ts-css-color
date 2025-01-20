@@ -46,6 +46,8 @@ import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type Fun
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
@@ -157,11 +159,11 @@ export class CssHexColor extends CssColor<CssHexColorData>
         return this.rgb().channelsTuple();
     }
 
-    public hex(): string
+    public hex(): CssHexColorDefinition
     {
         // general case
         if (this.data.definition.length > 4) {
-            return this.data.definition;
+            return makeCssHexColorDefinition(this.data.definition);
         }
 
         // if we get here, we need to convert the hex string to
@@ -170,7 +172,7 @@ export class CssHexColor extends CssColor<CssHexColorData>
         const g = this.data.definition.substring(2, 3);
         const b = this.data.definition.substring(3, 4);
 
-        return "#" + r + r + g + g + b + b;
+        return makeCssHexColorDefinition("#" + r + r + g + g + b + b);
     }
 
     // ================================================================

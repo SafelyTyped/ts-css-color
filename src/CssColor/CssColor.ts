@@ -43,6 +43,7 @@ import { roundTo } from "@safelytyped/math-rounding";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -138,7 +139,7 @@ export abstract class CssColor<E extends CssColorData> {
      * the returned string will always be in lowercase
      * the returned string will always be 7 chars long
      */
-    public hex(): string
+    public hex(): CssHexColorDefinition
     {
         return this.rgb().hex();
     }
