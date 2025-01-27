@@ -21,6 +21,10 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+## v1.3.1
+
+Released Monday, 27th January 2025.
+
 ### Fixes
 
 * revert contrast thresholds in `wcagContrast()`
@@ -28,7 +32,7 @@ The following changes have been completed, and will be included in the next tagg
 
 ## v1.3.0
 
-Released Monday, 27th Jan 2025.
+Released Monday, 27th January 2025.
 
 ### New
 
