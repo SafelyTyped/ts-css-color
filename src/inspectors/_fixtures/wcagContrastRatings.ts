@@ -46,7 +46,7 @@ export const WCAG_CONSTRAST_RATINGS: { [contrastRatio: string]: WcagContrastRati
         normal: "not accessible",
         ui: "not accessible",
     },
-    "3.1": {
+    "3.0": {
         A_normal: true,
         AA_normal: false,
         AA_large: true,

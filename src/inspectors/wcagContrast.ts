@@ -47,10 +47,10 @@ export function wcagContrast(contrastRatio: number): WcagContrastRatings
 {
     // our return value
     const retval: WcagContrastRatings = {
-        "A_normal": contrastRatio >= 3.1,
+        "A_normal": contrastRatio >= 3.0,
         "AA_normal": contrastRatio >= 4.5,
-        "AA_large": contrastRatio >= 3.1,
-        "AA_ui": contrastRatio >= 3.1,
+        "AA_large": contrastRatio >= 3.0,
+        "AA_ui": contrastRatio >= 3.0,
         "AAA_normal": contrastRatio >= 7.0,
         "AAA_large": contrastRatio >= 4.5,
         large: "not accessible",
