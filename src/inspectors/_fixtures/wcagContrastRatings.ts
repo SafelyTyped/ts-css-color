@@ -42,14 +42,20 @@ export const WCAG_CONSTRAST_RATINGS: { [contrastRatio: string]: WcagContrastRati
         AA_ui: false,
         AAA_normal: false,
         AAA_large: false,
+        large: "not accessible",
+        normal: "not accessible",
+        ui: "not accessible",
     },
-    "3.0": {
+    "3.1": {
         A_normal: true,
         AA_normal: false,
         AA_large: true,
         AA_ui: true,
         AAA_normal: false,
         AAA_large: false,
+        large: "AA",
+        normal: "A",
+        ui: "AA",
     },
     "4.5": {
         A_normal: true,
@@ -58,6 +64,9 @@ export const WCAG_CONSTRAST_RATINGS: { [contrastRatio: string]: WcagContrastRati
         AA_ui: true,
         AAA_normal: false,
         AAA_large: true,
+        large: "AAA",
+        normal: "AA",
+        ui: "AA",
     },
     "7.0": {
         A_normal: true,
@@ -66,5 +75,8 @@ export const WCAG_CONSTRAST_RATINGS: { [contrastRatio: string]: WcagContrastRati
         AA_ui: true,
         AAA_normal: true,
         AAA_large: true,
+        large: "AAA",
+        normal: "AAA",
+        ui: "AA",
     },
 };

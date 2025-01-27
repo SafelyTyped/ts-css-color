@@ -21,9 +21,15 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### New
+
+* added summary fields to `WcagContrastRatings` type
+* `wcagContrast()` now returns summary fields too
+
 ### Fixes
 
 * `relativeLuminance()` now uses the latest WCAG formula
+* `wcagContrast()` now uses the correct contrast thresholds from WCAG 2.2
 
 ## v1.2.2
 
