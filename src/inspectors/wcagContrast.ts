@@ -45,12 +45,24 @@ import type { WcagContrastRatings } from "../WcagContrastRatings/WcagContrastRat
  */
 export function wcagContrast(contrastRatio: number): WcagContrastRatings
 {
-    return {
-        "A_normal": contrastRatio >= 3.0,
+    // our return value
+    const retval: WcagContrastRatings = {
+        "A_normal": contrastRatio >= 3.1,
         "AA_normal": contrastRatio >= 4.5,
-        "AA_large": contrastRatio >= 3.0,
-        "AA_ui": contrastRatio >= 3.0,
+        "AA_large": contrastRatio >= 3.1,
+        "AA_ui": contrastRatio >= 3.1,
         "AAA_normal": contrastRatio >= 7.0,
         "AAA_large": contrastRatio >= 4.5,
+        large: "not accessible",
+        normal: "not accessible",
+        ui: "not accessible",
     };
+
+    // add summaries
+    retval.large = retval.AAA_large ? "AAA" : retval.AA_large ? "AA" : "not accessible";
+    retval.normal = retval.AAA_normal ? "AAA" : retval.AA_normal ? "AA" : retval.A_normal ? "A" : "not accessible";
+    retval.ui = retval.AA_ui ? "AA" : "not accessible";
+
+    // all done
+    return retval;
 }

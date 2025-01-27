@@ -81,4 +81,19 @@ export type WcagContrastRatings = {
      * is this good enough for the WCAG AAA rating for headlines?
      */
     "AAA_large": boolean,
+
+    /**
+     * what is the WCAG rating for headlines?
+     */
+    large: "AAA" | "AA" | "not accessible",
+
+    /**
+     * what is the WCAG rating for body text?
+     */
+    normal: "AAA" | "AA" | "A" | "not accessible",
+
+    /**
+     * what is the WCAG rating for UI controls?
+     */
+    ui: "AA" | "A" | "not accessible",
 };

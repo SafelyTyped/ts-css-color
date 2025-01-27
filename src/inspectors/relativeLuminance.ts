@@ -40,6 +40,8 @@ import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
  *
  * This is an alternative to the {@link luma} value.
  *
+ * Algorithm from: https://www.w3.org/TR/WCAG22/#dfn-relative-luminance
+ *
  * @param input -
  * the color to calculate the relative luminance of
  * @returns the calculated relative luminance
@@ -54,9 +56,9 @@ export function relativeLuminance(input: AnyCssColor): number
     const bsRGB = blue / 255;
 
     // normalise the channel values
-    const r = rsRGB <= 0.03928 ? rsRGB / 12.92 : ((rsRGB+0.055) / 1.055) ** 2.4;
-    const g = gsRGB <= 0.03928 ? gsRGB / 12.92 : ((gsRGB+0.055) / 1.055) ** 2.4;
-    const b = bsRGB <= 0.03928 ? bsRGB / 12.92 : ((bsRGB+0.055) / 1.055) ** 2.4;
+    const r = rsRGB <= 0.04045 ? rsRGB / 12.92 : ((rsRGB+0.055) / 1.055) ** 2.4;
+    const g = gsRGB <= 0.04045 ? gsRGB / 12.92 : ((gsRGB+0.055) / 1.055) ** 2.4;
+    const b = bsRGB <= 0.04045 ? bsRGB / 12.92 : ((bsRGB+0.055) / 1.055) ** 2.4;
 
     // calculate the relative luminance
     const l = 0.2126 * r + 0.7152 * g + 0.0722 * b;

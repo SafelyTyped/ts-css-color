@@ -21,6 +21,20 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+## v1.3.0
+
+Released Monday, 27th Jan 2025.
+
+### New
+
+* added summary fields to `WcagContrastRatings` type
+* `wcagContrast()` now returns summary fields too
+
+### Fixes
+
+* `relativeLuminance()` now uses the latest WCAG formula
+* `wcagContrast()` now uses the correct contrast thresholds from WCAG 2.2
+
 ## v1.2.2
 
 Released Monday, 20th January 2025.
