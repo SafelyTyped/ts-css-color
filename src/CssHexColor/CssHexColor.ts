@@ -110,9 +110,14 @@ export class CssHexColor extends CssColor<CssHexColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        const rgb = colorConvert.hex.rgb(this.hex());
+        // special case - can we use the cached value?
+        if (this.cachedConversions.rgb && fnOpts.length === 0) {
+            return this.cachedConversions.rgb;
+        }
 
-        return new CssRgbColor(
+        // general case
+        const rgb = colorConvert.hex.rgb(this.hex());
+        const retval = new CssRgbColor(
             makeCssRgbColorData(
                 this.data.name,
                 this.data.definition,
@@ -126,6 +131,15 @@ export class CssHexColor extends CssColor<CssHexColorData>
                 ...fnOpts,
             ),
         );
+
+        // do we have a static conversion?
+        if (fnOpts.length === 0) {
+            // yes, so cache it!
+            this.cachedConversions.rgb = retval;
+        }
+
+        // all done
+        return retval;
     }
 
     // ================================================================

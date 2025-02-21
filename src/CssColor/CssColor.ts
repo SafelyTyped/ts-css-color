@@ -45,6 +45,12 @@ import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 
+interface CachedConversions {
+    hsl: Maybe<CssHslColor>;
+    hwb: Maybe<CssHwbColor>;
+    rgb: Maybe<CssRgbColor>;
+}
+
 /**
  * CssColor holds the representation of a CSS color.
  *
@@ -87,6 +93,22 @@ export abstract class CssColor<E extends CssColorData> {
      * @memberof CssColor
      */
     protected conversionRoundingFunc = Math.round;
+
+    /**
+     * we don't want to constantly repeat color conversions just to access
+     * the component values
+     *
+     * so we'll cache them here
+     *
+     * @protected
+     * @type {CachedConversions}
+     * @memberof CssColor
+     */
+    protected cachedConversions: CachedConversions = {
+        hsl: undefined,
+        hwb: undefined,
+        rgb: undefined,
+    };
 
     /**
      * constructor
