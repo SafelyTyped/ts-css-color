@@ -377,7 +377,7 @@ export const InvalidMakeCssOklchColorParameters = [
             channels: {
                 lightness: 0.5032,
                 chroma: 0,
-                hue: 1.01,
+                hue: 360.01,
                 alpha: 1,
             }
         }

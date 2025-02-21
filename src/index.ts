@@ -106,6 +106,7 @@ export type { CssOklchColorData } from "./CssOklchColor/CssOklchColorData.type";
 export type { CssOklchColorChannelsData } from "./CssOklchColor/CssOklchColorChannelsData.type";
 export { isCssOklchColorChannelsData } from "./CssOklchColor/isCssOklchColorChannelsData";
 export { isCssOklchColorData } from "./CssOklchColor/isCssOklchColorData";
+export { makeCssOklchColorData } from "./CssOklchColor/makeCssOklchColorData";
 export { mustBeCssOklchColorChannelsData } from "./CssOklchColor/mustBeCssOklchColorChannelsData";
 export { mustBeCssOklchColorData } from "./CssOklchColor/mustBeCssOklchColorData";
 export { validateCssOklchColorChannelsData } from "./CssOklchColor/validateCssOklchColorChannelsData";
