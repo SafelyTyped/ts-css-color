@@ -145,6 +145,56 @@ export class CssHexColor extends CssColor<CssHexColorData>
 
     // ================================================================
     //
+    // COMPONENT VALUES
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * red() returns the `R` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `R` component from the RGB definition
+     */
+    public red()
+    {
+        return this.rgb().red();
+    }
+
+    /**
+     * green() returns the `G` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `G` component from the RGB definition
+     */
+    public green()
+    {
+        return this.rgb().green();
+    }
+
+    /**
+     * blue() returns the `B` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `B` component from the RGB definition
+     */
+    public blue()
+    {
+        return this.rgb().blue();
+    }
+
+    /**
+     * alpha() returns the alpha channel value of this color, as a number
+     * between 0-1
+     *
+     * @returns the `alpha` channel of this color
+     */
+    public alpha()
+    {
+        return this.rgb().alpha();
+    }
+
+    // ================================================================
+    //
     // OTHER FORMATS
     //
     // ----------------------------------------------------------------
