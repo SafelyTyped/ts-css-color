@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import * as colorConvert from "color-convert";
+import hsl from "color-space/hsl.js";
 
 import { CssColor } from "../CssColor/CssColor";
 import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
@@ -67,7 +67,7 @@ export class CssHslColor extends CssColor<CssHslColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        const model = colorConvert.hsl.rgb.raw(this.channelsTuple());
+        const model = hsl.rgb(this.channelsTuple());
 
         return new CssRgbColor(
             makeCssRgbColorData(
@@ -117,7 +117,7 @@ export class CssHslColor extends CssColor<CssHslColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        const model = colorConvert.hsl.hwb.raw(this.channelsTuple());
+        const model = hsl.hwb(this.channelsTuple());
 
         return new CssHwbColor(
             makeCssHwbColorData(

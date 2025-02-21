@@ -32,7 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import * as colorConvert from "color-convert";
+import rgb from "color-space/rgb.js";
+import rgbHex from "rgb-hex";
 
 import { CssColor } from "../CssColor/CssColor";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
@@ -63,7 +64,7 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        const model = colorConvert.rgb.hsl.raw(this.channelsTuple());
+        const model = rgb.hsl(this.channelsTuple());
 
         return new CssHslColor(
             makeCssHslColorData(
@@ -89,7 +90,7 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
+        const model = rgb.hwb(this.channelsTuple());
 
         return new CssHwbColor(
             makeCssHwbColorData(
@@ -159,7 +160,13 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
 
     public hex(): CssHexColorDefinition
     {
-        return makeCssHexColorDefinition("#" + colorConvert.rgb.hex(this.channelsTuple()).toLowerCase());
+        const rgbData = this.channelsData();
+        const hexCode = "#" + rgbHex(
+            rgbData.red,
+            rgbData.green,
+            rgbData.blue,
+        ).toLowerCase();
+        return makeCssHexColorDefinition(hexCode);
     }
 
     // ================================================================

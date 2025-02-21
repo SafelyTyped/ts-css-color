@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import * as colorConvert from "color-convert";
+import colorParse from "color-parse";
 
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
@@ -110,16 +110,16 @@ export class CssHexColor extends CssColor<CssHexColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        const rgb = colorConvert.hex.rgb(this.hex());
+        const parsedColor = colorParse(this.hex());
 
         return new CssRgbColor(
             makeCssRgbColorData(
                 this.data.name,
                 this.data.definition,
                 {
-                    red: rgb[0],
-                    green: rgb[1],
-                    blue: rgb[2],
+                    red: parsedColor.values[0],
+                    green: parsedColor.values[1],
+                    blue: parsedColor.values[2],
                     alpha: 1,
                 },
                 {path, onError},
