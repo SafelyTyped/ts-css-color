@@ -174,7 +174,7 @@ function grayHues(input: AnyCssColor): Hue[]
 function colorHues(input: AnyCssColor): Hue[]
 {
     // what is the hue?
-    const hue = input.hue();
+    const hue = input.hsl().hue();
 
     // our return value
     const filteredHuesMap = HashMap.filter(

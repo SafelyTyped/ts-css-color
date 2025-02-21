@@ -46,6 +46,7 @@ import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type Fun
 import { makeCssHslColorData } from "./makeCssHslColorData";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 /**
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
@@ -67,22 +68,27 @@ export class CssHslColor extends CssColor<CssHslColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        const model = hsl.rgb(this.channelsTuple());
+        // how to do the conversion
+        const makerFn = () => {
+            const model = colorConvert.hsl.rgb.raw(this.channelsTuple());
+            return new CssRgbColor(
+                makeCssRgbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        red: this.round(model[0]),
+                        green: this.round(model[1]),
+                        blue: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts,
+                ),
+            );
+        };
 
-        return new CssRgbColor(
-            makeCssRgbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    red: this.round(model[0]),
-                    green: this.round(model[1]),
-                    blue: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            ),
-        );
+        // make it happen
+        return CssColorConversions.toRgb(this, makerFn, fnOpts);
     }
 
     public hsl(
@@ -117,22 +123,27 @@ export class CssHslColor extends CssColor<CssHslColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        const model = hsl.hwb(this.channelsTuple());
+        // how to do the conversion
+        const makerFn = () => {
+            const model = colorConvert.hsl.hwb.raw(this.channelsTuple());
+            return new CssHwbColor(
+                makeCssHwbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        hue: this.round(model[0]),
+                        whiteness: this.round(model[1]),
+                        blackness: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts,
+                ),
+            );
+        };
 
-        return new CssHwbColor(
-            makeCssHwbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    hue: this.round(model[0]),
-                    whiteness: this.round(model[1]),
-                    blackness: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            ),
-        );
+        // make it happen
+        return CssColorConversions.toHwb(this, makerFn, fnOpts);
     }
 
     // ================================================================
@@ -172,21 +183,45 @@ export class CssHslColor extends CssColor<CssHslColorData>
     //
     // ----------------------------------------------------------------
 
+    /**
+     * alpha() returns the alpha channel value of this color, as a number
+     * between 0-1
+     *
+     * @returns the `alpha` channel of this color
+     */
     public alpha(): number
     {
         return this.data.channels.alpha;
     }
 
+    /**
+     * hue() returns the `h` component from the hsl definition, as a number
+     * between 0-359
+     *
+     * @returns the `h` component from the hsl definition
+     */
     public hue(): number
     {
         return this.data.channels.hue;
     }
 
+    /**
+     * saturation() returns the `s` component from the hsl definition,
+     * as a number between 0-100
+     *
+     * @returns the `s` component from the hsl definition
+     */
     public saturation(): number
     {
         return this.data.channels.saturation;
     }
 
+    /**
+     * luminosity() returns the `l` component from the hsl definition,
+     * as a number between 0-1
+     *
+     * @returns the `l` component from the hsl definition
+     */
     public luminosity(): number
     {
         return this.data.channels.luminosity;

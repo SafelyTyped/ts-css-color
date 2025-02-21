@@ -21,6 +21,11 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### B/C Breaks
+
+* component values (`.red()` et al) are no longer available everywhere
+  * you must access them via the appropriate class instead (`color.rgb().red()`)
+
 ### New
 
 * added support for OKLCH color space
@@ -47,6 +52,7 @@ The following changes have been completed, and will be included in the next tagg
 
 * replace `color-string` parser with `color-parse` package
 * replace `color-convert` with `color-space` package
+* improved performance when repeating conversions between color types
 
 ## v1.3.1
 

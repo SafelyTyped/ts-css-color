@@ -46,7 +46,7 @@ import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
 import { makeCssHwbColorData } from "./makeCssHwbColorData";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
-
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 export class CssHwbColor extends CssColor<CssHwbColorData>
 {
@@ -64,22 +64,27 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        const model = hwb.hsl(this.channelsTuple());
+        // how to do the conversion
+        const makerFn = () => {
+            const model = colorConvert.hwb.hsl.raw(this.channelsTuple());
+            return new CssHslColor(
+                makeCssHslColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        hue: this.round(model[0]),
+                        saturation: this.round(model[1]),
+                        luminosity: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts,
+                )
+            );
+        };
 
-        return new CssHslColor(
-            makeCssHslColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    hue: this.round(model[0]),
-                    saturation: this.round(model[1]),
-                    luminosity: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            )
-        );
+        // make it happen
+        return CssColorConversions.toHsl(this, makerFn, fnOpts);
     }
 
     public hwb(
@@ -114,22 +119,27 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        const model = hwb.rgb(this.channelsTuple());
+        // how to do the conversion
+        const makerFn = () => {
+            const model = colorConvert.hwb.rgb.raw(this.channelsTuple());
+            return new CssRgbColor(
+                makeCssRgbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        red: this.round(model[0]),
+                        green: this.round(model[1]),
+                        blue: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts,
+                )
+            );
+        };
 
-        return new CssRgbColor(
-            makeCssRgbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    red: this.round(model[0]),
-                    green: this.round(model[1]),
-                    blue: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            )
-        );
+        // make it happen
+        return CssColorConversions.toRgb(this, makerFn, fnOpts);
     }
 
     // ================================================================

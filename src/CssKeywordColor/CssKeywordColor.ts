@@ -48,6 +48,7 @@ import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
@@ -69,22 +70,15 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        // this should inject the original definition into the returned
-        // color object
-        const definition = this.definition();
-        const extraOpt = function (item: CssHslColorData) {
-            item.definition = definition;
-            return item;
-        };
-        fnOpts.push(extraOpt);
+        // how to make the color
+        const makerFn = () => this.rgb()
+            .hsl(
+                {path, onError},
+                ...fnOpts,
+            );
 
-        return makeCssColor(
-            this.hex(),
-            { colorName: this.data.name },
-        ).hsl(
-            {path, onError},
-            ...fnOpts,
-        );
+        // make it happen
+        return CssColorConversions.toHsl(this, makerFn, fnOpts);
     }
 
     public hwb(
@@ -95,22 +89,14 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // this should inject the original definition into the returned
-        // color object
-        const definition = this.definition();
-        const extraOpt = function (item: CssHwbColorData) {
-            item.definition = definition;
-            return item;
-        };
-        fnOpts.push(extraOpt);
+        const makerFn = () => this.rgb()
+            .hwb(
+                {path, onError},
+                ...fnOpts,
+            );
 
-        return makeCssColor(
-            this.hex(),
-            { colorName: this.data.name },
-        ).hwb(
-            { path, onError },
-            ...fnOpts,
-        );
+        // make it happen
+        return CssColorConversions.toHwb(this, makerFn, fnOpts);
     }
 
     public rgb(
@@ -121,6 +107,9 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
+        // unfortunately, because we have to inject at least one functional
+        // operator, it isn't possible to cache this conversion
+
         // this should inject the original definition into the returned
         // color object
         const definition = this.definition();
@@ -177,17 +166,5 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
     public keyword(): Maybe<CssExtendedColor>
     {
         return this.data.definition as CssExtendedColor;
-    }
-
-    // ================================================================
-    //
-    // COMPONENT VALUES
-    //
-    // ----------------------------------------------------------------
-
-    public alpha(): number
-    {
-        // all known keywords have an alpha channel of 1
-        return 1;
     }
 }
