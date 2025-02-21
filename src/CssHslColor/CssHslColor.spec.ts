@@ -1070,6 +1070,41 @@ describe('CssHslColor', () => {
         });
     });
 
+    describe(".hwb().hue()", () => {
+        ValidCssHslColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .whiteness() returns the W channel from
+                // the HWB conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.hwbChannels.hue;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.hwb().hue();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
     describe(".hwb().blackness()", () => {
         ValidCssHslColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
