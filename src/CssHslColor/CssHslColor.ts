@@ -46,6 +46,7 @@ import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type Fun
 import { makeCssHslColorData } from "./makeCssHslColorData";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 /**
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
@@ -87,12 +88,7 @@ export class CssHslColor extends CssColor<CssHslColorData>
         };
 
         // make it happen
-        return this.cacheStaticConversion(
-            this.cachedConversions.rgb,
-            "rgb",
-            makerFn,
-            fnOpts,
-        );
+        return CssColorConversions.toRgb(this, makerFn, fnOpts);
     }
 
     public hsl(
@@ -147,12 +143,7 @@ export class CssHslColor extends CssColor<CssHslColorData>
         };
 
         // make it happen
-        return this.cacheStaticConversion(
-            this.cachedConversions.hwb,
-            "hwb",
-            makerFn,
-            fnOpts,
-        );
+        return CssColorConversions.toHwb(this, makerFn, fnOpts);
     }
 
     // ================================================================

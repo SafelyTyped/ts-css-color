@@ -48,6 +48,7 @@ import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
@@ -89,12 +90,7 @@ export class CssHexColor extends CssColor<CssHexColorData>
             );
 
         // make it happen
-        return this.cacheStaticConversion(
-            this.cachedConversions.hsl,
-            "hsl",
-            makerFn,
-            fnOpts,
-        );
+        return CssColorConversions.toHsl(this, makerFn, fnOpts);
     }
 
     public hwb(
@@ -113,12 +109,7 @@ export class CssHexColor extends CssColor<CssHexColorData>
             );
 
         // make it happen
-        return this.cacheStaticConversion(
-            this.cachedConversions.hwb,
-            "hwb",
-            makerFn,
-            fnOpts,
-        );
+        return CssColorConversions.toHwb(this, makerFn, fnOpts);
     }
 
     public rgb(
@@ -149,12 +140,7 @@ export class CssHexColor extends CssColor<CssHexColorData>
         };
 
         // make it happen
-        return this.cacheStaticConversion(
-            this.cachedConversions.rgb,
-            "rgb",
-            makerFn,
-            fnOpts,
-        );
+        return CssColorConversions.toRgb(this, makerFn, fnOpts);
     }
 
     // ================================================================

@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { HashMap, type FunctionalOption, type Maybe, type PrimitiveHint, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
@@ -44,12 +44,6 @@ import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-
-interface CachedConversions {
-    hsl: Maybe<CssHslColor>;
-    hwb: Maybe<CssHwbColor>;
-    rgb: Maybe<CssRgbColor>;
-}
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -93,22 +87,6 @@ export abstract class CssColor<E extends CssColorData> {
      * @memberof CssColor
      */
     protected conversionRoundingFunc = Math.round;
-
-    /**
-     * we don't want to constantly repeat color conversions just to access
-     * the component values
-     *
-     * so we'll cache them here
-     *
-     * @protected
-     * @type {CachedConversions}
-     * @memberof CssColor
-     */
-    protected cachedConversions: CachedConversions = {
-        hsl: undefined,
-        hwb: undefined,
-        rgb: undefined,
-    };
 
     /**
      * constructor
@@ -276,44 +254,5 @@ export abstract class CssColor<E extends CssColorData> {
             this.conversionPrecision,
             input,
         );
-    }
-
-    protected cacheStaticConversion<T extends CssHslColor|CssHwbColor|CssRgbColor>(
-        cacheTarget: Maybe<T>,
-        cacheKey: keyof CachedConversions,
-        callbackFn: () => T,
-        fnOpts: unknown[]
-    ): T
-    {
-        // special case - non-static conversion
-        if (fnOpts.length > 0) {
-            return callbackFn();
-        }
-
-        // general case - static conversion
-
-        // has this already been cached?
-        if (cacheTarget) {
-            return cacheTarget;
-        }
-
-        // no, so cache it!
-        (this.cachedConversions[cacheKey] as unknown) = callbackFn();
-        return this.cachedConversions[cacheKey] as T;
-    }
-
-    // ================================================================
-    //
-    // TEST HELPERS
-    //
-    // ----------------------------------------------------------------
-
-    public hasCachedStaticConversion(type: keyof CachedConversions): boolean
-    {
-        // to keep the compiler happy
-        const tmp = this.cachedConversions as unknown as HashMap<unknown>;
-
-        // do we have a value set?
-        return HashMap.has(tmp, type) && HashMap.get(tmp, type) !== undefined;
     }
 }

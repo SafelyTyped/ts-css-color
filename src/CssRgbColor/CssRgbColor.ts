@@ -48,6 +48,7 @@ import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssRgbColorData } from "./makeCssRgbColorData";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
@@ -84,12 +85,7 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         };
 
         // make it happen
-        return this.cacheStaticConversion(
-            this.cachedConversions.hsl,
-            "hsl",
-            makerFn,
-            fnOpts,
-        );
+        return CssColorConversions.toHsl(this, makerFn, fnOpts);
     }
 
     public hwb(
@@ -120,12 +116,7 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         };
 
         // make it happen
-        return this.cacheStaticConversion(
-            this.cachedConversions.hwb,
-            "hwb",
-            makerFn,
-            fnOpts,
-        );
+        return CssColorConversions.toHwb(this, makerFn, fnOpts);
     }
 
     public rgb(

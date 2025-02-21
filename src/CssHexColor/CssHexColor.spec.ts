@@ -37,6 +37,7 @@ import { CssHexColor, makeCssHexColorData, type CssHslColorData, type CssHwbColo
 import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
 import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 describe('CssHexColor', () => {
     describe(".constructor", () => {
@@ -104,6 +105,60 @@ describe('CssHexColor', () => {
                 expect(actualValue.definition()).eqls(validFixture.definition);
                 expect(actualValue.channelsData()).eqls(validFixture.rgbChannels);
             });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .rgb() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHexColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssHexColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.rgb();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // -----------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .rgb() method preserves the
+                // original color definition, and does not replace it with the
+                // RGB definition
+                // -----------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHexColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssHexColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.rgb();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
         });
 
         it("caches static conversions", () => {
@@ -121,17 +176,19 @@ describe('CssHexColor', () => {
                 "#ff0000",
             );
             const unit = new CssHexColor(inputValue);
-            expect(unit.hasCachedStaticConversion("rgb")).to.be.false;
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
 
             // ----------------------------------------------------------------
             // perform the change
 
-            unit.rgb();
+            const actualValue = unit.rgb();
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(unit.hasCachedStaticConversion("rgb")).to.be.true;
+            expect(CssColorConversions.hasRgb(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -270,17 +327,19 @@ describe('CssHexColor', () => {
                 "#ff0000",
             );
             const unit = new CssHexColor(inputValue);
-            expect(unit.hasCachedStaticConversion("hsl")).to.be.false;
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
 
             // ----------------------------------------------------------------
             // perform the change
 
-            unit.hsl();
+            const actualValue = unit.hsl();
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(unit.hasCachedStaticConversion("hsl")).to.be.true;
+            expect(CssColorConversions.hasHsl(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -419,17 +478,19 @@ describe('CssHexColor', () => {
                 "#ff0000",
             );
             const unit = new CssHexColor(inputValue);
-            expect(unit.hasCachedStaticConversion("hwb")).to.be.false;
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
 
             // ----------------------------------------------------------------
             // perform the change
 
-            unit.hwb();
+            const actualValue = unit.hwb();
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(unit.hasCachedStaticConversion("hwb")).to.be.true;
+            expect(CssColorConversions.hasHwb(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {

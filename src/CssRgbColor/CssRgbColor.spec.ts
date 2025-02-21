@@ -37,6 +37,7 @@ import { CssRgbColor, makeCssRgbColorData, type CssHslColorData, type CssHwbColo
 import { ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
 import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 describe('CssRgbColor', () => {
     describe(".constructor", () => {
@@ -129,7 +130,9 @@ describe('CssRgbColor', () => {
                 }
             );
             const unit = new CssRgbColor(inputValue);
-            expect(unit.hasCachedStaticConversion("rgb")).to.be.false;
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -140,7 +143,7 @@ describe('CssRgbColor', () => {
             // test the results
 
             // does not cache itself
-            expect(unit.hasCachedStaticConversion("rgb")).to.be.false;
+            expect(CssColorConversions.hasRgb(unit)).to.be.false;
         });
 
         it("supports functional operators", () => {
@@ -294,17 +297,19 @@ describe('CssRgbColor', () => {
                 }
             );
             const unit = new CssRgbColor(inputValue);
-            expect(unit.hasCachedStaticConversion("hsl")).to.be.false;
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
 
             // ----------------------------------------------------------------
             // perform the change
 
-            unit.hsl();
+            const actualValue = unit.hsl();
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(unit.hasCachedStaticConversion("hsl")).to.be.true;
+            expect(CssColorConversions.hasHsl(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -458,17 +463,19 @@ describe('CssRgbColor', () => {
                 }
             );
             const unit = new CssRgbColor(inputValue);
-            expect(unit.hasCachedStaticConversion("hwb")).to.be.false;
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
 
             // ----------------------------------------------------------------
             // perform the change
 
-            unit.hwb();
+            const actualValue = unit.hwb();
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(unit.hasCachedStaticConversion("hwb")).to.be.true;
+            expect(CssColorConversions.hasHwb(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
