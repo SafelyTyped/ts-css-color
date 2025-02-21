@@ -69,19 +69,7 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        // this should inject the original definition into the returned
-        // color object
-        const definition = this.definition();
-        const extraOpt = function (item: CssHslColorData) {
-            item.definition = definition;
-            return item;
-        };
-        fnOpts.push(extraOpt);
-
-        return makeCssColor(
-            this.hex(),
-            { colorName: this.data.name },
-        ).hsl(
+        return this.rgb().hsl(
             {path, onError},
             ...fnOpts,
         );
@@ -95,20 +83,8 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // this should inject the original definition into the returned
-        // color object
-        const definition = this.definition();
-        const extraOpt = function (item: CssHwbColorData) {
-            item.definition = definition;
-            return item;
-        };
-        fnOpts.push(extraOpt);
-
-        return makeCssColor(
-            this.hex(),
-            { colorName: this.data.name },
-        ).hwb(
-            { path, onError },
+        return this.rgb().hwb(
+            {path, onError},
             ...fnOpts,
         );
     }
@@ -121,6 +97,13 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
+        // special case - can we use the cached value?
+        if (this.cachedConversions.rgb && fnOpts.length === 0) {
+            return this.cachedConversions.rgb;
+        }
+
+        // general case ...
+
         // this should inject the original definition into the returned
         // color object
         const definition = this.definition();
@@ -130,13 +113,22 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         };
         fnOpts.push(extraOpt);
 
-        return makeCssColor(
+        const retval = makeCssColor(
             this.hex(),
             { colorName: this.data.name },
         ).rgb(
             { path, onError },
             ...fnOpts,
         );
+
+        // do we have a static conversion?
+        if (fnOpts.length === 0) {
+            // yes, so cache it!
+            this.cachedConversions.rgb = retval;
+        }
+
+        // all done
+        return retval;
     }
 
     // ================================================================
