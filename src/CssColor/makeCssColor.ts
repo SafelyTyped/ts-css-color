@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import * as colorString from "color-string";
+import * as colorParse from "color-parse";
 
 import type { AnyCssColor } from "./AnyCssColor.type";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
@@ -107,23 +107,9 @@ export function makeCssColor(
     }
 
     // what are we looking at?
-    const model = colorString.get(cssDefinition);
+    const parsedColor = colorParse.default(cssDefinition);
 
-    // did we get a model in the first place?
-    if (model === null) {
-        // no we did not
-        // eslint-disable-next-line @typescript-eslint/only-throw-error
-        throw onError(
-            new UnsupportedCssColorDefinitionError({
-                public: {
-                    dataPath: path,
-                    colorDefinition: cssDefinition,
-                }
-            })
-        );
-    }
-
-    switch(model.model) {
+    switch(parsedColor.space) {
         case "hsl":
             return applyFunctionalOptions(
                 new CssHslColor(
@@ -131,10 +117,10 @@ export function makeCssColor(
                         colorName,
                         cssDefinition,
                         {
-                            hue: model.value[0],
-                            saturation: model.value[1],
-                            luminosity: model.value[2],
-                            alpha: model.value[3],
+                            hue: parsedColor.values[0],
+                            saturation: parsedColor.values[1],
+                            luminosity: parsedColor.values[2],
+                            alpha: parsedColor.alpha,
                         },
                         { path, onError }
                     )
@@ -149,10 +135,10 @@ export function makeCssColor(
                         colorName,
                         cssDefinition,
                         {
-                            hue: model.value[0],
-                            whiteness: model.value[1],
-                            blackness: model.value[2],
-                            alpha: model.value[3],
+                            hue: parsedColor.values[0],
+                            whiteness: parsedColor.values[1],
+                            blackness: parsedColor.values[2],
+                            alpha: parsedColor.alpha,
                         },
                         { path, onError }
                     )
@@ -160,7 +146,6 @@ export function makeCssColor(
                 opts,
                 ...fnOpts
             );
-
         case "rgb":
             return applyFunctionalOptions(
                 new CssRgbColor(
@@ -168,10 +153,10 @@ export function makeCssColor(
                         colorName,
                         cssDefinition,
                         {
-                            red: model.value[0],
-                            green: model.value[1],
-                            blue: model.value[2],
-                            alpha: model.value[3],
+                            red: parsedColor.values[0],
+                            green: parsedColor.values[1],
+                            blue: parsedColor.values[2],
+                            alpha: parsedColor.alpha,
                         },
                         { path, onError }
                     )
@@ -179,5 +164,12 @@ export function makeCssColor(
                 opts,
                 ...fnOpts
             );
+        default:
+            throw new UnsupportedCssColorDefinitionError({
+                public: {
+                    dataPath: path,
+                    colorDefinition: cssDefinition,
+                }
+            });
     }
 }
