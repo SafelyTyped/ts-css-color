@@ -25,8 +25,9 @@ The following changes have been completed, and will be included in the next tagg
 
 * added support for OKLCH color space
   * added `CssOklchColorChannelsData` type
-  * added `mustBeCssOklchColorChannelsData` type guarantee
-  * added `validateCssOklchColorChannelsData` type validator
+  * added `isCssOklchColorChannelsData` type guard
+  * added `mustBeCssOklchColorChannelsData()` type guarantee
+  * added `validateCssOklchColorChannelsData()` type validator
 
 ### Fixes
 
