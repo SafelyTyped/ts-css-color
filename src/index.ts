@@ -97,6 +97,9 @@ export { mustBeCssHwbColorData } from "./CssHwbColor/mustBeCssHwbColorData";
 export { validateCssHwbColorChannelsData } from "./CssHwbColor/validateCssHwbColorChannelsData";
 export { validateCssHwbColorData } from "./CssHwbColor/validateCssHwbColorData";
 
+export type { CssOklchColorChannelsData } from "./CssOklchColor/CssOklchColorChannelsData.type";
+export { validateCssOklchColorChannelsData } from "./CssOklchColor/validateCssOklchColorChannelsData";
+
 export type { CssRgbColorChannelsData } from "./CssRgbColor/CssRgbColorChannelsData.type";
 export type { CssRgbColorChannelsTuple } from "./CssRgbColor/CssRgbColorChannelsTuple.type";
 export type { CssRgbColorData } from "./CssRgbColor/CssRgbColorData.type";

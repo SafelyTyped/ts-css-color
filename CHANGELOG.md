@@ -21,6 +21,12 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### New
+
+* added support for OKLCH color space
+  * added `CssOklchColorChannelsData` type
+  * added `validateCssOklchColorChannelsData` type validator
+
 ### Fixes
 
 * replace `color-string` parser with `color-parse` package
