@@ -21,6 +21,11 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### Fixes
+
+* replace `color-string` parser with `color-parse` package
+* replace `color-convert` with `color-space` package
+
 ## v1.3.1
 
 Released Monday, 27th January 2025.
