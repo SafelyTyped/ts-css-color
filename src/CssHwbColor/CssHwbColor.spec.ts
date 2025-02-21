@@ -926,6 +926,222 @@ describe('CssHwbColor', () => {
 
     // ================================================================
     //
+    // DERIVED COMPONENT VALUES
+    //
+    // ----------------------------------------------------------------
+
+    describe(".rgb().red()", () => {
+        ValidCssHwbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the R channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .red() returns the channel data
+                // that was used to build this color in the first place
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.rgbChannels.red;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.rgb().red();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".rgb().green()", () => {
+        ValidCssHwbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the G channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .green() returns the channel data
+                // that was used to build this color in the first place
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.rgbChannels.green;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.rgb().green();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".rgb().blue()", () => {
+        ValidCssHwbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .blue() returns the channel data
+                // that was used to build this color in the first place
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.rgbChannels.blue;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.rgb().blue();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".hsl().hue()", () => {
+        ValidCssHwbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .hue() returns the H channel from
+                // the HSL conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.hslChannels.hue;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.hsl().hue();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".hsl().saturation()", () => {
+        ValidCssHwbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the S channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .saturation() returns the S channel from
+                // the HSL conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.hslChannels.saturation;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.hsl().saturation();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".hsl().luminosity()", () => {
+        ValidCssHwbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .luminosity() returns the L channel from
+                // the HSL conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.hslChannels.luminosity;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.hsl().luminosity();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    // ================================================================
+    //
     // PROPERTIES
     //
     // ----------------------------------------------------------------
