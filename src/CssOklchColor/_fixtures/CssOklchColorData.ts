@@ -37,10 +37,12 @@ import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
 import type { CssOklchColorData } from "../CssOklchColorData.type";
+import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
 
 type ValidCssOklchColor = CssOklchColorData & {
     hslChannels: CssHslColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
+    rgbChannels: CssRgbColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
 }
@@ -56,6 +58,7 @@ ValidCssColors.forEach((fixture) => {
             colorSpace: "OKLCH",
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,
+            rgbChannels: fixture.rgbChannels,
             hex: fixture.hex,
             namedColor: fixture.namedColor,
         });

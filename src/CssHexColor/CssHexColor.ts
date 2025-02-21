@@ -32,7 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import colorParse from "color-parse";
+import { converter, type Rgb } from "culori";
+
+const rbgConverter = converter("rgb");
 
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
@@ -122,21 +124,23 @@ export class CssHexColor extends CssColor<CssHexColorData>
     {
         // how to make the color
         const makerFn = () => {
-            const rgb = colorConvert.hex.rgb(this.hex());
-            return new CssRgbColor(
-                makeCssRgbColorData(
-                    this.data.name,
-                    this.data.definition,
-                    {
-                        red: rgb[0],
-                        green: rgb[1],
-                        blue: rgb[2],
-                        alpha: 1,
-                    },
-                    {path, onError},
-                    ...fnOpts,
-                ),
+            // we know this will never be undefined
+            const rgbData = rbgConverter(this.hex()) as Rgb;
+
+            const rgbColorData =                 makeCssRgbColorData(
+                this.data.name,
+                this.data.definition,
+                {
+                    red: rgbData.r * 255,
+                    green: rgbData.g * 255,
+                    blue: rgbData.b * 255,
+                    alpha: 1,
+                },
+                {path, onError},
+                ...fnOpts,
             );
+
+            return new CssRgbColor(rgbColorData);
         };
 
         // make it happen
@@ -220,7 +224,7 @@ export class CssHexColor extends CssColor<CssHexColorData>
 
     /**
      * blue() returns the `B` component from the RGB definition, as a
-     * number between 0-255.
+src/CssHexColor/CssHexColor.ts     * number between 0-255.
      *
      * @returns the `B` component from the RGB definition
      */

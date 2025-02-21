@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import * as colorParse from "color-parse";
+import { parse } from "culori";
 
 import type { AnyCssColor } from "./AnyCssColor.type";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
@@ -107,9 +107,19 @@ export function makeCssColor(
     }
 
     // what are we looking at?
-    const parsedColor = colorParse.default(cssDefinition);
+    const model = parse(cssDefinition);
 
-    switch(parsedColor.space) {
+    // robustness!
+    if (!model) {
+        throw new UnsupportedCssColorDefinitionError({
+            public: {
+                dataPath: path,
+                colorDefinition: cssDefinition,
+            }
+        });
+    }
+
+    switch(model.mode) {
         case "hsl":
             return applyFunctionalOptions(
                 new CssHslColor(
@@ -117,10 +127,10 @@ export function makeCssColor(
                         colorName,
                         cssDefinition,
                         {
-                            hue: parsedColor.values[0],
-                            saturation: parsedColor.values[1],
-                            luminosity: parsedColor.values[2],
-                            alpha: parsedColor.alpha,
+                            hue: model.h || 0,
+                            saturation: model.s,
+                            luminosity: model.l,
+                            alpha: model.alpha || 1,
                         },
                         { path, onError }
                     )
@@ -135,10 +145,10 @@ export function makeCssColor(
                         colorName,
                         cssDefinition,
                         {
-                            hue: parsedColor.values[0],
-                            whiteness: parsedColor.values[1],
-                            blackness: parsedColor.values[2],
-                            alpha: parsedColor.alpha,
+                            hue: model.h || 0,
+                            whiteness: model.w,
+                            blackness: model.b,
+                            alpha: model.alpha || 1,
                         },
                         { path, onError }
                     )
@@ -153,10 +163,10 @@ export function makeCssColor(
                         colorName,
                         cssDefinition,
                         {
-                            red: parsedColor.values[0],
-                            green: parsedColor.values[1],
-                            blue: parsedColor.values[2],
-                            alpha: parsedColor.alpha,
+                            red: model.r,
+                            green: model.g,
+                            blue: model.b,
+                            alpha: model.alpha || 1,
                         },
                         { path, onError }
                     )

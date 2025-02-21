@@ -32,7 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import hsl from "color-space/hsl.js";
+import { converter, type Hsl } from "culori";
+
+const hwbConverter = converter("hwb");
+const rbgConverter = converter("rgb");
+
 
 import { CssColor } from "../CssColor/CssColor";
 import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
@@ -70,15 +74,15 @@ export class CssHslColor extends CssColor<CssHslColorData>
     {
         // how to do the conversion
         const makerFn = () => {
-            const model = colorConvert.hsl.rgb.raw(this.channelsTuple());
+            const model = rbgConverter(this.toModel());
             return new CssRgbColor(
                 makeCssRgbColorData(
                     this.data.name,
                     this.data.definition,
                     {
-                        red: this.round(model[0]),
-                        green: this.round(model[1]),
-                        blue: this.round(model[2]),
+                        red: this.round(model.r * 255),
+                        green: this.round(model.g * 255),
+                        blue: this.round(model.b * 255),
                         alpha: this.data.channels.alpha,
                     },
                     { path, onError },
@@ -125,15 +129,15 @@ export class CssHslColor extends CssColor<CssHslColorData>
     {
         // how to do the conversion
         const makerFn = () => {
-            const model = colorConvert.hsl.hwb.raw(this.channelsTuple());
+            const model = hwbConverter(this.toModel());
             return new CssHwbColor(
                 makeCssHwbColorData(
                     this.data.name,
                     this.data.definition,
                     {
-                        hue: this.round(model[0]),
-                        whiteness: this.round(model[1]),
-                        blackness: this.round(model[2]),
+                        hue: this.round(model.h || 0),
+                        whiteness: this.round(model.w * 100),
+                        blackness: this.round(model.b * 100),
                         alpha: this.data.channels.alpha,
                     },
                     { path, onError },
@@ -225,5 +229,24 @@ export class CssHslColor extends CssColor<CssHslColorData>
     public luminosity(): number
     {
         return this.data.channels.luminosity;
+    }
+
+    // ================================================================
+    //
+    // INTERNAL HELPERS
+    //
+    // ----------------------------------------------------------------
+
+    private toModel(): Hsl
+    {
+        const retval = {
+            mode: "hsl" as const,
+            h: this.data.channels.hue,
+            s: this.data.channels.saturation / 100,
+            l: this.data.channels.luminosity / 100,
+            alpha: this.data.channels.alpha,
+        };
+
+        return retval;
     }
 }

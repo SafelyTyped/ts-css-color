@@ -102,6 +102,7 @@ export { mustBeCssHwbColorData } from "./CssHwbColor/mustBeCssHwbColorData";
 export { validateCssHwbColorChannelsData } from "./CssHwbColor/validateCssHwbColorChannelsData";
 export { validateCssHwbColorData } from "./CssHwbColor/validateCssHwbColorData";
 
+export { CssOklchColor } from "./CssOklchColor/CssOklchColor";
 export type { CssOklchColorData } from "./CssOklchColor/CssOklchColorData.type";
 export type { CssOklchColorChannelsData } from "./CssOklchColor/CssOklchColorChannelsData.type";
 export { isCssOklchColorChannelsData } from "./CssOklchColor/isCssOklchColorChannelsData";

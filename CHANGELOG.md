@@ -31,6 +31,7 @@ The following changes have been completed, and will be included in the next tagg
 * added support for OKLCH color space
   * added `OKLCH` to `CssColorspace` type
   * added `CssOklchColorSpace` type
+  * added `CssOklchColor` class
   * added `CssOklchColorData` type
   * added `CssOklchColorChannelsData` type
   * added `isCssOklchColorChannelsData` type guard

@@ -32,7 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import rgb from "color-space/rgb.js";
+import { converter, type Rgb } from "culori";
+
+const hslConverter = converter("hsl");
+const hwbConverter = converter("hwb");
+
 import rgbHex from "rgb-hex";
 
 import { CssColor } from "../CssColor/CssColor";
@@ -68,21 +72,22 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         // how to make this color
         const makerFn = () => {
             // general case
-            const model = colorConvert.rgb.hsl.raw(this.channelsTuple());
-            return new CssHslColor(
-                makeCssHslColorData(
-                    this.data.name,
-                    this.data.definition,
-                    {
-                        hue: this.round(model[0]),
-                        saturation: this.round(model[1]),
-                        luminosity: this.round(model[2]),
-                        alpha: this.data.channels.alpha,
-                    },
-                    { path, onError },
-                    ...fnOpts
-                )
+            const model = hslConverter(this.toModel());
+
+            const hslColorData =                 makeCssHslColorData(
+                this.data.name,
+                this.data.definition,
+                {
+                    hue: this.round(model.h || 0),
+                    saturation: this.round(model.s * 100),
+                    luminosity: this.round(model.l * 100),
+                    alpha: this.data.channels.alpha,
+                },
+                { path, onError },
+                ...fnOpts
             );
+
+            return new CssHslColor(hslColorData);
         };
 
         // make it happen
@@ -99,15 +104,15 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
     {
         // how to do this conversion
         const makerFn = () => {
-            const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
+            const model = hwbConverter(this.toModel());
             return new CssHwbColor(
                 makeCssHwbColorData(
                     this.data.name,
                     this.data.definition,
                     {
-                        hue: this.round(model[0]),
-                        whiteness: this.round(model[1]),
-                        blackness: this.round(model[2]),
+                        hue: this.round(model.h || 0),
+                        whiteness: this.round(model.w * 100),
+                        blackness: this.round(model.b * 100),
                         alpha: this.data.channels.alpha,
                     },
                     { path, onError },
@@ -229,5 +234,24 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
     public alpha(): number
     {
         return this.data.channels.alpha;
+    }
+
+    // ================================================================
+    //
+    // INTERNAL HELPERS
+    //
+    // ----------------------------------------------------------------
+
+    private toModel(): Rgb
+    {
+        const retval = {
+            mode: "rgb" as const,
+            r: this.data.channels.red / 255,
+            g: this.data.channels.green / 255,
+            b: this.data.channels.blue / 255,
+            alpha: this.data.channels.alpha,
+        };
+
+        return retval;
     }
 }

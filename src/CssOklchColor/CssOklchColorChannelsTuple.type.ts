@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,26 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateObject, recastIfValid } from "@safelytyped/core-types";
-import { validateCssColorChannel } from "../helpers/validateCssColorChannel";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
-
-export function validateCssHslColorChannelsData(
-    input: unknown,
-    {
-        path = DEFAULT_DATA_PATH
-    }: TypeValidatorOptions = {}
-): AppErrorOr<CssHslColorChannelsData>
-{
-    console.log(input);
-    return recastIfValid<CssHslColorChannelsData>(
-        input,
-        () => validate(input)
-            .next((x) => validateObject(x, { path }))
-            .next((x) => validateCssColorChannel(x, "hue", 0, 360, { path }))
-            .next((x) => validateCssColorChannel(x, "saturation", 0, 100, { path }))
-            .next((x) => validateCssColorChannel(x, "luminosity", 0, 100, { path }))
-            .next((x) => validateCssColorChannel(x, "alpha", 0, 1, { path }))
-            .value()
-    );
-}
+/**
+ * CssOklchColorChannelsTuple represents the channels of a CSS OKLCH color,
+ * as an array.
+ */
+export type CssOklchColorChannelsTuple = [ number, number, number ];

@@ -291,7 +291,7 @@ export const ValidCssColors: ValidCssColor[] = [
     },
     {
         name: "palegreen",
-        definition: "hwb(100,76%,12%)",
+        definition: "hwb(100 76% 12%)",
         hwbChannels: {
             hue: 100,
             whiteness: 76,
