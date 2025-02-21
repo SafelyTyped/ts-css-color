@@ -63,36 +63,33 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        // special case - can we use the cached value?
-        if (this.cachedConversions.hsl && fnOpts.length === 0) {
-            return this.cachedConversions.hsl;
-        }
+        // how to make this color
+        const makerFn = () => {
+            // general case
+            const model = colorConvert.rgb.hsl.raw(this.channelsTuple());
+            return new CssHslColor(
+                makeCssHslColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        hue: this.round(model[0]),
+                        saturation: this.round(model[1]),
+                        luminosity: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts
+                )
+            );
+        };
 
-        // general case
-        const model = colorConvert.rgb.hsl.raw(this.channelsTuple());
-        const retval = new CssHslColor(
-            makeCssHslColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    hue: this.round(model[0]),
-                    saturation: this.round(model[1]),
-                    luminosity: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts
-            )
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.hsl,
+            "hsl",
+            makerFn,
+            fnOpts,
         );
-
-        // do we have a static conversion?
-        if (fnOpts.length === 0) {
-            // yes, so cache it!
-            this.cachedConversions.hsl = retval;
-        }
-
-        // all done
-        return retval;
     }
 
     public hwb(
@@ -103,36 +100,32 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // special case - can we use the cached value?
-        if (this.cachedConversions.hwb && fnOpts.length === 0) {
-            return this.cachedConversions.hwb;
-        }
+        // how to do this conversion
+        const makerFn = () => {
+            const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
+            return new CssHwbColor(
+                makeCssHwbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        hue: this.round(model[0]),
+                        whiteness: this.round(model[1]),
+                        blackness: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts,
+                ),
+            );
+        };
 
-        // general case
-        const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
-        const retval = new CssHwbColor(
-            makeCssHwbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    hue: this.round(model[0]),
-                    whiteness: this.round(model[1]),
-                    blackness: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            ),
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.hwb,
+            "hwb",
+            makerFn,
+            fnOpts,
         );
-
-        // do we have a static conversion?
-        if (fnOpts.length === 0) {
-            // yes, so cache it!
-            this.cachedConversions.hwb = retval;
-        }
-
-        // all done
-        return retval;
     }
 
     public rgb(

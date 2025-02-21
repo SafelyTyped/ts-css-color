@@ -108,6 +108,41 @@ describe('CssHslColor', () => {
             });
         });
 
+        it("does not cache static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HSL method does not use the
+            // static conversions cache
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+            expect(unit.hasCachedStaticConversion("hsl")).to.be.false;
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            unit.hsl();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            // does not cache itself
+            expect(unit.hasCachedStaticConversion("hsl")).to.be.false;
+        });
+
         it("supports functional operators", () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -238,6 +273,40 @@ describe('CssHslColor', () => {
             });
         });
 
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HWB method will use the static
+            // conversions cache
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+            expect(unit.hasCachedStaticConversion("hwb")).to.be.false;
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            unit.hwb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(unit.hasCachedStaticConversion("hwb")).to.be.true;
+        });
+
         it("supports functional operators", () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -366,6 +435,40 @@ describe('CssHslColor', () => {
 
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the RGB method will use the static
+            // conversion cache
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+            expect(unit.hasCachedStaticConversion("rgb")).to.be.false;
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            unit.rgb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(unit.hasCachedStaticConversion("rgb")).to.be.true;
         });
 
         it("supports functional operators", () => {

@@ -76,7 +76,7 @@ describe('CssHexColor', () => {
 
     describe(".rgb()", () => {
         ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns itself when converted to RGB", () => {
+            it("[fixture " + validFixture.name + "] converts the original color to RGB format", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -104,6 +104,34 @@ describe('CssHexColor', () => {
                 expect(actualValue.definition()).eqls(validFixture.definition);
                 expect(actualValue.channelsData()).eqls(validFixture.rgbChannels);
             });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the RGB method will cache any static
+            // conversions (to speed up repeated conversions)
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHexColorData(
+                "red",
+                "#ff0000",
+            );
+            const unit = new CssHexColor(inputValue);
+            expect(unit.hasCachedStaticConversion("rgb")).to.be.false;
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            unit.rgb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(unit.hasCachedStaticConversion("rgb")).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -227,6 +255,34 @@ describe('CssHexColor', () => {
             });
         });
 
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HSL method will cache any static
+            // conversions (to speed up repeated conversions)
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHexColorData(
+                "red",
+                "#ff0000",
+            );
+            const unit = new CssHexColor(inputValue);
+            expect(unit.hasCachedStaticConversion("hsl")).to.be.false;
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            unit.hsl();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(unit.hasCachedStaticConversion("hsl")).to.be.true;
+        });
+
         it("supports functional operators", () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -346,6 +402,34 @@ describe('CssHexColor', () => {
 
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HWB method will cache any static
+            // conversions (to speed up repeated conversions)
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHexColorData(
+                "red",
+                "#ff0000",
+            );
+            const unit = new CssHexColor(inputValue);
+            expect(unit.hasCachedStaticConversion("hwb")).to.be.false;
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            unit.hwb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(unit.hasCachedStaticConversion("hwb")).to.be.true;
         });
 
         it("supports functional operators", () => {

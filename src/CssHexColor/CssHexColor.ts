@@ -81,11 +81,20 @@ export class CssHexColor extends CssColor<CssHexColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        return this.rgb()
+        // how to make the color
+        const makerFn = () => this.rgb()
             .hsl(
                 {path, onError},
                 ...fnOpts,
             );
+
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.hsl,
+            "hsl",
+            makerFn,
+            fnOpts,
+        );
     }
 
     public hwb(
@@ -96,9 +105,19 @@ export class CssHexColor extends CssColor<CssHexColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        return this.rgb().hwb(
-            {path, onError},
-            ...fnOpts,
+        // how to make the color
+        const makerFn = () => this.rgb()
+            .hwb(
+                {path, onError},
+                ...fnOpts,
+            );
+
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.hwb,
+            "hwb",
+            makerFn,
+            fnOpts,
         );
     }
 
@@ -110,36 +129,32 @@ export class CssHexColor extends CssColor<CssHexColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        // special case - can we use the cached value?
-        if (this.cachedConversions.rgb && fnOpts.length === 0) {
-            return this.cachedConversions.rgb;
-        }
+        // how to make the color
+        const makerFn = () => {
+            const rgb = colorConvert.hex.rgb(this.hex());
+            return new CssRgbColor(
+                makeCssRgbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        red: rgb[0],
+                        green: rgb[1],
+                        blue: rgb[2],
+                        alpha: 1,
+                    },
+                    {path, onError},
+                    ...fnOpts,
+                ),
+            );
+        };
 
-        // general case
-        const rgb = colorConvert.hex.rgb(this.hex());
-        const retval = new CssRgbColor(
-            makeCssRgbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    red: rgb[0],
-                    green: rgb[1],
-                    blue: rgb[2],
-                    alpha: 1,
-                },
-                {path, onError},
-                ...fnOpts,
-            ),
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.rgb,
+            "rgb",
+            makerFn,
+            fnOpts,
         );
-
-        // do we have a static conversion?
-        if (fnOpts.length === 0) {
-            // yes, so cache it!
-            this.cachedConversions.rgb = retval;
-        }
-
-        // all done
-        return retval;
     }
 
     // ================================================================

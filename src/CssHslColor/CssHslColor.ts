@@ -67,36 +67,32 @@ export class CssHslColor extends CssColor<CssHslColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        // special case - can we use the cached value?
-        if (this.cachedConversions.rgb && fnOpts.length === 0) {
-            return this.cachedConversions.rgb;
-        }
+        // how to do the conversion
+        const makerFn = () => {
+            const model = colorConvert.hsl.rgb.raw(this.channelsTuple());
+            return new CssRgbColor(
+                makeCssRgbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        red: this.round(model[0]),
+                        green: this.round(model[1]),
+                        blue: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts,
+                ),
+            );
+        };
 
-        // general case
-        const model = colorConvert.hsl.rgb.raw(this.channelsTuple());
-        const retval = new CssRgbColor(
-            makeCssRgbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    red: this.round(model[0]),
-                    green: this.round(model[1]),
-                    blue: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            ),
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.rgb,
+            "rgb",
+            makerFn,
+            fnOpts,
         );
-
-        // do we have a static conversion?
-        if (fnOpts.length === 0) {
-            // yes, so cache it!
-            this.cachedConversions.rgb = retval;
-        }
-
-        // all done
-        return retval;
     }
 
     public hsl(
@@ -131,36 +127,32 @@ export class CssHslColor extends CssColor<CssHslColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // special case - can we use the cached value?
-        if (this.cachedConversions.hwb && fnOpts.length === 0) {
-            return this.cachedConversions.hwb;
-        }
+        // how to do the conversion
+        const makerFn = () => {
+            const model = colorConvert.hsl.hwb.raw(this.channelsTuple());
+            return new CssHwbColor(
+                makeCssHwbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        hue: this.round(model[0]),
+                        whiteness: this.round(model[1]),
+                        blackness: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts,
+                ),
+            );
+        };
 
-        // general case
-        const model = colorConvert.hsl.hwb.raw(this.channelsTuple());
-        const retval = new CssHwbColor(
-            makeCssHwbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    hue: this.round(model[0]),
-                    whiteness: this.round(model[1]),
-                    blackness: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            ),
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.hwb,
+            "hwb",
+            makerFn,
+            fnOpts,
         );
-
-        // do we have a static conversion?
-        if (fnOpts.length === 0) {
-            // yes, so cache it!
-            this.cachedConversions.hwb = retval;
-        }
-
-        // all done
-        return retval;
     }
 
     // ================================================================

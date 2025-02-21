@@ -69,9 +69,19 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        return this.rgb().hsl(
-            {path, onError},
-            ...fnOpts,
+        // how to make the color
+        const makerFn = () => this.rgb()
+            .hsl(
+                {path, onError},
+                ...fnOpts,
+            );
+
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.hsl,
+            "hsl",
+            makerFn,
+            fnOpts,
         );
     }
 
@@ -83,9 +93,18 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        return this.rgb().hwb(
-            {path, onError},
-            ...fnOpts,
+        const makerFn = () => this.rgb()
+            .hwb(
+                {path, onError},
+                ...fnOpts,
+            );
+
+        // make it happen
+        return this.cacheStaticConversion(
+            this.cachedConversions.hwb,
+            "hwb",
+            makerFn,
+            fnOpts,
         );
     }
 
@@ -97,12 +116,8 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        // special case - can we use the cached value?
-        if (this.cachedConversions.rgb && fnOpts.length === 0) {
-            return this.cachedConversions.rgb;
-        }
-
-        // general case ...
+        // unfortunately, because we have to inject at least one functional
+        // operator, it isn't possible to cache this conversion
 
         // this should inject the original definition into the returned
         // color object
@@ -113,22 +128,13 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         };
         fnOpts.push(extraOpt);
 
-        const retval = makeCssColor(
+        return makeCssColor(
             this.hex(),
             { colorName: this.data.name },
         ).rgb(
             { path, onError },
             ...fnOpts,
         );
-
-        // do we have a static conversion?
-        if (fnOpts.length === 0) {
-            // yes, so cache it!
-            this.cachedConversions.rgb = retval;
-        }
-
-        // all done
-        return retval;
     }
 
     // ================================================================
