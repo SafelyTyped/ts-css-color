@@ -38,6 +38,10 @@
 //
 // ----------------------------------------------------------------
 
+export type { CssColorspace } from "./CssColorspace/CssColorspaces.type";
+export type { CssColorspacedColor } from "./CssColorspace/CssColorspacedColor.type";
+export type { CssSrgbColorSpace } from "./CssColorspace/CssSrgbColorSpace.type";
+
 export type { AnyCssColor } from "./CssColor/AnyCssColor.type";
 export type { CssColorData } from "./CssColor/CssColorData.type";
 export { CssColor } from "./CssColor/CssColor";

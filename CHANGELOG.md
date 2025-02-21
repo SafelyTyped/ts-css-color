@@ -31,6 +31,13 @@ The following changes have been completed, and will be included in the next tagg
 
 ### Fixes
 
+* added missing `CssColorspace` exports
+  * added `CssColorspaces` type
+  * added `CssColorspacedColor` type
+  * added `CssSrgbColorSpace` type
+
+### Dependencies
+
 * replace `color-string` parser with `color-parse` package
 * replace `color-convert` with `color-space` package
 
