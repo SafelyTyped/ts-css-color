@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,25 +32,37 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateObject, recastIfValid } from "@safelytyped/core-types";
-import { validateCssColorChannel } from "../helpers/validateCssColorChannel";
-import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
+import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, extendDataPath, recastIfValid } from "@safelytyped/core-types";
+import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
+import { validateCssOklchColorChannelsData } from "./validateCssOklchColorChannelsData";
+import { validateCssColorData } from "../CssColor/validateCssColorData";
+import type { CssOklchColorData } from "./CssOklchColorData.type";
 
-export function validateCssOklchColorChannelsData(
+/**
+ * validateCssOklchColorData() is a type validator. Use it to prove that the
+ * given `input` value is a {@link CssOklchColorData} value.
+ *
+ * @param input
+ * - the data to validate
+ * @param path
+ * - dot.notation.path through your nested data structure to where `input` is
+ * @returns
+ * - `input` (type-cast as a {@link CssOklchColorData}) on success
+ * - a suitable `AppError` otherwise
+ */
+export function validateCssOklchColorData(
     input: unknown,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions = {}
-): AppErrorOr<CssOklchColorChannelsData>
+): AppErrorOr<CssOklchColorData>
 {
-    return recastIfValid<CssOklchColorChannelsData>(
-        input,
-        () => validate(input)
-            .next((x) => validateObject(x, { path }))
-            .next((x) => validateCssColorChannel(x, "lightness", 0, 1, { path }))
-            .next((x) => validateCssColorChannel(x, "chroma", 0, 1, { path }))
-            .next((x) => validateCssColorChannel(x, "hue", 0, 360, { path }))
-            .next((x) => validateCssColorChannel(x, "alpha", 0, 1, { path }))
-            .value()
-    );
+    return validate(input)
+        .next((x) => validateCssColorData(x, { path }))
+        .next((x) => validateCssColorDataHasChannels(x, { path }))
+        .next((x) => recastIfValid<CssOklchColorData>(
+            x,
+            () => validateCssOklchColorChannelsData(x.channels, { path: extendDataPath(path, "channels") })
+        ))
+        .value();
 }

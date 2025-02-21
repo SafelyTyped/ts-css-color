@@ -55,10 +55,46 @@ export const InvalidCssOklchColorChannelsDataObjects = [
         }
     },
     {
+        description: "lightness channel too small",
+        inputValue: {
+            lightness: -0.1,
+            chroma: 0,
+            hue: 0,
+            alpha: 1,
+        }
+    },
+    {
+        description: "lightness channel too large",
+        inputValue: {
+            lightness: 1.01,
+            chroma: 0,
+            hue: 0,
+            alpha: 1,
+        }
+    },
+    {
         description: "chroma channel missing",
         inputValue: {
             lightness: 0.872,
             hue: 258.338013,
+            alpha: 1,
+        }
+    },
+    {
+        description: "chroma channel too small",
+        inputChannel: {
+            lightness: 0.5032,
+            chroma: -0.1,
+            hue: 0,
+            alpha: 1,
+        }
+    },
+    {
+        description: "chroma channel too large",
+        inputValue: {
+            lightness: 0.5032,
+            chroma: 1.01,
+            hue: 0,
             alpha: 1,
         }
     },
@@ -71,11 +107,47 @@ export const InvalidCssOklchColorChannelsDataObjects = [
         }
     },
     {
+        description: "hue channel too small",
+        inputValue: {
+            lightness: 0.5032,
+            chroma: 0,
+            hue: -0.1,
+            alpha: 1,
+        }
+    },
+    {
+        description: "hue channel too large",
+        inputValue: {
+            lightness: 0.5032,
+            chroma: 0,
+            hue: 360.01,
+            alpha: 1,
+        }
+    },
+    {
         description: "alpha channel missing",
         inputValue: {
             lightness: 0.872,
             chroma: 0.01,
             hue: 258.338013,
+        }
+    },
+    {
+        description: "alpha channel too small",
+        inputValue: {
+            lightness: 0.5032,
+            chroma: 0,
+            hue: 0,
+            alpha: -0.1,
+        }
+    },
+    {
+        description: "alpha channel too large",
+        inputValue: {
+            lightness: 0.5032,
+            chroma: 0,
+            hue: 0,
+            alpha: 1.1,
         }
     },
 ];

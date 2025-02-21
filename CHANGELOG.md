@@ -31,6 +31,7 @@ The following changes have been completed, and will be included in the next tagg
   * added `isCssOklchColorChannelsData` type guard
   * added `mustBeCssOklchColorChannelsData()` type guarantee
   * added `validateCssOklchColorChannelsData()` type validator
+  * added `validateCssOklchColorData()` type validator
 
 ### Fixes
 
