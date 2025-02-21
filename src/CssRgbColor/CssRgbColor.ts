@@ -48,6 +48,7 @@ import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssRgbColorData } from "./makeCssRgbColorData";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
@@ -63,22 +64,28 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        const model = colorConvert.rgb.hsl.raw(this.channelsTuple());
+        // how to make this color
+        const makerFn = () => {
+            // general case
+            const model = colorConvert.rgb.hsl.raw(this.channelsTuple());
+            return new CssHslColor(
+                makeCssHslColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        hue: this.round(model[0]),
+                        saturation: this.round(model[1]),
+                        luminosity: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts
+                )
+            );
+        };
 
-        return new CssHslColor(
-            makeCssHslColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    hue: this.round(model[0]),
-                    saturation: this.round(model[1]),
-                    luminosity: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts
-            )
-        );
+        // make it happen
+        return CssColorConversions.toHsl(this, makerFn, fnOpts);
     }
 
     public hwb(
@@ -89,22 +96,27 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
+        // how to do this conversion
+        const makerFn = () => {
+            const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
+            return new CssHwbColor(
+                makeCssHwbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        hue: this.round(model[0]),
+                        whiteness: this.round(model[1]),
+                        blackness: this.round(model[2]),
+                        alpha: this.data.channels.alpha,
+                    },
+                    { path, onError },
+                    ...fnOpts,
+                ),
+            );
+        };
 
-        return new CssHwbColor(
-            makeCssHwbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    hue: this.round(model[0]),
-                    whiteness: this.round(model[1]),
-                    blackness: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            ),
-        );
+        // make it happen
+        return CssColorConversions.toHwb(this, makerFn, fnOpts);
     }
 
     public rgb(
@@ -168,21 +180,45 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
     //
     // ----------------------------------------------------------------
 
+    /**
+     * red() returns the `R` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `R` component from the RGB definition
+     */
     public red(): number
     {
         return this.data.channels.red;
     }
 
+    /**
+     * green() returns the `G` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `G` component from the RGB definition
+     */
     public green(): number
     {
         return this.data.channels.green;
     }
 
+    /**
+     * blue() returns the `B` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `B` component from the RGB definition
+     */
     public blue(): number
     {
         return this.data.channels.blue;
     }
 
+    /**
+     * alpha() returns the alpha channel value of this color, as a number
+     * between 0-1
+     *
+     * @returns the `alpha` channel of this color
+     */
     public alpha(): number
     {
         return this.data.channels.alpha;

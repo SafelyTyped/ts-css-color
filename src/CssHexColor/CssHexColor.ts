@@ -48,6 +48,7 @@ import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
@@ -81,11 +82,15 @@ export class CssHexColor extends CssColor<CssHexColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        return this.rgb()
+        // how to make the color
+        const makerFn = () => this.rgb()
             .hsl(
                 {path, onError},
                 ...fnOpts,
             );
+
+        // make it happen
+        return CssColorConversions.toHsl(this, makerFn, fnOpts);
     }
 
     public hwb(
@@ -96,10 +101,15 @@ export class CssHexColor extends CssColor<CssHexColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        return this.rgb().hwb(
-            {path, onError},
-            ...fnOpts,
-        );
+        // how to make the color
+        const makerFn = () => this.rgb()
+            .hwb(
+                {path, onError},
+                ...fnOpts,
+            );
+
+        // make it happen
+        return CssColorConversions.toHwb(this, makerFn, fnOpts);
     }
 
     public rgb(
@@ -110,22 +120,27 @@ export class CssHexColor extends CssColor<CssHexColorData>
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
-        const rgb = colorConvert.hex.rgb(this.hex());
+        // how to make the color
+        const makerFn = () => {
+            const rgb = colorConvert.hex.rgb(this.hex());
+            return new CssRgbColor(
+                makeCssRgbColorData(
+                    this.data.name,
+                    this.data.definition,
+                    {
+                        red: rgb[0],
+                        green: rgb[1],
+                        blue: rgb[2],
+                        alpha: 1,
+                    },
+                    {path, onError},
+                    ...fnOpts,
+                ),
+            );
+        };
 
-        return new CssRgbColor(
-            makeCssRgbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    red: rgb[0],
-                    green: rgb[1],
-                    blue: rgb[2],
-                    alpha: 1,
-                },
-                {path, onError},
-                ...fnOpts,
-            ),
-        );
+        // make it happen
+        return CssColorConversions.toRgb(this, makerFn, fnOpts);
     }
 
     // ================================================================
@@ -181,7 +196,46 @@ export class CssHexColor extends CssColor<CssHexColorData>
     //
     // ----------------------------------------------------------------
 
-    public alpha(): number
+    /**
+     * red() returns the `R` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `R` component from the RGB definition
+     */
+    public red()
+    {
+        return this.rgb().red();
+    }
+
+    /**
+     * green() returns the `G` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `G` component from the RGB definition
+     */
+    public green()
+    {
+        return this.rgb().green();
+    }
+
+    /**
+     * blue() returns the `B` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `B` component from the RGB definition
+     */
+    public blue()
+    {
+        return this.rgb().blue();
+    }
+
+    /**
+     * alpha() returns the alpha channel value of this color, as a number
+     * between 0-1
+     *
+     * @returns the `alpha` channel of this color
+     */
+    public alpha()
     {
         return this.rgb().alpha();
     }

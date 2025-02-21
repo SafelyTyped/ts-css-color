@@ -37,6 +37,7 @@ import { CssRgbColor, makeCssRgbColorData, type CssHslColorData, type CssHwbColo
 import { ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
 import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
 describe('CssRgbColor', () => {
     describe(".constructor", () => {
@@ -106,6 +107,43 @@ describe('CssRgbColor', () => {
                 expect(actualValue.definition()).eqls(validFixture.definition);
                 expect(actualValue.channelsData()).eqls(validFixture.channels);
             });
+        });
+
+        it("does not cache static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the RGB method will not use the
+            // static conversions cache (because there is nothing to cache)
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            unit.rgb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            // does not cache itself
+            expect(CssColorConversions.hasRgb(unit)).to.be.false;
         });
 
         it("supports functional operators", () => {
@@ -238,6 +276,42 @@ describe('CssRgbColor', () => {
             });
         });
 
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HSL method will cache any static
+            // conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsl();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CssColorConversions.hasHsl(actualValue)).to.be.true;
+        });
+
         it("supports functional operators", () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -366,6 +440,42 @@ describe('CssRgbColor', () => {
 
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HWB method will cache any static
+            // conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            // make sure that the cache is empty
+            CssColorConversions.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hwb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CssColorConversions.hasHwb(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -813,7 +923,13 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".hue()", () => {
+    // ================================================================
+    //
+    // DERIVED COMPONENT VALUES
+    //
+    // ----------------------------------------------------------------
+
+    describe(".hsl().hue()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -838,7 +954,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.hue();
+                const actualValue = unit.hsl().hue();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -848,7 +964,7 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".saturation()", () => {
+    describe(".hsl().saturation()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the S channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -873,7 +989,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.saturation();
+                const actualValue = unit.hsl().saturation();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -883,7 +999,7 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".luminosity()", () => {
+    describe(".hsl().luminosity()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -908,7 +1024,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.luminosity();
+                const actualValue = unit.hsl().luminosity();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -918,7 +1034,42 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".whiteness()", () => {
+    describe(".hwb().hue()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .hue() returns the H channel from
+                // the HSL conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.hslChannels.hue;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.hwb().hue();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".hwb().whiteness()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the W channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -943,7 +1094,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.whiteness();
+                const actualValue = unit.hwb().whiteness();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -953,7 +1104,7 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".blackness()", () => {
+    describe(".hwb().blackness()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -978,7 +1129,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.blackness();
+                const actualValue = unit.hwb().blackness();
 
                 // ----------------------------------------------------------------
                 // test the results
