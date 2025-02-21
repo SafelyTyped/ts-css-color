@@ -174,15 +174,4 @@ export class CssHexColor extends CssColor<CssHexColorData>
 
         return makeCssHexColorDefinition("#" + r + r + g + g + b + b);
     }
-
-    // ================================================================
-    //
-    // COMPONENT VALUES
-    //
-    // ----------------------------------------------------------------
-
-    public alpha(): number
-    {
-        return this.rgb().alpha();
-    }
 }

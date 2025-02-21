@@ -172,21 +172,45 @@ export class CssHslColor extends CssColor<CssHslColorData>
     //
     // ----------------------------------------------------------------
 
+    /**
+     * alpha() returns the alpha channel value of this color, as a number
+     * between 0-1
+     *
+     * @returns the `alpha` channel of this color
+     */
     public alpha(): number
     {
         return this.data.channels.alpha;
     }
 
+    /**
+     * hue() returns the `h` component from the hsl definition, as a number
+     * between 0-359
+     *
+     * @returns the `h` component from the hsl definition
+     */
     public hue(): number
     {
         return this.data.channels.hue;
     }
 
+    /**
+     * saturation() returns the `s` component from the hsl definition,
+     * as a number between 0-100
+     *
+     * @returns the `s` component from the hsl definition
+     */
     public saturation(): number
     {
         return this.data.channels.saturation;
     }
 
+    /**
+     * luminosity() returns the `l` component from the hsl definition,
+     * as a number between 0-1
+     *
+     * @returns the `l` component from the hsl definition
+     */
     public luminosity(): number
     {
         return this.data.channels.luminosity;

@@ -178,16 +178,4 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
     {
         return this.data.definition as CssExtendedColor;
     }
-
-    // ================================================================
-    //
-    // COMPONENT VALUES
-    //
-    // ----------------------------------------------------------------
-
-    public alpha(): number
-    {
-        // all known keywords have an alpha channel of 1
-        return 1;
-    }
 }

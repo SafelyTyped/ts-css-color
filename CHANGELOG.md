@@ -21,6 +21,11 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### B/C Breaks
+
+* component values (`.red()` et al) are no longer available everywhere
+  * you must access them via the appropriate class instead (`color.rgb().red()`)
+
 ## v1.3.1
 
 Released Monday, 27th January 2025.

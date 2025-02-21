@@ -168,21 +168,45 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
     //
     // ----------------------------------------------------------------
 
+    /**
+     * red() returns the `R` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `R` component from the RGB definition
+     */
     public red(): number
     {
         return this.data.channels.red;
     }
 
+    /**
+     * green() returns the `G` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `G` component from the RGB definition
+     */
     public green(): number
     {
         return this.data.channels.green;
     }
 
+    /**
+     * blue() returns the `B` component from the RGB definition, as a
+     * number between 0-255.
+     *
+     * @returns the `B` component from the RGB definition
+     */
     public blue(): number
     {
         return this.data.channels.blue;
     }
 
+    /**
+     * alpha() returns the alpha channel value of this color, as a number
+     * between 0-1
+     *
+     * @returns the `alpha` channel of this color
+     */
     public alpha(): number
     {
         return this.data.channels.alpha;
