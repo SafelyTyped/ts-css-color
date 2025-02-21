@@ -37,7 +37,6 @@
   "dependencies": {
     "@safelytyped/core-types": "^0.5.0",
     "@safelytyped/math-rounding": "^1.0.1",
-    "color": "^4.2.3",
     "color-parse": "^2.0.2",
     "color-space": "^2.3.1",
     "rgb-hex": "^4.1.0"
@@ -46,7 +45,6 @@
     "@stylistic/eslint-plugin": "^2.12.1",
     "@swc/cli": "^0.6.0",
     "@types/chai": "^4.3",
-    "@types/color": "^3.0.6",
     "@types/mocha": "^10.0",
     "@types/node": "^20.0",
     "@typescript-eslint/eslint-plugin": "^8.0",
