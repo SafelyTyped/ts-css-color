@@ -145,6 +145,53 @@ export class CssHexColor extends CssColor<CssHexColorData>
 
     // ================================================================
     //
+    // OTHER FORMATS
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * channelsData() returns the `R`, `G`, `B` and `A` components of
+     * this color as an object.
+     *
+     * @returns
+     */
+    public channelsData(): CssRgbColorChannelsData
+    {
+        return this.rgb().channelsData();
+    }
+
+    /**
+     * channelsTuple() returns the `R`, `G`, `B` components of
+     * this color as an array.
+     *
+     * NOTE that we deliberately leave out the alpha channel, in order
+     * to keep the underlying `color-convert` package happy.
+     *
+     * @returns
+     */
+    public channelsTuple(): CssRgbColorChannelsTuple
+    {
+        return this.rgb().channelsTuple();
+    }
+
+    public hex(): CssHexColorDefinition
+    {
+        // general case
+        if (this.data.definition.length > 4) {
+            return makeCssHexColorDefinition(this.data.definition);
+        }
+
+        // if we get here, we need to convert the hex string to
+        // full-length
+        const r = this.data.definition.substring(1, 2);
+        const g = this.data.definition.substring(2, 3);
+        const b = this.data.definition.substring(3, 4);
+
+        return makeCssHexColorDefinition("#" + r + r + g + g + b + b);
+    }
+
+    // ================================================================
+    //
     // COMPONENT VALUES
     //
     // ----------------------------------------------------------------
@@ -191,52 +238,5 @@ export class CssHexColor extends CssColor<CssHexColorData>
     public alpha()
     {
         return this.rgb().alpha();
-    }
-
-    // ================================================================
-    //
-    // OTHER FORMATS
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * channelsData() returns the `R`, `G`, `B` and `A` components of
-     * this color as an object.
-     *
-     * @returns
-     */
-    public channelsData(): CssRgbColorChannelsData
-    {
-        return this.rgb().channelsData();
-    }
-
-    /**
-     * channelsTuple() returns the `R`, `G`, `B` components of
-     * this color as an array.
-     *
-     * NOTE that we deliberately leave out the alpha channel, in order
-     * to keep the underlying `color-convert` package happy.
-     *
-     * @returns
-     */
-    public channelsTuple(): CssRgbColorChannelsTuple
-    {
-        return this.rgb().channelsTuple();
-    }
-
-    public hex(): CssHexColorDefinition
-    {
-        // general case
-        if (this.data.definition.length > 4) {
-            return makeCssHexColorDefinition(this.data.definition);
-        }
-
-        // if we get here, we need to convert the hex string to
-        // full-length
-        const r = this.data.definition.substring(1, 2);
-        const g = this.data.definition.substring(2, 3);
-        const b = this.data.definition.substring(3, 4);
-
-        return makeCssHexColorDefinition("#" + r + r + g + g + b + b);
     }
 }
