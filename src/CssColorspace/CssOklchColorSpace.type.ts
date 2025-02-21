@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,4 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export type CssColorspace = "sRGB" | "OKLCH";
+import type { CssColorspacedColor } from "./CssColorspacedColor.type";
+
+export type CssOklchColorSpace = CssColorspacedColor &
+{
+    colorSpace: "OKLCH";
+};

@@ -24,6 +24,8 @@ The following changes have been completed, and will be included in the next tagg
 ### New
 
 * added support for OKLCH color space
+  * added `OKLCH` to `CssColorspace` type
+  * added `CssOklchColorSpace` type
   * added `CssOklchColorChannelsData` type
   * added `isCssOklchColorChannelsData` type guard
   * added `mustBeCssOklchColorChannelsData()` type guarantee
@@ -32,7 +34,7 @@ The following changes have been completed, and will be included in the next tagg
 ### Fixes
 
 * added missing `CssColorspace` exports
-  * added `CssColorspaces` type
+  * added `CssColorspace` type
   * added `CssColorspacedColor` type
   * added `CssSrgbColorSpace` type
 
