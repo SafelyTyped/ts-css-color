@@ -64,9 +64,14 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        const model = colorConvert.hwb.hsl.raw(this.channelsTuple());
+        // special case - can we use the cached value?
+        if (this.cachedConversions.hsl && fnOpts.length === 0) {
+            return this.cachedConversions.hsl;
+        }
 
-        return new CssHslColor(
+        // general case
+        const model = colorConvert.hwb.hsl.raw(this.channelsTuple());
+        const retval = new CssHslColor(
             makeCssHslColorData(
                 this.data.name,
                 this.data.definition,
@@ -80,6 +85,15 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
                 ...fnOpts,
             )
         );
+
+        // do we have a static conversion?
+        if (fnOpts.length === 0) {
+            // yes, so cache it!
+            this.cachedConversions.hsl = retval;
+        }
+
+        // all done
+        return retval;
     }
 
     public hwb(
