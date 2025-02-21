@@ -103,9 +103,14 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
+        // special case - can we use the cached value?
+        if (this.cachedConversions.hwb && fnOpts.length === 0) {
+            return this.cachedConversions.hwb;
+        }
 
-        return new CssHwbColor(
+        // general case
+        const model = colorConvert.rgb.hwb.raw(this.channelsTuple());
+        const retval = new CssHwbColor(
             makeCssHwbColorData(
                 this.data.name,
                 this.data.definition,
@@ -119,6 +124,15 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
                 ...fnOpts,
             ),
         );
+
+        // do we have a static conversion?
+        if (fnOpts.length === 0) {
+            // yes, so cache it!
+            this.cachedConversions.hwb = retval;
+        }
+
+        // all done
+        return retval;
     }
 
     public rgb(
