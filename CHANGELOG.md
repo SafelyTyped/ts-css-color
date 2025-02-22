@@ -53,10 +53,12 @@ The following changes have been completed, and will be included in the next tagg
     * implemented as `CssOklchColor.colorFormat()`
     * implemented as `CssRgbColor.colorFormat()`
   * added converters to/from channel data formats
+    * added `convertConversionModelToHslChannelsData()`
     * added `convertConversionModelToHwbChannelsData()`
     * added `convertConversionModelToKeyword()`
     * added `convertConversionModelToOklchChannelsData()`
     * added `convertConversionModelToRgbChannelsData()`
+    * added `convertHslChannelsDataToConversionModel()`
     * added `convertHwbChannelsDataToConversionModel()`
     * added `convertKeywordToConversionModel()`
     * added `convertOklchChannelsDataToConversionModel()`
