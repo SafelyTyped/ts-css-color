@@ -33,7 +33,7 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
-import { ValidCssColors } from "src/CssColor/_fixtures/CssColorFixtures";
+import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssKeywordColorData } from "../CssKeywordColorData.type";
 import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
