@@ -95,6 +95,8 @@ export type { CssHwbColorChannelsData } from "./CssHwbColor/CssHwbColorChannelsD
 export type { CssHwbColorChannelsTuple } from "./CssHwbColor/CssHwbColorChannelsTuple.type";
 export type { CssHwbColorData } from "./CssHwbColor/CssHwbColorData.type";
 export { CssHwbColor } from "./CssHwbColor/CssHwbColor";
+export { convertConversionModelToHwbChannelsData } from "./CssHwbColor/convertConversionModelToHwbChannelsData";
+export { convertHwbChannelsDataToConversionModel } from "./CssHwbColor/convertHwbChannelsDataToConversionModel";
 export { isCssHwbColorChannelsData } from "./CssHwbColor/isCssHwbColorChannelsData";
 export { isCssHwbColorData } from "./CssHwbColor/isCssHwbColorData";
 export { makeCssHwbColorData } from "./CssHwbColor/makeCssHwbColorData";
