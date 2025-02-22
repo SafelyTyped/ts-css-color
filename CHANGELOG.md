@@ -52,6 +52,9 @@ The following changes have been completed, and will be included in the next tagg
     * implemented as `CssKeywordColor.colorFormat()`
     * implemented as `CssOklchColor.colorFormat()`
     * implemented as `CssRgbColor.colorFormat()`
+  * added converters to/from channel data formats
+    * added `convertConversionModelToRgbChannelsData()`
+    * added `convertRgbChannelsDataToConversionModel()`
 
 ### Fixes
 
