@@ -53,7 +53,9 @@ The following changes have been completed, and will be included in the next tagg
     * implemented as `CssOklchColor.colorFormat()`
     * implemented as `CssRgbColor.colorFormat()`
   * added converters to/from channel data formats
+    * added `convertConversionModelToOklchChannelsData()`
     * added `convertConversionModelToRgbChannelsData()`
+    * added `convertOklchChannelsDataToConversionModel()`
     * added `convertRgbChannelsDataToConversionModel()`
 
 ### Fixes

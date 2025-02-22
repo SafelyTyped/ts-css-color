@@ -32,35 +32,26 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { VALID_RGB_CONVERSIONS_FIXTURES } from "./_fixtures/RgbConversionData";
-import { convertConversionModelToRgbChannelsData } from "@safelytyped/css-color";
-import { expect } from "chai";
+import type { Oklch } from "culori";
+import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
 
-describe("convertConversionModelToRgbChannelsData()", () => {
-    VALID_RGB_CONVERSIONS_FIXTURES.forEach((fixture) => {
-        it("successfully converts for input: " + JSON.stringify(fixture.conversionModel), () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the converter function returns the
-            // expected output for the given input
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = fixture.conversionModel;
-            const expectedResult = fixture.rgbChannelsData;
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualResult = convertConversionModelToRgbChannelsData(inputValue);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualResult).to.eql(expectedResult);
-        });
-    })
-});
+/**
+ * convertOklchChannelsDataToConversionModel() is a helper method. It converts
+ * an instance of our preferred data format to the OKLCH model used by our
+ * chosen third-party color conversion package.
+ *
+ * @param input
+ * @returns
+ */
+export function convertOklchChannelsDataToConversionModel(
+    input: CssOklchColorChannelsData
+): Oklch
+{
+    return {
+        mode: "oklch",
+        l: input.lightness,
+        c: input.chroma,
+        h: input.hue,
+        alpha: input.alpha || 1,
+    };
+}

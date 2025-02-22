@@ -33,13 +33,13 @@
 //
 
 import { describe } from "mocha";
-import { VALID_RGB_CONVERSIONS_FIXTURES } from "./_fixtures/RgbConversionData";
-import { convertConversionModelToRgbChannelsData } from "@safelytyped/css-color";
+import { VALID_OKLCH_CONVERSIONS_FIXTURES } from "./_fixtures/OklchConversionData";
+import { convertOklchChannelsDataToConversionModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 
-describe("convertConversionModelToRgbChannelsData()", () => {
-    VALID_RGB_CONVERSIONS_FIXTURES.forEach((fixture) => {
-        it("successfully converts for input: " + JSON.stringify(fixture.conversionModel), () => {
+describe("convertOklchChannelsDataToConversionModel()", () => {
+    VALID_OKLCH_CONVERSIONS_FIXTURES.forEach((fixture) => {
+        it("successfully converts for input: " + JSON.stringify(fixture.oklchChannelsData), () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -49,13 +49,13 @@ describe("convertConversionModelToRgbChannelsData()", () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = fixture.conversionModel;
-            const expectedResult = fixture.rgbChannelsData;
+            const inputValue = fixture.oklchChannelsData;
+            const expectedResult = fixture.conversionModel;
 
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualResult = convertConversionModelToRgbChannelsData(inputValue);
+            const actualResult = convertOklchChannelsDataToConversionModel(inputValue);
 
             // ----------------------------------------------------------------
             // test the results

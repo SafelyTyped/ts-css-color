@@ -32,35 +32,43 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { VALID_RGB_CONVERSIONS_FIXTURES } from "./_fixtures/RgbConversionData";
-import { convertConversionModelToRgbChannelsData } from "@safelytyped/css-color";
-import { expect } from "chai";
+import type { Oklch } from "culori";
+import type { CssOklchColorChannelsData } from "../CssOklchColorChannelsData.type";
 
-describe("convertConversionModelToRgbChannelsData()", () => {
-    VALID_RGB_CONVERSIONS_FIXTURES.forEach((fixture) => {
-        it("successfully converts for input: " + JSON.stringify(fixture.conversionModel), () => {
-            // ----------------------------------------------------------------
-            // explain your test
+export type OklchConversionData = {
+    oklchChannelsData: CssOklchColorChannelsData;
+    conversionModel: Oklch;
+}
 
-            // this test proves that the converter function returns the
-            // expected output for the given input
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = fixture.conversionModel;
-            const expectedResult = fixture.rgbChannelsData;
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualResult = convertConversionModelToRgbChannelsData(inputValue);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualResult).to.eql(expectedResult);
-        });
-    })
-});
+export const VALID_OKLCH_CONVERSIONS_FIXTURES: OklchConversionData[] = [
+    {
+        oklchChannelsData: {
+            lightness: 0.7992,
+            chroma: 0.1327,
+            hue: 226.67,
+            alpha: 1,
+        },
+        conversionModel: {
+            mode: "oklch",
+            l: 0.7992,
+            c: 0.1327,
+            h: 226.67,
+            alpha: 1,
+        }
+    },
+    {
+        oklchChannelsData: {
+            lightness: 0.5254,
+            chroma: 0.137763,
+            hue: 152.15,
+            alpha: 1,
+        },
+        conversionModel: {
+            mode: "oklch",
+            l: 0.5254,
+            c: 0.137763,
+            h: 152.15,
+            alpha: 1,
+        }
+    }
+];
