@@ -54,6 +54,7 @@ import { makeCssRgbColorData } from "./makeCssRgbColorData";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
@@ -184,6 +185,22 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
             rgbData.blue,
         ).toLowerCase();
         return makeCssHexColorDefinition(hexCode);
+    }
+
+    // ================================================================
+    //
+    // PROPERTIES
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
+     *
+     * @returns the color notation used by this object
+     */
+    public colorFormat(): SupportedCssColorFormat {
+        return "rgb";
     }
 
     // ================================================================

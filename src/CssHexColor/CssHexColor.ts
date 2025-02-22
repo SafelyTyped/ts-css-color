@@ -51,6 +51,7 @@ import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
@@ -192,6 +193,22 @@ export class CssHexColor extends CssColor<CssHexColorData>
         const b = this.data.definition.substring(3, 4);
 
         return makeCssHexColorDefinition("#" + r + r + g + g + b + b);
+    }
+
+    // ================================================================
+    //
+    // PROPERTIES
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
+     *
+     * @returns the color notation used by this object
+     */
+    public colorFormat(): SupportedCssColorFormat {
+        return "hex";
     }
 
     // ================================================================

@@ -988,4 +988,36 @@ describe('CssHexColor', () => {
             });
         });
     });
+
+    describe(".colorFormat()", () => {
+        it("returns 'hex'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHexColorData(
+                "red",
+                "#ff0000",
+            );
+            const unit = new CssHexColor(inputValue);
+
+            const expectedValue = "hex";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+
+    });
 });

@@ -49,6 +49,7 @@ import { makeCssOklchColorData } from "./makeCssOklchColorData";
 
 import { converter, type Oklch } from "culori";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 const rgbConverter = converter("rgb");
 
@@ -169,6 +170,22 @@ export class CssOklchColor extends CssColor<CssOklchColorData>
     public hex(): CssHexColorDefinition
     {
         return this.rgb().hex();
+    }
+
+    // ================================================================
+    //
+    // PROPERTIES
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
+     *
+     * @returns the color notation used by this object
+     */
+    public colorFormat(): SupportedCssColorFormat {
+        return "oklch";
     }
 
     // ================================================================

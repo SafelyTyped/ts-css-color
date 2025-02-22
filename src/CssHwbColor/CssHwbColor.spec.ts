@@ -1209,4 +1209,41 @@ describe('CssHwbColor', () => {
             });
         });
     });
+
+    describe(".colorFormat()", () => {
+        it("returns 'hwb'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHwbColorData(
+                "original",
+                "hwb(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    whiteness: 0,
+                    blackness: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHwbColor(inputValue);
+
+            const expectedValue = "hwb";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
 });

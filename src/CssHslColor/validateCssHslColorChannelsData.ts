@@ -43,7 +43,6 @@ export function validateCssHslColorChannelsData(
     }: TypeValidatorOptions = {}
 ): AppErrorOr<CssHslColorChannelsData>
 {
-    console.log(input);
     return recastIfValid<CssHslColorChannelsData>(
         input,
         () => validate(input)

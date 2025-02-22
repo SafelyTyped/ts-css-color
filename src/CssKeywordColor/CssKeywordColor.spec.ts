@@ -627,7 +627,7 @@ describe('CssKeywordColor', () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that the .defintion() method returns what it
+                // this test proves that the .definition() method returns what it
                 // is supposed to
 
                 // ----------------------------------------------------------------
@@ -658,7 +658,7 @@ describe('CssKeywordColor', () => {
     //
     // ----------------------------------------------------------------
 
-     describe(".rgb()red()", () => {
+     describe(".rgb().red()", () => {
         ValidCssKeywordColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the R channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -995,6 +995,36 @@ describe('CssKeywordColor', () => {
 
                 expect(actualValue).to.eql(expectedValue);
             });
+        });
+    });
+
+    describe(".colorFormat()", () => {
+        it("returns 'keyword'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssKeywordColorData(
+                "red",
+                "red",
+            );
+            const unit = new CssKeywordColor(inputValue);
+            const expectedValue = "keyword";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
         });
     });
 });

@@ -45,6 +45,13 @@ The following changes have been completed, and will be included in the next tagg
   * added `SupportedCssColorFormat` type
   * added `UnsupportedCssConversionError` error
   * added `UnsupportedCssConversionData` supporting type
+  * added `CssColor::colorFormat()` method
+    * implemented as `CssHexColor.colorFormat()`
+    * implemented as `CssHslColor.colorFormat()`
+    * implemented as `CssHwbColor.colorFormat()`
+    * implemented as `CssKeywordColor.colorFormat()`
+    * implemented as `CssOklchColor.colorFormat()`
+    * implemented as `CssRgbColor.colorFormat()`
 
 ### Fixes
 

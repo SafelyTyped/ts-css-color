@@ -44,6 +44,7 @@ import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -225,6 +226,14 @@ export abstract class CssColor<E extends CssColorData> {
     {
         return this.data.definition;
     }
+
+    /**
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
+     *
+     * @returns the color notation used by this object
+     */
+    public abstract colorFormat(): SupportedCssColorFormat;
 
     // ================================================================
     //

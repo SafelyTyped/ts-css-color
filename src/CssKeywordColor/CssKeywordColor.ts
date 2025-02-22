@@ -49,6 +49,7 @@ import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
@@ -166,5 +167,21 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
     public keyword(): Maybe<CssExtendedColor>
     {
         return this.data.definition as CssExtendedColor;
+    }
+
+    // ================================================================
+    //
+    // PROPERTIES
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
+     *
+     * @returns the color notation used by this object
+     */
+    public colorFormat(): SupportedCssColorFormat {
+        return "keyword";
     }
 }

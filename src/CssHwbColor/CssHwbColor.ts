@@ -50,6 +50,7 @@ import { makeCssHwbColorData } from "./makeCssHwbColorData";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 export class CssHwbColor extends CssColor<CssHwbColorData>
 {
@@ -164,6 +165,22 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
             this.data.channels.whiteness,
             this.data.channels.blackness,
         ];
+    }
+
+    // ================================================================
+    //
+    // PROPERTIES
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
+     *
+     * @returns the color notation used by this object
+     */
+    public colorFormat(): SupportedCssColorFormat {
+        return "hwb";
     }
 
     // ================================================================

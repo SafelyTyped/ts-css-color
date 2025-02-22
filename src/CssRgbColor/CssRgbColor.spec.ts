@@ -1208,4 +1208,40 @@ describe('CssRgbColor', () => {
             });
         });
     });
+
+    describe(".colorFormat()", () => {
+        it("returns 'rgb'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+            const expectedValue = "rgb";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
 });

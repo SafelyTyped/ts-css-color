@@ -1335,4 +1335,41 @@ describe('CssOklchColor', () => {
             });
         });
     });
+
+    describe(".colorFormat()", () => {
+        it("returns 'oklch'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssOklchColorData(
+                "red",
+                "#ff0000",
+                {
+                    lightness: 0.628,
+                    chroma: 0.2577,
+                    hue: 29.23,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssOklchColor(inputValue);
+            const expectedValue = "oklch";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
+
 });

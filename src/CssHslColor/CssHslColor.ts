@@ -51,6 +51,7 @@ import { makeCssHslColorData } from "./makeCssHslColorData";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 /**
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
@@ -179,6 +180,22 @@ export class CssHslColor extends CssColor<CssHslColorData>
             this.data.channels.saturation,
             this.data.channels.luminosity,
         ];
+    }
+
+    // ================================================================
+    //
+    // PROPERTIES
+    //
+    // ----------------------------------------------------------------
+
+    /**
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
+     *
+     * @returns the color notation used by this object
+     */
+    public colorFormat(): SupportedCssColorFormat {
+        return "hsl";
     }
 
     // ================================================================
