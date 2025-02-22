@@ -32,12 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Rgb } from "culori";
+import type { Color } from "culori";
 import type { CssRgbColorChannelsData } from "../CssRgbColorChannelsData.type";
 
 export type RgbConversionData = {
     rgbChannelsData: CssRgbColorChannelsData;
-    conversionModel: Rgb;
+    conversionModel: Color;
 }
 
 export const VALID_RGB_CONVERSIONS_FIXTURES: RgbConversionData[] = [

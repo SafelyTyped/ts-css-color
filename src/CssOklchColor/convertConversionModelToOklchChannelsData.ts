@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Oklch } from "culori";
+import { type Color, oklch } from "culori";
 import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
 
 /**
@@ -44,13 +44,15 @@ import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type
  * @returns
  */
 export function convertConversionModelToOklchChannelsData(
-    input: Oklch
+    input: Color
 ): CssOklchColorChannelsData
 {
+    const model = oklch(input);
+
     return {
-        lightness: input.l,
-        chroma: input.c,
-        hue: input.h || 0,
-        alpha: input.alpha || 1,
+        lightness: model.l,
+        chroma: model.c,
+        hue: model.h || 0,
+        alpha: model.alpha || 1,
     };
 }

@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Rgb } from "culori";
+import { type Color, rgb } from "culori";
 import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
 
 /**
@@ -44,13 +44,15 @@ import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
  * @returns
  */
 export function convertConversionModelToRgbChannelsData(
-    input: Rgb
+    input: Color
 ): CssRgbColorChannelsData
 {
+    const model = rgb(input);
+
     return {
-        red: input.r * 255,
-        green: input.g * 255,
-        blue: input.b * 255,
-        alpha: input.alpha || 1,
+        red: model.r * 255,
+        green: model.g * 255,
+        blue: model.b * 255,
+        alpha: model.alpha || 1,
     };
 }

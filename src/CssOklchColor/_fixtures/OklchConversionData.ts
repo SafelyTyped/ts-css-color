@@ -32,12 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Oklch } from "culori";
+import type { Color } from "culori";
 import type { CssOklchColorChannelsData } from "../CssOklchColorChannelsData.type";
 
 export type OklchConversionData = {
     oklchChannelsData: CssOklchColorChannelsData;
-    conversionModel: Oklch;
+    conversionModel: Color;
 }
 
 export const VALID_OKLCH_CONVERSIONS_FIXTURES: OklchConversionData[] = [
