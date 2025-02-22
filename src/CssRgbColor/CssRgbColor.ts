@@ -55,12 +55,13 @@ import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import { convertRgbChannelsDataToConversionModel } from "./convertRgbChannelsDataToConversionModel";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
  * CSS RGBA format.
  */
-export class CssRgbColor extends CssColor<CssRgbColorData>
+export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
 {
     public hsl(
         {
@@ -185,6 +186,10 @@ export class CssRgbColor extends CssColor<CssRgbColorData>
             rgbData.blue,
         ).toLowerCase();
         return makeCssHexColorDefinition(hexCode);
+    }
+
+    public conversionModel(): Rgb {
+        return convertRgbChannelsDataToConversionModel(this.data.channels);
     }
 
     // ================================================================

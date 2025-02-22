@@ -51,8 +51,9 @@ import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import { convertHwbChannelsDataToConversionModel } from "./convertHwbChannelsDataToConversionModel";
 
-export class CssHwbColor extends CssColor<CssHwbColorData>
+export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
 {
     // ================================================================
     //
@@ -165,6 +166,10 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
             this.data.channels.whiteness,
             this.data.channels.blackness,
         ];
+    }
+
+    public conversionModel(): Hwb {
+        return convertHwbChannelsDataToConversionModel(this.data.channels);
     }
 
     // ================================================================

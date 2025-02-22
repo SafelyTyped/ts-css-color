@@ -45,6 +45,7 @@ import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -54,7 +55,7 @@ import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/Support
  * - obtain the representation details
  * - convert from one format (e.g. rgb) to another (e.g. hsl or hex)
  */
-export abstract class CssColor<E extends CssColorData> {
+export abstract class CssColor<E extends CssColorData, C extends ConversionModel> {
     /**
      * holds the internal representation of the CSS color,
      * along with common details such as its name and its original
@@ -190,6 +191,12 @@ export abstract class CssColor<E extends CssColorData> {
     {
         return this.definition();
     }
+
+    /**
+     * returns this color's data in a format that's compatible with our
+     * chosen third-party color conversion package.
+     */
+    public abstract conversionModel(): C;
 
     // ================================================================
     //

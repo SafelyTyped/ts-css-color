@@ -50,6 +50,7 @@ import { makeCssOklchColorData } from "./makeCssOklchColorData";
 import { converter, type Oklch } from "culori";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import { convertOklchChannelsDataToConversionModel } from "./convertOklchChannelsDataToConversionModel";
 
 const rgbConverter = converter("rgb");
 
@@ -57,7 +58,7 @@ const rgbConverter = converter("rgb");
  * CssOklchColor represents a {@link CssColor} that was defined using the
  * CSS RGBA format.
  */
-export class CssOklchColor extends CssColor<CssOklchColorData>
+export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
 {
     public hsl(
         {
@@ -170,6 +171,10 @@ export class CssOklchColor extends CssColor<CssOklchColorData>
     public hex(): CssHexColorDefinition
     {
         return this.rgb().hex();
+    }
+
+    public conversionModel(): Oklch {
+        return convertOklchChannelsDataToConversionModel(this.data.channels);
     }
 
     // ================================================================

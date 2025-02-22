@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,11 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyConversionModel } from "../ConversionModel/AnyConversionModel.type";
-import type { CssColor } from "./CssColor";
+import type { Color } from "culori";
 
-/**
- * AnyCssColor is a type. Use it wherever you can accept and/or return
- * any variant of the {@link CssColor} class.
- */
-export type AnyCssColor = CssColor<any, AnyConversionModel>;
+export type AnyConversionModel = Color;

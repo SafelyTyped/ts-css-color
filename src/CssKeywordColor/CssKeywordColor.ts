@@ -50,12 +50,14 @@ import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinit
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { Rgb } from "culori";
+import { convertKeywordToConversionModel } from "./convertKeywordToConversionModel";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
  * extended color name.
  */
-export class CssKeywordColor extends CssColor<CssKeywordColorData>
+export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
 {
     // ================================================================
     //
@@ -167,6 +169,10 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
     public keyword(): Maybe<CssExtendedColor>
     {
         return this.data.definition as CssExtendedColor;
+    }
+
+    public conversionModel(): Rgb {
+        return convertKeywordToConversionModel(this.definition() as CssExtendedColor);
     }
 
     // ================================================================

@@ -23,6 +23,8 @@ The following changes have been completed, and will be included in the next tagg
 
 ### B/C Breaks
 
+* `CssColor` now takes a `C` generic type class parameter
+  * this needs to be a `ConversionModel` type
 * component values (`.red()` et al) are no longer available everywhere
   * you must access them via the appropriate class instead (`color.rgb().red()`)
 
@@ -52,6 +54,15 @@ The following changes have been completed, and will be included in the next tagg
     * implemented as `CssKeywordColor.colorFormat()`
     * implemented as `CssOklchColor.colorFormat()`
     * implemented as `CssRgbColor.colorFormat()`
+  * added `AnyConversionModel` type
+  * added `ConversionModel` type
+  * added `CssColor::conversionModel()` method
+    * implemented as `CssHexColor.conversionModel()`
+    * implemented as `CssHslColor.conversionModel()`
+    * implemented as `CssHwbColor.conversionModel()`
+    * implemented as `CssKeywordColor.conversionModel()`
+    * implemented as `CssOklchColor.conversionModel()`
+    * implemented as `CssRgbColor.conversionModel()`
   * added converters to/from channel data formats
     * added `convertConversionModelToHexColorDefinition()`
     * added `convertConversionModelToHslChannelsData()`

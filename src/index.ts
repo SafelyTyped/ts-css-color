@@ -142,6 +142,8 @@ export { validateCssRgbColorData } from "./CssRgbColor/validateCssRgbColorData";
 //
 // ----------------------------------------------------------------
 
+export type { AnyConversionModel } from "./ConversionModel/AnyConversionModel.type";
+export type { ConversionModel } from "./ConversionModel/ConversionModel.type";
 export type { SupportedCssColorFormat } from "./SupportedCssColorFormat/SupportedCssColorFormat.type";
 export type { WcagContrastRatings } from "./WcagContrastRatings/WcagContrastRatings.type";
 

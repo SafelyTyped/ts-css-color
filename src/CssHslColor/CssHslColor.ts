@@ -52,12 +52,13 @@ import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import { convertHslChannelsDataToConversionModel } from "./convertHslChannelsDataToConversionModel";
 
 /**
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
  * definition.
  */
-export class CssHslColor extends CssColor<CssHslColorData>
+export class CssHslColor extends CssColor<CssHslColorData, Hsl>
 {
     // ================================================================
     //
@@ -180,6 +181,10 @@ export class CssHslColor extends CssColor<CssHslColorData>
             this.data.channels.saturation,
             this.data.channels.luminosity,
         ];
+    }
+
+    public conversionModel(): Hsl {
+        return convertHslChannelsDataToConversionModel(this.data.channels);
     }
 
     // ================================================================

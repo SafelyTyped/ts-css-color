@@ -52,12 +52,13 @@ import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import { convertHexColorDefinitionToConversionModel } from "./convertHexColorDefinitionToConversionModel";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
  * format.
  */
-export class CssHexColor extends CssColor<CssHexColorData>
+export class CssHexColor extends CssColor<CssHexColorData, Rgb>
 {
     public constructor(
         data: CssHexColorData
@@ -193,6 +194,10 @@ export class CssHexColor extends CssColor<CssHexColorData>
         const b = this.data.definition.substring(3, 4);
 
         return makeCssHexColorDefinition("#" + r + r + g + g + b + b);
+    }
+
+    public conversionModel(): Rgb {
+        return convertHexColorDefinitionToConversionModel(this.hex());
     }
 
     // ================================================================
