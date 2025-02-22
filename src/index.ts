@@ -131,6 +131,7 @@ export { validateCssRgbColorData } from "./CssRgbColor/validateCssRgbColorData";
 //
 // ----------------------------------------------------------------
 
+export type { SupportedCssColorFormat } from "./SupportedCssColorFormat/SupportedCssColorFormat.type";
 export type { WcagContrastRatings } from "./WcagContrastRatings/WcagContrastRatings.type";
 
 // ================================================================
@@ -142,6 +143,8 @@ export type { WcagContrastRatings } from "./WcagContrastRatings/WcagContrastRati
 export { MODULE_NAME } from "./Errors/defaults/MODULE_NAME";
 export type { InvalidCssColorDataData } from "./Errors/InvalidCssColorData/InvalidCssColorDataData.type";
 export { InvalidCssColorDataError } from "./Errors/InvalidCssColorData/InvalidCssColorDataError";
+export type { UnsupportedCssColorConversionData } from "./Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionData.type";
+export { UnsupportedCssColorConversionError } from "./Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
 export type { UnsupportedCssColorDefinitionData } from "./Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionData.type";
 export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
 

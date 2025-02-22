@@ -41,6 +41,10 @@ The following changes have been completed, and will be included in the next tagg
   * added `mustBeCssOklchColorData()` type guarantee
   * added `validateCssOklchColorChannelsData()` type validator
   * added `validateCssOklchColorData()` type validator
+* reworked color format conversion support
+  * added `SupportedCssColorFormat` type
+  * added `UnsupportedCssConversionError` error
+  * added `UnsupportedCssConversionData` supporting type
 
 ### Fixes
 
