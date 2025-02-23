@@ -34,16 +34,16 @@
 
 import { parse } from "culori";
 
-import type { AnyCssColor } from "./AnyCssColor.type";
-import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
-import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type OnError, type DataPath, type FunctionalOption, applyFunctionalOptions, type DataValidatorOptions, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { applyFunctionalOptions, DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type DataPath, type DataValidatorOptions, type FunctionalOption, type OnError } from "@safelytyped/core-types";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
 import { CssHexColor } from "../CssHexColor/CssHexColor";
 import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
-import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
-import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
+import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
+import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
+import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
+import type { AnyCssColor } from "./AnyCssColor.type";
+import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -120,10 +120,13 @@ export function makeCssColor(
         });
     }
 
-    return makeCssColorFromConversionModel(
-        model,
-        colorName,
-        cssDefinition,
+    return applyFunctionalOptions(
+        makeCssColorFromConversionModel(
+            model,
+            colorName,
+            cssDefinition,
+            opts,
+        ),
         opts,
         ...fnOpts
     );

@@ -35,11 +35,11 @@ The following changes have been completed, and will be included in the next tagg
 ### New
 
 * added new, direct smart constructors
-  * added makeCssHexColor
-  * added makeCssHslColor
-  * added makeCssHwbColor
-  * added makeCssOklchColor
-  * added makeCssRgbColor
+  * added `makeCssHexColor()`
+  * added `makeCssHslColor()`
+  * added `makeCssHwbColor()`
+  * added `makeCssOklchColor()`
+  * added `makeCssRgbColor()`
 * added support for OKLCH color space
   * added `OKLCH` to `CssColorspace` type
   * added `CssOklchColorSpace` type

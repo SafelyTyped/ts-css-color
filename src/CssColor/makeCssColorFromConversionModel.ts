@@ -34,13 +34,24 @@
 
 import type { Color } from "culori";
 
-import type { AnyCssColor } from "./AnyCssColor.type";
-import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
-import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
-import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
+import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuaranteeOptions, type DispatchMap } from "@safelytyped/core-types";
 import { makeCssHslColorFromConversionModel } from "../CssHslColor/makeCssHslColorFromConversionModel";
+import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
+import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
+import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
+import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { AnyCssColor } from "./AnyCssColor.type";
+import type { CssColorFromConversionModelSmartConstructor } from "./CssColorFromConversionModelSmartConstructor.type";
+
+type UnsupportedCssColorFormats = "hex" | "keyword";
+
+const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssColorFormats>, CssColorFromConversionModelSmartConstructor> = {
+    "hsl": makeCssHslColorFromConversionModel,
+    "hwb": makeCssHwbColorFromConversionModel,
+    "oklch": makeCssOklchColorFromConversionModel,
+    "rgb": makeCssRgbColorFromConversionModel,
+};
 
 /**
  * makeCssColorFromConversionModel() is a smart constructor. Use it to build
@@ -68,28 +79,25 @@ export function makeCssColorFromConversionModel(
         onError = THROW_THE_ERROR,
         path = DEFAULT_DATA_PATH
     }: DataGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<AnyCssColor, DataGuaranteeOptions>[]
 ): AnyCssColor
 {
     // shorthand
     const opts = { onError, path };
 
-    switch(model.mode) {
-        case "hsl":
-            return makeCssHslColorFromConversionModel(colorName, cssDefinition, model, opts);
-        case "hwb":
-            return makeCssHwbColorFromConversionModel(colorName, cssDefinition, model, opts);
-        case "oklch":
-            return makeCssOklchColorFromConversionModel(colorName, cssDefinition, model, opts);
-        case "rgb":
-            return makeCssRgbColorFromConversionModel(colorName, cssDefinition, model, opts);
+    // if we're given a model that we do not support
+    const fallback = () => {
+        const err = new UnsupportedCssColorDefinitionError({
+            public: {
+                dataPath: path,
+                colorDefinition: cssDefinition,
+            }
+        });
+        return onError(err);
+    };
 
-        default:
-            throw new UnsupportedCssColorDefinitionError({
-                public: {
-                    dataPath: path,
-                    colorDefinition: cssDefinition,
-                }
-            });
-    }
+    // find out which function to call for the given model
+    const colorMaker = searchDispatchMap(DISPATCH_MAP, [model.mode], fallback);
+
+    // call it
+    return colorMaker(colorName, cssDefinition, model, opts);
 }
