@@ -42,17 +42,13 @@ import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGua
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssOklchColorData } from "./makeCssOklchColorData";
 
-import { converter, type Oklch } from "culori";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import type { Oklch } from "culori";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import { convertOklchChannelsDataToConversionModel } from "./convertOklchChannelsDataToConversionModel";
-
-const rgbConverter = converter("rgb");
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
 
 /**
  * CssOklchColor represents a {@link CssColor} that was defined using the
@@ -110,36 +106,22 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
         );
     }
 
+    /**
+     * rgb() converts this color to the CSS rgba() format
+     */
     public rgb(
         {
             path = DEFAULT_DATA_PATH,
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor
+    )
     {
-        // how to do the conversion
-        const conversionFn = () => {
-            const model = rgbConverter(this.toModel());
-
-            return new CssRgbColor(
-                makeCssRgbColorData(
-                    this.data.name,
-                    this.data.definition,
-                    {
-                        red: Math.abs(this.round(model.r * 255)),
-                        green: Math.abs(this.round(model.g * 255)),
-                        blue: Math.abs(this.round(model.b * 255)),
-                        alpha: this.data.channels.alpha,
-                    },
-                    { path, onError },
-                    ...fnOpts,
-                ),
-            );
-        };
-
-        // make it happen
-        return CssColorConversions.toRgb(this, conversionFn, fnOpts);
+        return makeCssRgbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     // ================================================================
@@ -217,18 +199,5 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
     public alpha(): number
     {
         return this.data.channels.alpha;
-    }
-
-    private toModel(): Oklch
-    {
-        const retval = {
-            mode: "oklch" as const,
-            l: this.data.channels.lightness,
-            c: this.data.channels.chroma,
-            h: this.data.channels.hue,
-            alpha: this.data.channels.alpha,
-        };
-
-        return retval;
     }
 }

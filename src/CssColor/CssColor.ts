@@ -32,10 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { DataGuaranteeOptions, FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssColorData } from "./CssColorData.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
@@ -46,6 +45,7 @@ import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -104,13 +104,10 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
 
     /**
      * rgb() converts this color to the CSS rgba() format
-     *
-     * @returns {CssRgbColor}
-     * @memberof CssColor
      */
     public abstract rgb(
         opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
+        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor;
 
     /**

@@ -35,13 +35,10 @@
 import { converter, type Hsl } from "culori";
 
 const hwbConverter = converter("hwb");
-const rbgConverter = converter("rgb");
 
 
 import { CssColor } from "../CssColor/CssColor";
-import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
 import { makeCssHwbColorData } from "../CssHwbColor/makeCssHwbColorData";
 import type { CssHslColorData } from "./CssHslColorData.type";
 import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
@@ -49,10 +46,11 @@ import type { CssHslColorChannelsTuple } from "./CssHslColorChannelsTuple.type";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import { makeCssHslColorData } from "./makeCssHslColorData";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import { convertHslChannelsDataToConversionModel } from "./convertHslChannelsDataToConversionModel";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
 
 /**
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
@@ -65,37 +63,6 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
     // CORE FORMATS
     //
     // ----------------------------------------------------------------
-
-    public rgb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor
-    {
-        // how to do the conversion
-        const makerFn = () => {
-            const model = rbgConverter(this.toModel());
-            return new CssRgbColor(
-                makeCssRgbColorData(
-                    this.data.name,
-                    this.data.definition,
-                    {
-                        red: this.round(model.r * 255),
-                        green: this.round(model.g * 255),
-                        blue: this.round(model.b * 255),
-                        alpha: this.data.channels.alpha,
-                    },
-                    { path, onError },
-                    ...fnOpts,
-                ),
-            );
-        };
-
-        // make it happen
-        return CssColorConversions.toRgb(this, makerFn, fnOpts);
-    }
 
     public hsl(
         {
@@ -150,6 +117,24 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
 
         // make it happen
         return CssColorConversions.toHwb(this, makerFn, fnOpts);
+    }
+
+    /**
+     * rgb() converts this color to the CSS rgba() format
+     */
+    public rgb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    )
+    {
+        return makeCssRgbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     // ================================================================

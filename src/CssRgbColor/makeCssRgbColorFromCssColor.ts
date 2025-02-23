@@ -32,39 +32,39 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { type Color, rgb } from "culori";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
-import { roundTo } from "@safelytyped/math-rounding";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { CssRgbColorData } from "./CssRgbColorData.type";
+import { convertConversionModelToRgbChannelsData } from "./convertConversionModelToRgbChannelsData";
+import { makeCssRgbColorData } from "./makeCssRgbColorData";
+import { CssRgbColor } from "./CssRgbColor";
+import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 
-/**
- * convertConversionModelToRgbChannelsData() is a helper method. It converts
- * an instance of the RGB model used by our chosen third-party color
- * conversion package to our preferred data format.
- *
- * @param input
- * @returns
- */
-export function convertConversionModelToRgbChannelsData(
-    input: Color
-): CssRgbColorChannelsData
+export function makeCssRgbColorFromCssColor(
+    input: AnyCssColor,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {},
+    ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
+)
 {
-    const model = rgb(input);
+    // how to do the conversion
+    const converterFn = () => {
+        const model = input.conversionModel();
 
-    return {
-        red: round(model.r * 255),
-        green: round(model.g * 255),
-        blue: round(model.b * 255),
-        alpha: model.alpha || 1,
+        const rgbChannelData = convertConversionModelToRgbChannelsData(model);
+
+        const rgbColorData = makeCssRgbColorData(
+            input.name(),
+            input.definition(),
+            rgbChannelData,
+            {path, onError},
+            ...fnOpts,
+        );
+
+        return new CssRgbColor(rgbColorData);
     };
-}
 
-function round(input: number)
-{
-    return Math.abs(
-        roundTo(
-            Math.round,
-            0,
-            input,
-        )
-    );
+    return CssColorConversions.toRgb(converterFn, input, fnOpts);
 }

@@ -32,27 +32,24 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { converter, type Rgb } from "culori";
-
-const rbgConverter = converter("rgb");
+import type { Rgb } from "culori";
 
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
 import type { CssHexColorData } from "./CssHexColorData.type";
-import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
 import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import { convertHexColorDefinitionToConversionModel } from "./convertHexColorDefinitionToConversionModel";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
@@ -116,37 +113,22 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
         return CssColorConversions.toHwb(this, makerFn, fnOpts);
     }
 
+    /**
+     * rgb() converts this color to the CSS rgba() format
+     */
     public rgb(
         {
             path = DEFAULT_DATA_PATH,
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor
+    )
     {
-        // how to make the color
-        const makerFn = () => {
-            // we know this will never be undefined
-            const rgbData = rbgConverter(this.hex()) as Rgb;
-
-            const rgbColorData =                 makeCssRgbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    red: rgbData.r * 255,
-                    green: rgbData.g * 255,
-                    blue: rgbData.b * 255,
-                    alpha: 1,
-                },
-                {path, onError},
-                ...fnOpts,
-            );
-
-            return new CssRgbColor(rgbColorData);
-        };
-
-        // make it happen
-        return CssColorConversions.toRgb(this, makerFn, fnOpts);
+        return makeCssRgbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     // ================================================================

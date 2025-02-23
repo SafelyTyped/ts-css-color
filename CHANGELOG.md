@@ -76,6 +76,8 @@ The following changes have been completed, and will be included in the next tagg
     * added `convertKeywordToConversionModel()`
     * added `convertOklchChannelsDataToConversionModel()`
     * added `convertRgbChannelsDataToConversionModel()`
+  * added converters to color classes
+    * added `makeCssRgbColorFromCssColor()`
 
 ### Fixes
 

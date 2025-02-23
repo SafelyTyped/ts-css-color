@@ -35,10 +35,8 @@
 import { converter, type Hwb } from "culori";
 
 const hslConverter = converter("hsl");
-const rbgConverter = converter("rgb");
 
 import { CssColor } from "../CssColor/CssColor";
-import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannelsTuple.type";
 import type { CssHwbColorData } from "./CssHwbColorData.type";
@@ -47,11 +45,11 @@ import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGua
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
 import { makeCssHwbColorData } from "./makeCssHwbColorData";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import { convertHwbChannelsDataToConversionModel } from "./convertHwbChannelsDataToConversionModel";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
 
 export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
 {
@@ -116,36 +114,22 @@ export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
         );
     }
 
+    /**
+     * rgb() converts this color to the CSS rgba() format
+     */
     public rgb(
         {
             path = DEFAULT_DATA_PATH,
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor
+    )
     {
-        // how to do the conversion
-        const makerFn = () => {
-            const model = rbgConverter(this.toModel());
-
-            return new CssRgbColor(
-                makeCssRgbColorData(
-                    this.data.name,
-                    this.data.definition,
-                    {
-                        red: this.round(model.r * 255),
-                        green: this.round(model.g * 255),
-                        blue: this.round(model.b * 255),
-                        alpha: this.data.channels.alpha,
-                    },
-                    { path, onError },
-                    ...fnOpts,
-                )
-            );
-        };
-
-        // make it happen
-        return CssColorConversions.toRgb(this, makerFn, fnOpts);
+        return makeCssRgbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     // ================================================================

@@ -128,6 +128,7 @@ export type { CssRgbColorData } from "./CssRgbColor/CssRgbColorData.type";
 export { CssRgbColor } from "./CssRgbColor/CssRgbColor";
 export { convertConversionModelToRgbChannelsData } from "./CssRgbColor/convertConversionModelToRgbChannelsData";
 export { convertRgbChannelsDataToConversionModel } from "./CssRgbColor/convertRgbChannelsDataToConversionModel";
+export { makeCssRgbColorFromCssColor as convertCssColorToCssRgbColor } from "./CssRgbColor/makeCssRgbColorFromCssColor";
 export { isCssRgbColorData } from "./CssRgbColor/isCssRgbColorData";
 export { isCssRgbColorChannelsData } from "./CssRgbColor/isCssRgbColorChannelsData";
 export { makeCssRgbColorData } from "./CssRgbColor/makeCssRgbColorData";

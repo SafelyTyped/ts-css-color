@@ -35,19 +35,14 @@
 import { parse } from "culori";
 
 import type { AnyCssColor } from "./AnyCssColor.type";
-import { CssHslColor } from "../CssHslColor/CssHslColor";
 import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
-import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type OnError, type DataPath, type FunctionalOption, applyFunctionalOptions, type DataValidatorOptions, type DataGuaranteeOptions } from "@safelytyped/core-types";
 import { CssHexColor } from "../CssHexColor/CssHexColor";
 import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
 import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
-import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
-import { makeCssHwbColorData } from "../CssHwbColor/makeCssHwbColorData";
-import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
 import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
+import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -119,67 +114,11 @@ export function makeCssColor(
         });
     }
 
-    switch(model.mode) {
-        case "hsl":
-            return applyFunctionalOptions(
-                new CssHslColor(
-                    makeCssHslColorData(
-                        colorName,
-                        cssDefinition,
-                        {
-                            hue: model.h || 0,
-                            saturation: model.s,
-                            luminosity: model.l,
-                            alpha: model.alpha || 1,
-                        },
-                        { path, onError }
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
-        case "hwb":
-            return applyFunctionalOptions(
-                new CssHwbColor(
-                    makeCssHwbColorData(
-                        colorName,
-                        cssDefinition,
-                        {
-                            hue: model.h || 0,
-                            whiteness: model.w,
-                            blackness: model.b,
-                            alpha: model.alpha || 1,
-                        },
-                        { path, onError }
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
-        case "rgb":
-            return applyFunctionalOptions(
-                new CssRgbColor(
-                    makeCssRgbColorData(
-                        colorName,
-                        cssDefinition,
-                        {
-                            red: model.r,
-                            green: model.g,
-                            blue: model.b,
-                            alpha: model.alpha || 1,
-                        },
-                        { path, onError }
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
-        default:
-            throw new UnsupportedCssColorDefinitionError({
-                public: {
-                    dataPath: path,
-                    colorDefinition: cssDefinition,
-                }
-            });
-    }
+    return makeCssColorFromConversionModel(
+        model,
+        colorName,
+        cssDefinition,
+        opts,
+        ...fnOpts
+    );
 }

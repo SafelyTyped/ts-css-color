@@ -164,8 +164,8 @@ export class CssColorConversions
     }
 
     static toRgb(
-        from: AnyCssColor,
         converter: CssColorConverter<CssRgbColor>,
+        input: AnyCssColor,
         fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
     ): CssRgbColor
     {
@@ -174,7 +174,12 @@ export class CssColorConversions
             return converter();
         }
 
-        const cacheKey = this.cacheKey(from);
+        // special case - already in RGB format
+        if (input.colorFormat() === "rgb") {
+            return input as CssRgbColor;
+        }
+
+        const cacheKey = this.cacheKey(input);
         if (!HashMap.has(CACHED_CONVERSIONS.rgb, cacheKey)) {
             CACHED_CONVERSIONS.rgb[cacheKey] = converter();
         }
