@@ -34,6 +34,7 @@
 
 import { type Color, hsl } from "culori";
 import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
+import { roundTo } from "@safelytyped/math-rounding";
 
 /**
  * convertConversionModelToHslChannelsData() is a helper method. It converts
@@ -50,9 +51,20 @@ export function convertConversionModelToHslChannelsData(
     const model = hsl(input);
 
     return {
-        hue: model.h || 0,
-        saturation: model.s * 100,
-        luminosity: model.l * 100,
+        hue: round(model.h || 0),
+        saturation: round(model.s * 100),
+        luminosity: round(model.l * 100),
         alpha: model.alpha || 1,
     };
+}
+
+function round(input: number)
+{
+    return Math.abs(
+        roundTo(
+            Math.round,
+            0,
+            input,
+        )
+    );
 }

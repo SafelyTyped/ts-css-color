@@ -169,15 +169,21 @@ describe('CssOklchColor', () => {
                 );
                 const unit = new CssOklchColor(inputValue);
 
+                const expectedChannels = validFixture.hslChannels;
+
                 // ----------------------------------------------------------------
                 // perform the change
 
                 const actualResult = unit.hsl();
+                const actualChannels = actualResult.channelsData();
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(actualResult.channelsData()).to.eql(validFixture.hslChannels);
+                expect(actualChannels.hue).to.eql(expectedChannels.hue);
+                expect(actualChannels.saturation).to.eql(expectedChannels.saturation);
+                expect(actualChannels.luminosity).to.eql(expectedChannels.luminosity);
+                expect(actualChannels.alpha).to.eql(expectedChannels.alpha);
             });
 
             it("[fixture " + validFixture.name + "] preserves the original color name", () => {

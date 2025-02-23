@@ -45,10 +45,14 @@ import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import { convertHexColorDefinitionToConversionModel } from "./convertHexColorDefinitionToConversionModel";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
 
 /**
@@ -63,7 +67,7 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
     {
         // make sure that the hex value is in lower-case
         // so that we don't have to convert it everywhere
-        data.definition = data.definition.toLowerCase();
+        data.definition = data.definition.toLowerCase() as CssHexColorDefinition;
 
         // all done
         super(data);
@@ -83,15 +87,11 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        // how to make the color
-        const makerFn = () => this.rgb()
-            .hsl(
-                {path, onError},
-                ...fnOpts,
-            );
-
-        // make it happen
-        return CssColorConversions.toHsl(this, makerFn, fnOpts);
+        return makeCssHslColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     public hwb(
@@ -102,20 +102,28 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // how to make the color
-        const makerFn = () => this.rgb()
-            .hwb(
-                {path, onError},
-                ...fnOpts,
-            );
-
-        // make it happen
-        return CssColorConversions.toHwb(this, makerFn, fnOpts);
+        return makeCssHwbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
-    /**
-     * rgb() converts this color to the CSS rgba() format
-     */
+    public oklch(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
+    ): CssOklchColor
+    {
+        return makeCssOklchColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
+
     public rgb(
         {
             path = DEFAULT_DATA_PATH,

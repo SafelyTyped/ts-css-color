@@ -34,6 +34,7 @@
 
 import { type Color, hwb } from "culori";
 import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
+import { roundTo } from "@safelytyped/math-rounding";
 
 /**
  * convertConversionModelToHwbChannelsData() is a helper method. It converts
@@ -50,9 +51,20 @@ export function convertConversionModelToHwbChannelsData(
     const model = hwb(input);
 
     return {
-        hue: model.h || 0,
-        whiteness: model.w * 100,
-        blackness: model.b * 100,
+        hue: round(model.h || 0),
+        whiteness: round(model.w * 100),
+        blackness: round(model.b * 100),
         alpha: model.alpha || 1,
     };
+}
+
+function round(input: number)
+{
+    return Math.abs(
+        roundTo(
+            Math.round,
+            0,
+            input,
+        )
+    );
 }

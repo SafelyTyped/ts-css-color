@@ -27,9 +27,19 @@ The following changes have been completed, and will be included in the next tagg
   * this needs to be a `ConversionModel` type
 * component values (`.red()` et al) are no longer available everywhere
   * you must access them via the appropriate class instead (`color.rgb().red()`)
+* `CssHexColorData` now stores the hex value in a separate field
+  * necessary to support conversions from other CssColor types
+* added `CssColorData.colorFormat` property
+* added `CssColorData.colorSpace` property
 
 ### New
 
+* added new, direct smart constructors
+  * added makeCssHexColor
+  * added makeCssHslColor
+  * added makeCssHwbColor
+  * added makeCssOklchColor
+  * added makeCssRgbColor
 * added support for OKLCH color space
   * added `OKLCH` to `CssColorspace` type
   * added `CssOklchColorSpace` type
@@ -77,6 +87,16 @@ The following changes have been completed, and will be included in the next tagg
     * added `convertOklchChannelsDataToConversionModel()`
     * added `convertRgbChannelsDataToConversionModel()`
   * added converters to color classes
+  * * added `makeCssColorFromConversionModel()`
+    * added `makeCssHexColorFromConversionModel()`
+    * added `makeCssHexColorFromCssColor()`
+    * added `makeCssHslColorFromConversionModel()`
+    * added `makeCssHslColorFromCssColor()`
+    * added `makeCssHwbColorFromConversionModel()`
+    * added `makeCssHwbColorFromCssColor()`
+    * added `makeCssOklchColorFromConversionModel()`
+    * added `makeCssOklchColorFromCssColor()`
+    * added `makeCssRgbColorFromConversionModel()`
     * added `makeCssRgbColorFromCssColor()`
 
 ### Fixes
@@ -85,12 +105,14 @@ The following changes have been completed, and will be included in the next tagg
   * added `CssColorspace` type
   * added `CssColorspacedColor` type
   * added `CssSrgbColorSpace` type
+* improved performance when repeating static conversions between color types
+
+### Refactoring
 
 ### Dependencies
 
-* replace `color-string` parser with `color-parse` package
-* replace `color-convert` with `color-space` package
-* improved performance when repeating conversions between color types
+* replace `color-string` parser with `culori` package
+* replace `color-convert` with `culori` package
 
 ## v1.3.1
 

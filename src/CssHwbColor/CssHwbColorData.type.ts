@@ -33,11 +33,13 @@
 //
 
 import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace.type";
 import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
 
-export interface CssHwbColorData extends CssColorData, CssSrgbColorSpace
+export interface CssHwbColorData extends CssColorData
 {
+    colorFormat: "hwb";
+    colorSpace: "sRGB";
+
     channels: CssHwbColorChannelsData;
 
     readonly _type: "@safelytyped/css-color/CssHwbColorData";

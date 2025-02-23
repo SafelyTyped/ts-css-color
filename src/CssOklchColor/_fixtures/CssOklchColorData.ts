@@ -55,6 +55,7 @@ ValidCssColors.forEach((fixture) => {
             definition: fixture.definition,
             channels: fixture.oklchChannels,
             "_type": "@safelytyped/css-color/CssOklchColorData",
+            colorFormat: "oklch",
             colorSpace: "OKLCH",
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,

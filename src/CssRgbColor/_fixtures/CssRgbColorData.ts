@@ -53,6 +53,7 @@ ValidCssColors.forEach((fixture) => {
             definition: fixture.definition,
             channels: fixture.rgbChannels,
             "_type": "@safelytyped/css-color/CssRgbColorData",
+            colorFormat: "rgb",
             colorSpace: "sRGB",
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,

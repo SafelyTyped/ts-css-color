@@ -33,7 +33,7 @@
 //
 
 import { describe, it } from "mocha";
-import { CssHexColor, makeCssHexColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { CssHexColor, makeCssHexColorData, makeCssHexColorDefinition, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
 import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
@@ -54,6 +54,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 )
 
                 // ----------------------------------------------------------------
@@ -90,6 +91,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -119,6 +121,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -146,6 +149,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -174,6 +178,7 @@ describe('CssHexColor', () => {
             const inputValue = makeCssHexColorData(
                 "red",
                 "#ff0000",
+                makeCssHexColorDefinition("#ff0000"),
             );
             const unit = new CssHexColor(inputValue);
 
@@ -204,6 +209,7 @@ describe('CssHexColor', () => {
             const inputValue = makeCssHexColorData(
                 "red",
                 "#ff0000",
+                makeCssHexColorDefinition("#ff0000"),
             );
             const unit = new CssHexColor(inputValue);
 
@@ -242,6 +248,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -269,6 +276,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -297,6 +305,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -325,6 +334,7 @@ describe('CssHexColor', () => {
             const inputValue = makeCssHexColorData(
                 "red",
                 "#ff0000",
+                makeCssHexColorDefinition("#ff0000"),
             );
             const unit = new CssHexColor(inputValue);
 
@@ -355,6 +365,7 @@ describe('CssHexColor', () => {
             const inputValue = makeCssHexColorData(
                 "red",
                 "#ff0000",
+                makeCssHexColorDefinition("#ff0000"),
             );
             const unit = new CssHexColor(inputValue);
 
@@ -393,6 +404,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -420,6 +432,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -448,6 +461,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -476,6 +490,7 @@ describe('CssHexColor', () => {
             const inputValue = makeCssHexColorData(
                 "red",
                 "#ff0000",
+                makeCssHexColorDefinition("#ff0000"),
             );
             const unit = new CssHexColor(inputValue);
 
@@ -506,6 +521,7 @@ describe('CssHexColor', () => {
             const inputValue = makeCssHexColorData(
                 "red",
                 "#ff0000",
+                makeCssHexColorDefinition("#ff0000"),
             );
             const unit = new CssHexColor(inputValue);
 
@@ -550,6 +566,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -584,6 +601,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -618,6 +636,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -652,6 +671,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -692,6 +712,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -723,6 +744,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -760,6 +782,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -794,6 +817,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -829,6 +853,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -867,6 +892,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -902,6 +928,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -942,6 +969,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -973,6 +1001,7 @@ describe('CssHexColor', () => {
                 const inputValue = makeCssHexColorData(
                     validFixture.name,
                     validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
                 );
                 const unit = new CssHexColor(inputValue);
 
@@ -1003,6 +1032,7 @@ describe('CssHexColor', () => {
             const inputValue = makeCssHexColorData(
                 "red",
                 "#ff0000",
+                makeCssHexColorDefinition("#ff0000"),
             );
             const unit = new CssHexColor(inputValue);
 

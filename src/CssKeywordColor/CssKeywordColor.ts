@@ -45,12 +45,16 @@ import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import type { Rgb } from "culori";
 import { convertKeywordToConversionModel } from "./convertKeywordToConversionModel";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
@@ -72,15 +76,11 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        // how to make the color
-        const makerFn = () => this.rgb()
-            .hsl(
-                {path, onError},
-                ...fnOpts,
-            );
-
-        // make it happen
-        return CssColorConversions.toHsl(this, makerFn, fnOpts);
+        return makeCssHslColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     public hwb(
@@ -91,19 +91,28 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        const makerFn = () => this.rgb()
-            .hwb(
-                {path, onError},
-                ...fnOpts,
-            );
-
-        // make it happen
-        return CssColorConversions.toHwb(this, makerFn, fnOpts);
+        return makeCssHwbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
-    /**
-     * rgb() converts this color to the CSS rgba() format
-     */
+    public oklch(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
+    ): CssOklchColor
+    {
+        return makeCssOklchColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
+
     public rgb(
         {
             path = DEFAULT_DATA_PATH,

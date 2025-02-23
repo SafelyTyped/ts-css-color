@@ -32,6 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import type { CssColorspace } from "../CssColorspace/CssColorspaces.type";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+
 /**
  * CssColorData is the base data for defining a CSSColor.
  *
@@ -40,9 +43,10 @@
  */
 export type CssColorData = {
     /**
-     * what is this color called?
+     * what do humans call this color?
      *
-     * this may be the same as `definition`
+     * this may be the same as `definition`, if the color has no name
+     * (or no name was given)
      *
      * @type {string}
      */
@@ -57,4 +61,24 @@ export type CssColorData = {
      * @type {string}
      */
     definition: string;
+
+    /**
+     * what type of color data do we hold?
+     *
+     * this may be different to the notation used in the `definition` field
+     * (for example, if a color was converted from `keyword` to `rgb`)
+     */
+    colorFormat: SupportedCssColorFormat;
+
+    /**
+     * what color space is this data in?
+     *
+     * it's normally lossless to convert between color formats in the same
+     * color space.
+     *
+     * converting between two different color spaces can end up changing
+     * the appearance of the color, or even producing a color that cannot
+     * be rendered as-is
+     */
+    colorSpace: CssColorspace;
 };

@@ -43,6 +43,7 @@ import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
 import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
 import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
 import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
+import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -94,7 +95,12 @@ export function makeCssColor(
     if (cssDefinition.startsWith("#")) {
         return applyFunctionalOptions(
             new CssHexColor(
-                makeCssHexColorData(colorName, cssDefinition, { path, onError })
+                makeCssHexColorData(
+                    colorName,
+                    cssDefinition,
+                    makeCssHexColorDefinition(cssDefinition),
+                    { path, onError }
+                )
             ),
             opts,
             ...fnOpts

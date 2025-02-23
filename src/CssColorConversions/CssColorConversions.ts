@@ -33,24 +33,32 @@
 //
 
 import { HashMap, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-import type { CssColorConverter } from "./CssColorConverter";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import type { CssColorConverter } from "./CssColorConverter.type";
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import type { CssHexColor } from "../CssHexColor/CssHexColor";
+import type { CssHexColorData } from "../CssHexColor/CssHexColorData.type";
 
 interface CachedConversions {
+    hex: HashMap<CssHexColor>;
     hsl: HashMap<CssHslColor>;
     hwb: HashMap<CssHwbColor>;
+    oklch: HashMap<CssOklchColor>;
     rgb: HashMap<CssRgbColor>;
 }
 
 const CACHED_CONVERSIONS: CachedConversions = {
+    hex: {},
     hsl: {},
     hwb: {},
+    oklch: {},
     rgb: {}
 };
 
@@ -64,10 +72,56 @@ export class CssColorConversions
 
     static reset()
     {
+        CACHED_CONVERSIONS.hex = {};
         CACHED_CONVERSIONS.hsl = {};
         CACHED_CONVERSIONS.hwb = {};
+        CACHED_CONVERSIONS.oklch = {};
         CACHED_CONVERSIONS.rgb = {};
     }
+
+    // ================================================================
+    //
+    // HEX support
+    //
+    // ----------------------------------------------------------------
+
+    static deleteHex(input: CssHexColor)
+    {
+        const cacheKey = this.cacheKey(input);
+        delete CACHED_CONVERSIONS.hex[cacheKey];
+    }
+
+    static hasHex(input: CssHslColor): boolean
+    {
+        const cacheKey = this.cacheKey(input);
+        return HashMap.has(CACHED_CONVERSIONS.hex, cacheKey);
+    }
+
+    static toHex(
+        converter: CssColorConverter<CssHexColor>,
+        input: AnyCssColor,
+        fnOpts: FunctionalOption<CssHexColorData, DataGuaranteeOptions>[]
+    ): CssHexColor
+    {
+        // uncacheable
+        if (fnOpts.length > 0) {
+            return converter();
+        }
+
+        // special case - already in HWB format
+        if (input.colorFormat() === "hsl") {
+            return input as CssHexColor;
+        }
+
+        const cacheKey = this.cacheKey(input);
+        if (!HashMap.has(CACHED_CONVERSIONS.hsl, cacheKey)) {
+            CACHED_CONVERSIONS.hex[cacheKey] = converter();
+        }
+
+        // all done
+        return CACHED_CONVERSIONS.hex[cacheKey];
+    }
+
 
     // ================================================================
     //
@@ -88,8 +142,8 @@ export class CssColorConversions
     }
 
     static toHsl(
-        from: AnyCssColor,
         converter: CssColorConverter<CssHslColor>,
+        input: AnyCssColor,
         fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
@@ -98,7 +152,12 @@ export class CssColorConversions
             return converter();
         }
 
-        const cacheKey = this.cacheKey(from);
+        // special case - already in HWB format
+        if (input.colorFormat() === "hsl") {
+            return input as CssHslColor;
+        }
+
+        const cacheKey = this.cacheKey(input);
         if (!HashMap.has(CACHED_CONVERSIONS.hsl, cacheKey)) {
             CACHED_CONVERSIONS.hsl[cacheKey] = converter();
         }
@@ -126,8 +185,8 @@ export class CssColorConversions
     }
 
     static toHwb(
-        from: AnyCssColor,
         converter: CssColorConverter<CssHwbColor>,
+        input: AnyCssColor,
         fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
@@ -136,13 +195,61 @@ export class CssColorConversions
             return converter();
         }
 
-        const cacheKey = this.cacheKey(from);
+        // special case - already in HWB format
+        if (input.colorFormat() === "hwb") {
+            return input as CssHwbColor;
+        }
+
+        const cacheKey = this.cacheKey(input);
         if (!HashMap.has(CACHED_CONVERSIONS.hwb, cacheKey)) {
             CACHED_CONVERSIONS.hwb[cacheKey] = converter();
         }
 
         // all done
         return CACHED_CONVERSIONS.hwb[cacheKey];
+    }
+
+    // ================================================================
+    //
+    // OKLCH support
+    //
+    // ----------------------------------------------------------------
+
+    static deleteOklch(input: CssOklchColor)
+    {
+        const cacheKey = this.cacheKey(input);
+        delete CACHED_CONVERSIONS.rgb[cacheKey];
+    }
+
+    static hasOklch(input: CssRgbColor): boolean
+    {
+        const cacheKey = this.cacheKey(input);
+        return HashMap.has(CACHED_CONVERSIONS.oklch, cacheKey);
+    }
+
+    static toOklch(
+        converter: CssColorConverter<CssOklchColor>,
+        input: AnyCssColor,
+        fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
+    ): CssOklchColor
+    {
+        // uncacheable
+        if (fnOpts.length > 0) {
+            return converter();
+        }
+
+        // special case - already in OKLCH format
+        if (input.colorFormat() === "oklch") {
+            return input as CssOklchColor;
+        }
+
+        const cacheKey = this.cacheKey(input);
+        if (!HashMap.has(CACHED_CONVERSIONS.oklch, cacheKey)) {
+            CACHED_CONVERSIONS.oklch[cacheKey] = converter();
+        }
+
+        // all done
+        return CACHED_CONVERSIONS.oklch[cacheKey];
     }
 
     // ================================================================

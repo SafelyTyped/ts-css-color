@@ -32,20 +32,20 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { DataGuaranteeOptions, FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssColorData } from "./CssColorData.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import { roundTo } from "@safelytyped/math-rounding";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -103,14 +103,6 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
     }
 
     /**
-     * rgb() converts this color to the CSS rgba() format
-     */
-    public abstract rgb(
-        opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor;
-
-    /**
      * hsl() converts this color to the CSS hsl() format
      */
     public abstract hsl(
@@ -125,6 +117,14 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
         opt?: TypeGuaranteeOptions,
         ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
     ): CssHwbColor;
+
+    /**
+     * rgb() converts this color to the CSS rgb()
+     */
+    public abstract rgb(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
+    ): CssRgbColor;
 
     // ================================================================
     //

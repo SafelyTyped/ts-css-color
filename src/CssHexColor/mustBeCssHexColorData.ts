@@ -35,7 +35,6 @@
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { validateCssHexColorData } from "./validateCssHexColorData";
 import { normaliseCssHexColorDefinition } from "./normaliseCssHexColorDefinition";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import type { CssHexColorData } from "./CssHexColorData.type";
 
 export function mustBeCssHexColorData(
@@ -49,7 +48,7 @@ export function mustBeCssHexColorData(
     return mustBe(input, { onError })
         .next((x) => validateCssHexColorData(x, { path }))
         .next(function(x) {
-            x.definition = normaliseCssHexColorDefinition(x.definition as CssHexColorDefinition);
+            x.hex = normaliseCssHexColorDefinition(x.hex);
             return x;
         })
         .value();

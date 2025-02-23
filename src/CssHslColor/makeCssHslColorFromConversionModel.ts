@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,17 +32,31 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { CssHslColorData } from "./CssHslColorData.type";
+import { convertConversionModelToHslChannelsData } from "./convertConversionModelToHslChannelsData";
+import { makeCssHslColorData } from "./makeCssHslColorData";
+import { CssHslColor } from "./CssHslColor";
+import type { Color } from "culori";
 
-/**
- * CssRgbColorData represents the data for a CSS color that was defined
- * in the RGBA format.
- */
-export type CssRgbColorData = CssColorData & {
-    colorFormat: "rgb";
-    colorSpace: "sRGB";
-    channels: CssRgbColorChannelsData;
-
-    readonly "_type": "@safelytyped/css-color/CssRgbColorData";
-};
+export function makeCssHslColorFromConversionModel(
+    colorName: string,
+    cssDefinition: string,
+    model: Color,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {},
+    ...fnOpts: FunctionalOption<CssHslColorData, TypeGuaranteeOptions>[]
+)
+{
+    return new CssHslColor(
+        makeCssHslColorData(
+            colorName,
+            cssDefinition,
+            convertConversionModelToHslChannelsData(model),
+            { path, onError },
+            ...fnOpts,
+        ),
+    );
+}

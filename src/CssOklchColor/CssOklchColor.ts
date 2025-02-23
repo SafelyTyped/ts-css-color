@@ -32,23 +32,23 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import type { Oklch } from "culori";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { CssColor } from "../CssColor/CssColor";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssOklchColorData } from "./CssOklchColorData.type";
 import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
 import type { CssOklchColorChannelsTuple } from "./CssOklchColorChannelsTuple.type";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import { makeCssOklchColorData } from "./makeCssOklchColorData";
-
-import type { Oklch } from "culori";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import { convertOklchChannelsDataToConversionModel } from "./convertOklchChannelsDataToConversionModel";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { makeCssOklchColorFromCssColor } from "./makeCssOklchColorFromCssColor";
 
 /**
  * CssOklchColor represents a {@link CssColor} that was defined using the
@@ -85,37 +85,25 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
     public oklch(
         {
             path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR,
+            onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
     ): CssOklchColor
     {
-        // performance optimisation
-        if (fnOpts.length === 0) {
-            return this;
-        }
-
-        return new CssOklchColor(
-            makeCssOklchColorData(
-                this.data.name,
-                this.data.definition,
-                this.data.channels,
-                { path, onError },
-                ...fnOpts,
-            ),
+        return makeCssOklchColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
         );
     }
 
-    /**
-     * rgb() converts this color to the CSS rgba() format
-     */
     public rgb(
         {
             path = DEFAULT_DATA_PATH,
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    )
+    ): CssRgbColor
     {
         return makeCssRgbColorFromCssColor(
             this,

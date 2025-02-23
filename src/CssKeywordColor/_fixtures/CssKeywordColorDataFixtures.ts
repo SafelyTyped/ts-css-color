@@ -54,6 +54,7 @@ ValidCssColors.forEach((fixture) => {
             name: fixture.name,
             definition: fixture.namedColor,
             "_type": "@safelytyped/css-color/CssKeywordColor",
+            colorFormat: "keyword",
             colorSpace: "sRGB",
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,

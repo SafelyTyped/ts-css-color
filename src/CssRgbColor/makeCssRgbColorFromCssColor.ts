@@ -35,10 +35,8 @@
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
 import type { CssRgbColorData } from "./CssRgbColorData.type";
-import { convertConversionModelToRgbChannelsData } from "./convertConversionModelToRgbChannelsData";
-import { makeCssRgbColorData } from "./makeCssRgbColorData";
-import { CssRgbColor } from "./CssRgbColor";
 import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import { makeCssRgbColorFromConversionModel } from "./makeCssRgbColorFromConversionModel";
 
 export function makeCssRgbColorFromCssColor(
     input: AnyCssColor,
@@ -51,19 +49,13 @@ export function makeCssRgbColorFromCssColor(
 {
     // how to do the conversion
     const converterFn = () => {
-        const model = input.conversionModel();
-
-        const rgbChannelData = convertConversionModelToRgbChannelsData(model);
-
-        const rgbColorData = makeCssRgbColorData(
+        return makeCssRgbColorFromConversionModel(
             input.name(),
             input.definition(),
-            rgbChannelData,
+            input.conversionModel(),
             {path, onError},
             ...fnOpts,
         );
-
-        return new CssRgbColor(rgbColorData);
     };
 
     return CssColorConversions.toRgb(converterFn, input, fnOpts);

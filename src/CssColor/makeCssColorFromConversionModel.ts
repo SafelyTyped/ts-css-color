@@ -35,20 +35,12 @@
 import type { Color } from "culori";
 
 import type { AnyCssColor } from "./AnyCssColor.type";
-import { CssHslColor } from "../CssHslColor/CssHslColor";
-import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, applyFunctionalOptions, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
-import { makeCssHwbColorData } from "../CssHwbColor/makeCssHwbColorData";
-import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
-import { convertConversionModelToHslChannelsData } from "../CssHslColor/convertConversionModelToHslChannelsData";
-import { convertConversionModelToHwbChannelsData } from "../CssHwbColor/convertConversionModelToHwbChannelsData";
-import { convertConversionModelToRgbChannelsData } from "../CssRgbColor/convertConversionModelToRgbChannelsData";
-import { CssOklchColor } from "../CssOklchColor/CssOklchColor";
-import { makeCssOklchColorData } from "../CssOklchColor/makeCssOklchColorData";
-import { convertConversionModelToOklchChannelsData } from "../CssOklchColor/convertConversionModelToOklchChannelsData";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
+import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
+import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
+import { makeCssHslColorFromConversionModel } from "../CssHslColor/makeCssHslColorFromConversionModel";
 
 /**
  * makeCssColorFromConversionModel() is a smart constructor. Use it to build
@@ -84,57 +76,14 @@ export function makeCssColorFromConversionModel(
 
     switch(model.mode) {
         case "hsl":
-            return applyFunctionalOptions(
-                new CssHslColor(
-                    makeCssHslColorData(
-                        colorName,
-                        cssDefinition,
-                        convertConversionModelToHslChannelsData(model),
-                        opts,
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
+            return makeCssHslColorFromConversionModel(colorName, cssDefinition, model, opts);
         case "hwb":
-            return applyFunctionalOptions(
-                new CssHwbColor(
-                    makeCssHwbColorData(
-                        colorName,
-                        cssDefinition,
-                        convertConversionModelToHwbChannelsData(model),
-                        opts,
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
+            return makeCssHwbColorFromConversionModel(colorName, cssDefinition, model, opts);
         case "oklch":
-            return applyFunctionalOptions(
-                new CssOklchColor(
-                    makeCssOklchColorData(
-                        colorName,
-                        cssDefinition,
-                        convertConversionModelToOklchChannelsData(model),
-                        opts,
-                    ),
-                ),
-                opts,
-                ...fnOpts,
-            );
+            return makeCssOklchColorFromConversionModel(colorName, cssDefinition, model, opts);
         case "rgb":
-            return applyFunctionalOptions(
-                new CssRgbColor(
-                    makeCssRgbColorData(
-                        colorName,
-                        cssDefinition,
-                        convertConversionModelToRgbChannelsData(model),
-                        opts,
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
+            return makeCssRgbColorFromConversionModel(colorName, cssDefinition, model, opts);
+
         default:
             throw new UnsupportedCssColorDefinitionError({
                 public: {

@@ -33,15 +33,17 @@
 //
 
 import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssOklchColorSpace } from "../CssColorspace/CssOklchColorSpace.type";
 import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
 
 /**
  * CssOklchColorData represents the data for a CSS color that was defined in
  * the `oklch()` format.
  */
-export interface CssOklchColorData extends CssColorData, CssOklchColorSpace {
+export type CssOklchColorData = CssColorData & {
+    colorFormat: "oklch";
+    colorSpace: "OKLCH";
+
     channels: CssOklchColorChannelsData;
 
     readonly "_type": "@safelytyped/css-color/CssOklchColorData";
-}
+};

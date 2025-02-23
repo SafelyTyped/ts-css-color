@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, extendDataPath, recastIfValid } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, extendDataPath, recastIfValid, UnsupportedTypeError } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
 import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
 import type { CssHexColorData } from "./CssHexColorData.type";
@@ -45,12 +45,31 @@ export function validateCssHexColorData(
 ): AppErrorOr<CssHexColorData> {
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
-        .next((x) => recastIfValid<CssHexColorData>(
-            x,
-            () => validateCssHexColorDefinition(
-                x.definition,
-                { path: extendDataPath(path, "definition") }
-            )
-        ))
+        .next((x) => validateObjectHasHex(x, { path }))
         .value();
+}
+
+function validateObjectHasHex(
+    input: object,
+    {
+        path = DEFAULT_DATA_PATH,
+    }: TypeValidatorOptions = {}
+): AppErrorOr<CssHexColorData>
+{
+    // we use `isObject()` here to prevent `null` and `array` types from being
+    // wrongly accepted as valid
+    if ((input as CssHexColorData).hex === undefined) {
+        return new UnsupportedTypeError({
+            public: {
+                dataPath: path,
+                expected: "CssColorData with .hex property",
+                actual: "object without .hex property",
+            }
+        });
+    }
+
+    return recastIfValid<CssHexColorData>(
+        input,
+        () => validateCssHexColorDefinition((input as CssHexColorData).hex, { path: extendDataPath(path, "x") })
+    );
 }

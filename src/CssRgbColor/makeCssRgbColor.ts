@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,17 +32,36 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { makeCssColor } from "../CssColor/makeCssColor";
+import { makeCssRgbColorFromCssColor } from "./makeCssRgbColorFromCssColor";
+import { CssRgbColor } from "./CssRgbColor";
+import type { CssRgbColorData } from "./CssRgbColorData.type";
 
-/**
- * CssRgbColorData represents the data for a CSS color that was defined
- * in the RGBA format.
- */
-export type CssRgbColorData = CssColorData & {
-    colorFormat: "rgb";
-    colorSpace: "sRGB";
-    channels: CssRgbColorChannelsData;
+export function makeCssRgbColor(
+    input: string|AnyCssColor,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: DataGuaranteeOptions = {},
+    ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+): CssRgbColor
+{
+    // normalise to a CssColor class
+    if (isString(input)) {
+        input = makeCssColor(input, { path, onError });
+    }
 
-    readonly "_type": "@safelytyped/css-color/CssRgbColorData";
-};
+    // special case - no conversion needed
+    if (input instanceof CssRgbColor) {
+        return input;
+    }
+
+    // convert it
+    return makeCssRgbColorFromCssColor(
+        input,
+        { path, onError },
+        ...fnOpts,
+    );
+}
