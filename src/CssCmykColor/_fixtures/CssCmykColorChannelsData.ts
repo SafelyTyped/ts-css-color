@@ -32,4 +32,65 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export type CssColorspace = "sRGB";
+export const ValidCssCmykColorChannelsData = [
+    {
+        cyan: 100,
+        magenta: 100,
+        yellow: 100,
+        key: 1,
+    },
+];
+
+export const InvalidCssCmykColorChannelsDataObjects = [
+    {
+        description: "channels completely missing",
+        inputValue: {}
+    },
+    {
+        description: "cyan channel missing",
+        inputValue: {
+            magenta: 100,
+            yellow: 100,
+            key: 1,
+        }
+    },
+    {
+        description: "magenta channel missing",
+        inputValue: {
+            cyan: 100,
+            yellow: 100,
+            key: 1,
+        }
+    },
+    {
+        description: "yellow channel missing",
+        inputValue: {
+            cyan: 100,
+            magenta: 100,
+            key: 1,
+        }
+    },
+    {
+        description: "key channel missing",
+        inputValue: {
+            cyan: 100,
+            magenta: 100,
+            yellow: 100,
+        }
+    },
+];
+
+export const InvalidCssCmykColorChannelsDataInputs = [
+    null,
+    undefined,
+    [],
+    true,
+    false,
+    0,
+    -100,
+    100,
+    3.1415927,
+    () => true,
+    {},
+    "#ffffff",
+]

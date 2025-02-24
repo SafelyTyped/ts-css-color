@@ -32,11 +32,16 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { CssRgbColor, makeCssRgbColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
-import { ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
-import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
+import { CssRgbColor, makeCssRgbColorData, type CssCmykColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { expect } from "chai";
+import { describe, it } from "mocha";
+import { CSS_CMYK_CONVERSIONS } from "../CssCmykColor/CSS_CMYK_CONVERSIONS";
+import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
+import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
+import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
+import { ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
+import { CSS_RGB_CONVERSIONS } from "./CSS_RGB_CONVERSIONS";
 
 describe('CssRgbColor', () => {
     describe(".constructor", () => {
@@ -108,6 +113,43 @@ describe('CssRgbColor', () => {
             });
         });
 
+        it("does not cache static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the RGB method will not use the
+            // static conversions cache (because there is nothing to cache)
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_RGB_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            unit.rgb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            // does not cache itself
+            expect(CSS_RGB_CONVERSIONS.has(unit)).to.be.false;
+        });
+
         it("supports functional operators", () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -137,6 +179,172 @@ describe('CssRgbColor', () => {
             // perform the change
 
             const actualValue = unit.rgb({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('red');
+            expect(unit.definition()).eqls('#ff0000');
+        });
+    });
+
+    describe(".cmyk()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to CMYK format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .cmyk() method returns the CMYK
+                // equivalent of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.cmyk();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.cmykChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .cmyk() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.cmyk();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .cmyk() method preserves the original
+                // color definition, and does not replace it with the CMYK
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.cmyk();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the `.cmyk*()` method will cache any
+            // static conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_CMYK_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.cmyk();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_CMYK_CONVERSIONS.has(actualValue)).to.be.true;
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the `.cmyk()` method will run any
+            // functional operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            const f1 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.cmyk({}, f1, f2);
 
             // ----------------------------------------------------------------
             // test the results
@@ -236,6 +444,42 @@ describe('CssRgbColor', () => {
 
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HSL method will cache any static
+            // conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_HSL_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsl();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_HSL_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -366,6 +610,42 @@ describe('CssRgbColor', () => {
 
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HWB method will cache any static
+            // conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_HWB_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hwb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_HWB_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -667,6 +947,45 @@ describe('CssRgbColor', () => {
         });
     });
 
+    describe(".css()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a rgb() spec", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns CSS that
+                // uses the `rgb()` format
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                const expectedResult = "rgb("
+                    + validFixture.channels.red + ", "
+                    + validFixture.channels.green + ", "
+                    + validFixture.channels.blue
+                    + (validFixture.channels.alpha < 1 ? " / " + validFixture.channels.alpha : "")
+                    + ")";
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(expectedResult);
+            });
+        });
+    });
+
     // ================================================================
     //
     // COMPONENT VALUES
@@ -813,7 +1132,13 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".hue()", () => {
+    // ================================================================
+    //
+    // DERIVED COMPONENT VALUES
+    //
+    // ----------------------------------------------------------------
+
+    describe(".hsl().hue()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -838,7 +1163,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.hue();
+                const actualValue = unit.hsl().hue();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -848,7 +1173,7 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".saturation()", () => {
+    describe(".hsl().saturation()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the S channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -873,7 +1198,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.saturation();
+                const actualValue = unit.hsl().saturation();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -883,7 +1208,7 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".luminosity()", () => {
+    describe(".hsl().luminosity()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -908,7 +1233,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.luminosity();
+                const actualValue = unit.hsl().luminosity();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -918,7 +1243,42 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".whiteness()", () => {
+    describe(".hwb().hue()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .hue() returns the H channel from
+                // the HSL conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.hslChannels.hue;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.hwb().hue();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".hwb().whiteness()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the W channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -943,7 +1303,7 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.whiteness();
+                const actualValue = unit.hwb().whiteness();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -953,7 +1313,7 @@ describe('CssRgbColor', () => {
         });
     });
 
-    describe(".blackness()", () => {
+    describe(".hwb().blackness()", () => {
         ValidCssRgbColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
                 // ----------------------------------------------------------------
@@ -978,7 +1338,112 @@ describe('CssRgbColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.blackness();
+                const actualValue = unit.hwb().blackness();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".oklch().lightness()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .lightness() returns the L channel
+                // from the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.lightness;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().lightness();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".oklch().chroma()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the C channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .chroma() returns the C channel from
+                // the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.chroma;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().chroma();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".oklch().hue()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .hue() returns the H channel from
+                // the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.hue;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().hue();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -1055,6 +1520,78 @@ describe('CssRgbColor', () => {
 
                 expect(actualValue).to.eql(validFixture.definition);
             });
+        });
+    });
+
+    describe(".colorFormat()", () => {
+        it("returns 'rgb'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+            const expectedValue = "rgb";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
+
+    describe(".colorSpace()", () => {
+        it("returns 'sRGB'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorSpace() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+            const expectedValue: SupportedCssColorSpace = "sRGB";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorSpace();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
         });
     });
 });

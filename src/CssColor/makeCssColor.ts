@@ -32,22 +32,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import * as colorString from "color-string";
+import { parse } from "culori";
 
-import type { AnyCssColor } from "./AnyCssColor.type";
-import { CssHslColor } from "../CssHslColor/CssHslColor";
-import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
-import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type OnError, type DataPath, type FunctionalOption, applyFunctionalOptions, type DataValidatorOptions, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { applyFunctionalOptions, DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type DataPath, type FunctionalOption, type OnError } from "@safelytyped/core-types";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
 import { CssHexColor } from "../CssHexColor/CssHexColor";
 import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
+import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
+import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
 import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
-import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
-import { makeCssHwbColorData } from "../CssHwbColor/makeCssHwbColorData";
-import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
+import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
+import type { AnyCssColor } from "./AnyCssColor.type";
+import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -81,103 +77,58 @@ export function makeCssColor(
     ...fnOpts: FunctionalOption<AnyCssColor, DataGuaranteeOptions>[]
 ): AnyCssColor
 {
+    // our return value
+    let retval: AnyCssColor;
+
     // shorthand
     const opts = { onError, path };
 
     // special case - do we have a CSS keyword color?
     if (cssDefinition in CSS_EXTENDED_COLORS_TO_HEX) {
-        return applyFunctionalOptions<AnyCssColor, DataValidatorOptions>(
-            new CssKeywordColor(
-                makeCssKeywordColorData(colorName, cssDefinition, { path, onError })
-            ),
-            opts,
-            ...fnOpts
+        retval = new CssKeywordColor(
+            makeCssKeywordColorData(colorName, cssDefinition, { path, onError })
         );
     }
 
     // special case - do we have a CSS hex color?
-    if (cssDefinition.startsWith("#")) {
-        return applyFunctionalOptions(
-            new CssHexColor(
-                makeCssHexColorData(colorName, cssDefinition, { path, onError })
-            ),
-            opts,
-            ...fnOpts
+    else if (cssDefinition.startsWith("#")) {
+        retval = new CssHexColor(
+            makeCssHexColorData(
+                colorName,
+                cssDefinition,
+                makeCssHexColorDefinition(cssDefinition),
+                { path, onError }
+            )
         );
     }
 
-    // what are we looking at?
-    const model = colorString.get(cssDefinition);
+    // general case - CSS color function
+    else {
+        // what are we looking at?
+        const model = parse(cssDefinition);
 
-    // did we get a model in the first place?
-    if (model === null) {
-        // no we did not
-        // eslint-disable-next-line @typescript-eslint/only-throw-error
-        throw onError(
-            new UnsupportedCssColorDefinitionError({
+        // robustness!
+        if (!model) {
+            throw new UnsupportedCssColorDefinitionError({
                 public: {
                     dataPath: path,
                     colorDefinition: cssDefinition,
                 }
-            })
+            });
+        }
+
+        retval = makeCssColorFromConversionModel(
+            colorName,
+            cssDefinition,
+            model,
+            opts,
         );
     }
 
-    switch(model.model) {
-        case "hsl":
-            return applyFunctionalOptions(
-                new CssHslColor(
-                    makeCssHslColorData(
-                        colorName,
-                        cssDefinition,
-                        {
-                            hue: model.value[0],
-                            saturation: model.value[1],
-                            luminosity: model.value[2],
-                            alpha: model.value[3],
-                        },
-                        { path, onError }
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
-        case "hwb":
-            return applyFunctionalOptions(
-                new CssHwbColor(
-                    makeCssHwbColorData(
-                        colorName,
-                        cssDefinition,
-                        {
-                            hue: model.value[0],
-                            whiteness: model.value[1],
-                            blackness: model.value[2],
-                            alpha: model.value[3],
-                        },
-                        { path, onError }
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
-
-        case "rgb":
-            return applyFunctionalOptions(
-                new CssRgbColor(
-                    makeCssRgbColorData(
-                        colorName,
-                        cssDefinition,
-                        {
-                            red: model.value[0],
-                            green: model.value[1],
-                            blue: model.value[2],
-                            alpha: model.value[3],
-                        },
-                        { path, onError }
-                    )
-                ),
-                opts,
-                ...fnOpts
-            );
-    }
+    // all done
+    return applyFunctionalOptions(
+        retval,
+        opts,
+        ...fnOpts
+    );
 }

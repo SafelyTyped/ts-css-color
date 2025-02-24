@@ -40,7 +40,7 @@ import { InvalidCssColorDataParameters, ValidCssColorData } from "./_fixtures/Cs
 
 describe('makeCssColor()', () => {
     ValidCssColorData.forEach((inputValue) => {
-        it("returns a CssColorData object when given acceptable inputs: " + JSON.stringify(inputValue), () => {
+        it("returns a CssColor object when given acceptable inputs: " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -62,6 +62,56 @@ describe('makeCssColor()', () => {
             // test the results
 
             expect(actualResult).to.be.instanceOf(CssColor);
+        });
+
+        it("returns a CssColor object with the given name: " + JSON.stringify(inputValue.name), () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the returned object has the definition
+            // that we're expecting
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualResult = makeCssColor(
+                inputValue.definition,
+                { colorName: inputValue.name }
+            );
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualResult.name()).eqls(inputValue.name);
+        });
+
+        it("returns a CssColor object with the given definition: " + JSON.stringify(inputValue.definition), () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the returned object has the definition
+            // that we're expecting
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualResult = makeCssColor(
+                inputValue.definition,
+                { colorName: inputValue.name }
+            );
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualResult.definition()).eqls(inputValue.definition);
         });
     });
 

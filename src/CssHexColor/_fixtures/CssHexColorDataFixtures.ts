@@ -37,7 +37,12 @@ import { ValidCssColors, type ValidCssColor } from "../../CssColor/_fixtures/Css
 export const ValidCssHexColorData: ValidCssColor[] = [];
 ValidCssColors.forEach((fixture) => {
     if (fixture.definition.startsWith('#')) {
-        ValidCssHexColorData.push(fixture);
+        ValidCssHexColorData.push(
+            {
+                ...fixture,
+                colorFormat: "hex",
+            }
+        );
     }
 });
 

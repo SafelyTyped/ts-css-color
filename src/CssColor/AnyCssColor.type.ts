@@ -32,10 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import type { AnyConversionModel } from "../ConversionModel/AnyConversionModel.type";
 import type { CssColor } from "./CssColor";
 
 /**
  * AnyCssColor is a type. Use it wherever you can accept and/or return
  * any variant of the {@link CssColor} class.
  */
-export type AnyCssColor = CssColor<any>;
+export type AnyCssColor = CssColor<any, AnyConversionModel>;

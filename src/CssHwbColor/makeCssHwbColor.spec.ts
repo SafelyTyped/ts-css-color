@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -33,80 +33,58 @@
 //
 
 import { expect } from "chai";
-import { describe, it } from "mocha";
+import { describe } from "mocha";
+import { CssHwbColor } from "./CssHwbColor";
+import { makeCssHwbColor } from "./makeCssHwbColor";
 
-import { makeCssHwbColorData, type CssHwbColorData } from "@safelytyped/css-color";
-import { AppError } from "@safelytyped/core-types";
-import { InvalidMakeCssHwbColorParameters, ValidCssHwbColorData } from "./_fixtures/CssHwbColorData";
+const VALID_COLOR_CSS = [
+    {
+        description: "hex CSS definition",
+        inputValue: "#fff",
+    },
+    {
+        description: "CSS named color",
+        inputValue: "red",
+    },
+    {
+        description: "hsl() CSS definition",
+        inputValue: "hsl(359 100 100)",
+    },
+    {
+        description: "hwb() CSS definition",
+        inputValue: "hwb(359 100 100)"
+    },
+    {
+        description: "oklch() CSS definition",
+        inputValue: "oklch(0.5032 0 0)"
+    },
+    {
+        description: "rgb() CSS definition",
+        inputValue: "rgb(255, 255, 255)"
+    },
+];
 
-describe("makeCssHwbColorData()", () => {
-    ValidCssHwbColorData.forEach((inputValue) => {
-        it("returns a CssHwbColorData object when given a suitable object " + JSON.stringify(inputValue), () => {
+describe("makeCssHwbColor()", () => {
+    VALID_COLOR_CSS.forEach((fixture) => {
+        it("accepts " + fixture.description + ": " + fixture.inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that, if validation passes, we get back
-            // a valid CssHwbColorData object
+            // this test proves that makeCssHwbColor() accepts a range of
+            // input formats
 
             // ----------------------------------------------------------------
             // setup your test
 
-            const returnTypeCheck = (input: CssHwbColorData): CssHwbColorData => input;
-
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualResult = makeCssHwbColorData(
-                inputValue.name,
-                inputValue.definition,
-                inputValue.channels,
-            );
+            const actualValue = makeCssHwbColor(fixture.inputValue);
 
             // ----------------------------------------------------------------
             // test the results
 
-            // this will not compile if the function returns the wrong type
-            returnTypeCheck(actualResult);
-
-            // so that the test can pass
-            expect(actualResult).is.not.instanceOf(AppError);
+            expect(actualValue).to.be.instanceof(CssHwbColor);
         });
     });
-
-    InvalidMakeCssHwbColorParameters.forEach(({inputValue, description}) => {
-        it("throws an AppError when given an object where " + description, () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that a malformed / incomplete object will
-            // not pass validation
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            let exceptionThrown = null;
-            let actualValue = null;
-            try {
-                actualValue = makeCssHwbColorData(
-                    inputValue.name,
-                    inputValue.definition,
-                    inputValue.channels,
-                );
-            }
-            catch(e) {
-                exceptionThrown = e;
-            }
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue).is.null;
-            expect(exceptionThrown).is.instanceOf(AppError);
-        });
-    });
-});
+})

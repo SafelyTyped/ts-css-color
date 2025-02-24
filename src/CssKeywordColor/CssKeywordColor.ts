@@ -33,33 +33,52 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe } from "@safelytyped/core-types";
+import type { Rgb } from "culori";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import { CssColor } from "../CssColor/CssColor";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import type { CssKeywordColorData } from "./CssKeywordColorData.type";
-import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
+import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
+import type { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
 import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
 import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
-import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { convertKeywordToConversionModel } from "./convertKeywordToConversionModel";
+import type { CssKeywordColorData } from "./CssKeywordColorData.type";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
  * extended color name.
  */
-export class CssKeywordColor extends CssColor<CssKeywordColorData>
+export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
 {
     // ================================================================
     //
     // CORE FORMATS
     //
     // ----------------------------------------------------------------
+
+    public cmyk(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+    ): CssCmykColor
+    {
+        return this.rgb().cmyk({path, onError}, ...fnOpts);
+    }
 
     public hsl(
         {
@@ -69,21 +88,10 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        // this should inject the original definition into the returned
-        // color object
-        const definition = this.definition();
-        const extraOpt = function (item: CssHslColorData) {
-            item.definition = definition;
-            return item;
-        };
-        fnOpts.push(extraOpt);
-
-        return makeCssColor(
-            this.hex(),
-            { colorName: this.data.name },
-        ).hsl(
-            {path, onError},
-            ...fnOpts,
+        return makeCssHslColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
         );
     }
 
@@ -95,21 +103,25 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // this should inject the original definition into the returned
-        // color object
-        const definition = this.definition();
-        const extraOpt = function (item: CssHwbColorData) {
-            item.definition = definition;
-            return item;
-        };
-        fnOpts.push(extraOpt);
-
-        return makeCssColor(
-            this.hex(),
-            { colorName: this.data.name },
-        ).hwb(
+        return makeCssHwbColorFromCssColor(
+            this,
             { path, onError },
-            ...fnOpts,
+            ...fnOpts
+        );
+    }
+
+    public oklch(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
+    ): CssOklchColor
+    {
+        return makeCssOklchColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
         );
     }
 
@@ -119,23 +131,12 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor
+    )
     {
-        // this should inject the original definition into the returned
-        // color object
-        const definition = this.definition();
-        const extraOpt = function (item: CssRgbColorData) {
-            item.definition = definition;
-            return item;
-        };
-        fnOpts.push(extraOpt);
-
-        return makeCssColor(
-            this.hex(),
-            { colorName: this.data.name },
-        ).rgb(
+        return makeCssRgbColorFromCssColor(
+            this,
             { path, onError },
-            ...fnOpts,
+            ...fnOpts
         );
     }
 
@@ -160,10 +161,8 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
      * channelsTuple() returns the `R`, `G`, `B` components of
      * this color as an array.
      *
-     * NOTE that we deliberately leave out the alpha channel, in order
-     * to keep the underlying `color-convert` package happy.
-     *
-     * @returns
+     * NOTE that we deliberately leave out the alpha channel, as third-party
+     * color conversion packages seem to prefer this
      */
     public channelsTuple(): CssRgbColorChannelsTuple
     {
@@ -179,15 +178,11 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData>
         return this.data.definition as CssExtendedColor;
     }
 
-    // ================================================================
-    //
-    // COMPONENT VALUES
-    //
-    // ----------------------------------------------------------------
+    public conversionModel(): Rgb {
+        return convertKeywordToConversionModel(this.definition() as CssExtendedColor);
+    }
 
-    public alpha(): number
-    {
-        // all known keywords have an alpha channel of 1
-        return 1;
+    public css() {
+        return this.definition();
     }
 }

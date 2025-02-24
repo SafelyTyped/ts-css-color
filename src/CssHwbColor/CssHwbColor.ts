@@ -32,29 +32,44 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import * as colorConvert from "color-convert";
+import type { Hwb } from "culori";
 
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import { CssColor } from "../CssColor/CssColor";
-import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannelsTuple.type";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
-import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import { makeCssHslColorData } from "../CssHslColor/makeCssHslColorData";
-import { makeCssHwbColorData } from "./makeCssHwbColorData";
+import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { makeCssRgbColorData } from "../CssRgbColor/makeCssRgbColorData";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { convertHwbChannelsDataToConversionModel } from "./convertHwbChannelsDataToConversionModel";
+import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
+import type { CssHwbColorData } from "./CssHwbColorData.type";
+import { makeCssHwbColorFromCssColor } from "./makeCssHwbColorFromCssColor";
 
-
-export class CssHwbColor extends CssColor<CssHwbColorData>
+export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
 {
     // ================================================================
     //
     // CORE FORMATS
     //
     // ----------------------------------------------------------------
+
+    public cmyk(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+    ): CssCmykColor
+    {
+        return this.rgb().cmyk({path, onError}, ...fnOpts);
+    }
 
     public hsl(
         {
@@ -64,21 +79,10 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        const model = colorConvert.hwb.hsl.raw(this.channelsTuple());
-
-        return new CssHslColor(
-            makeCssHslColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    hue: this.round(model[0]),
-                    saturation: this.round(model[1]),
-                    luminosity: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            )
+        return makeCssHslColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
         );
     }
 
@@ -90,19 +94,25 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // performance optimisation
-        if (fnOpts.length === 0) {
-            return this;
-        }
+        return makeCssHwbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
 
-        return new CssHwbColor(
-            makeCssHwbColorData(
-                this.data.name,
-                this.data.definition,
-                this.data.channels,
-                { path, onError },
-                ...fnOpts
-            )
+    public oklch(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
+    ): CssOklchColor
+    {
+        return makeCssOklchColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
         );
     }
 
@@ -112,23 +122,12 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor
+    )
     {
-        const model = colorConvert.hwb.rgb.raw(this.channelsTuple());
-
-        return new CssRgbColor(
-            makeCssRgbColorData(
-                this.data.name,
-                this.data.definition,
-                {
-                    red: this.round(model[0]),
-                    green: this.round(model[1]),
-                    blue: this.round(model[2]),
-                    alpha: this.data.channels.alpha,
-                },
-                { path, onError },
-                ...fnOpts,
-            )
+        return makeCssRgbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
         );
     }
 
@@ -143,6 +142,13 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
         return this.data.channels;
     }
 
+    /**
+     * channelsTuple() returns the `H`, `W`, `B` components of
+     * this color as an array.
+     *
+     * NOTE that we deliberately leave out the alpha channel, as third-party
+     * color conversion packages seem to prefer this.
+     */
     public channelsTuple(): CssHslColorChannelsTuple
     {
         return [
@@ -150,6 +156,10 @@ export class CssHwbColor extends CssColor<CssHwbColorData>
             this.data.channels.whiteness,
             this.data.channels.blackness,
         ];
+    }
+
+    public conversionModel(): Hwb {
+        return convertHwbChannelsDataToConversionModel(this.data.channels);
     }
 
     // ================================================================

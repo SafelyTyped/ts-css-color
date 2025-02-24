@@ -33,15 +33,16 @@
 //
 
 import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace.type";
 import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
 
 /**
  * CssRgbColorData represents the data for a CSS color that was defined
  * in the RGBA format.
  */
-export interface CssRgbColorData extends CssColorData, CssSrgbColorSpace {
+export type CssRgbColorData = CssColorData & {
+    colorFormat: "rgb";
+    colorSpace: "sRGB";
     channels: CssRgbColorChannelsData;
 
     readonly "_type": "@safelytyped/css-color/CssRgbColorData";
-}
+};

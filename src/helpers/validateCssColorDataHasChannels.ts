@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, UnsupportedTypeError, isObject } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, UnsupportedTypeError, isObject, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import type { CssColorData } from "../CssColor/CssColorData.type";
 
 /**
@@ -47,12 +47,12 @@ import type { CssColorData } from "../CssColor/CssColorData.type";
  * - `input` type-casted to include the `.channels` property on success
  * - a suitable `AppError` otherwise
  */
-export function validateCssColorDataHasChannels(
-    input: CssColorData,
+export function validateCssColorDataHasChannels<T extends object>(
+    input: T,
     {
         path = DEFAULT_DATA_PATH,
     }: TypeValidatorOptions = {}
-): AppErrorOr<CssColorData & { channels: object }>
+): AppErrorOr<T & { channels: object }>
 {
     // we use `isObject()` here to prevent `null` and `array` types from being
     // wrongly accepted as valid
@@ -66,5 +66,5 @@ export function validateCssColorDataHasChannels(
         });
     }
 
-    return input as CssColorData & { channels: object };
+    return input as T & { channels: object };
 }

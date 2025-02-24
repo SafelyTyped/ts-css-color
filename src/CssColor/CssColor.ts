@@ -33,17 +33,24 @@
 //
 
 import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-import type { CssColorData } from "./CssColorData.type";
+import { formatCss } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
-import { roundTo } from "@safelytyped/math-rounding";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import type { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { CssColorData } from "./CssColorData.type";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -53,7 +60,7 @@ import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition
  * - obtain the representation details
  * - convert from one format (e.g. rgb) to another (e.g. hsl or hex)
  */
-export abstract class CssColor<E extends CssColorData> {
+export abstract class CssColor<E extends CssColorData, C extends ConversionModel> {
     /**
      * holds the internal representation of the CSS color,
      * along with common details such as its name and its original
@@ -69,26 +76,6 @@ export abstract class CssColor<E extends CssColorData> {
     protected readonly data: E;
 
     /**
-     * how many decimal places do we want to preserve when converting
-     * between different color formats?
-     *
-     * @protected
-     * @memberof CssColor
-     */
-    protected conversionPrecision = 0;
-
-    /**
-     * how do we want to go about rounding numbers, when we convert between
-     * different color formats?
-     *
-     * by default, we just want to round
-     *
-     * @protected
-     * @memberof CssColor
-     */
-    protected conversionRoundingFunc = Math.round;
-
-    /**
      * constructor
      *
      * @param data
@@ -101,15 +88,19 @@ export abstract class CssColor<E extends CssColorData> {
     }
 
     /**
-     * rgb() converts this color to the CSS rgba() format
+     * cmyk() converts this color to CMYK format
      *
-     * @returns {CssRgbColor}
-     * @memberof CssColor
+     * NOTE that CSS does not support CMYK colors at this time.
+     *
+     * - We have one-way support for converting to CMYK via RGB.
+     * - Conversion FROM CMYK is done by re-creating the color from its
+     *   original definition (there's no 100% lossless 2-way conversion
+     *   algorithm at this time)
      */
-    public abstract rgb(
+    public abstract cmyk(
         opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
-    ): CssRgbColor;
+        ...fnOpts: FunctionalOption<CssCmykColorData, TypeGuaranteeOptions>[]
+    ): CssCmykColor;
 
     /**
      * hsl() converts this color to the CSS hsl() format
@@ -126,6 +117,22 @@ export abstract class CssColor<E extends CssColorData> {
         opt?: TypeGuaranteeOptions,
         ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
     ): CssHwbColor;
+
+    /**
+     * oklch() converts this color to the CSS oklch() format
+     */
+    public abstract oklch(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssOklchColorData, TypeGuaranteeOptions>[]
+    ): CssOklchColor;
+
+    /**
+     * rgb() converts this color to the CSS rgb()
+     */
+    public abstract rgb(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
+    ): CssRgbColor;
 
     // ================================================================
     //
@@ -190,6 +197,26 @@ export abstract class CssColor<E extends CssColorData> {
         return this.definition();
     }
 
+    /**
+     * returns this color's data in a format that's compatible with our
+     * chosen third-party color conversion package.
+     */
+    public abstract conversionModel(): C;
+
+    /**
+     * css() returns the color's current data as a valid CSS definition
+     *
+     * for example, "new CssRgbColor(XXX).hsl().css()" returns the color
+     * as a `hsl(h% s l / alpha)` notation.
+     *
+     * Use {@link CssColor.definition} if you want the color's original
+     * CSS string.
+     */
+    public css(): string
+    {
+        return formatCss(this.conversionModel());
+    }
+
     // ================================================================
     //
     // PROPERTIES
@@ -226,135 +253,28 @@ export abstract class CssColor<E extends CssColorData> {
         return this.data.definition;
     }
 
-    // ================================================================
-    //
-    // COMPONENT VALUES
-    //
-    // ----------------------------------------------------------------
-
     /**
-     * red() returns the `R` component from the RGB definition, as a
-     * number between 0-255.
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
      *
-     * @returns the `R` component from the RGB definition
+     * @returns the color notation used by this object
      */
-    public red(): number
+    public colorFormat(): SupportedCssColorFormat
     {
-        return this.rgb().channelsData().red;
+        return this.data.colorFormat;
     }
 
     /**
-     * green() returns the `G` component from the RGB definition, as a
-     * number between 0-255.
+     * colorSpace() returns the name of the color space that this color's
+     * data exists in
      *
-     * @returns the `G` component from the RGB definition
+     * NOTE that this represents the color's current data, NOT the
+     * color space that the `.definition()` originally existed in
+     *
+     * @returns the name of the color space used by this object
      */
-    public green(): number
+    public colorSpace(): SupportedCssColorSpace
     {
-        return this.rgb().channelsData().green;
-    }
-
-    /**
-     * blue() returns the `B` component from the RGB definition, as a
-     * number between 0-255.
-     *
-     * @returns the `B` component from the RGB definition
-     */
-    public blue(): number
-    {
-        return this.rgb().channelsData().blue;
-    }
-
-    /**
-     * alpha() returns the alpha channel value of this color, as a number
-     * between 0-1
-     *
-     * @returns the `alpha` channel of this color
-     */
-    public abstract alpha(): number;
-
-    /**
-     * hue() returns the `h` component from the hsl definition, as a number
-     * between 0-359
-     *
-     * @returns the `h` component from the hsl definition
-     */
-    public hue(): number
-    {
-        return this.hsl().channelsData().hue;
-    }
-
-    /**
-     * saturation() returns the `s` component from the hsl definition,
-     * as a number between 0-100
-     *
-     * @returns the `s` component from the hsl definition
-     */
-    public saturation(): number
-    {
-        return this.hsl().channelsData().saturation;
-    }
-
-    /**
-     * luminosity() returns the `l` component from the hsl definition,
-     * as a number between 0-1
-     *
-     * @returns the `l` component from the hsl definition
-     */
-    public luminosity(): number
-    {
-        return this.hsl().channelsData().luminosity;
-    }
-
-    /**
-     * whiteness() returns the `w` component from the hwb definition,
-     * as a number between 0-100
-     *
-     * @returns the `w` component from the hwb definition
-     */
-    public whiteness(): number
-    {
-        return this.hwb().channelsData().whiteness;
-    }
-
-    /**
-     * blackness() returns the `b` component from the hwb definition,
-     * as a number between 0-100
-     *
-     * @returns the `b` component from the hwb definition
-     */
-    public blackness(): number
-    {
-        return this.hwb().channelsData().blackness;
-    }
-
-    // ================================================================
-    //
-    // INTERNAL HELPERS
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * round() is an internal helper method. Use it when you need to
-     * round numbers during converting to other formats.
-     *
-     * By default, it uses Math.round() internally, and rounds to two
-     * decimal places.
-     *
-     * You can change this by changing the {@link this.conversionRoundingFunc}
-     * and/or {@link this.conversionPrecision} object properties as required.
-     *
-     * @param input
-     * - the value to round
-     * @returns
-     * - the rounded number
-     */
-    protected round(input: number): number
-    {
-        return roundTo(
-            this.conversionRoundingFunc,
-            this.conversionPrecision,
-            input,
-        );
+        return this.data.colorSpace;
     }
 }

@@ -32,8 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorspace } from "./CssColorspaces.type";
+import type { SupportedCssColorSpace } from "./SupportedCssColorSpace.type";
 
 export type CssColorspacedColor = {
-    colorSpace: CssColorspace;
+    colorSpace: SupportedCssColorSpace;
 };

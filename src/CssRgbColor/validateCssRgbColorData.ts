@@ -32,11 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, extendDataPath, recastIfValid } from "@safelytyped/core-types";
-import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
-import { validateCssRgbColorChannelsData } from "./validateCssRgbColorChannelsData";
+import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
+import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
+import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
+import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
 import type { CssRgbColorData } from "./CssRgbColorData.type";
+import { validateCssRgbColorChannelsData } from "./validateCssRgbColorChannelsData";
 
 /**
  * validateCssRgbColorData() is a type validator. Use it to prove that the
@@ -59,6 +61,8 @@ export function validateCssRgbColorData(
 {
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
+        .next((x) => validateCssColorDataHasColorFormat(x, "rgb", { path }))
+        .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
         .next((x) => validateCssColorDataHasChannels(x, { path }))
         .next((x) => recastIfValid<CssRgbColorData>(
             x,

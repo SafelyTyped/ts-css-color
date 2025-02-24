@@ -32,11 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type TypeGuaranteeOptions, type FunctionalOption, makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
-import { mustBeCssHslColorData } from "./mustBeCssHslColorData";
+import { DEFAULT_DATA_PATH, type FunctionalOption, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { makeCssColorData } from "../CssColor/makeCssColorData";
 import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
 import type { CssHslColorData } from "./CssHslColorData.type";
+import { mustBeCssHslColorData } from "./mustBeCssHslColorData";
 
 export function makeCssHslColorData(
     name: string,
@@ -53,7 +53,12 @@ export function makeCssHslColorData(
 
     return makeNominalTypeFromTypeGuarantee(
         mustBeCssHslColorData,
-        { ...cssColorData, channels },
+        {
+            ...cssColorData,
+            channels,
+            colorFormat: "hsl",
+            colorSpace: "sRGB",
+        },
         { path, onError },
         ...fnOpts
     );

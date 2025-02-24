@@ -33,13 +33,15 @@
 //
 
 import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace.type";
 import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
 
 /**
  * CssHslColorData represents the data that makes up a CSS HSL color.
  */
-export interface CssHslColorData extends CssColorData, CssSrgbColorSpace {
+export interface CssHslColorData extends CssColorData {
+    colorFormat: "hsl";
+    colorSpace: "sRGB";
+
     channels: CssHslColorChannelsData;
 
     readonly "_type": "@safelytyped/css-color/CssHslColorData";

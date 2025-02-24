@@ -32,14 +32,16 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions, makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
-import { mustBeCssHexColorData } from "./mustBeCssHexColorData";
+import { DEFAULT_DATA_PATH, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { makeCssColorData } from "../CssColor/makeCssColorData";
 import type { CssHexColorData } from "./CssHexColorData.type";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import { mustBeCssHexColorData } from "./mustBeCssHexColorData";
 
 export function makeCssHexColorData(
     name: string,
     definition: string,
+    hex: CssHexColorDefinition,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
@@ -47,9 +49,15 @@ export function makeCssHexColorData(
     ...fnOpts: FunctionalOption<CssHexColorData>[]
 ): CssHexColorData
 {
+    const cssColorData = makeCssColorData(name, definition);
     return makeNominalTypeFromTypeGuarantee(
         mustBeCssHexColorData,
-        makeCssColorData(name, definition),
+        {
+            ...cssColorData,
+            hex,
+            colorFormat: "hex",
+            colorSpace: "sRGB",
+        },
         { path, onError },
         ...fnOpts
     );
