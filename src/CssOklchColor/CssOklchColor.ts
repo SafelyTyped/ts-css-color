@@ -34,6 +34,8 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import type { Oklch } from "culori";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
@@ -55,6 +57,17 @@ import { makeCssOklchColorFromCssColor } from "./makeCssOklchColorFromCssColor";
  */
 export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
 {
+    public cmyk(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+    ): CssCmykColor
+    {
+        return this.rgb().cmyk({path, onError}, ...fnOpts);
+    }
+
     public hsl(
         {
             path = DEFAULT_DATA_PATH,

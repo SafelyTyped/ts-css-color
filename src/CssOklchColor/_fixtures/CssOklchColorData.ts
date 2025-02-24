@@ -33,13 +33,15 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
+import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
 import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
-import type { CssOklchColorData } from "../CssOklchColorData.type";
 import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
+import type { CssOklchColorData } from "../CssOklchColorData.type";
 
 type ValidCssOklchColor = CssOklchColorData & {
+    cmykChannels: CssCmykColorChannelsData;
     hslChannels: CssHslColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
     rgbChannels: CssRgbColorChannelsData;
@@ -57,6 +59,7 @@ ValidCssColors.forEach((fixture) => {
             "_type": "@safelytyped/css-color/CssOklchColorData",
             colorFormat: "oklch",
             colorSpace: "OKLCH",
+            cmykChannels: fixture.cmykChannels,
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,
             rgbChannels: fixture.rgbChannels,

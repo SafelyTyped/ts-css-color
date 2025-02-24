@@ -66,6 +66,13 @@ The following changes have been completed, and will be included in the next tagg
   * added `mustBeCssCmykColorData()` type guarantee
   * added `validateCssCmykColorChannelsData()` type validator
   * added `validateCssCmykColorData()` type validator
+  * added `CssColor.cmyk()` abstract method
+    * implemented as `CssHexColor.cmyk()`
+    * implemented as `CssHslColor.cmyk()`
+    * implemented as `CssHwbColor.cmyk()`
+    * implemented as `CssKeywordColor.cmyk()`
+    * implemented as `CssOklchColor.cmyk()`
+    * implemented as `CssRgbColor.cmyk()`
 * reworked color format conversion support
   * added `SupportedCssColorFormat` type
   * added `UnsupportedCssConversionError` error

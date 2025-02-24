@@ -325,8 +325,8 @@ export const ValidCssColors: ValidCssColor[] = [
         name: "skyblue",
         definition: "hsl(196, 100%, 64%)",
         cmykChannels: {
-            cyan: 0,
-            magenta: 0,
+            cyan: 72,
+            magenta: 19,
             yellow: 0,
             key: 0,
         },
@@ -363,10 +363,10 @@ export const ValidCssColors: ValidCssColor[] = [
         name: "palegreen",
         definition: "hwb(100 76% 12%)",
         cmykChannels: {
-            cyan: 0,
+            cyan: 9,
             magenta: 0,
-            yellow: 0,
-            key: 0,
+            yellow: 13,
+            key: 12,
         },
         hwbChannels: {
             hue: 100,

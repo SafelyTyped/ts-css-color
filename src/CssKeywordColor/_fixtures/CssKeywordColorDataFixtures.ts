@@ -33,6 +33,7 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
+import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
 import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
@@ -41,6 +42,7 @@ import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChann
 import type { CssKeywordColorData } from "../CssKeywordColorData.type";
 
 type ValidCssKeywordColorData = CssKeywordColorData & {
+    cmykChannels: CssCmykColorChannelsData;
     rgbChannels: CssRgbColorChannelsData;
     hslChannels: CssHslColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
@@ -58,6 +60,7 @@ ValidCssColors.forEach((fixture) => {
             "_type": "@safelytyped/css-color/CssKeywordColor",
             colorFormat: "keyword",
             colorSpace: "sRGB",
+            cmykChannels: fixture.cmykChannels,
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,
             rgbChannels: fixture.rgbChannels,
