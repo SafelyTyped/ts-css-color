@@ -110,6 +110,9 @@ The following changes have been completed, and will be included in the next tagg
 
 ### Refactoring
 
+* dropped `CssColor.round()` internal helper
+  * rounding is now done in each conversion function
+
 ### Dependencies
 
 * replace `color-string` parser with `culori` package

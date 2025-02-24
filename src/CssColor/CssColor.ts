@@ -33,7 +33,6 @@
 //
 
 import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { roundTo } from "@safelytyped/math-rounding";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
@@ -70,26 +69,6 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      * @memberof CssColor
      */
     protected readonly data: E;
-
-    /**
-     * how many decimal places do we want to preserve when converting
-     * between different color formats?
-     *
-     * @protected
-     * @memberof CssColor
-     */
-    protected conversionPrecision = 0;
-
-    /**
-     * how do we want to go about rounding numbers, when we convert between
-     * different color formats?
-     *
-     * by default, we just want to round
-     *
-     * @protected
-     * @memberof CssColor
-     */
-    protected conversionRoundingFunc = Math.round;
 
     /**
      * constructor
@@ -255,35 +234,5 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
     public colorSpace(): SupportedCssColorSpace
     {
         return this.data.colorSpace;
-    }
-
-    // ================================================================
-    //
-    // INTERNAL HELPERS
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * round() is an internal helper method. Use it when you need to
-     * round numbers during converting to other formats.
-     *
-     * By default, it uses Math.round() internally, and rounds to two
-     * decimal places.
-     *
-     * You can change this by changing the {@link this.conversionRoundingFunc}
-     * and/or {@link this.conversionPrecision} object properties as required.
-     *
-     * @param input
-     * - the value to round
-     * @returns
-     * - the rounded number
-     */
-    protected round(input: number): number
-    {
-        return roundTo(
-            this.conversionRoundingFunc,
-            this.conversionPrecision,
-            input,
-        );
     }
 }
