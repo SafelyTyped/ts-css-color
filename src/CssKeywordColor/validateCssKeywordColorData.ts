@@ -32,10 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, extendDataPath, recastIfValid } from "@safelytyped/core-types";
-import type { CssKeywordColorData } from "./CssKeywordColorData.type";
+import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
 import { validateCssExtendedColor } from "../CssExtendedColors/validateCssExtendedColor";
+import { validateCssColorFormat } from "../helpers/validateCssColorFormat";
+import { validateCssColorSpace } from "../helpers/validateCssColorSpace";
+import { validateObjectHasStringProperty } from "../helpers/validateObjectHasStringProperty";
+import type { CssKeywordColorData } from "./CssKeywordColorData.type";
 
 export function validateCssKeywordColorData(
     input: unknown,
@@ -46,6 +49,9 @@ export function validateCssKeywordColorData(
 {
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
+        .next((x) => validateCssColorFormat(x, "keyword", { path }))
+        .next((x) => validateCssColorSpace(x, "sRGB", { path }))
+        .next((x) => validateObjectHasStringProperty(x, ["definition"], { path }))
         .next((x) => recastIfValid<CssKeywordColorData>(
             x,
             () => validateCssExtendedColor(x.definition, { path: extendDataPath(path, "definition")})

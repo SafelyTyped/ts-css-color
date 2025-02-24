@@ -32,12 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
-import { InvalidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
+import { AppError } from "@safelytyped/core-types";
 import { convertConversionModelToRgbChannelsData, convertHexColorDefinitionToConversionModel, makeCssHexColorData, makeCssHexColorDefinition, type CssHexColorData } from "@safelytyped/css-color";
 import chai, { expect } from "chai";
-import { AppError } from "@safelytyped/core-types";
+import { describe } from "mocha";
+import { InvalidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
+import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
 
 // show full-length test failure
 chai.config.truncateThreshold = 0;
@@ -89,6 +89,8 @@ describe("makeCssHexColorData()", () => {
                 name: inputValue.name,
                 definition: inputValue.definition,
                 hex: inputValue.hex,
+                colorFormat: "hex",
+                colorSpace: "sRGB",
             } as CssHexColorData;
 
             // ----------------------------------------------------------------

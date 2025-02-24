@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,49 +32,33 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { ValidCssColors, type ValidCssColor } from "../../CssColor/_fixtures/CssColorFixtures";
+import { DEFAULT_DATA_PATH, UnsupportedTypeError, type AppErrorOr, type HashMap, type TypeValidatorOptions } from "@safelytyped/core-types";
 
-export const ValidCssHexColorData: ValidCssColor[] = [];
-ValidCssColors.forEach((fixture) => {
-    if (fixture.definition.startsWith('#')) {
-        ValidCssHexColorData.push(
-            {
-                ...fixture,
-                colorFormat: "hex",
-            }
-        );
+export function validateObjectHasStringProperty<T extends object, K extends string>(
+    input: T,
+    propNames: K[],
+    {
+        path = DEFAULT_DATA_PATH
+    }: TypeValidatorOptions = {}
+): AppErrorOr<T & Record<K, string>>
+{
+    const missingProps = [];
+
+    for (const key of propNames) {
+        if (typeof (input as HashMap<unknown>)[key] !== "string") {
+            missingProps.push(key);
+        }
     }
-});
 
-export const InvalidCssHexColorDataParameters = [
-    {
-        inputValue: {
+    if (missingProps.length === 0) {
+        return input as T & Record<K, string>;
+    }
 
-        },
-        description: "",
-    },
-];
-
-export const InvalidCssHexColorDataObjects = [
-    {
-        inputValue: {
-
-        },
-        description: "",
-    },
-];
-
-export const InvalidCssHexColorDataInput = [
-    null,
-    undefined,
-    [],
-    true,
-    false,
-    0,
-    -100,
-    100,
-    3.1415927,
-    () => true,
-    {},
-    "#ffffff",
-];
+    return new UnsupportedTypeError({
+        public: {
+            dataPath: path,
+            expected: "object with string key(s): " + propNames.join(", "),
+            actual: "object is missing string key(s): " + missingProps.join(", ")
+        }
+    });
+}

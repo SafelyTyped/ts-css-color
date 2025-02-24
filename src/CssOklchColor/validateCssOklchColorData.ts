@@ -32,11 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, extendDataPath, recastIfValid } from "@safelytyped/core-types";
-import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
-import { validateCssOklchColorChannelsData } from "./validateCssOklchColorChannelsData";
+import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
+import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
+import { validateCssColorFormat } from "../helpers/validateCssColorFormat";
+import { validateCssColorSpace } from "../helpers/validateCssColorSpace";
 import type { CssOklchColorData } from "./CssOklchColorData.type";
+import { validateCssOklchColorChannelsData } from "./validateCssOklchColorChannelsData";
 
 /**
  * validateCssOklchColorData() is a type validator. Use it to prove that the
@@ -59,6 +61,8 @@ export function validateCssOklchColorData(
 {
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
+        .next((x) => validateCssColorFormat(x, "oklch", { path }))
+        .next((x) => validateCssColorSpace(x, "OKLCH", { path }))
         .next((x) => validateCssColorDataHasChannels(x, { path }))
         .next((x) => recastIfValid<CssOklchColorData>(
             x,

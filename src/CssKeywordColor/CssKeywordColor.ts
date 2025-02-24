@@ -33,28 +33,27 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe } from "@safelytyped/core-types";
-import { CssColor } from "../CssColor/CssColor";
-import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import type { CssKeywordColorData } from "./CssKeywordColorData.type";
-import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
-import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
-import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import type { Rgb } from "culori";
-import { convertKeywordToConversionModel } from "./convertKeywordToConversionModel";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { CssColor } from "../CssColor/CssColor";
+import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
+import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
+import type { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
 import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
 import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
+import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
+import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { convertKeywordToConversionModel } from "./convertKeywordToConversionModel";
+import type { CssKeywordColorData } from "./CssKeywordColorData.type";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
@@ -170,21 +169,5 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
 
     public conversionModel(): Rgb {
         return convertKeywordToConversionModel(this.definition() as CssExtendedColor);
-    }
-
-    // ================================================================
-    //
-    // PROPERTIES
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * colorFormat() returns the name of the way that color is represented
-     * in this object
-     *
-     * @returns the color notation used by this object
-     */
-    public colorFormat(): SupportedCssColorFormat {
-        return "keyword";
     }
 }

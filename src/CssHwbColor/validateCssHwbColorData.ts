@@ -32,11 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, recastIfValid, validate, extendDataPath } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
 import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
-import { validateCssHwbColorChannelsData } from "./validateCssHwbColorChannelsData";
+import { validateCssColorFormat } from "../helpers/validateCssColorFormat";
+import { validateCssColorSpace } from "../helpers/validateCssColorSpace";
 import type { CssHwbColorData } from "./CssHwbColorData.type";
+import { validateCssHwbColorChannelsData } from "./validateCssHwbColorChannelsData";
 
 export function validateCssHwbColorData(
     input: unknown,
@@ -47,6 +49,8 @@ export function validateCssHwbColorData(
 {
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
+        .next((x) => validateCssColorFormat(x, "hwb", { path }))
+        .next((x) => validateCssColorSpace(x, "sRGB", { path }))
         .next((x) => validateCssColorDataHasChannels(x, { path }))
         .next((x) => recastIfValid<CssHwbColorData>(
             x,

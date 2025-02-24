@@ -36,25 +36,24 @@ import type { Rgb } from "culori";
 
 import rgbHex from "rgb-hex";
 
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import { CssColor } from "../CssColor/CssColor";
+import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import { CssOklchColor } from "../CssOklchColor/CssOklchColor";
-import type { CssRgbColorData } from "./CssRgbColorData.type";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
+import { convertRgbChannelsDataToConversionModel } from "./convertRgbChannelsDataToConversionModel";
 import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
 import type { CssRgbColorChannelsTuple } from "./CssRgbColorChannelsTuple.type";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
-import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import { convertRgbChannelsDataToConversionModel } from "./convertRgbChannelsDataToConversionModel";
-import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
+import type { CssRgbColorData } from "./CssRgbColorData.type";
 import { makeCssRgbColorFromCssColor } from "./makeCssRgbColorFromCssColor";
-import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
-import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
-import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
@@ -167,22 +166,6 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
 
     public conversionModel(): Rgb {
         return convertRgbChannelsDataToConversionModel(this.data.channels);
-    }
-
-    // ================================================================
-    //
-    // PROPERTIES
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * colorFormat() returns the name of the way that color is represented
-     * in this object
-     *
-     * @returns the color notation used by this object
-     */
-    public colorFormat(): SupportedCssColorFormat {
-        return "rgb";
     }
 
     // ================================================================

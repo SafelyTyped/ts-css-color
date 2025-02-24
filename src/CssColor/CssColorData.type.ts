@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorspace } from "../CssColorspace/CssColorspaces.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 /**
@@ -80,5 +80,5 @@ export type CssColorData = {
      * the appearance of the color, or even producing a color that cannot
      * be rendered as-is
      */
-    colorSpace: CssColorspace;
+    colorSpace: SupportedCssColorSpace;
 };

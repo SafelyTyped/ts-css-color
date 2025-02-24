@@ -33,10 +33,12 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
+import type { SupportedCssColorSpace } from "../../CssColorspace/CssColorspaces.type";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
-import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
 import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
+import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
+import type { SupportedCssColorFormat } from "../../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 export type ValidCssColor = {
     name: string;
@@ -47,6 +49,8 @@ export type ValidCssColor = {
     oklchChannels: CssOklchColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
+    colorFormat: SupportedCssColorFormat;
+    colorSpace: SupportedCssColorSpace;
 }
 export const ValidCssColors: ValidCssColor[] = [
     {
@@ -78,6 +82,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#646464",
         namedColor: undefined,
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "apple-moss",
@@ -108,6 +114,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#008040",
         namedColor: undefined,
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "red",
@@ -138,6 +146,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#ff0000",
         namedColor: "red",
+        colorFormat: "keyword",
+        colorSpace: "sRGB",
     },
     {
         name: "black (6 char definition)",
@@ -168,6 +178,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#000000",
         namedColor: "black",
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "black (3 char definition)",
@@ -198,6 +210,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#000000",
         namedColor: "black",
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "white (6 char definition)",
@@ -228,6 +242,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#ffffff",
         namedColor: "white",
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "white (3 char definition)",
@@ -258,6 +274,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#ffffff",
         namedColor: "white",
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "skyblue",
@@ -288,6 +306,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#47ceff",
         namedColor: undefined,
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "palegreen",
@@ -318,5 +338,7 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#cce0c2",
         namedColor: undefined,
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
 ];

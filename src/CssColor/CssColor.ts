@@ -33,19 +33,19 @@
 //
 
 import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssColorData } from "./CssColorData.type";
+import { roundTo } from "@safelytyped/math-rounding";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
-import { roundTo } from "@safelytyped/math-rounding";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import type { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { CssColorData } from "./CssColorData.type";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -237,7 +237,10 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      *
      * @returns the color notation used by this object
      */
-    public abstract colorFormat(): SupportedCssColorFormat;
+    public colorFormat(): SupportedCssColorFormat
+    {
+        return this.data.colorFormat;
+    }
 
     // ================================================================
     //

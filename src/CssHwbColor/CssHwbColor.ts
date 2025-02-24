@@ -34,21 +34,20 @@
 
 import type { Hwb } from "culori";
 
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import { CssColor } from "../CssColor/CssColor";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannelsTuple.type";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
-import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import { convertHwbChannelsDataToConversionModel } from "./convertHwbChannelsDataToConversionModel";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
-import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
 import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { convertHwbChannelsDataToConversionModel } from "./convertHwbChannelsDataToConversionModel";
+import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
+import type { CssHwbColorData } from "./CssHwbColorData.type";
 import { makeCssHwbColorFromCssColor } from "./makeCssHwbColorFromCssColor";
 
 export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
@@ -141,22 +140,6 @@ export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
 
     public conversionModel(): Hwb {
         return convertHwbChannelsDataToConversionModel(this.data.channels);
-    }
-
-    // ================================================================
-    //
-    // PROPERTIES
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * colorFormat() returns the name of the way that color is represented
-     * in this object
-     *
-     * @returns the color notation used by this object
-     */
-    public colorFormat(): SupportedCssColorFormat {
-        return "hwb";
     }
 
     // ================================================================

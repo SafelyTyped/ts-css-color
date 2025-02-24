@@ -32,22 +32,21 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import type { Oklch } from "culori";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { CssColor } from "../CssColor/CssColor";
+import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-import type { CssOklchColorData } from "./CssOklchColorData.type";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { convertOklchChannelsDataToConversionModel } from "./convertOklchChannelsDataToConversionModel";
 import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
 import type { CssOklchColorChannelsTuple } from "./CssOklchColorChannelsTuple.type";
-import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import { convertOklchChannelsDataToConversionModel } from "./convertOklchChannelsDataToConversionModel";
-import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import type { CssOklchColorData } from "./CssOklchColorData.type";
 import { makeCssOklchColorFromCssColor } from "./makeCssOklchColorFromCssColor";
 
 /**
@@ -145,22 +144,6 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
 
     public conversionModel(): Oklch {
         return convertOklchChannelsDataToConversionModel(this.data.channels);
-    }
-
-    // ================================================================
-    //
-    // PROPERTIES
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * colorFormat() returns the name of the way that color is represented
-     * in this object
-     *
-     * @returns the color notation used by this object
-     */
-    public colorFormat(): SupportedCssColorFormat {
-        return "oklch";
     }
 
     // ================================================================

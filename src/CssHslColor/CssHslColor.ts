@@ -34,21 +34,20 @@
 
 import type { Hsl } from "culori";
 
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import { CssColor } from "../CssColor/CssColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssHslColorData } from "./CssHslColorData.type";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
-import type { CssHslColorChannelsTuple } from "./CssHslColorChannelsTuple.type";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import { convertHslChannelsDataToConversionModel } from "./convertHslChannelsDataToConversionModel";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
 import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
 import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import { convertHslChannelsDataToConversionModel } from "./convertHslChannelsDataToConversionModel";
+import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
+import type { CssHslColorChannelsTuple } from "./CssHslColorChannelsTuple.type";
+import type { CssHslColorData } from "./CssHslColorData.type";
 import { makeCssHslColorFromCssColor } from "./makeCssHslColorFromCssColor";
 
 /**
@@ -156,22 +155,6 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
 
     public conversionModel(): Hsl {
         return convertHslChannelsDataToConversionModel(this.data.channels);
-    }
-
-    // ================================================================
-    //
-    // PROPERTIES
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * colorFormat() returns the name of the way that color is represented
-     * in this object
-     *
-     * @returns the color notation used by this object
-     */
-    public colorFormat(): SupportedCssColorFormat {
-        return "hsl";
     }
 
     // ================================================================

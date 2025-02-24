@@ -32,4 +32,4 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export type CssColorspace = "sRGB" | "OKLCH";
+export type SupportedCssColorSpace = "sRGB" | "OKLCH";

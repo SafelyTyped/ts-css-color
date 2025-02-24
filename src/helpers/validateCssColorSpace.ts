@@ -33,47 +33,64 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssColorFormat } from "../helpers/validateCssColorFormat";
-import { validateCssColorSpace } from "../helpers/validateCssColorSpace";
-import type { CssHexColorData } from "./CssHexColorData.type";
-import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
+import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
+import { validateObjectHasStringProperty } from "./validateObjectHasStringProperty";
 
-export function validateCssHexColorData(
-    input: unknown,
+/**
+ * validateColorSpace() is a data validator. Use it to prove that:
+ *
+ * - the given input contains a `.colorSpace` with the given value
+ *
+ * @typedef T -
+ * what type of input object are we receiving (and returning on success)?
+ * @param input -
+ * the object to inspect
+ * @param expectedColorSpace -
+ * the value we require in `.colorSpace`
+ * @param path -
+ * what's the path through your data structures to `input`?
+ * we will use this in any errors we return (and automatically extend the
+ * path to include `.colorSpace`)
+ * @returns
+ * - input on success
+ * - an AppError otherwise
+ */
+export function validateCssColorSpace<T extends object>(
+    input: T,
+    expectedColorSpace: SupportedCssColorSpace,
     {
         path = DEFAULT_DATA_PATH
-    }: TypeValidatorOptions = {}
-): AppErrorOr<CssHexColorData> {
+    }: TypeValidatorOptions= {}
+): AppErrorOr<T & { colorSpace: SupportedCssColorSpace }>
+{
     return validate(input)
-        .next((x) => validateCssColorData(x, { path }))
-        .next((x) => validateCssColorFormat(x, "hex", { path }))
-        .next((x) => validateCssColorSpace(x, "sRGB", { path }))
-        .next((x) => validateObjectHasHex(x, { path }))
+        .next((x) => validateObjectHasStringProperty(x, ["colorSpace"], { path }))
+        .next((x) => recastIfValid<T & { colorSpace: SupportedCssColorSpace }>(
+            x,
+            () => validateObjectHasExpectedColorSpace(x, expectedColorSpace, { path })
+        ))
         .value();
 }
 
-function validateObjectHasHex(
-    input: object,
+function validateObjectHasExpectedColorSpace<T extends object & Record<"colorSpace", string>>(
+    input: T,
+    expectedColorSpace: SupportedCssColorSpace,
     {
-        path = DEFAULT_DATA_PATH,
-    }: TypeValidatorOptions = {}
-): AppErrorOr<CssHexColorData>
+        path = DEFAULT_DATA_PATH
+    }: TypeValidatorOptions= {}
+): AppErrorOr<T>
 {
-    // we use `isObject()` here to prevent `null` and `array` types from being
-    // wrongly accepted as valid
-    if ((input as CssHexColorData).hex === undefined) {
-        return new UnsupportedTypeError({
-            public: {
-                dataPath: path,
-                expected: "CssColorData with .hex property",
-                actual: "object without .hex property",
-            }
-        });
+    path = extendDataPath(path, "colorSpace");
+
+    if (input.colorSpace === expectedColorSpace) {
+        return input;
     }
 
-    return recastIfValid<CssHexColorData>(
-        input,
-        () => validateCssHexColorDefinition((input as CssHexColorData).hex, { path: extendDataPath(path, "x") })
-    );
+    return new UnsupportedTypeError({
+        public: {
+            dataPath: path,
+            expected: ".colorSpace == " + expectedColorSpace,
+            actual: ".colorSpace == " + input.colorSpace,
+        }
+    });
 }

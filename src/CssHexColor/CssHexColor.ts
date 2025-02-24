@@ -49,7 +49,6 @@ import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannels
 import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import { convertHexColorDefinitionToConversionModel } from "./convertHexColorDefinitionToConversionModel";
 import type { CssHexColorData } from "./CssHexColorData.type";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
@@ -177,22 +176,6 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
 
     public conversionModel(): Rgb {
         return convertHexColorDefinitionToConversionModel(this.hex());
-    }
-
-    // ================================================================
-    //
-    // PROPERTIES
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * colorFormat() returns the name of the way that color is represented
-     * in this object
-     *
-     * @returns the color notation used by this object
-     */
-    public colorFormat(): SupportedCssColorFormat {
-        return "hex";
     }
 
     // ================================================================

@@ -32,11 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type TypeGuaranteeOptions, type FunctionalOption, makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
-import { mustBeCssOklchColorData } from "./mustBeCssOklchColorData";
+import { DEFAULT_DATA_PATH, type FunctionalOption, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { makeCssColorData } from "../CssColor/makeCssColorData";
 import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
 import type { CssOklchColorData } from "./CssOklchColorData.type";
+import { mustBeCssOklchColorData } from "./mustBeCssOklchColorData";
 
 export function makeCssOklchColorData(
     name: string,
@@ -55,6 +55,8 @@ export function makeCssOklchColorData(
         mustBeCssOklchColorData,
         {
             ...cssColorData,
+            colorFormat: "oklch",
+            colorSpace: "OKLCH",
             channels,
         },
         { path, onError },
