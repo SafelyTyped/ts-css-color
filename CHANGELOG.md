@@ -21,6 +21,16 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+## v2.0.0
+
+Released Monday 24th February, 2025.
+
+The headline is:
+
+* refactored to support multiple color spaces
+* added support for OKLCH
+* added support for CMYK
+
 ### B/C Breaks
 
 * `CssColor` now takes a `C` generic type class parameter
