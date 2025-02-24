@@ -141,8 +141,8 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
      * channelsTuple() returns the `H`, `S` and `L` channels as an
      * array.
      *
-     * NOTE that we deliberately leave out the alpha channel, in order
-     * to keep the underlying `color-convert` package happy.
+     * NOTE that we deliberately leave out the alpha channel, as third-party
+     * color conversion packages seem to prefer this.
      */
     public channelsTuple(): CssHslColorChannelsTuple
     {

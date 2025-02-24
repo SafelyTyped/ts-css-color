@@ -148,10 +148,8 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
      * channelsTuple() returns the `R`, `G`, `B` components of
      * this color as an array.
      *
-     * NOTE that we deliberately leave out the alpha channel, in order
-     * to keep the underlying `color-convert` package happy.
-     *
-     * @returns
+     * NOTE that we deliberately leave out the alpha channel, as third-party
+     * color conversion packages seem to prefer this
      */
     public channelsTuple(): CssRgbColorChannelsTuple
     {

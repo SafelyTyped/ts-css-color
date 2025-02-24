@@ -143,6 +143,9 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
 
     /**
      * channelsTuple() returns the color channels as an array.
+     *
+     * NOTE that we deliberately leave out the alpha channel, as third-party
+     * color conversion packages seem to prefer this.
      */
     public channelsTuple(): CssRgbColorChannelsTuple
     {

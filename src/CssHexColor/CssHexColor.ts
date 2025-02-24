@@ -146,8 +146,8 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
      * channelsTuple() returns the `R`, `G`, `B` components of
      * this color as an array.
      *
-     * NOTE that we deliberately leave out the alpha channel, in order
-     * to keep the underlying `color-convert` package happy.
+     * NOTE that we deliberately leave out the alpha channel, as third-party
+     * color conversion packages seem to prefer this.
      *
      * @returns
      */
@@ -196,7 +196,7 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
 
     /**
      * blue() returns the `B` component from the RGB definition, as a
-src/CssHexColor/CssHexColor.ts     * number between 0-255.
+     * number between 0-255.
      *
      * @returns the `B` component from the RGB definition
      */

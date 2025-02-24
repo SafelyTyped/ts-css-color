@@ -129,6 +129,13 @@ export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
         return this.data.channels;
     }
 
+    /**
+     * channelsTuple() returns the `H`, `W`, `B` components of
+     * this color as an array.
+     *
+     * NOTE that we deliberately leave out the alpha channel, as third-party
+     * color conversion packages seem to prefer this.
+     */
     public channelsTuple(): CssHslColorChannelsTuple
     {
         return [

@@ -127,6 +127,9 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
 
     /**
      * channelsTuple() returns the color channels as an array.
+     *
+     * NOTE that we deliberately leave out the alpha channel, as third-party
+     * color conversion packages seem to prefer this.
      */
     public channelsTuple(): CssOklchColorChannelsTuple
     {
