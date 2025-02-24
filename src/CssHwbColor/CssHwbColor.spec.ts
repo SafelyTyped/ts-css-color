@@ -780,6 +780,45 @@ describe('CssHwbColor', () => {
         });
     });
 
+    describe(".css()", () => {
+        ValidCssHwbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a hwb() spec", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns CSS that
+                // uses the `hwb()` format
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                const expectedResult = "hwb("
+                    + validFixture.channels.hue + " "
+                    + validFixture.channels.whiteness + "% "
+                    + validFixture.channels.blackness + "%"
+                    + (validFixture.channels.alpha < 1 ? " / " + validFixture.channels.alpha : "")
+                    + ")";
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(expectedResult);
+            });
+        });
+    });
+
     // ================================================================
     //
     // COMPONENT VALUES

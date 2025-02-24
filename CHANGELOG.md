@@ -100,6 +100,7 @@ The following changes have been completed, and will be included in the next tagg
     * added `makeCssRgbColorFromConversionModel()`
     * added `makeCssRgbColorFromCssColor()`
 * added `CssColor.colorSpace()`
+* added `CssColorData.css() method
 
 ### Fixes
 

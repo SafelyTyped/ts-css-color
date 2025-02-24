@@ -779,6 +779,45 @@ describe('CssRgbColor', () => {
         });
     });
 
+    describe(".css()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a rgb() spec", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns CSS that
+                // uses the `rgb()` format
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                const expectedResult = "rgb("
+                    + validFixture.channels.red + ", "
+                    + validFixture.channels.green + ", "
+                    + validFixture.channels.blue
+                    + (validFixture.channels.alpha < 1 ? " / " + validFixture.channels.alpha : "")
+                    + ")";
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(expectedResult);
+            });
+        });
+    });
+
     // ================================================================
     //
     // COMPONENT VALUES

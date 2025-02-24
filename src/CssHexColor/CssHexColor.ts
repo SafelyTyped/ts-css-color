@@ -166,6 +166,12 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
         return convertHexColorDefinitionToConversionModel(this.hex());
     }
 
+    public css(): string
+    {
+        // special case - we always want to return a HEX format!
+        return this.hex();
+    }
+
     // ================================================================
     //
     // COMPONENT VALUES

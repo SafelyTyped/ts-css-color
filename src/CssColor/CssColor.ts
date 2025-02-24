@@ -33,6 +33,7 @@
 //
 
 import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { formatCss } from "culori";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
@@ -184,6 +185,20 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      * chosen third-party color conversion package.
      */
     public abstract conversionModel(): C;
+
+    /**
+     * css() returns the color's current data as a valid CSS definition
+     *
+     * for example, "new CssRgbColor(XXX).hsl().css()" returns the color
+     * as a `hsl(h% s l / alpha)` notation.
+     *
+     * Use {@link CssColor.definition} if you want the color's original
+     * CSS string.
+     */
+    public css(): string
+    {
+        return formatCss(this.conversionModel());
+    }
 
     // ================================================================
     //

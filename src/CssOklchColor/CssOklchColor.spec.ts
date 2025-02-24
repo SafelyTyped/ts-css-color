@@ -32,11 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { CssOklchColor, makeCssOklchColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
-import { ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
-import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
+import { CssOklchColor, makeCssOklchColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { expect } from "chai";
+import { describe, it } from "mocha";
+import { ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
 
 describe('CssOklchColor', () => {
     describe(".constructor", () => {
@@ -801,6 +801,45 @@ describe('CssOklchColor', () => {
                 // test the results
 
                 expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".css()", () => {
+        ValidCssOklchColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as an oklch() spec", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns CSS that
+                // uses the `oklch()` format
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssOklchColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssOklchColor(inputValue);
+
+                const expectedResult = "oklch("
+                    + validFixture.channels.lightness + " "
+                    + validFixture.channels.chroma + " "
+                    + validFixture.channels.hue
+                    + (validFixture.channels.alpha < 1 ? " / " + validFixture.channels.alpha : "")
+                    + ")";
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(expectedResult);
             });
         });
     });

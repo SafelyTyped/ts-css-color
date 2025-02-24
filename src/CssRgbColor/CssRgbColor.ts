@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Rgb } from "culori";
+import { formatRgb, type Rgb } from "culori";
 
 import rgbHex from "rgb-hex";
 
@@ -169,6 +169,11 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
 
     public conversionModel(): Rgb {
         return convertRgbChannelsDataToConversionModel(this.data.channels);
+    }
+
+    public css()
+    {
+        return formatRgb(this.conversionModel());
     }
 
     // ================================================================

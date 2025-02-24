@@ -168,4 +168,8 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
     public conversionModel(): Rgb {
         return convertKeywordToConversionModel(this.definition() as CssExtendedColor);
     }
+
+    public css() {
+        return this.definition();
+    }
 }

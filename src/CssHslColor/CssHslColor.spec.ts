@@ -780,6 +780,45 @@ describe('CssHslColor', () => {
         });
     });
 
+    describe(".css()", () => {
+        ValidCssHslColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a hsl() spec", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns CSS that
+                // uses the `hsl()` format
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                const expectedResult = "hsl("
+                    + validFixture.channels.hue + " "
+                    + validFixture.channels.saturation + "% "
+                    + validFixture.channels.luminosity + "%"
+                    + (validFixture.channels.alpha < 1 ? " / " + validFixture.channels.alpha : "")
+                    + ")";
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(expectedResult);
+            });
+        });
+    });
+
     // ================================================================
     //
     // COMPONENT VALUES

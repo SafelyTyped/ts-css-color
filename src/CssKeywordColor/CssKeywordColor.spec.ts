@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
 import { CssKeywordColor, makeCssKeywordColorData } from "@safelytyped/css-color";
-import { ValidCssKeywordColorData } from "./_fixtures/CssKeywordColorDataFixtures";
 import { expect } from "chai";
+import { describe, it } from "mocha";
+import { ValidCssKeywordColorData } from "./_fixtures/CssKeywordColorDataFixtures";
 
 describe('CssKeywordColor', () => {
     describe(".constructor", () => {
@@ -580,6 +580,38 @@ describe('CssKeywordColor', () => {
                 // test the results
 
                 expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".css()", () => {
+        ValidCssKeywordColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a keyword", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns a CSS
+                // named color - even though `.conversionModel()` returns
+                // an RGB model
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(validFixture.definition);
             });
         });
     });

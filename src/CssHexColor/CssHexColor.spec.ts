@@ -477,6 +477,7 @@ describe('CssHexColor', () => {
 
                 expect(actualResult.definition()).to.eql(validFixture.definition);
             });
+
         });
 
         it("caches static conversions", () => {
@@ -946,6 +947,39 @@ describe('CssHexColor', () => {
                 // test the results
 
                 expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".css()", () => {
+        ValidCssHexColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition in HEX format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns a CSS
+                // HEX result - even though `.conversionModel()` returns
+                // an RGB model
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHexColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    makeCssHexColorDefinition(validFixture.hex),
+                );
+                const unit = new CssHexColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(validFixture.hex);
             });
         });
     });
