@@ -98,6 +98,7 @@ The following changes have been completed, and will be included in the next tagg
     * added `makeCssOklchColorFromCssColor()`
     * added `makeCssRgbColorFromConversionModel()`
     * added `makeCssRgbColorFromCssColor()`
+* added `CssColor.colorSpace()`
 
 ### Fixes
 

@@ -35,6 +35,7 @@
 import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { roundTo } from "@safelytyped/math-rounding";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
@@ -240,6 +241,20 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
     public colorFormat(): SupportedCssColorFormat
     {
         return this.data.colorFormat;
+    }
+
+    /**
+     * colorSpace() returns the name of the color space that this color's
+     * data exists in
+     *
+     * NOTE that this represents the color's current data, NOT the
+     * color space that the `.definition()` originally existed in
+     *
+     * @returns the name of the color space used by this object
+     */
+    public colorSpace(): SupportedCssColorSpace
+    {
+        return this.data.colorSpace;
     }
 
     // ================================================================
