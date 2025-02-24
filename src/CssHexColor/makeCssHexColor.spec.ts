@@ -34,8 +34,8 @@
 
 import { expect } from "chai";
 import { describe } from "mocha";
-import { CssHwbColor } from "./CssHwbColor";
-import { makeCssHwbColor } from "./makeCssHwbColor";
+import { CssHexColor } from "./CssHexColor";
+import { makeCssHexColor } from "./makeCssHexColor";
 
 const VALID_COLOR_CSS = [
     {
@@ -64,13 +64,13 @@ const VALID_COLOR_CSS = [
     },
 ];
 
-describe("makeCssHwbColor()", () => {
+describe("makeCssHexColor()", () => {
     VALID_COLOR_CSS.forEach((fixture) => {
         it("accepts " + fixture.description + ": " + fixture.inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that makeCssHwbColor() accepts a range of
+            // this test proves that makeCssHexColor() accepts a range of
             // input formats
 
             // ----------------------------------------------------------------
@@ -79,12 +79,12 @@ describe("makeCssHwbColor()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = makeCssHwbColor(fixture.inputValue);
+            const actualValue = makeCssHexColor(fixture.inputValue);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.instanceof(CssHwbColor);
+            expect(actualValue).to.be.instanceof(CssHexColor);
         });
     });
 })
