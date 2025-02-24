@@ -34,8 +34,8 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { CSS_HEX_CONVERSIONS } from "./CSS_HEX_CONVERSIONS";
 import type { CssHexColorData } from "./CssHexColorData.type";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import { makeCssHexColorFromConversionModel } from "./makeCssHexColorFromConversionModel";
 
 export function makeCssHexColorFromCssColor(
@@ -58,5 +58,5 @@ export function makeCssHexColorFromCssColor(
         );
     };
 
-    return CssColorConversions.toHex(converterFn, input, fnOpts);
+    return CSS_HEX_CONVERSIONS.convert(converterFn, input, fnOpts);
 }

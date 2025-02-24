@@ -34,8 +34,8 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { CSS_OKLCH_CONVERSIONS } from "./CSS_OKLCH_CONVERSIONS";
 import type { CssOklchColorData } from "./CssOklchColorData.type";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import { makeCssOklchColorFromConversionModel } from "./makeCssOklchColorFromConversionModel";
 
 export function makeCssOklchColorFromCssColor(
@@ -58,5 +58,5 @@ export function makeCssOklchColorFromCssColor(
         );
     };
 
-    return CssColorConversions.toOklch(converterFn, input, fnOpts);
+    return CSS_OKLCH_CONVERSIONS.convert(converterFn, input, fnOpts);
 }

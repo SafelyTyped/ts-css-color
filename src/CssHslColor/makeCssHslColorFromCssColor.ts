@@ -34,8 +34,8 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { CSS_HSL_CONVERSIONS } from "./CSS_HSL_CONVERSIONS";
 import type { CssHslColorData } from "./CssHslColorData.type";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import { makeCssHslColorFromConversionModel } from "./makeCssHslColorFromConversionModel";
 
 export function makeCssHslColorFromCssColor(
@@ -58,5 +58,5 @@ export function makeCssHslColorFromCssColor(
         );
     };
 
-    return CssColorConversions.toHsl(converterFn, input, fnOpts);
+    return CSS_HSL_CONVERSIONS.convert(converterFn, input, fnOpts);
 }

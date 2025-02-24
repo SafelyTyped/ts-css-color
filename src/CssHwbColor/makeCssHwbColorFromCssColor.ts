@@ -34,8 +34,8 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { CSS_HWB_CONVERSIONS } from "./CSS_HWB_CONVERSIONS";
 import type { CssHwbColorData } from "./CssHwbColorData.type";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
 import { makeCssHwbColorFromConversionModel } from "./makeCssHwbColorFromConversionModel";
 
 export function makeCssHwbColorFromCssColor(
@@ -58,5 +58,5 @@ export function makeCssHwbColorFromCssColor(
         );
     };
 
-    return CssColorConversions.toHwb(converterFn, input, fnOpts);
+    return CSS_HWB_CONVERSIONS.convert(converterFn, input, fnOpts);
 }

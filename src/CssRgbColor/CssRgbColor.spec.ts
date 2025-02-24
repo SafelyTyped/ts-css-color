@@ -32,12 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { CssRgbColor, makeCssRgbColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
-import { ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
-import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import { CssRgbColor, makeCssRgbColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { expect } from "chai";
+import { describe, it } from "mocha";
+import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
+import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
+import { ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
+import { CSS_RGB_CONVERSIONS } from "./CSS_RGB_CONVERSIONS";
 
 describe('CssRgbColor', () => {
     describe(".constructor", () => {
@@ -132,7 +134,7 @@ describe('CssRgbColor', () => {
             const unit = new CssRgbColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_RGB_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -143,7 +145,7 @@ describe('CssRgbColor', () => {
             // test the results
 
             // does not cache itself
-            expect(CssColorConversions.hasRgb(unit)).to.be.false;
+            expect(CSS_RGB_CONVERSIONS.has(unit)).to.be.false;
         });
 
         it("supports functional operators", () => {
@@ -299,7 +301,7 @@ describe('CssRgbColor', () => {
             const unit = new CssRgbColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_HSL_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -309,7 +311,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(CssColorConversions.hasHsl(actualValue)).to.be.true;
+            expect(CSS_HSL_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -465,7 +467,7 @@ describe('CssRgbColor', () => {
             const unit = new CssRgbColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_HWB_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -475,7 +477,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(CssColorConversions.hasHwb(actualValue)).to.be.true;
+            expect(CSS_HWB_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {

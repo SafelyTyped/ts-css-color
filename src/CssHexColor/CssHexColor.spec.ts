@@ -32,12 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { CssHexColor, makeCssHexColorData, makeCssHexColorDefinition, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
-import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
-import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import { CssHexColor, makeCssHexColorData, makeCssHexColorDefinition, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { expect } from "chai";
+import { describe, it } from "mocha";
+import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
+import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
+import { CSS_RGB_CONVERSIONS } from "../CssRgbColor/CSS_RGB_CONVERSIONS";
+import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
 
 describe('CssHexColor', () => {
     describe(".constructor", () => {
@@ -183,7 +185,7 @@ describe('CssHexColor', () => {
             const unit = new CssHexColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_RGB_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -193,7 +195,7 @@ describe('CssHexColor', () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(CssColorConversions.hasRgb(actualValue)).to.be.true;
+            expect(CSS_RGB_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -339,7 +341,7 @@ describe('CssHexColor', () => {
             const unit = new CssHexColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_HSL_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -349,7 +351,7 @@ describe('CssHexColor', () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(CssColorConversions.hasHsl(actualValue)).to.be.true;
+            expect(CSS_HSL_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -495,7 +497,7 @@ describe('CssHexColor', () => {
             const unit = new CssHexColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_HWB_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -505,7 +507,7 @@ describe('CssHexColor', () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(CssColorConversions.hasHwb(actualValue)).to.be.true;
+            expect(CSS_HWB_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
