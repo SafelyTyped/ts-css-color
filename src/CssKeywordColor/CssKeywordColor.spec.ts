@@ -254,7 +254,7 @@ describe('CssKeywordColor', () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that the .hwd() method returns the HSL equivalent
+                // this test proves that the .hwb() method returns the HWB equivalent
                 // of the current color
 
                 // ----------------------------------------------------------------
@@ -325,6 +325,92 @@ describe('CssKeywordColor', () => {
                 // perform the change
 
                 const actualResult = unit.hwb();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+    });
+
+    describe(".oklch()", () => {
+        ValidCssKeywordColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to OKLCH format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method returns the OKLCH
+                // equivalent of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.oklchChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method preserves the original
+                // color definition, and does not replace it with the HSL
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
 
                 // ----------------------------------------------------------------
                 // test the results
