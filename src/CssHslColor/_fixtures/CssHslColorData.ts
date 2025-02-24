@@ -35,12 +35,14 @@
 import type { Maybe } from "@safelytyped/core-types";
 import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
-import type { CssHslColorData } from "../CssHslColorData.type";
+import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
 import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
+import type { CssHslColorData } from "../CssHslColorData.type";
 
 type ValidCssHslColor = CssHslColorData & {
     hwbChannels: CssHwbColorChannelsData;
     rgbChannels: CssRgbColorChannelsData;
+    oklchChannels: CssOklchColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
 }
@@ -57,6 +59,7 @@ ValidCssColors.forEach((fixture) => {
             colorSpace: "sRGB",
             hwbChannels: fixture.hwbChannels,
             rgbChannels: fixture.rgbChannels,
+            oklchChannels: fixture.oklchChannels,
             hex: fixture.hex,
             namedColor: fixture.namedColor,
         });

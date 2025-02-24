@@ -33,10 +33,11 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssHslColor, makeCssHslColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { CssHslColor, makeCssHslColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
+import { CSS_OKLCH_CONVERSIONS } from "../CssOklchColor/CSS_OKLCH_CONVERSIONS";
 import { CSS_RGB_CONVERSIONS } from "../CssRgbColor/CSS_RGB_CONVERSIONS";
 import { ValidCssHslColorData } from "./_fixtures/CssHslColorData";
 import { CSS_HSL_CONVERSIONS } from "./CSS_HSL_CONVERSIONS";
@@ -354,6 +355,173 @@ describe('CssHslColor', () => {
             expect(unit.name()).eqls('original');
             expect(unit.definition()).eqls('hsl(255, 0%, 0%)');
         });
+    });
+
+    describe(".oklch()", () => {
+        ValidCssHslColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to OKLCH format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method returns the OKLCH
+                // equivalent of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.oklchChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method preserves the original
+                // color definition, and does not replace it with the RGB
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the `.oklch()` method will use the static
+            // conversion cache
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_OKLCH_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.oklch();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_OKLCH_CONVERSIONS.has(actualValue)).to.be.true;
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the RGB method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+
+            const f1 = (x: CssOklchColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssOklchColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.oklch({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('original');
+            expect(unit.definition()).eqls('hsl(255, 0%, 0%)');
+        });
+
     });
 
     describe(".rgb()", () => {

@@ -293,9 +293,9 @@ export const ValidCssColors: ValidCssColor[] = [
             alpha: 1,
         },
         oklchChannels: {
-            lightness: 0.7992,
-            chroma: 0.1327,
-            hue: 226.67,
+            lightness: 0.799156,
+            chroma: 0.13273,
+            hue: 226.670979,
             alpha: 1,
         },
         rgbChannels: {
