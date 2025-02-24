@@ -32,11 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { formatRgb, type Rgb } from "culori";
-
-import rgbHex from "rgb-hex";
-
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import { formatHex, formatRgb, type Rgb } from "culori";
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
@@ -158,13 +155,9 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
 
     public hex(): CssHexColorDefinition
     {
-        const rgbData = this.channelsData();
-        const hexCode = "#" + rgbHex(
-            rgbData.red,
-            rgbData.green,
-            rgbData.blue,
-        ).toLowerCase();
-        return makeCssHexColorDefinition(hexCode);
+        return makeCssHexColorDefinition(
+            formatHex(this.conversionModel())
+        );
     }
 
     public conversionModel(): Rgb {
