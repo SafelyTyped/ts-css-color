@@ -29,6 +29,7 @@ The following changes have been completed, and will be included in the next tagg
   * you must access them via the appropriate class instead (`color.rgb().red()`)
 * `CssHexColorData` now stores the hex value in a separate field
   * necessary to support conversions from other CssColor types
+* added `CssColor.oklch()` abstract method
 * added `CssColorData.colorFormat` property
 * added `CssColorData.colorSpace` property
 

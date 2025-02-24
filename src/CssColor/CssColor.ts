@@ -42,6 +42,8 @@ import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
@@ -97,6 +99,14 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
         opt?: TypeGuaranteeOptions,
         ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
     ): CssHwbColor;
+
+    /**
+     * oklch() converts this color to the CSS oklch() format
+     */
+    public abstract oklch(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssOklchColorData, TypeGuaranteeOptions>[]
+    ): CssOklchColor;
 
     /**
      * rgb() converts this color to the CSS rgb()
