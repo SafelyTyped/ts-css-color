@@ -36,7 +36,7 @@ import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErr
 import { validateCssColorData } from "../CssColor/validateCssColorData";
 import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
 import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
-import { validateCssColorSpace } from "../helpers/validateCssColorSpace";
+import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
 import type { CssOklchColorData } from "./CssOklchColorData.type";
 import { validateCssOklchColorChannelsData } from "./validateCssOklchColorChannelsData";
 
@@ -62,7 +62,7 @@ export function validateCssOklchColorData(
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
         .next((x) => validateCssColorDataHasColorFormat(x, "oklch", { path }))
-        .next((x) => validateCssColorSpace(x, "OKLCH", { path }))
+        .next((x) => validateCssColorDataHasColorSpace(x, "OKLCH", { path }))
         .next((x) => validateCssColorDataHasChannels(x, { path }))
         .next((x) => recastIfValid<CssOklchColorData>(
             x,

@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 /**

@@ -39,9 +39,10 @@
 // ----------------------------------------------------------------
 
 export type { CssColorspacedColor } from "./CssColorspace/CssColorspacedColor.type";
-export type { SupportedCssColorSpace as CssColorspace } from "./CssColorspace/CssColorspaces.type";
 export type { CssOklchColorSpace } from "./CssColorspace/CssOklchColorSpace.type";
 export type { CssSrgbColorSpace } from "./CssColorspace/CssSrgbColorSpace.type";
+export { SUPPORTED_CSS_COLOR_SPACES } from "./CssColorspace/SUPPORTED_CSS_COLOR_SPACES";
+export type { SupportedCssColorSpace } from "./CssColorspace/SupportedCssColorSpace.type";
 
 export type { AnyCssColor } from "./CssColor/AnyCssColor.type";
 export { CssColor } from "./CssColor/CssColor";
@@ -186,6 +187,7 @@ export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColor
 export { validateCssColorChannel } from "./helpers/validateCssColorChannel";
 export { validateCssColorDataHasChannels } from "./helpers/validateCssColorDataHasChannels";
 export { validateCssColorDataHasColorFormat } from "./helpers/validateCssColorDataHasColorFormat";
+export { validateCssColorDataHasColorSpace } from "./helpers/validateCssColorDataHasColorSpace";
 export { validateObjectHasStringProperty } from "./helpers/validateObjectHasStringProperty";
 
 // ================================================================

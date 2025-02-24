@@ -32,29 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
-import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
-import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
-import type { CssHslColorData } from "./CssHslColorData.type";
-import { validateCssHslColorChannelsData } from "./validateCssHslColorChannelsData";
+import { SUPPORTED_CSS_COLOR_SPACES } from "./SUPPORTED_CSS_COLOR_SPACES";
 
-export function validateCssHslColorData(
-    input: unknown,
-    {
-        path = DEFAULT_DATA_PATH
-    }: TypeValidatorOptions = {}
-): AppErrorOr<CssHslColorData>
-{
-    return validate(input)
-        .next((x) => validateCssColorData(x, { path }))
-        .next((x) => validateCssColorDataHasColorFormat(x, "hsl", { path }))
-        .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
-        .next((x) => validateCssColorDataHasChannels(x, { path }))
-        .next((x) => recastIfValid<CssHslColorData>(
-            x,
-            () => validateCssHslColorChannelsData(x.channels, { path: extendDataPath(path, "channels") })
-        ))
-        .value();
-}
+export type SupportedCssColorSpace = typeof SUPPORTED_CSS_COLOR_SPACES[number];

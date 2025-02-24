@@ -33,11 +33,12 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import { validateObjectHasStringProperty } from "./validateObjectHasStringProperty";
 
 /**
- * validateColorSpace() is a data validator. Use it to prove that:
+ * validateCssColorDataHasColorSpace() is a data validator. Use it to prove
+ * that:
  *
  * - the given input contains a `.colorSpace` with the given value
  *
@@ -55,7 +56,7 @@ import { validateObjectHasStringProperty } from "./validateObjectHasStringProper
  * - input on success
  * - an AppError otherwise
  */
-export function validateCssColorSpace<T extends object>(
+export function validateCssColorDataHasColorSpace<T extends object>(
     input: T,
     expectedColorSpace: SupportedCssColorSpace,
     {

@@ -36,7 +36,7 @@ import type { DataGuaranteeOptions } from "@safelytyped/core-types";
 import { CssOklchColor, makeCssOklchColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import { ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
 
 describe('CssOklchColor', () => {

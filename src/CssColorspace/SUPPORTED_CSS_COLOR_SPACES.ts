@@ -32,4 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export type SupportedCssColorSpace = "sRGB" | "OKLCH";
+export const SUPPORTED_CSS_COLOR_SPACES = [
+    "sRGB",
+    "OKLCH",
+] as const;

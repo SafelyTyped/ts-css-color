@@ -35,7 +35,7 @@
 import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { formatCss } from "culori";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";

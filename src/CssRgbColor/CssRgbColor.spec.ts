@@ -36,7 +36,7 @@ import type { DataGuaranteeOptions } from "@safelytyped/core-types";
 import { CssRgbColor, makeCssRgbColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
 import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
 import { ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";

@@ -33,7 +33,7 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
-import type { SupportedCssColorSpace } from "../../CssColorspace/CssColorspaces.type";
+import type { SupportedCssColorSpace } from "../../CssColorspace/SupportedCssColorSpace.type";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
 import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
