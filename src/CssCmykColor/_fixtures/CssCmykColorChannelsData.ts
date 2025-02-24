@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,18 +32,65 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-/**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
- */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+export const ValidCssCmykColorChannelsData = [
+    {
+        cyan: 100,
+        magenta: 100,
+        yellow: 100,
+        key: 1,
+    },
+];
+
+export const InvalidCssCmykColorChannelsDataObjects = [
+    {
+        description: "channels completely missing",
+        inputValue: {}
+    },
+    {
+        description: "cyan channel missing",
+        inputValue: {
+            magenta: 100,
+            yellow: 100,
+            key: 1,
+        }
+    },
+    {
+        description: "magenta channel missing",
+        inputValue: {
+            cyan: 100,
+            yellow: 100,
+            key: 1,
+        }
+    },
+    {
+        description: "yellow channel missing",
+        inputValue: {
+            cyan: 100,
+            magenta: 100,
+            key: 1,
+        }
+    },
+    {
+        description: "key channel missing",
+        inputValue: {
+            cyan: 100,
+            magenta: 100,
+            yellow: 100,
+        }
+    },
+];
+
+export const InvalidCssCmykColorChannelsDataInputs = [
+    null,
+    undefined,
+    [],
+    true,
+    false,
+    0,
+    -100,
+    100,
+    3.1415927,
+    () => true,
+    {},
+    "#ffffff",
+]

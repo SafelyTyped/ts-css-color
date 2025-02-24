@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -33,17 +33,12 @@
 //
 
 /**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
+ * CssCmykColorChannelsData represents the channels of a CSS CMYKA color,
+ * as an object.
  */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+export interface CssCmykColorChannelsData {
+    "cyan": number;
+    "magenta": number;
+    "yellow": number;
+    "key": number;
+}

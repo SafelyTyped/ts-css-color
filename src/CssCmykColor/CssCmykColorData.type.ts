@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,18 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import type { CssColorData } from "../CssColor/CssColorData.type";
+import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
+
 /**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
+ * CssCmykColorData represents the data for a CSS color that was defined
+ * in the CMYKA format.
  */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+export type CssCmykColorData = CssColorData & {
+    colorFormat: "cmyk";
+    colorSpace: "sRGB";
+    channels: CssCmykColorChannelsData;
+
+    readonly "_type": "@safelytyped/css-color/CssCmykColorData";
+};

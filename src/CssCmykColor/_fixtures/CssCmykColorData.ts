@@ -33,54 +33,55 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
-import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
 import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
 import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
-import type { CssRgbColorData } from "../CssRgbColorData.type";
+import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
+import type { CssCmykColorData } from "../CssCmykColorData.type";
 
-type ValidCssRgbColor = CssRgbColorData & {
-    cmykChannels: CssCmykColorChannelsData;
+type ValidCssCmykColor = CssCmykColorData & {
     hslChannels: CssHslColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
     oklchChannels: CssOklchColorChannelsData;
+    rgbChannels: CssRgbColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
 }
-export const ValidCssRgbColorData: ValidCssRgbColor[] = [];
+
+export const ValidCssCmykColorData: ValidCssCmykColor[] = [];
 
 ValidCssColors.forEach((fixture) => {
-    if (fixture.definition.includes("#") || fixture.definition.includes('rgb')) {
-        ValidCssRgbColorData.push({
+    if (fixture.definition.includes("#") || fixture.definition.includes('cmyk')) {
+        ValidCssCmykColorData.push({
             name: fixture.name,
             definition: fixture.definition,
-            channels: fixture.rgbChannels,
-            "_type": "@safelytyped/css-color/CssRgbColorData",
-            colorFormat: "rgb",
+            channels: fixture.cmykChannels,
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorFormat: "cmyk",
             colorSpace: "sRGB",
-            cmykChannels: fixture.cmykChannels,
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,
             oklchChannels: fixture.oklchChannels,
+            rgbChannels: fixture.rgbChannels,
             hex: fixture.hex,
             namedColor: fixture.namedColor,
         });
     }
 });
 
-export const InvalidCssRgbColorDataObjects = [
+export const InvalidCssCmykColorDataObjects = [
     {
         description: "not CssColorData: name property missing",
         inputValue: {
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
@@ -88,13 +89,13 @@ export const InvalidCssRgbColorDataObjects = [
         description: "not CssColorData: definition property missing",
         inputValue: {
             name: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
@@ -107,184 +108,185 @@ export const InvalidCssRgbColorDataObjects = [
         }
     },
     {
-        description: "red channel missing",
+        description: "cyan channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                green: 100,
-                blue: 100,
-                alpha: 1,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "red channel too small",
+        description: "cyan channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: -1,
-                green: 100,
-                blue: 100,
-                alpha: 1,
+                cyan: -1,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
+
             }
         }
     },
     {
-        description: "red channel too large",
+        description: "cyan channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 256,
-                green: 100,
-                blue: 100,
-                alpha: 1,
+                cyan: 101,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "green channel missing",
+        description: "magenta channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                blue: 100,
-                alpha: 1,
+                cyan: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "green channel too small",
+        description: "magenta channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: -1,
-                blue: 100,
-                alpha: 1,
+                cyan: 100,
+                magenta: -1,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "green channel too large",
+        description: "magenta channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 256,
-                blue: 100,
-                alpha: 1,
+                cyan: 100,
+                magenta: 101,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "blue channel missing",
+        description: "yellow channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "blue channel too small",
+        description: "yellow channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: -1,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                yellow: -1,
+                key: 1,
             }
         }
     },
     {
-        description: "blue channel too large",
+        description: "yellow channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 256,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 101,
+                key: 1,
             }
         }
     },
     {
-        description: "alpha channel missing",
+        description: "key channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
             }
         }
     },
     {
-        description: "alpha channel too small",
+        description: "key channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
-                alpha: -0.1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
+                key: -1,
             }
         }
     },
     {
-        description: "alpha channel too large",
+        description: "key channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
             colorSpace: "sRGB",
             channels: {
-                red: 100,
-                green: 100,
-                blue: 100,
-                alpha: 1.1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
+                key: 101,
             }
         }
     },
 ];
 
-export const InvalidMakeCssRgbColorParameters = [
+export const InvalidMakeCssCmykColorParameters = [
     {
         description: "name property empty",
         inputValue: {

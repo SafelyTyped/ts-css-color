@@ -32,18 +32,31 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-/**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
- */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { Color } from "culori";
+import { CssCmykColor } from "./CssCmykColor";
+import type { CssCmykColorData } from "./CssCmykColorData.type";
+import { convertConversionModelToCmykChannelsData } from "./convertConversionModelToCmykChannelsData";
+import { makeCssCmykColorData } from "./makeCssCmykColorData";
+
+export function makeCssCmykColorFromConversionModel(
+    colorName: string,
+    cssDefinition: string,
+    model: Color,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {},
+    ...fnOpts: FunctionalOption<CssCmykColorData, TypeGuaranteeOptions>[]
+)
+{
+    return new CssCmykColor(
+        makeCssCmykColorData(
+            colorName,
+            cssDefinition,
+            convertConversionModelToCmykChannelsData(model),
+            { path, onError },
+            ...fnOpts,
+        ),
+    );
+}

@@ -33,33 +33,29 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import { formatHex, formatRgb, type Rgb } from "culori";
-import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
-import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
-import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
+import type { Rgb } from "culori";
 import { CssColor } from "../CssColor/CssColor";
+import { makeCssColor } from "../CssColor/makeCssColor";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import { CssOklchColor } from "../CssOklchColor/CssOklchColor";
 import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
-import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
-import { convertRgbChannelsDataToConversionModel } from "./convertRgbChannelsDataToConversionModel";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
-import type { CssRgbColorChannelsTuple } from "./CssRgbColorChannelsTuple.type";
-import type { CssRgbColorData } from "./CssRgbColorData.type";
-import { makeCssRgbColorFromCssColor } from "./makeCssRgbColorFromCssColor";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
+import type { CssCmykColorChannelsTuple } from "./CssCmykColorChannelsTuple.type";
+import type { CssCmykColorData } from "./CssCmykColorData.type";
+import { makeCssCmykColorFromCssColor } from "./makeCssCmykColorFromCssColor";
 
 /**
- * CssRgbColor represents a {@link CssColor} that was defined using the
- * CSS RGBA format.
+ * CssCmykColor represents a {@link CssColor} that was defined using the
+ * CSS CMYKA format.
  */
-export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
+export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
 {
     // ================================================================
     //
@@ -73,7 +69,7 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
-    ): CssCmykColor
+    )
     {
         return makeCssCmykColorFromCssColor(
             this,
@@ -90,11 +86,8 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        return makeCssHslColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        // direct conversion doesn't seem to be reliable
+        return this.rgb().hsl({path, onError}, ...fnOpts);
     }
 
     public hwb(
@@ -105,11 +98,8 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        return makeCssHwbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        // direct conversion doesn't seem to be reliable
+        return this.rgb().hwb({path, onError}, ...fnOpts);
     }
 
     public oklch(
@@ -120,11 +110,8 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
         ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
     ): CssOklchColor
     {
-        return makeCssOklchColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        // direct conversion doesn't seem to be reliable
+        return this.rgb().oklch({path, onError}, ...fnOpts);
     }
 
     public rgb(
@@ -133,12 +120,20 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    )
+    ): CssRgbColor
     {
+        // conversion FROM cmyk isn't 100% lossless
+        //
+        // safest way is to recreate the color instead
         return makeCssRgbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
+            makeCssColor(
+                this.definition(),
+                {
+                    colorName: this.name(),
+                    path,
+                    onError
+                }
+            )
         );
     }
 
@@ -151,40 +146,37 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
     /**
      * channelsData() returns the color channels as an object.
      */
-    public channelsData(): CssRgbColorChannelsData
+    public channelsData(): CssCmykColorChannelsData
     {
         return this.data.channels;
     }
 
     /**
      * channelsTuple() returns the color channels as an array.
-     *
-     * NOTE that we deliberately leave out the alpha channel, as third-party
-     * color conversion packages seem to prefer this.
      */
-    public channelsTuple(): CssRgbColorChannelsTuple
+    public channelsTuple(): CssCmykColorChannelsTuple
     {
         return [
-            this.data.channels.red,
-            this.data.channels.green,
-            this.data.channels.blue,
+            this.data.channels.cyan,
+            this.data.channels.magenta,
+            this.data.channels.yellow,
+            this.data.channels.key,
         ];
     }
 
     public hex(): CssHexColorDefinition
     {
-        return makeCssHexColorDefinition(
-            formatHex(this.conversionModel())
-        );
+        return this.rgb().hex();
     }
 
     public conversionModel(): Rgb {
-        return convertRgbChannelsDataToConversionModel(this.data.channels);
+        return this.rgb().conversionModel();
     }
 
     public css()
     {
-        return formatRgb(this.conversionModel());
+        // CMYK isn't supported in CSS
+        return this.rgb().css();
     }
 
     // ================================================================
@@ -194,46 +186,46 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
     // ----------------------------------------------------------------
 
     /**
-     * red() returns the `R` component from the RGB definition, as a
-     * number between 0-255.
+     * cyan() returns the `C` component from the CMYK definition, as a
+     * number between 0-100.
      *
-     * @returns the `R` component from the RGB definition
+     * @returns the `C` component from the CMYK definition
      */
-    public red(): number
+    public cyan(): number
     {
-        return this.data.channels.red;
+        return this.data.channels.cyan;
     }
 
     /**
-     * green() returns the `G` component from the RGB definition, as a
-     * number between 0-255.
+     * magenta() returns the `M` component from the CMYK definition, as a
+     * number between 0-100.
      *
-     * @returns the `G` component from the RGB definition
+     * @returns the `M` component from the CMYK definition
      */
-    public green(): number
+    public magenta(): number
     {
-        return this.data.channels.green;
+        return this.data.channels.magenta;
     }
 
     /**
-     * blue() returns the `B` component from the RGB definition, as a
-     * number between 0-255.
+     * yellow() returns the `Y` component from the CMYK definition, as a
+     * number between 0-100.
      *
-     * @returns the `B` component from the RGB definition
+     * @returns the `Y` component from the CMYK definition
      */
-    public blue(): number
+    public yellow(): number
     {
-        return this.data.channels.blue;
+        return this.data.channels.yellow;
     }
 
     /**
-     * alpha() returns the alpha channel value of this color, as a number
-     * between 0-1
+     * key() returns the 'K' component from the CMYK definition, as a number
+     * between 0-100
      *
-     * @returns the `alpha` channel of this color
+     * @returns the 'K' component from the CMYK definition
      */
-    public alpha(): number
+    public key(): number
     {
-        return this.data.channels.alpha;
+        return this.data.channels.key;
     }
 }

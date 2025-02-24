@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,18 +32,25 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-/**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
- */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+import { DEFAULT_DATA_PATH, recastIfValid, validate, validateObject, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
+import { validateCssColorChannel } from "../helpers/validateCssColorChannel";
+import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
+
+export function validateCssCmykColorChannelsData(
+    input: unknown,
+    {
+        path = DEFAULT_DATA_PATH
+    }: TypeValidatorOptions = {}
+): AppErrorOr<CssCmykColorChannelsData>
+{
+    return recastIfValid<CssCmykColorChannelsData>(
+        input,
+        () => validate(input)
+            .next((x) => validateObject(x, { path }))
+            .next((x) => validateCssColorChannel(x, "cyan", 0, 100, { path }))
+            .next((x) => validateCssColorChannel(x, "magenta", 0, 100, { path }))
+            .next((x) => validateCssColorChannel(x, "yellow", 0, 100, { path }))
+            .next((x) => validateCssColorChannel(x, "key", 0, 100, { path }))
+            .value()
+    );
+}

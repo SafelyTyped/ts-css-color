@@ -32,18 +32,36 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-/**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
- */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { makeCssColor } from "../CssColor/makeCssColor";
+import { CssCmykColor } from "./CssCmykColor";
+import type { CssCmykColorData } from "./CssCmykColorData.type";
+import { makeCssCmykColorFromCssColor } from "./makeCssCmykColorFromCssColor";
+
+export function makeCssCmykColor(
+    input: string|AnyCssColor,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: DataGuaranteeOptions = {},
+    ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+): CssCmykColor
+{
+    // normalise to a CssColor class
+    if (isString(input)) {
+        input = makeCssColor(input, { path, onError });
+    }
+
+    // special case - no conversion needed
+    if (input instanceof CssCmykColor) {
+        return input;
+    }
+
+    // convert it
+    return makeCssCmykColorFromCssColor(
+        input,
+        { path, onError },
+        ...fnOpts,
+    );
+}

@@ -32,18 +32,50 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { roundTo } from "@safelytyped/math-rounding";
+import { type Color, rgb } from "culori";
+import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
+
 /**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
+ * convertConversionModelToCmykChannelsData() is a helper method. It converts
+ * an instance of the RGB model used by our chosen third-party color
+ * conversion package to our preferred data format.
  *
- * This is very useful for iterating over in unit tests!
+ * based on an algorithm from color-space:
+ * https://github.com/colorjs/color-space/blob/master/cmyk.js
+ *
+ * this algorithm appears to be commonly used by color-conversion websites
+ * that predate the color-space package
+ *
+ * @param input
+ * @returns
  */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+export function convertConversionModelToCmykChannelsData(
+    input: Color
+): CssCmykColorChannelsData
+{
+    const model = rgb(input);
+
+    const k = Math.min(1 - model.r, 1 - model.g, 1 - model.b);
+    const c = (1 - model.r - k) / (1 - k) || 0;
+    const m = (1 - model.g - k) / (1 - k) || 0;
+    const y = (1 - model.b - k) / (1 - k) || 0;
+
+    return {
+        cyan: round(c * 100),
+        magenta: round(m * 100),
+        yellow: round(y * 100),
+        key: round(k * 100),
+    };
+}
+
+function round(input: number)
+{
+    return Math.abs(
+        roundTo(
+            Math.round,
+            0,
+            input,
+        )
+    );
+}
