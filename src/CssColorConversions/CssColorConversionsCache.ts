@@ -64,21 +64,9 @@ export class CssColorConversionsCache<T extends AnyCssColor, D extends CssColorD
 
     // ================================================================
     //
-    // HEX support
+    // CACHE OPERATIONS
     //
     // ----------------------------------------------------------------
-
-    public delete(input: T)
-    {
-        const cacheKey = this.cacheKey(input);
-        delete this.CACHED_CONVERSIONS[cacheKey];
-    }
-
-    public has(input: T): boolean
-    {
-        const cacheKey = this.cacheKey(input);
-        return HashMap.has(this.CACHED_CONVERSIONS, cacheKey);
-    }
 
     public convert(
         converter: CssColorConverter<T>,
@@ -110,6 +98,23 @@ export class CssColorConversionsCache<T extends AnyCssColor, D extends CssColorD
     // HELPER METHODS
     //
     // ----------------------------------------------------------------
+
+    public cache()
+    {
+        return this.CACHED_CONVERSIONS;
+    }
+
+    public delete(input: T)
+    {
+        const cacheKey = this.cacheKey(input);
+        delete this.CACHED_CONVERSIONS[cacheKey];
+    }
+
+    public has(input: T): boolean
+    {
+        const cacheKey = this.cacheKey(input);
+        return HashMap.has(this.CACHED_CONVERSIONS, cacheKey);
+    }
 
     private cacheKey(input: AnyCssColor): string
     {
