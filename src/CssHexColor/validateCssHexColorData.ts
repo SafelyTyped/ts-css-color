@@ -32,10 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
 import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
 import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
+import { validateObjectHasStringProperty } from "../helpers/validateObjectHasStringProperty";
 import type { CssHexColorData } from "./CssHexColorData.type";
 import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
 
@@ -49,31 +50,10 @@ export function validateCssHexColorData(
         .next((x) => validateCssColorData(x, { path }))
         .next((x) => validateCssColorDataHasColorFormat(x, "hex", { path }))
         .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
-        .next((x) => validateObjectHasHex(x, { path }))
+        .next((x) => validateObjectHasStringProperty(x, ["hex"], { path }))
+        .next((x) => recastIfValid<CssHexColorData>(
+            x,
+            () => validateCssHexColorDefinition(x.hex, { path: extendDataPath(path, "hex")}))
+        )
         .value();
-}
-
-function validateObjectHasHex(
-    input: object,
-    {
-        path = DEFAULT_DATA_PATH,
-    }: TypeValidatorOptions = {}
-): AppErrorOr<CssHexColorData>
-{
-    // we use `isObject()` here to prevent `null` and `array` types from being
-    // wrongly accepted as valid
-    if ((input as CssHexColorData).hex === undefined) {
-        return new UnsupportedTypeError({
-            public: {
-                dataPath: path,
-                expected: "CssColorData with .hex property",
-                actual: "object without .hex property",
-            }
-        });
-    }
-
-    return recastIfValid<CssHexColorData>(
-        input,
-        () => validateCssHexColorDefinition((input as CssHexColorData).hex, { path: extendDataPath(path, "x") })
-    );
 }
