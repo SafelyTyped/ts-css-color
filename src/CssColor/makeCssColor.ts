@@ -34,7 +34,7 @@
 
 import { parse } from "culori";
 
-import { applyFunctionalOptions, DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type DataPath, type DataValidatorOptions, type FunctionalOption, type OnError } from "@safelytyped/core-types";
+import { applyFunctionalOptions, DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type DataPath, type FunctionalOption, type OnError } from "@safelytyped/core-types";
 import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
 import { CssHexColor } from "../CssHexColor/CssHexColor";
 import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
@@ -77,56 +77,57 @@ export function makeCssColor(
     ...fnOpts: FunctionalOption<AnyCssColor, DataGuaranteeOptions>[]
 ): AnyCssColor
 {
+    // our return value
+    let retval: AnyCssColor;
+
     // shorthand
     const opts = { onError, path };
 
     // special case - do we have a CSS keyword color?
     if (cssDefinition in CSS_EXTENDED_COLORS_TO_HEX) {
-        return applyFunctionalOptions<AnyCssColor, DataValidatorOptions>(
-            new CssKeywordColor(
-                makeCssKeywordColorData(colorName, cssDefinition, { path, onError })
-            ),
-            opts,
-            ...fnOpts
+        retval = new CssKeywordColor(
+            makeCssKeywordColorData(colorName, cssDefinition, { path, onError })
         );
     }
 
     // special case - do we have a CSS hex color?
-    if (cssDefinition.startsWith("#")) {
-        return applyFunctionalOptions(
-            new CssHexColor(
-                makeCssHexColorData(
-                    colorName,
-                    cssDefinition,
-                    makeCssHexColorDefinition(cssDefinition),
-                    { path, onError }
-                )
-            ),
-            opts,
-            ...fnOpts
+    else if (cssDefinition.startsWith("#")) {
+        retval = new CssHexColor(
+            makeCssHexColorData(
+                colorName,
+                cssDefinition,
+                makeCssHexColorDefinition(cssDefinition),
+                { path, onError }
+            )
         );
     }
 
-    // what are we looking at?
-    const model = parse(cssDefinition);
+    // general case - CSS color function
+    else {
+        // what are we looking at?
+        const model = parse(cssDefinition);
 
-    // robustness!
-    if (!model) {
-        throw new UnsupportedCssColorDefinitionError({
-            public: {
-                dataPath: path,
-                colorDefinition: cssDefinition,
-            }
-        });
-    }
+        // robustness!
+        if (!model) {
+            throw new UnsupportedCssColorDefinitionError({
+                public: {
+                    dataPath: path,
+                    colorDefinition: cssDefinition,
+                }
+            });
+        }
 
-    return applyFunctionalOptions(
-        makeCssColorFromConversionModel(
-            model,
+        retval = makeCssColorFromConversionModel(
             colorName,
             cssDefinition,
+            model,
             opts,
-        ),
+        );
+    }
+
+    // all done
+    return applyFunctionalOptions(
+        retval,
         opts,
         ...fnOpts
     );

@@ -72,9 +72,9 @@ const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssC
  * that you can make any additional changes before this function returns
  */
 export function makeCssColorFromConversionModel(
-    model: Color,
     colorName: string,
     cssDefinition: string,
+    model: Color,
     {
         onError = THROW_THE_ERROR,
         path = DEFAULT_DATA_PATH
