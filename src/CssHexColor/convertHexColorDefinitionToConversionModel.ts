@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { type Rgb, rgb } from "culori";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
-import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+import { type Rgb, rgb } from "culori";
+import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 
 /**
  * convertHslChannelsDataToConversionModel() is a helper method. It converts

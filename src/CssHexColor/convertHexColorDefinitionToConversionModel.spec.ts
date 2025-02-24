@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { convertHexColorDefinitionToConversionModel, type CssHexColorDefinition } from "@safelytyped/css-color";
+import { expect } from "chai";
 import { describe } from "mocha";
 import { VALID_HEX_CONVERSIONS_FIXTURES } from "./_fixtures/HexConversionData";
-import { convertHexColorDefinitionToConversionModel } from "@safelytyped/css-color";
-import { expect } from "chai";
 
 describe("convertHexChannelsDataToConversionModel()", () => {
     VALID_HEX_CONVERSIONS_FIXTURES.forEach((fixture) => {
@@ -62,5 +62,36 @@ describe("convertHexChannelsDataToConversionModel()", () => {
 
             expect(actualResult).to.eql(expectedResult);
         });
-    })
+    });
+
+    it("throws an error when given an invalid input string", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that the unit under test throws an error if
+        // someone overrides the type-safety and forces an invalid string
+        // into it
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const inputValue = "this is junk" as CssHexColorDefinition;
+
+        let caughtException;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        try {
+            convertHexColorDefinitionToConversionModel(inputValue);
+        }
+        catch (e) {
+            caughtException = e;
+        }
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(caughtException).is.instanceof(Error);
+    });
 });
