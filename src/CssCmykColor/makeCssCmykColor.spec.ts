@@ -87,4 +87,26 @@ describe("makeCssCmykColor()", () => {
             expect(actualValue).to.be.instanceof(CssCmykColor);
         });
     });
-})
+
+    it("returns the same object if input is a CssCmykColor", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        //
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const expectedValue = makeCssCmykColor("red");
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualValue = makeCssCmykColor(expectedValue);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.equal(expectedValue);
+    });
+});
