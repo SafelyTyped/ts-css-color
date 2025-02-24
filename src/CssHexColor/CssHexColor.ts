@@ -34,26 +34,25 @@
 
 import type { Rgb } from "culori";
 
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssHexColorData } from "./CssHexColorData.type";
-import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
-import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
-import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import { convertHexColorDefinitionToConversionModel } from "./convertHexColorDefinitionToConversionModel";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
 import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
 import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
+import type { CssRgbColorChannelsData } from "../CssRgbColor/CssRgbColorChannelsData.type";
+import type { CssRgbColorChannelsTuple } from "../CssRgbColor/CssRgbColorChannelsTuple.type";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import { convertHexColorDefinitionToConversionModel } from "./convertHexColorDefinitionToConversionModel";
+import type { CssHexColorData } from "./CssHexColorData.type";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
@@ -173,17 +172,7 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
     public hex(): CssHexColorDefinition
     {
         // general case
-        if (this.data.definition.length > 4) {
-            return makeCssHexColorDefinition(this.data.definition);
-        }
-
-        // if we get here, we need to convert the hex string to
-        // full-length
-        const r = this.data.definition.substring(1, 2);
-        const g = this.data.definition.substring(2, 3);
-        const b = this.data.definition.substring(3, 4);
-
-        return makeCssHexColorDefinition("#" + r + r + g + g + b + b);
+        return this.data.hex;
     }
 
     public conversionModel(): Rgb {
