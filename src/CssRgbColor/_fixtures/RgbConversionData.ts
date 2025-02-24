@@ -54,6 +54,21 @@ export const VALID_RGB_CONVERSIONS_FIXTURES: RgbConversionData[] = [
             g: 0,
             b: 0,
             alpha: 1,
-        }
+        },
+    },
+    {
+        rgbChannelsData: {
+            red: 128,
+            green: 128,
+            blue: 128,
+            alpha: 0.8,
+        },
+        conversionModel: {
+            mode: "rgb",
+            r: 0.502,
+            g: 0.502,
+            b: 0.502,
+            alpha: 0.8,
+        },
     },
 ];

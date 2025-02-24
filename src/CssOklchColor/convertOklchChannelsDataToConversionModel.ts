@@ -52,6 +52,6 @@ export function convertOklchChannelsDataToConversionModel(
         l: input.lightness,
         c: input.chroma,
         h: input.hue,
-        alpha: input.alpha || 1,
+        alpha: input.alpha,
     };
 }

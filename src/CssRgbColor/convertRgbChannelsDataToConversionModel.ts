@@ -32,6 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { roundTo } from "@safelytyped/math-rounding";
 import type { Rgb } from "culori";
 import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
 
@@ -49,9 +50,20 @@ export function convertRgbChannelsDataToConversionModel(
 {
     return {
         mode: "rgb",
-        r: input.red / 255,
-        g: input.green / 255,
-        b: input.blue / 255,
-        alpha: input.alpha || 1,
+        r: round(input.red / 255),
+        g: round(input.green / 255),
+        b: round(input.blue / 255),
+        alpha: input.alpha,
     };
+}
+
+function round(input: number)
+{
+    return Math.abs(
+        roundTo(
+            Math.round,
+            3,
+            input,
+        )
+    );
 }

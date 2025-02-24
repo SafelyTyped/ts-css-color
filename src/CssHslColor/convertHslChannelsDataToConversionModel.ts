@@ -52,6 +52,6 @@ export function convertHslChannelsDataToConversionModel(
         h: input.hue,
         s: input.saturation / 100,
         l: input.luminosity / 100,
-        alpha: input.alpha || 1,
+        alpha: input.alpha,
     };
 }

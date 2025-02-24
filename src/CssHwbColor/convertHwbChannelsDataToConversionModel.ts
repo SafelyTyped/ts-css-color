@@ -52,6 +52,6 @@ export function convertHwbChannelsDataToConversionModel(
         h: input.hue,
         w: input.whiteness / 100,
         b: input.blackness / 100,
-        alpha: input.alpha || 1,
+        alpha: input.alpha,
     };
 }
