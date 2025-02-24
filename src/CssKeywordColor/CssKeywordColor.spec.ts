@@ -684,6 +684,66 @@ describe('CssKeywordColor', () => {
         });
     });
 
+    describe(".colorFormat()", () => {
+        it("returns 'keyword'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssKeywordColorData(
+                "red",
+                "red",
+            );
+            const unit = new CssKeywordColor(inputValue);
+            const expectedValue = "keyword";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
+
+    describe(".colorSpace()", () => {
+        it("returns 'sRGB'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorSpace() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssKeywordColorData(
+                "red",
+                "red",
+            );
+            const unit = new CssKeywordColor(inputValue);
+            const expectedValue = "sRGB";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorSpace();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
+
     // ================================================================
     //
     // DERIVED COMPONENTS
@@ -1027,36 +1087,6 @@ describe('CssKeywordColor', () => {
 
                 expect(actualValue).to.eql(expectedValue);
             });
-        });
-    });
-
-    describe(".colorFormat()", () => {
-        it("returns 'keyword'", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the .colorFormat() method returns the
-            // expected result
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssKeywordColorData(
-                "red",
-                "red",
-            );
-            const unit = new CssKeywordColor(inputValue);
-            const expectedValue = "keyword";
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.colorFormat();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue).to.eql(expectedValue);
         });
     });
 });

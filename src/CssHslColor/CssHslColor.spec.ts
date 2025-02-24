@@ -1287,4 +1287,41 @@ describe('CssHslColor', () => {
             expect(actualValue).to.eql(expectedValue);
         });
     });
+
+    describe(".colorSpace()", () => {
+        it("returns 'sRGB'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+
+            const expectedValue = "sRGB";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorSpace();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
 });

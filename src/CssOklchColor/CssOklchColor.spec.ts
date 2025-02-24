@@ -36,6 +36,7 @@ import type { DataGuaranteeOptions } from "@safelytyped/core-types";
 import { CssOklchColor, makeCssOklchColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
+import type { SupportedCssColorSpace } from "../CssColorspace/CssColorspaces.type";
 import { ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
 
 describe('CssOklchColor', () => {
@@ -1417,4 +1418,39 @@ describe('CssOklchColor', () => {
         });
     });
 
+    describe(".colorSpace()", () => {
+        it("returns 'OKLCH'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorSpace() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssOklchColorData(
+                "red",
+                "#ff0000",
+                {
+                    lightness: 0.628,
+                    chroma: 0.2577,
+                    hue: 29.23,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssOklchColor(inputValue);
+            const expectedValue: SupportedCssColorSpace = "OKLCH";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorSpace();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
 });

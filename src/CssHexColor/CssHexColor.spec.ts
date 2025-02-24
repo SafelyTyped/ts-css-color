@@ -1084,6 +1084,37 @@ describe('CssHexColor', () => {
 
             expect(actualValue).to.eql(expectedValue);
         });
+    });
 
+    describe(".colorSpace()", () => {
+        it("returns 'sRGB'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorSpace() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHexColorData(
+                "red",
+                "#ff0000",
+                makeCssHexColorDefinition("#ff0000"),
+            );
+            const unit = new CssHexColor(inputValue);
+
+            const expectedValue = "sRGB";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorSpace();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
     });
 });
