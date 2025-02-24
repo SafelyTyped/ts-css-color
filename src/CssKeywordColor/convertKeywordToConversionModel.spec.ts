@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { convertKeywordToConversionModel, type CssExtendedColor } from "@safelytyped/css-color";
+import { expect } from "chai";
 import { describe } from "mocha";
 import { VALID_KEYWORD_CONVERSIONS_FIXTURES } from "./_fixtures/KeywordConversionData";
-import { convertKeywordToConversionModel } from "@safelytyped/css-color";
-import { expect } from "chai";
 
 describe("convertKeywordToConversionModel()", () => {
     VALID_KEYWORD_CONVERSIONS_FIXTURES.forEach((fixture) => {
@@ -62,5 +62,35 @@ describe("convertKeywordToConversionModel()", () => {
 
             expect(actualResult).to.eql(expectedResult);
         });
-    })
+    });
+
+
+    it("throws an error if a non-keyword is passed in", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that the unit under test throws an error if
+        // someone overrides the type-safety and forces an unsupported
+        // string as the input
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const inputValue = "this is not a CSS keyword color";
+        let caughtException;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        try {
+            convertKeywordToConversionModel(inputValue as CssExtendedColor);
+        } catch (e) {
+            caughtException = e;
+        }
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(caughtException).to.be.instanceOf(Error);
+    });
 });
