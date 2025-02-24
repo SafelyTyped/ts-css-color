@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
 import { CssKeywordColor, makeCssKeywordColorData } from "@safelytyped/css-color";
-import { ValidCssKeywordColorData } from "./_fixtures/CssKeywordColorDataFixtures";
 import { expect } from "chai";
+import { describe, it } from "mocha";
+import { ValidCssKeywordColorData } from "./_fixtures/CssKeywordColorDataFixtures";
 
 describe('CssKeywordColor', () => {
     describe(".constructor", () => {
@@ -254,7 +254,7 @@ describe('CssKeywordColor', () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that the .hwd() method returns the HSL equivalent
+                // this test proves that the .hwb() method returns the HWB equivalent
                 // of the current color
 
                 // ----------------------------------------------------------------
@@ -325,6 +325,92 @@ describe('CssKeywordColor', () => {
                 // perform the change
 
                 const actualResult = unit.hwb();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+    });
+
+    describe(".oklch()", () => {
+        ValidCssKeywordColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to OKLCH format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method returns the OKLCH
+                // equivalent of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.oklchChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method preserves the original
+                // color definition, and does not replace it with the HSL
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -584,6 +670,38 @@ describe('CssKeywordColor', () => {
         });
     });
 
+    describe(".css()", () => {
+        ValidCssKeywordColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a keyword", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns a CSS
+                // named color - even though `.conversionModel()` returns
+                // an RGB model
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(validFixture.definition);
+            });
+        });
+    });
+
     // ================================================================
     //
     // PROPERTIES
@@ -627,7 +745,7 @@ describe('CssKeywordColor', () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that the .defintion() method returns what it
+                // this test proves that the .definition() method returns what it
                 // is supposed to
 
                 // ----------------------------------------------------------------
@@ -652,13 +770,73 @@ describe('CssKeywordColor', () => {
         });
     });
 
+    describe(".colorFormat()", () => {
+        it("returns 'keyword'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssKeywordColorData(
+                "red",
+                "red",
+            );
+            const unit = new CssKeywordColor(inputValue);
+            const expectedValue = "keyword";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
+
+    describe(".colorSpace()", () => {
+        it("returns 'sRGB'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorSpace() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssKeywordColorData(
+                "red",
+                "red",
+            );
+            const unit = new CssKeywordColor(inputValue);
+            const expectedValue = "sRGB";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorSpace();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
+
     // ================================================================
     //
     // DERIVED COMPONENTS
     //
     // ----------------------------------------------------------------
 
-     describe(".rgb()red()", () => {
+     describe(".rgb().red()", () => {
         ValidCssKeywordColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the R channel as a number", () => {
                 // ----------------------------------------------------------------

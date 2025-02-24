@@ -32,12 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
-import { InvalidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
-import { makeCssHexColorData, type CssHexColorData } from "@safelytyped/css-color";
-import { expect } from "chai";
 import { AppError } from "@safelytyped/core-types";
+import { convertConversionModelToRgbChannelsData, convertHexColorDefinitionToConversionModel, makeCssHexColorData, makeCssHexColorDefinition, type CssHexColorData } from "@safelytyped/css-color";
+import chai, { expect } from "chai";
+import { describe } from "mocha";
+import { InvalidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
+import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
+
+// show full-length test failure
+chai.config.truncateThreshold = 0;
 
 describe("makeCssHexColorData()", () => {
     it("casts the return value to CssHexColorData", () => {
@@ -57,7 +60,8 @@ describe("makeCssHexColorData()", () => {
 
         const res = makeCssHexColorData(
             "black",
-            "#fff",
+            "#000",
+            makeCssHexColorDefinition("#000000"),
         );
 
         // this will only compile if makeCssHexColorData() returns the
@@ -84,6 +88,9 @@ describe("makeCssHexColorData()", () => {
             const expectedValue: CssHexColorData = {
                 name: inputValue.name,
                 definition: inputValue.definition,
+                hex: inputValue.hex,
+                colorFormat: "hex",
+                colorSpace: "sRGB",
             } as CssHexColorData;
 
             // ----------------------------------------------------------------
@@ -96,6 +103,7 @@ describe("makeCssHexColorData()", () => {
                 actualValue = makeCssHexColorData(
                     inputValue.name,
                     inputValue.definition,
+                    makeCssHexColorDefinition(inputValue.hex),
                 );
             }
             catch (e) {
@@ -107,6 +115,34 @@ describe("makeCssHexColorData()", () => {
 
             expect(actualValue).to.eqls(expectedValue);
             expect(errorThrown).to.be.null;
+        });
+
+        it("creates a data structure that can be converted to RGB", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            //
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const unit = makeCssHexColorData(
+                inputValue.name,
+                inputValue.definition,
+                makeCssHexColorDefinition(inputValue.definition),
+            );
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = convertConversionModelToRgbChannelsData(
+                convertHexColorDefinitionToConversionModel(unit.hex)
+            );
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.red).eqls(inputValue.rgbChannels.red);
         });
     });
 
@@ -130,7 +166,8 @@ describe("makeCssHexColorData()", () => {
             try {
                 actualValue = makeCssHexColorData(
                     inputValue,
-                    inputValue
+                    inputValue,
+                    makeCssHexColorDefinition("#0"),
                 );
             }
             catch (e) {

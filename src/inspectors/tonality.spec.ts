@@ -33,13 +33,13 @@
 //
 
 import { describe, it } from "mocha";
-import { makeCssColor, tonality } from "@safelytyped/css-color";
+import { luma, makeCssColor, tonality } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "./_fixtures/colorShades";
 
 describe("tonality()", () => {
-    it("returns 'light' from colors that are lighter", () => {
-        LIGHT_COLORS.forEach((inputValue) => {
+    LIGHT_COLORS.forEach((inputValue) => {
+        it("returns 'light' from color: " + inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -62,8 +62,8 @@ describe("tonality()", () => {
         });
     });
 
-    it("returns 'dark' from colors that are darker", () => {
-        DARK_COLORS.forEach((inputValue) => {
+    DARK_COLORS.forEach((inputValue) => {
+        it("returns 'dark' from color: " + inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -86,8 +86,8 @@ describe("tonality()", () => {
         });
     });
 
-    it("returns 'midtone' from colors that are flat", () => {
-        MIDTONE_COLORS.forEach((inputValue) => {
+    MIDTONE_COLORS.forEach((inputValue) => {
+        it("returns 'midtone' from color: " + inputValue + "(luma: " + luma(makeCssColor(inputValue)) + ")", () => {
             // ----------------------------------------------------------------
             // explain your test
 

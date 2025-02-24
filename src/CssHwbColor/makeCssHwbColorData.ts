@@ -32,11 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type TypeGuaranteeOptions, type FunctionalOption, makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
-import { mustBeCssHwbColorData } from "./mustBeCssHwbColorData";
+import { DEFAULT_DATA_PATH, type FunctionalOption, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { makeCssColorData } from "../CssColor/makeCssColorData";
 import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
 import type { CssHwbColorData } from "./CssHwbColorData.type";
+import { mustBeCssHwbColorData } from "./mustBeCssHwbColorData";
 
 export function makeCssHwbColorData(
     name: string,
@@ -53,7 +53,12 @@ export function makeCssHwbColorData(
 
     return makeNominalTypeFromTypeGuarantee(
         mustBeCssHwbColorData,
-        { ...cssColorData, channels },
+        {
+            ...cssColorData,
+            colorFormat: "hwb",
+            colorSpace: "sRGB",
+            channels
+        },
         { path, onError },
         ...fnOpts
     );

@@ -32,12 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { CssHslColor, makeCssHslColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
-import { ValidCssHslColorData } from "./_fixtures/CssHslColorData";
-import { expect } from "chai";
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssColorConversions } from "../CssColorConversions/CssColorConversions";
+import { CssHslColor, makeCssHslColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { expect } from "chai";
+import { describe, it } from "mocha";
+import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
+import { CSS_OKLCH_CONVERSIONS } from "../CssOklchColor/CSS_OKLCH_CONVERSIONS";
+import { CSS_RGB_CONVERSIONS } from "../CssRgbColor/CSS_RGB_CONVERSIONS";
+import { ValidCssHslColorData } from "./_fixtures/CssHslColorData";
+import { CSS_HSL_CONVERSIONS } from "./CSS_HSL_CONVERSIONS";
 
 describe('CssHslColor', () => {
     describe(".constructor", () => {
@@ -132,7 +135,7 @@ describe('CssHslColor', () => {
             const unit = new CssHslColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_HSL_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -143,7 +146,7 @@ describe('CssHslColor', () => {
             // test the results
 
             // does not cache itself
-            expect(CssColorConversions.hasHsl(actualValue)).to.be.false;
+            expect(CSS_HSL_CONVERSIONS.has(actualValue)).to.be.false;
         });
 
         it("supports functional operators", () => {
@@ -299,7 +302,7 @@ describe('CssHslColor', () => {
             const unit = new CssHslColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_HWB_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -309,7 +312,7 @@ describe('CssHslColor', () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(CssColorConversions.hasHwb(actualValue)).to.be.true;
+            expect(CSS_HWB_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -352,6 +355,173 @@ describe('CssHslColor', () => {
             expect(unit.name()).eqls('original');
             expect(unit.definition()).eqls('hsl(255, 0%, 0%)');
         });
+    });
+
+    describe(".oklch()", () => {
+        ValidCssHslColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to OKLCH format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method returns the OKLCH
+                // equivalent of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.oklchChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method preserves the original
+                // color definition, and does not replace it with the RGB
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the `.oklch()` method will use the static
+            // conversion cache
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_OKLCH_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.oklch();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_OKLCH_CONVERSIONS.has(actualValue)).to.be.true;
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the RGB method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+
+            const f1 = (x: CssOklchColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssOklchColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.oklch({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('original');
+            expect(unit.definition()).eqls('hsl(255, 0%, 0%)');
+        });
+
     });
 
     describe(".rgb()", () => {
@@ -465,7 +635,7 @@ describe('CssHslColor', () => {
             const unit = new CssHslColor(inputValue);
 
             // make sure that the cache is empty
-            CssColorConversions.reset();
+            CSS_RGB_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
@@ -475,7 +645,7 @@ describe('CssHslColor', () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(CssColorConversions.hasRgb(actualValue)).to.be.true;
+            expect(CSS_RGB_CONVERSIONS.has(actualValue)).to.be.true;
         });
 
         it("supports functional operators", () => {
@@ -774,6 +944,45 @@ describe('CssHslColor', () => {
                 // test the results
 
                 expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".css()", () => {
+        ValidCssHslColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a hsl() spec", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .css() method returns CSS that
+                // uses the `hsl()` format
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHslColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHslColor(inputValue);
+
+                const expectedResult = "hsl("
+                    + validFixture.channels.hue + " "
+                    + validFixture.channels.saturation + "% "
+                    + validFixture.channels.luminosity + "%"
+                    + (validFixture.channels.alpha < 1 ? " / " + validFixture.channels.alpha : "")
+                    + ")";
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.css();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eql(expectedResult);
             });
         });
     });
@@ -1207,6 +1416,80 @@ describe('CssHslColor', () => {
 
                 expect(actualValue).to.eql(validFixture.definition);
             });
+        });
+    });
+
+    describe(".colorFormat()", () => {
+        it("returns 'hsl'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+
+            const expectedValue = "hsl";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorFormat();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
+        });
+    });
+
+    describe(".colorSpace()", () => {
+        it("returns 'sRGB'", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .colorFormat() method returns the
+            // expected result
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHslColorData(
+                "original",
+                "hsl(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    saturation: 0,
+                    luminosity: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHslColor(inputValue);
+
+            const expectedValue = "sRGB";
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.colorSpace();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue).to.eql(expectedValue);
         });
     });
 });

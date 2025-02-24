@@ -33,10 +33,15 @@
 //
 
 import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssColorspacedColor } from "../CssColorspace/CssColorspacedColor.type";
-import type { Branded } from "@safelytyped/core-types";
+import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace.type";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 
 /**
  * CssHexColorData represents a CSS color that's defined in `#RRGGBB` format.
  */
-export type CssHexColorData = Branded<CssColorData & CssColorspacedColor, "@safelytyped/css-color/CssHexColor">;
+export type CssHexColorData = CssColorData & CssSrgbColorSpace & {
+    hex: CssHexColorDefinition;
+    colorFormat: "hex";
+    readonly _type: "@safelytyped/css-color/CssHexColor";
+};
+

@@ -32,10 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, extendDataPath, recastIfValid } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
+import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
+import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
+import { validateObjectHasStringProperty } from "../helpers/validateObjectHasStringProperty";
 import type { CssHexColorData } from "./CssHexColorData.type";
+import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
 
 export function validateCssHexColorData(
     input: unknown,
@@ -45,12 +48,12 @@ export function validateCssHexColorData(
 ): AppErrorOr<CssHexColorData> {
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
+        .next((x) => validateCssColorDataHasColorFormat(x, "hex", { path }))
+        .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
+        .next((x) => validateObjectHasStringProperty(x, ["hex"], { path }))
         .next((x) => recastIfValid<CssHexColorData>(
             x,
-            () => validateCssHexColorDefinition(
-                x.definition,
-                { path: extendDataPath(path, "definition") }
-            )
-        ))
+            () => validateCssHexColorDefinition(x.hex, { path: extendDataPath(path, "hex")}))
+        )
         .value();
 }

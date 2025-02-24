@@ -33,17 +33,22 @@
 //
 
 import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-import type { CssColorData } from "./CssColorData.type";
+import { formatCss } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
-import { roundTo } from "@safelytyped/math-rounding";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import type { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { CssColorData } from "./CssColorData.type";
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -53,7 +58,7 @@ import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition
  * - obtain the representation details
  * - convert from one format (e.g. rgb) to another (e.g. hsl or hex)
  */
-export abstract class CssColor<E extends CssColorData> {
+export abstract class CssColor<E extends CssColorData, C extends ConversionModel> {
     /**
      * holds the internal representation of the CSS color,
      * along with common details such as its name and its original
@@ -69,26 +74,6 @@ export abstract class CssColor<E extends CssColorData> {
     protected readonly data: E;
 
     /**
-     * how many decimal places do we want to preserve when converting
-     * between different color formats?
-     *
-     * @protected
-     * @memberof CssColor
-     */
-    protected conversionPrecision = 0;
-
-    /**
-     * how do we want to go about rounding numbers, when we convert between
-     * different color formats?
-     *
-     * by default, we just want to round
-     *
-     * @protected
-     * @memberof CssColor
-     */
-    protected conversionRoundingFunc = Math.round;
-
-    /**
      * constructor
      *
      * @param data
@@ -99,17 +84,6 @@ export abstract class CssColor<E extends CssColorData> {
     {
         this.data = data;
     }
-
-    /**
-     * rgb() converts this color to the CSS rgba() format
-     *
-     * @returns {CssRgbColor}
-     * @memberof CssColor
-     */
-    public abstract rgb(
-        opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
-    ): CssRgbColor;
 
     /**
      * hsl() converts this color to the CSS hsl() format
@@ -126,6 +100,22 @@ export abstract class CssColor<E extends CssColorData> {
         opt?: TypeGuaranteeOptions,
         ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
     ): CssHwbColor;
+
+    /**
+     * oklch() converts this color to the CSS oklch() format
+     */
+    public abstract oklch(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssOklchColorData, TypeGuaranteeOptions>[]
+    ): CssOklchColor;
+
+    /**
+     * rgb() converts this color to the CSS rgb()
+     */
+    public abstract rgb(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
+    ): CssRgbColor;
 
     // ================================================================
     //
@@ -190,6 +180,26 @@ export abstract class CssColor<E extends CssColorData> {
         return this.definition();
     }
 
+    /**
+     * returns this color's data in a format that's compatible with our
+     * chosen third-party color conversion package.
+     */
+    public abstract conversionModel(): C;
+
+    /**
+     * css() returns the color's current data as a valid CSS definition
+     *
+     * for example, "new CssRgbColor(XXX).hsl().css()" returns the color
+     * as a `hsl(h% s l / alpha)` notation.
+     *
+     * Use {@link CssColor.definition} if you want the color's original
+     * CSS string.
+     */
+    public css(): string
+    {
+        return formatCss(this.conversionModel());
+    }
+
     // ================================================================
     //
     // PROPERTIES
@@ -226,33 +236,28 @@ export abstract class CssColor<E extends CssColorData> {
         return this.data.definition;
     }
 
-    // ================================================================
-    //
-    // INTERNAL HELPERS
-    //
-    // ----------------------------------------------------------------
+    /**
+     * colorFormat() returns the name of the way that color is represented
+     * in this object
+     *
+     * @returns the color notation used by this object
+     */
+    public colorFormat(): SupportedCssColorFormat
+    {
+        return this.data.colorFormat;
+    }
 
     /**
-     * round() is an internal helper method. Use it when you need to
-     * round numbers during converting to other formats.
+     * colorSpace() returns the name of the color space that this color's
+     * data exists in
      *
-     * By default, it uses Math.round() internally, and rounds to two
-     * decimal places.
+     * NOTE that this represents the color's current data, NOT the
+     * color space that the `.definition()` originally existed in
      *
-     * You can change this by changing the {@link this.conversionRoundingFunc}
-     * and/or {@link this.conversionPrecision} object properties as required.
-     *
-     * @param input
-     * - the value to round
-     * @returns
-     * - the rounded number
+     * @returns the name of the color space used by this object
      */
-    protected round(input: number): number
+    public colorSpace(): SupportedCssColorSpace
     {
-        return roundTo(
-            this.conversionRoundingFunc,
-            this.conversionPrecision,
-            input,
-        );
+        return this.data.colorSpace;
     }
 }

@@ -21,14 +21,104 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
-### New
-
-* improved performance when repeating conversions between color types
-
 ### B/C Breaks
 
+* `CssColor` now takes a `C` generic type class parameter
+  * this needs to be a `ConversionModel` type
 * component values (`.red()` et al) are no longer available everywhere
   * you must access them via the appropriate class instead (`color.rgb().red()`)
+* `CssHexColorData` now stores the hex value in a separate field
+  * necessary to support conversions from other CssColor types
+* added `CssColor.oklch()` abstract method
+* added `CssColorData.colorFormat` property
+* added `CssColorData.colorSpace` property
+
+### New
+
+* added new, direct smart constructors
+  * added `makeCssHexColor()`
+  * added `makeCssHslColor()`
+  * added `makeCssHwbColor()`
+  * added `makeCssOklchColor()`
+  * added `makeCssRgbColor()`
+* added support for OKLCH color space
+  * added `OKLCH` to `CssColorspace` type
+  * added `CssOklchColorSpace` type
+  * added `CssOklchColor` class
+  * added `CssOklchColorData` type
+  * added `CssOklchColorChannelsData` type
+  * added `isCssOklchColorChannelsData` type guard
+  * added `isCssOklchColorData` type guard
+  * added `makeCssOklchColorData` smart constructor
+  * added `mustBeCssOklchColorChannelsData()` type guarantee
+  * added `mustBeCssOklchColorData()` type guarantee
+  * added `validateCssOklchColorChannelsData()` type validator
+  * added `validateCssOklchColorData()` type validator
+* reworked color format conversion support
+  * added `SupportedCssColorFormat` type
+  * added `UnsupportedCssConversionError` error
+  * added `UnsupportedCssConversionData` supporting type
+  * added `CssColor::colorFormat()` method
+    * implemented as `CssHexColor.colorFormat()`
+    * implemented as `CssHslColor.colorFormat()`
+    * implemented as `CssHwbColor.colorFormat()`
+    * implemented as `CssKeywordColor.colorFormat()`
+    * implemented as `CssOklchColor.colorFormat()`
+    * implemented as `CssRgbColor.colorFormat()`
+  * added `AnyConversionModel` type
+  * added `ConversionModel` type
+  * added `CssColor::conversionModel()` method
+    * implemented as `CssHexColor.conversionModel()`
+    * implemented as `CssHslColor.conversionModel()`
+    * implemented as `CssHwbColor.conversionModel()`
+    * implemented as `CssKeywordColor.conversionModel()`
+    * implemented as `CssOklchColor.conversionModel()`
+    * implemented as `CssRgbColor.conversionModel()`
+  * added converters to/from channel data formats
+    * added `convertConversionModelToHexColorDefinition()`
+    * added `convertConversionModelToHslChannelsData()`
+    * added `convertConversionModelToHwbChannelsData()`
+    * added `convertConversionModelToKeyword()`
+    * added `convertConversionModelToOklchChannelsData()`
+    * added `convertConversionModelToRgbChannelsData()`
+    * added `convertHexColorDefinitionToConversionModel()`
+    * added `convertHslChannelsDataToConversionModel()`
+    * added `convertHwbChannelsDataToConversionModel()`
+    * added `convertKeywordToConversionModel()`
+    * added `convertOklchChannelsDataToConversionModel()`
+    * added `convertRgbChannelsDataToConversionModel()`
+  * added converters to color classes
+  * * added `makeCssColorFromConversionModel()`
+    * added `makeCssHexColorFromConversionModel()`
+    * added `makeCssHexColorFromCssColor()`
+    * added `makeCssHslColorFromConversionModel()`
+    * added `makeCssHslColorFromCssColor()`
+    * added `makeCssHwbColorFromConversionModel()`
+    * added `makeCssHwbColorFromCssColor()`
+    * added `makeCssOklchColorFromConversionModel()`
+    * added `makeCssOklchColorFromCssColor()`
+    * added `makeCssRgbColorFromConversionModel()`
+    * added `makeCssRgbColorFromCssColor()`
+* added `CssColor.colorSpace()`
+* added `CssColorData.css() method
+
+### Fixes
+
+* added missing `CssColorspace` exports
+  * added `CssColorspace` type
+  * added `CssColorspacedColor` type
+  * added `CssSrgbColorSpace` type
+* improved performance when repeating static conversions between color types
+
+### Refactoring
+
+* dropped `CssColor.round()` internal helper
+  * rounding is now done in each conversion function
+
+### Dependencies
+
+* replace `color-string` parser with `culori` package
+* replace `color-convert` with `culori` package
 
 ## v1.3.1
 

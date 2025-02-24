@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type TypeGuaranteeOptions, type FunctionalOption, makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, type FunctionalOption, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssColorData } from "../CssColor/makeCssColorData";
 import type { CssKeywordColorData } from "./CssKeywordColorData.type";
 import { mustBeCssKeywordColorData } from "./mustBeCssKeywordColorData";
-import { makeCssColorData } from "../CssColor/makeCssColorData";
 
 export function makeCssKeywordColorData(
     name: string,
@@ -49,7 +49,11 @@ export function makeCssKeywordColorData(
 {
     return makeNominalTypeFromTypeGuarantee(
         mustBeCssKeywordColorData,
-        makeCssColorData(name, definition),
+        {
+            ...makeCssColorData(name, definition),
+            colorFormat: "keyword",
+            colorSpace: "sRGB",
+        },
         { path, onError },
         ...fnOpts
     );

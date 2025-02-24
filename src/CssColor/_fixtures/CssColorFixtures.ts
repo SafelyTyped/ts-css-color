@@ -33,9 +33,12 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
+import type { SupportedCssColorSpace } from "../../CssColorspace/SupportedCssColorSpace.type";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
+import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
 import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
+import type { SupportedCssColorFormat } from "../../SupportedCssColorFormat/SupportedCssColorFormat.type";
 
 export type ValidCssColor = {
     name: string;
@@ -43,8 +46,11 @@ export type ValidCssColor = {
     hslChannels: CssHslColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
     rgbChannels: CssRgbColorChannelsData;
+    oklchChannels: CssOklchColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
+    colorFormat: SupportedCssColorFormat;
+    colorSpace: SupportedCssColorSpace;
 }
 export const ValidCssColors: ValidCssColor[] = [
     {
@@ -62,6 +68,12 @@ export const ValidCssColors: ValidCssColor[] = [
             blackness: 61,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 0.503088,
+            chroma: 0,
+            hue: 0,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 100,
             green: 100,
@@ -70,6 +82,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#646464",
         namedColor: undefined,
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "apple-moss",
@@ -86,6 +100,12 @@ export const ValidCssColors: ValidCssColor[] = [
             blackness: 50,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 0.525477,
+            chroma: 0.137772,
+            hue: 152.154811,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 0,
             green: 128,
@@ -94,6 +114,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#008040",
         namedColor: undefined,
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "red",
@@ -110,6 +132,12 @@ export const ValidCssColors: ValidCssColor[] = [
             blackness: 0,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 0.627955,
+            chroma: 0.257683,
+            hue: 29.233885,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 255,
             green: 0,
@@ -118,6 +146,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#ff0000",
         namedColor: "red",
+        colorFormat: "keyword",
+        colorSpace: "sRGB",
     },
     {
         name: "black (6 char definition)",
@@ -134,6 +164,12 @@ export const ValidCssColors: ValidCssColor[] = [
             blackness: 100,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 0,
+            chroma: 0,
+            hue: 0,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 0,
             green: 0,
@@ -142,6 +178,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#000000",
         namedColor: "black",
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "black (3 char definition)",
@@ -158,6 +196,12 @@ export const ValidCssColors: ValidCssColor[] = [
             blackness: 100,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 0,
+            chroma: 0,
+            hue: 0,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 0,
             green: 0,
@@ -166,6 +210,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#000000",
         namedColor: "black",
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "white (6 char definition)",
@@ -182,6 +228,12 @@ export const ValidCssColors: ValidCssColor[] = [
             blackness: 0,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 1,
+            chroma: 0,
+            hue: 0,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 255,
             green: 255,
@@ -190,6 +242,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#ffffff",
         namedColor: "white",
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "white (3 char definition)",
@@ -206,6 +260,12 @@ export const ValidCssColors: ValidCssColor[] = [
             blackness: 0,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 1,
+            chroma: 0,
+            hue: 0,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 255,
             green: 255,
@@ -214,6 +274,8 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#ffffff",
         namedColor: "white",
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "skyblue",
@@ -230,6 +292,12 @@ export const ValidCssColors: ValidCssColor[] = [
             blackness: 0,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 0.799156,
+            chroma: 0.13273,
+            hue: 226.670979,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 71,
             green: 206,
@@ -238,10 +306,12 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#47ceff",
         namedColor: undefined,
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
     {
         name: "palegreen",
-        definition: "hwb(100,76%,12%)",
+        definition: "hwb(100 76% 12%)",
         hwbChannels: {
             hue: 100,
             whiteness: 76,
@@ -254,6 +324,12 @@ export const ValidCssColors: ValidCssColor[] = [
             luminosity: 82,
             alpha: 1,
         },
+        oklchChannels: {
+            lightness: 0.884487,
+            chroma: 0.046611,
+            hue: 135.096968,
+            alpha: 1,
+        },
         rgbChannels: {
             red: 204,
             green: 224,
@@ -262,5 +338,7 @@ export const ValidCssColors: ValidCssColor[] = [
         },
         hex: "#cce0c2",
         namedColor: undefined,
+        colorFormat: "rgb",
+        colorSpace: "sRGB",
     },
 ];

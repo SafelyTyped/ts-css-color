@@ -37,17 +37,13 @@
   "dependencies": {
     "@safelytyped/core-types": "^0.5.0",
     "@safelytyped/math-rounding": "^1.0.1",
-    "color": "^4.2.3",
-    "color-convert": "^2.0.1",
-    "color-string": "^1.9.1"
-  },
-  "devDependencies": {
+    "culori": "^4.0.1"
+},
+"devDependencies": {
     "@stylistic/eslint-plugin": "^2.12.1",
     "@swc/cli": "^0.6.0",
     "@types/chai": "^4.3",
-    "@types/color": "^3.0.6",
-    "@types/color-convert": "^2.0.3",
-    "@types/color-string": "^1.5.5",
+    "@types/culori": "^2.1.1",
     "@types/mocha": "^10.0",
     "@types/node": "^20.0",
     "@typescript-eslint/eslint-plugin": "^8.0",

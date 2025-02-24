@@ -33,16 +33,18 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
-import { ValidCssColors } from "src/CssColor/_fixtures/CssColorFixtures";
-import type { CssKeywordColorData } from "../CssKeywordColorData.type";
-import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
+import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
+import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
+import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
+import type { CssKeywordColorData } from "../CssKeywordColorData.type";
 
 type ValidCssKeywordColorData = CssKeywordColorData & {
     rgbChannels: CssRgbColorChannelsData;
     hslChannels: CssHslColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
+    oklchChannels: CssOklchColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
 }
@@ -54,10 +56,12 @@ ValidCssColors.forEach((fixture) => {
             name: fixture.name,
             definition: fixture.namedColor,
             "_type": "@safelytyped/css-color/CssKeywordColor",
+            colorFormat: "keyword",
             colorSpace: "sRGB",
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,
             rgbChannels: fixture.rgbChannels,
+            oklchChannels: fixture.oklchChannels,
             hex: fixture.hex,
             namedColor: fixture.namedColor,
         });
