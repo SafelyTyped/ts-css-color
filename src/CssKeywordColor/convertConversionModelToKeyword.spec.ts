@@ -32,9 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { expect } from "chai";
+import type { Rgb } from "culori";
 import { describe } from "mocha";
 import { VALID_KEYWORD_CONVERSIONS_FIXTURES } from "./_fixtures/KeywordConversionData";
-import { expect } from "chai";
 import { convertConversionModelToKeyword } from "./convertConversionModelToKeyword";
 
 describe("convertConversionModelToKeyword()", () => {
@@ -62,5 +63,76 @@ describe("convertConversionModelToKeyword()", () => {
 
             expect(actualResult).to.eql(expectedResult);
         });
-    })
+    });
+
+    it("throws an error if the input cannot be mapped to a known CSS named color", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that the unit under test throws an error if
+        // we're given a conversion model that doesn't exactly describe
+        // a named CSS color
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const inputValue: Rgb = {
+            mode: "rgb",
+            r: 0.2,
+            g: 0.3,
+            b: 0.4,
+        }
+
+        let caughtException;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        try {
+            convertConversionModelToKeyword(inputValue);
+        } catch (e) {
+            caughtException = e;
+        }
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(caughtException).to.be.instanceOf(Error);
+    });
+
+    it("throws an error if the input is not 100% opaque", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that the unit under test throws an error if
+        // we're given a conversion model that doesn't exactly describe
+        // a named CSS color
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const inputValue: Rgb = {
+            mode: "rgb",
+            r: 1,
+            g: 1,
+            b: 1,
+            alpha: 0.8,
+        }
+
+        let caughtException;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        try {
+            convertConversionModelToKeyword(inputValue);
+        } catch (e) {
+            caughtException = e;
+        }
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(caughtException).to.be.instanceOf(Error);
+    });
 });

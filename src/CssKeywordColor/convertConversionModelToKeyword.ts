@@ -32,11 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 import { type Color, formatHex } from "culori";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
-import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 
 /**
  * convertConversionModelToKeyword() is a helper method. It converts
@@ -52,6 +52,17 @@ export function convertConversionModelToKeyword(
 {
     // turn the input into a hex code
     const hexCode = formatHex(input).toLowerCase();
+
+    // special case - the color contains an alpha value
+    if (input.alpha && input.alpha < 1) {
+        throw new UnsupportedCssColorConversionError({
+            public: {
+                dataPath: DEFAULT_DATA_PATH,
+                colorDefinition: hexCode + (input.alpha * 255).toFixed(16).toLowerCase(),
+                targetFormat: "keyword",
+            }
+        });
+    }
 
     const retval = CSS_HEX_TO_EXTENDED_COLORS[hexCode];
     if (retval) {
