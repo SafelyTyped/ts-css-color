@@ -69,7 +69,7 @@ export const ValidCssColors: ValidCssColor[] = [
             alpha: 1,
         },
         oklchChannels: {
-            lightness: 0.5032,
+            lightness: 0.503088,
             chroma: 0,
             hue: 0,
             alpha: 1,
@@ -101,9 +101,9 @@ export const ValidCssColors: ValidCssColor[] = [
             alpha: 1,
         },
         oklchChannels: {
-            lightness: 0.5254,
-            chroma: 0.137763,
-            hue: 152.15,
+            lightness: 0.525477,
+            chroma: 0.137772,
+            hue: 152.154811,
             alpha: 1,
         },
         rgbChannels: {
@@ -133,9 +133,9 @@ export const ValidCssColors: ValidCssColor[] = [
             alpha: 1,
         },
         oklchChannels: {
-            lightness: 0.628,
-            chroma: 0.2577,
-            hue: 29.23,
+            lightness: 0.627955,
+            chroma: 0.257683,
+            hue: 29.233885,
             alpha: 1,
         },
         rgbChannels: {

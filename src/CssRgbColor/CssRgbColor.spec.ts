@@ -1181,6 +1181,111 @@ describe('CssRgbColor', () => {
         });
     });
 
+    describe(".oklch().lightness()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .lightness() returns the L channel
+                // from the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.lightness;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().lightness();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".oklch().chroma()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the C channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .chroma() returns the C channel from
+                // the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.chroma;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().chroma();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".oklch().hue()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .hue() returns the H channel from
+                // the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.hue;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().hue();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
     // ================================================================
     //
     // PROPERTIES

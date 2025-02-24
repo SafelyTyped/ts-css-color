@@ -32,6 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { roundTo } from "@safelytyped/math-rounding";
 import { type Color, oklch } from "culori";
 import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
 
@@ -50,9 +51,20 @@ export function convertConversionModelToOklchChannelsData(
     const model = oklch(input);
 
     return {
-        lightness: model.l,
-        chroma: model.c,
-        hue: model.h || 0,
+        lightness: round(model.l),
+        chroma: round(model.c),
+        hue: round(model.h || 0),
         alpha: model.alpha || 1,
     };
+}
+
+function round(input: number)
+{
+    return Math.abs(
+        roundTo(
+            Math.round,
+            6,
+            input,
+        )
+    );
 }

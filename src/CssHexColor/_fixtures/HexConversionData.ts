@@ -46,9 +46,9 @@ export const VALID_HEX_CONVERSIONS_FIXTURES: HexConversionData[] = [
         hex: makeCssHexColorDefinition("#646464"),
         conversionModel: {
             mode: "rgb",
-            r: 0.39215686274509803,
-            g: 0.39215686274509803,
-            b: 0.39215686274509803,
+            r: 0.392,
+            g: 0.392,
+            b: 0.392,
             alpha: 1,
         }
     },
@@ -57,8 +57,8 @@ export const VALID_HEX_CONVERSIONS_FIXTURES: HexConversionData[] = [
         conversionModel: {
             mode: "rgb",
             r: 0,
-            g: 0.5019607843137255,
-            b: 0.25098039215686274,
+            g: 0.502,
+            b: 0.251,
             alpha: 1,
         }
     }

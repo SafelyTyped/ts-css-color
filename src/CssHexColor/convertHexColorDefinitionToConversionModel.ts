@@ -33,6 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+import { roundTo } from "@safelytyped/math-rounding";
 import { type Rgb, rgb } from "culori";
 import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
@@ -51,6 +52,9 @@ export function convertHexColorDefinitionToConversionModel(
 {
     const retval = rgb(input);
     if (retval) {
+        retval.r = round(retval.r);
+        retval.g = round(retval.g);
+        retval.b = round(retval.b);
         retval.alpha = retval.alpha || 1;
         return retval;
     }
@@ -62,4 +66,15 @@ export function convertHexColorDefinitionToConversionModel(
             targetFormat: "rgb",
         }
     });
+}
+
+function round(input: number)
+{
+    return Math.abs(
+        roundTo(
+            Math.round,
+            3,
+            input,
+        )
+    );
 }
