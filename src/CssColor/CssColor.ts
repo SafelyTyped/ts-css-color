@@ -35,6 +35,8 @@
 import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { formatCss } from "culori";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
@@ -84,6 +86,21 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
     {
         this.data = data;
     }
+
+    /**
+     * cmyk() converts this color to CMYK format
+     *
+     * NOTE that CSS does not support CMYK colors at this time.
+     *
+     * - We have one-way support for converting to CMYK via RGB.
+     * - Conversion FROM CMYK is done by re-creating the color from its
+     *   original definition (there's no 100% lossless 2-way conversion
+     *   algorithm at this time)
+     */
+    public abstract cmyk(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssCmykColorData, TypeGuaranteeOptions>[]
+    ): CssCmykColor;
 
     /**
      * hsl() converts this color to the CSS hsl() format

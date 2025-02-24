@@ -44,7 +44,7 @@ import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/Support
 import type { AnyCssColor } from "./AnyCssColor.type";
 import type { CssColorFromConversionModelSmartConstructor } from "./CssColorFromConversionModelSmartConstructor.type";
 
-type UnsupportedCssColorFormats = "hex" | "keyword";
+type UnsupportedCssColorFormats = "cmyk" | "hex" | "keyword";
 
 const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssColorFormats>, CssColorFromConversionModelSmartConstructor> = {
     "hsl": makeCssHslColorFromConversionModel,

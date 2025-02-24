@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -33,25 +33,28 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssOklchColor, makeCssOklchColorData, type CssCmykColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { CssCmykColor, makeCssCmykColorData, makeCssRgbColor, type CssCmykColorData, type CssHslColorData, type CssHwbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
-import { ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
+import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
+import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
+import { ValidCssCmykColorData } from "./_fixtures/CssCmykColorData";
+import { CSS_CMYK_CONVERSIONS } from "./CSS_CMYK_CONVERSIONS";
 
-describe('CssOklchColor', () => {
+describe('CssCmykColor', () => {
     describe(".constructor", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("can be instantiated when given a valid CssOklchColorData input " + validFixture.name, () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("can be instantiated when given a valid CssCmykColorData input " + validFixture.name, () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that we can make an instance of CssOklchColor
+                // this test proves that we can make an instance of CssCmykColor
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
@@ -60,12 +63,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = new CssOklchColor(inputValue);
+                const actualValue = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(actualValue).to.be.instanceOf(CssOklchColor);
+                expect(actualValue).to.be.instanceOf(CssCmykColor);
             });
         });
     });
@@ -76,192 +79,95 @@ describe('CssOklchColor', () => {
     //
     // ----------------------------------------------------------------
 
-    describe(".oklch()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns itself when converted to OKLCH", () => {
+    describe(".cmyk()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns itself when converted to CMYK", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that the RGB method (required by the base class)
+                // this test proves that the CMYK method (required by the base class)
                 // doesn't mess up the colors
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.oklch();
+                const actualValue = unit.cmyk();
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(actualValue.name()).eqls(validFixture.name);
-                expect(actualValue.definition()).eqls(validFixture.definition);
-                expect(actualValue.channelsData()).eqls(validFixture.channels);
+                expect(actualValue).to.equal(unit);
             });
         });
 
-        it("supports functional operators", () => {
+        it("does not cache static conversions", () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that the RGB method will run any functional
-            // operators that are passed into it
+            // this test proves that the CMYK method will not use the
+            // static conversions cache (because there is nothing to cache)
 
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssOklchColorData(
+            const inputValue = makeCssCmykColorData(
                 "red",
                 "#ff0000",
                 {
-                    lightness: 0.628,
-                    chroma: 0.2577,
-                    hue: 29.23,
-                    alpha: 1,
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
                 }
             );
-            const unit = new CssOklchColor(inputValue);
+            const unit = new CssCmykColor(inputValue);
 
-            const f1 = (x: CssOklchColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssOklchColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+            // make sure that the cache is empty
+            CSS_CMYK_CONVERSIONS.reset();
 
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = unit.oklch({}, f1, f2);
+            unit.cmyk();
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
-        });
-    });
-
-    describe(".cmyk()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to CMYK format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .cmyk() method returns the CMYK
-                // equivalent of the current color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                const expectedChannels = validFixture.cmykChannels;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.cmyk();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.channelsData()).to.eqls(expectedChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .cmyk() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.cmyk();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .cmyk() method preserves the original
-                // color definition, and does not replace it with the CMYK
-                // definition
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.cmyk();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
+            // does not cache itself
+            expect(CSS_CMYK_CONVERSIONS.has(unit)).to.be.false;
         });
 
         it("supports functional operators", () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that the .cmyk() method will run any functional
+            // this test proves that the CMYK method will run any functional
             // operators that are passed into it
 
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssOklchColorData(
+            const inputValue = makeCssCmykColorData(
                 "red",
                 "#ff0000",
                 {
-                    lightness: 0.628,
-                    chroma: 0.2577,
-                    hue: 29.23,
-                    alpha: 1,
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
                 }
             );
-            const unit = new CssOklchColor(inputValue);
+            const unit = new CssCmykColor(inputValue);
 
             const f1 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
             const f2 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
@@ -284,7 +190,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".hsl()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] converts the original color to HSL format", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -295,28 +201,22 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
-
-                const expectedChannels = validFixture.hslChannels;
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
 
                 const actualResult = unit.hsl();
-                const actualChannels = actualResult.channelsData();
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(actualChannels.hue).to.eql(expectedChannels.hue);
-                expect(actualChannels.saturation).to.eql(expectedChannels.saturation);
-                expect(actualChannels.luminosity).to.eql(expectedChannels.luminosity);
-                expect(actualChannels.alpha).to.eql(expectedChannels.alpha);
+                expect(actualResult.channelsData()).to.eql(validFixture.hslChannels);
             });
 
             it("[fixture " + validFixture.name + "] preserves the original color name", () => {
@@ -329,12 +229,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -358,12 +258,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -377,6 +277,42 @@ describe('CssOklchColor', () => {
             });
         });
 
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HSL method will cache any static
+            // conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssCmykColorData(
+                "red",
+                "#ff0000",
+                {
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
+                }
+            );
+            const unit = new CssCmykColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_HSL_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsl();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_HSL_CONVERSIONS.has(actualValue)).to.be.true;
+        });
+
         it("supports functional operators", () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -387,17 +323,17 @@ describe('CssOklchColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssOklchColorData(
+            const inputValue = makeCssCmykColorData(
                 "red",
                 "#ff0000",
                 {
-                    lightness: 0.628,
-                    chroma: 0.2577,
-                    hue: 29.23,
-                    alpha: 1,
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
                 }
             );
-            const unit = new CssOklchColor(inputValue);
+            const unit = new CssCmykColor(inputValue);
 
             const f1 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
             const f2 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
@@ -420,7 +356,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".hwb()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] converts the original color to HWB format", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -431,12 +367,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -459,12 +395,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -488,12 +424,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -507,6 +443,42 @@ describe('CssOklchColor', () => {
             });
         });
 
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the HWB method will cache any static
+            // conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssCmykColorData(
+                "red",
+                "#ff0000",
+                {
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
+                }
+            );
+            const unit = new CssCmykColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_HWB_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hwb();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_HWB_CONVERSIONS.has(actualValue)).to.be.true;
+        });
+
         it("supports functional operators", () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -517,17 +489,17 @@ describe('CssOklchColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssOklchColorData(
+            const inputValue = makeCssCmykColorData(
                 "red",
                 "#ff0000",
                 {
-                    lightness: 0.628,
-                    chroma: 0.2577,
-                    hue: 29.23,
-                    alpha: 1,
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
                 }
             );
-            const unit = new CssOklchColor(inputValue);
+            const unit = new CssCmykColor(inputValue);
 
             const f1 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
             const f2 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
@@ -549,136 +521,6 @@ describe('CssOklchColor', () => {
         });
     });
 
-    describe(".rgb()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to sRGB format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hwd() method returns the HSL equivalent
-                // of the current color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.channelsData()).to.eql(validFixture.rgbChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hwb() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hwb() method preserves the original
-                // color definition, and does not replace it with the HSL
-                // definition
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
-        });
-
-        it("supports functional operators", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the HWB method will run any functional
-            // operators that are passed into it
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssOklchColorData(
-                "red",
-                "#ff0000",
-                {
-                    lightness: 0.628,
-                    chroma: 0.2577,
-                    hue: 29.23,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssOklchColor(inputValue);
-
-            const f1 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.rgb({}, f1, f2);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
-        });
-    });
-
     // ================================================================
     //
     // OTHER FORMATS
@@ -686,8 +528,8 @@ describe('CssOklchColor', () => {
     // ----------------------------------------------------------------
 
     describe(".channelsData()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the RGBA channels as an object", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CMYKA channels as an object", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -697,12 +539,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -718,8 +560,8 @@ describe('CssOklchColor', () => {
     });
 
     describe(".channelsTuple()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the LCH channels as an array", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CMYK channels as an array", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -729,17 +571,18 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 const expectedValue = [
-                    validFixture.channels.lightness,
-                    validFixture.channels.chroma,
-                    validFixture.channels.hue,
+                    validFixture.channels.cyan,
+                    validFixture.channels.magenta,
+                    validFixture.channels.yellow,
+                    validFixture.channels.key,
                 ];
 
                 // ----------------------------------------------------------------
@@ -756,8 +599,8 @@ describe('CssOklchColor', () => {
     });
 
     describe(".hex()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the color as a CSS hex value", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CMYK channels as a CSS hex color", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -767,12 +610,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.hex;
@@ -791,7 +634,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".keyword()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the CSS color name (if available)", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -802,12 +645,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.namedColor;
@@ -826,7 +669,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".toString()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the color's definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -838,12 +681,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.definition;
@@ -851,24 +694,22 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualOklchValue = unit.oklch().toString();
+                const actualCmykValue = unit.cmyk().toString();
                 const actualHslValue = unit.hsl().toString();
-                const actualHwbValue = unit.rgb().toString();
-                const actualRgbValue = unit.rgb().toString();
+                const actualHwbValue = unit.cmyk().toString();
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(actualOklchValue).to.eql(expectedValue);
+                expect(actualCmykValue).to.eql(expectedValue);
                 expect(actualHslValue).to.eql(expectedValue);
                 expect(actualHwbValue).to.eql(expectedValue);
-                expect(actualRgbValue).to.eql(expectedValue);
             });
         });
     });
 
     describe("auto-conversion to number", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the color's definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -879,12 +720,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // we're expecting the base-10 equivalent of the color's
                 // hex definition
@@ -904,7 +745,7 @@ describe('CssOklchColor', () => {
     });
 
     describe("auto-conversion to string", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the color's definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -915,12 +756,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.definition;
@@ -939,29 +780,31 @@ describe('CssOklchColor', () => {
     });
 
     describe(".css()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the CSS definition as an oklch() spec", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a rgb() spec", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
                 // this test proves that the .css() method returns CSS that
-                // uses the `oklch()` format
+                // uses the `rgb()` format
+                //
+                // there is no `cmyk()` format in CSS!
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
-                const expectedResult = "oklch("
-                    + validFixture.channels.lightness + " "
-                    + validFixture.channels.chroma + " "
-                    + validFixture.channels.hue
-                    + (validFixture.channels.alpha < 1 ? " / " + validFixture.channels.alpha : "")
+                const expectedResult = "rgb("
+                    + validFixture.rgbChannels.red + ", "
+                    + validFixture.rgbChannels.green + ", "
+                    + validFixture.rgbChannels.blue
+                    + (validFixture.rgbChannels.alpha < 1 ? " / " + validFixture.rgbChannels.alpha : "")
                     + ")";
 
                 // ----------------------------------------------------------------
@@ -983,67 +826,32 @@ describe('CssOklchColor', () => {
     //
     // ----------------------------------------------------------------
 
-    describe(".lightness()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .lightness() returns the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.channels.lightness;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.lightness();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".chroma()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+    describe(".cyan()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the C channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that .chroma() returns the channel data
+                // this test proves that .cyan() returns the channel data
                 // that was used to build this color in the first place
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
-                const expectedValue = validFixture.channels.chroma;
+                const expectedValue = validFixture.channels.cyan;
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.chroma();
+                const actualValue = unit.cyan();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -1053,32 +861,32 @@ describe('CssOklchColor', () => {
         });
     });
 
-    describe(".hue()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
+    describe(".magenta()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the M channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that .hue() returns the channel data
+                // this test proves that .magenta() returns the channel data
                 // that was used to build this color in the first place
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
-                const expectedValue = validFixture.channels.hue;
+                const expectedValue = validFixture.channels.magenta;
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.hue();
+                const actualValue = unit.magenta();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -1088,32 +896,109 @@ describe('CssOklchColor', () => {
         });
     });
 
-    describe(".alpha()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the A channel as a number", () => {
+    describe(".yellow()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the Y channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that .alpha() returns the channel data
+                // this test proves that .yellow() returns the channel data
                 // that was used to build this color in the first place
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
-                const expectedValue = validFixture.channels.alpha;
+                const expectedValue = validFixture.channels.yellow;
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.alpha();
+                const actualValue = unit.yellow();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".key()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the K channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .key() returns the channel data
+                // that was used to build this color in the first place
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssCmykColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssCmykColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.channels.key;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.key();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".conversionModel()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the same conversion model as CssRgbColor does", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // our underlying third-party color library does not support
+                // CMYK at this time, so CssCmykColor builds its own RGB
+                // conversion model
+                //
+                // we need to prove that this conversion is 100% accurate
+                // and the best way to do that is to compare CssCmykColor's
+                // hand-build efforts with CssRgbColor's results
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssCmykColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssCmykColor(inputValue);
+
+                const rgbColor = makeCssRgbColor(validFixture.definition);
+
+                // for readability
+                const expectedValue = rgbColor.conversionModel();
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.conversionModel();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -1129,113 +1014,8 @@ describe('CssOklchColor', () => {
     //
     // ----------------------------------------------------------------
 
-    describe(".rgb().red()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the R channel as a number", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .red() returns the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.rgbChannels.red;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.rgb().red();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".rgb().green()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the G channel as a number", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .green() returns the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.rgbChannels.green;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.rgb().green();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".rgb().blue()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .blue() returns the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssOklchColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    validFixture.channels,
-                );
-                const unit = new CssOklchColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.rgbChannels.blue;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.rgb().blue();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
     describe(".hsl().hue()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -1246,12 +1026,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.hslChannels.hue;
@@ -1270,7 +1050,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".hsl().saturation()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the S channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -1281,12 +1061,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.hslChannels.saturation;
@@ -1305,7 +1085,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".hsl().luminosity()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -1316,12 +1096,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.hslChannels.luminosity;
@@ -1340,7 +1120,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".hwb().hue()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -1351,12 +1131,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.hslChannels.hue;
@@ -1375,7 +1155,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".hwb().whiteness()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the W channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -1386,12 +1166,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.hwbChannels.whiteness;
@@ -1410,7 +1190,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".hwb().blackness()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -1421,12 +1201,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // for readability
                 const expectedValue = validFixture.hwbChannels.blackness;
@@ -1444,6 +1224,111 @@ describe('CssOklchColor', () => {
         });
     });
 
+    describe(".oklch().lightness()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the L channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .lightness() returns the L channel
+                // from the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssCmykColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssCmykColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.lightness;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().lightness();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".oklch().chroma()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the C channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .chroma() returns the C channel from
+                // the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssCmykColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssCmykColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.chroma;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().chroma();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
+    describe(".oklch().hue()", () => {
+        ValidCssCmykColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] returns the H channel as a number", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .hue() returns the H channel from
+                // the OKLCH conversion
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssCmykColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssCmykColor(inputValue);
+
+                // for readability
+                const expectedValue = validFixture.oklchChannels.hue;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.oklch().hue();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue).to.eql(expectedValue);
+            });
+        });
+    });
+
     // ================================================================
     //
     // PROPERTIES
@@ -1451,7 +1336,7 @@ describe('CssOklchColor', () => {
     // ----------------------------------------------------------------
 
     describe(".name()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the named color", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -1462,12 +1347,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -1483,7 +1368,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".definition()", () => {
-        ValidCssOklchColorData.forEach((validFixture) => {
+        ValidCssCmykColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] returns the color's original definition", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -1494,12 +1379,12 @@ describe('CssOklchColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssOklchColorData(
+                const inputValue = makeCssCmykColorData(
                     validFixture.name,
                     validFixture.definition,
                     validFixture.channels,
                 );
-                const unit = new CssOklchColor(inputValue);
+                const unit = new CssCmykColor(inputValue);
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -1515,7 +1400,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".colorFormat()", () => {
-        it("returns 'oklch'", () => {
+        it("returns 'cmyk'", () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -1525,18 +1410,18 @@ describe('CssOklchColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssOklchColorData(
+            const inputValue = makeCssCmykColorData(
                 "red",
                 "#ff0000",
                 {
-                    lightness: 0.628,
-                    chroma: 0.2577,
-                    hue: 29.23,
-                    alpha: 1,
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
                 }
             );
-            const unit = new CssOklchColor(inputValue);
-            const expectedValue = "oklch";
+            const unit = new CssCmykColor(inputValue);
+            const expectedValue = "cmyk";
 
             // ----------------------------------------------------------------
             // perform the change
@@ -1551,7 +1436,7 @@ describe('CssOklchColor', () => {
     });
 
     describe(".colorSpace()", () => {
-        it("returns 'OKLCH'", () => {
+        it("returns 'sRGB'", () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -1561,18 +1446,18 @@ describe('CssOklchColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssOklchColorData(
+            const inputValue = makeCssCmykColorData(
                 "red",
                 "#ff0000",
                 {
-                    lightness: 0.628,
-                    chroma: 0.2577,
-                    hue: 29.23,
-                    alpha: 1,
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
                 }
             );
-            const unit = new CssOklchColor(inputValue);
-            const expectedValue: SupportedCssColorSpace = "OKLCH";
+            const unit = new CssCmykColor(inputValue);
+            const expectedValue: SupportedCssColorSpace = "sRGB";
 
             // ----------------------------------------------------------------
             // perform the change

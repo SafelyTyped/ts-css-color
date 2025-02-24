@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -33,35 +33,36 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
-import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
 import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
+import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
 import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
-import type { CssOklchColorData } from "../CssOklchColorData.type";
+import type { CssCmykColorData } from "../CssCmykColorData.type";
 
-type ValidCssOklchColor = CssOklchColorData & {
-    cmykChannels: CssCmykColorChannelsData;
+type ValidCssCmykColor = CssCmykColorData & {
     hslChannels: CssHslColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
+    oklchChannels: CssOklchColorChannelsData;
     rgbChannels: CssRgbColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
 }
-export const ValidCssOklchColorData: ValidCssOklchColor[] = [];
+
+export const ValidCssCmykColorData: ValidCssCmykColor[] = [];
 
 ValidCssColors.forEach((fixture) => {
-    if (fixture.definition.includes("#") || fixture.definition.includes('rgb')) {
-        ValidCssOklchColorData.push({
+    if (fixture.definition.includes("#") || fixture.definition.includes('cmyk')) {
+        ValidCssCmykColorData.push({
             name: fixture.name,
             definition: fixture.definition,
-            channels: fixture.oklchChannels,
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorFormat: "oklch",
-            colorSpace: "OKLCH",
-            cmykChannels: fixture.cmykChannels,
+            channels: fixture.cmykChannels,
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorFormat: "cmyk",
+            colorSpace: "sRGB",
             hslChannels: fixture.hslChannels,
             hwbChannels: fixture.hwbChannels,
+            oklchChannels: fixture.oklchChannels,
             rgbChannels: fixture.rgbChannels,
             hex: fixture.hex,
             namedColor: fixture.namedColor,
@@ -69,18 +70,18 @@ ValidCssColors.forEach((fixture) => {
     }
 });
 
-export const InvalidCssOklchColorDataObjects = [
+export const InvalidCssCmykColorDataObjects = [
     {
         description: "not CssColorData: name property missing",
         inputValue: {
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
@@ -88,13 +89,13 @@ export const InvalidCssOklchColorDataObjects = [
         description: "not CssColorData: definition property missing",
         inputValue: {
             name: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
@@ -103,197 +104,198 @@ export const InvalidCssOklchColorDataObjects = [
         inputValue: {
             name: "test",
             definition: "test",
-            colorSpace: "OKLCH",
+            colorSpace: "sRGB",
         }
     },
     {
-        description: "lightness channel missing",
+        description: "cyan channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                chroma: 0,
-                hue: 0,
-                alpha: 1,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "lightness channel too small",
+        description: "cyan channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: -1,
-                chroma: 0,
-                hue: 0,
-                alpha: 1,
+                cyan: -1,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
+
             }
         }
     },
     {
-        description: "lightness channel too large",
+        description: "cyan channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 1.01,
-                chroma: 0,
-                hue: 0,
-                alpha: 1,
+                cyan: 101,
+                magenta: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "chroma channel missing",
+        description: "magenta channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                hue: 0,
-                alpha: 1,
+                cyan: 100,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "chroma channel too small",
+        description: "magenta channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: -0.1,
-                hue: 0,
-                alpha: 1,
+                cyan: 100,
+                magenta: -1,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "chroma channel too large",
+        description: "magenta channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 1.01,
-                hue: 0,
-                alpha: 1,
+                cyan: 100,
+                magenta: 101,
+                yellow: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "hue channel missing",
+        description: "yellow channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                key: 1,
             }
         }
     },
     {
-        description: "hue channel too small",
+        description: "yellow channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: -0.1,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                yellow: -1,
+                key: 1,
             }
         }
     },
     {
-        description: "hue channel too large",
+        description: "yellow channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 360.01,
-                alpha: 1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 101,
+                key: 1,
             }
         }
     },
     {
-        description: "alpha channel missing",
+        description: "key channel missing",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
             }
         }
     },
     {
-        description: "alpha channel too small",
+        description: "key channel too small",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
-                alpha: -0.1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
+                key: -1,
             }
         }
     },
     {
-        description: "alpha channel too large",
+        description: "key channel too large",
         inputValue: {
             name: "test",
             definition: "test",
-            "_type": "@safelytyped/css-color/CssOklchColorData",
-            colorSpace: "OKLCH",
+            "_type": "@safelytyped/css-color/CssCmykColorData",
+            colorSpace: "sRGB",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
-                alpha: 1.1,
+                cyan: 100,
+                magenta: 100,
+                yellow: 100,
+                key: 101,
             }
         }
     },
 ];
 
-export const InvalidMakeCssOklchColorParameters = [
+export const InvalidMakeCssCmykColorParameters = [
     {
         description: "name property empty",
         inputValue: {
             name: "",
             definition: "test",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
+                red: 100,
+                green: 100,
+                blue: 100,
                 alpha: 1,
             }
         }
@@ -304,87 +306,87 @@ export const InvalidMakeCssOklchColorParameters = [
             name: "test",
             definition: "",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
+                red: 100,
+                green: 100,
+                blue: 100,
                 alpha: 1,
             }
         }
     },
     {
-        description: "lightness channel too small",
+        description: "red channel too small",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                lightness: -0.1,
-                chroma: 0,
-                hue: 0,
+                red: -1,
+                green: 100,
+                blue: 100,
                 alpha: 1,
             }
         }
     },
     {
-        description: "lightness channel too large",
+        description: "red channel too large",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                lightness: 1.01,
-                chroma: 0,
-                hue: 0,
+                red: 256,
+                green: 100,
+                blue: 100,
                 alpha: 1,
             }
         }
     },
     {
-        description: "chroma channel too small",
+        description: "green channel too small",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                lightness: 0.5032,
-                chroma: -0.1,
-                hue: 0,
+                red: 100,
+                green: -1,
+                blue: 100,
                 alpha: 1,
             }
         }
     },
     {
-        description: "chroma channel too large",
+        description: "green channel too large",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                lightness: 0.5032,
-                chroma: 1.01,
-                hue: 0,
+                red: 100,
+                green: 256,
+                blue: 100,
                 alpha: 1,
             }
         }
     },
     {
-        description: "hue channel too small",
+        description: "blue channel too small",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: -0.1,
+                red: 100,
+                green: 100,
+                blue: -1,
                 alpha: 1,
             }
         }
     },
     {
-        description: "hue channel too large",
+        description: "blue channel too large",
         inputValue: {
             name: "test",
             definition: "test",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 360.01,
+                red: 100,
+                green: 100,
+                blue: 256,
                 alpha: 1,
             }
         }
@@ -395,9 +397,9 @@ export const InvalidMakeCssOklchColorParameters = [
             name: "test",
             definition: "test",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
+                red: 100,
+                green: 100,
+                blue: 100,
                 alpha: -0.1,
             }
         }
@@ -408,9 +410,9 @@ export const InvalidMakeCssOklchColorParameters = [
             name: "test",
             definition: "test",
             channels: {
-                lightness: 0.5032,
-                chroma: 0,
-                hue: 0,
+                red: 100,
+                green: 100,
+                blue: 100,
                 alpha: 1.1,
             }
         }

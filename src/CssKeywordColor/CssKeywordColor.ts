@@ -34,6 +34,8 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe } from "@safelytyped/core-types";
 import type { Rgb } from "culori";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import { CssColor } from "../CssColor/CssColor";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
@@ -66,6 +68,17 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
     // CORE FORMATS
     //
     // ----------------------------------------------------------------
+
+    public cmyk(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+    ): CssCmykColor
+    {
+        return this.rgb().cmyk({path, onError}, ...fnOpts);
+    }
 
     public hsl(
         {

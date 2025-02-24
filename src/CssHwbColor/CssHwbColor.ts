@@ -35,6 +35,8 @@
 import type { Hwb } from "culori";
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import { CssColor } from "../CssColor/CssColor";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannelsTuple.type";
@@ -57,6 +59,17 @@ export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
     // CORE FORMATS
     //
     // ----------------------------------------------------------------
+
+    public cmyk(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+    ): CssCmykColor
+    {
+        return this.rgb().cmyk({path, onError}, ...fnOpts);
+    }
 
     public hsl(
         {

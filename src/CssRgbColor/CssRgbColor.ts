@@ -34,6 +34,9 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import { formatHex, formatRgb, type Rgb } from "culori";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
+import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
@@ -63,6 +66,21 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
     // CONVERSIONS TO OTHER FORMATS
     //
     // ----------------------------------------------------------------
+
+    public cmyk(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+    ): CssCmykColor
+    {
+        return makeCssCmykColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
 
     public hsl(
         {

@@ -47,13 +47,32 @@ The following changes have been completed, and will be included in the next tagg
   * added `CssOklchColor` class
   * added `CssOklchColorData` type
   * added `CssOklchColorChannelsData` type
-  * added `isCssOklchColorChannelsData` type guard
-  * added `isCssOklchColorData` type guard
-  * added `makeCssOklchColorData` smart constructor
+  * added `isCssOklchColorChannelsData()` type guard
+  * added `isCssOklchColorData()` type guard
+  * added `makeCssOklchColorData()` smart constructor
   * added `mustBeCssOklchColorChannelsData()` type guarantee
   * added `mustBeCssOklchColorData()` type guarantee
   * added `validateCssOklchColorChannelsData()` type validator
   * added `validateCssOklchColorData()` type validator
+* added support for CMYK color format
+  * added `cmyk` to `SupportedCssColorFormat` type
+  * added `CssCmykColor` class
+  * added `CssCmykColorData` type
+  * added `CssCmykColorChannelsData` type
+  * added `isCssCmykColorChannelsData()` type guard
+  * added `isCssCmykColorData()` type guard
+  * added `makeCssCmykColorData()` smart constructor
+  * added `mustBeCssCmykColorChannelsData()` type guarantee
+  * added `mustBeCssCmykColorData()` type guarantee
+  * added `validateCssCmykColorChannelsData()` type validator
+  * added `validateCssCmykColorData()` type validator
+  * added `CssColor.cmyk()` abstract method
+    * implemented as `CssHexColor.cmyk()`
+    * implemented as `CssHslColor.cmyk()`
+    * implemented as `CssHwbColor.cmyk()`
+    * implemented as `CssKeywordColor.cmyk()`
+    * implemented as `CssOklchColor.cmyk()`
+    * implemented as `CssRgbColor.cmyk()`
 * reworked color format conversion support
   * added `SupportedCssColorFormat` type
   * added `UnsupportedCssConversionError` error

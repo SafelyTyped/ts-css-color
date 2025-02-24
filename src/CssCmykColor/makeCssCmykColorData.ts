@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,18 +32,34 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-/**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
- */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+import { DEFAULT_DATA_PATH, type FunctionalOption, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssColorData } from "../CssColor/makeCssColorData";
+import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
+import type { CssCmykColorData } from "./CssCmykColorData.type";
+import { mustBeCssCmykColorData } from "./mustBeCssCmykColorData";
+
+export function makeCssCmykColorData(
+    name: string,
+    definition: string,
+    channels: CssCmykColorChannelsData,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {},
+    ...fnOpts: FunctionalOption<CssCmykColorData>[]
+): CssCmykColorData
+{
+    const cssColorData = makeCssColorData(name, definition);
+
+    return makeNominalTypeFromTypeGuarantee(
+        mustBeCssCmykColorData,
+        {
+            ...cssColorData,
+            channels,
+            colorFormat: "cmyk",
+            colorSpace: "sRGB",
+        },
+        { path, onError },
+        ...fnOpts
+    );
+}

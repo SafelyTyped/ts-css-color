@@ -32,35 +32,34 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Hsl } from "culori";
-
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
-import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
+import type { Rgb } from "culori";
 import { CssColor } from "../CssColor/CssColor";
+import { makeCssColor } from "../CssColor/makeCssColor";
+import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
-import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import { CssOklchColor } from "../CssOklchColor/CssOklchColor";
 import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
-import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
-import { convertHslChannelsDataToConversionModel } from "./convertHslChannelsDataToConversionModel";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
-import type { CssHslColorChannelsTuple } from "./CssHslColorChannelsTuple.type";
-import type { CssHslColorData } from "./CssHslColorData.type";
-import { makeCssHslColorFromCssColor } from "./makeCssHslColorFromCssColor";
+import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
+import type { CssCmykColorChannelsTuple } from "./CssCmykColorChannelsTuple.type";
+import type { CssCmykColorData } from "./CssCmykColorData.type";
+import { makeCssCmykColorFromCssColor } from "./makeCssCmykColorFromCssColor";
 
 /**
- * CssHslColor is a {@link CssColor} that was created from a CSS HSL
- * definition.
+ * CssCmykColor represents a {@link CssColor} that was defined using the
+ * CSS CMYKA format.
  */
-export class CssHslColor extends CssColor<CssHslColorData, Hsl>
+export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
 {
     // ================================================================
     //
-    // CORE FORMATS
+    // CONVERSIONS TO OTHER FORMATS
     //
     // ----------------------------------------------------------------
 
@@ -70,9 +69,13 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
-    ): CssCmykColor
+    )
     {
-        return this.rgb().cmyk({path, onError}, ...fnOpts);
+        return makeCssCmykColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     public hsl(
@@ -83,11 +86,8 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        return makeCssHslColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        // direct conversion doesn't seem to be reliable
+        return this.rgb().hsl({path, onError}, ...fnOpts);
     }
 
     public hwb(
@@ -98,11 +98,8 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        return makeCssHwbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        // direct conversion doesn't seem to be reliable
+        return this.rgb().hwb({path, onError}, ...fnOpts);
     }
 
     public oklch(
@@ -113,11 +110,8 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
         ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
     ): CssOklchColor
     {
-        return makeCssOklchColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        // direct conversion doesn't seem to be reliable
+        return this.rgb().oklch({path, onError}, ...fnOpts);
     }
 
     public rgb(
@@ -126,12 +120,20 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
             onError = THROW_THE_ERROR
         }: DataGuaranteeOptions = {},
         ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    )
+    ): CssRgbColor
     {
+        // conversion FROM cmyk isn't 100% lossless
+        //
+        // safest way is to recreate the color instead
         return makeCssRgbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
+            makeCssColor(
+                this.definition(),
+                {
+                    colorName: this.name(),
+                    path,
+                    onError
+                }
+            )
         );
     }
 
@@ -142,32 +144,39 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
     // ----------------------------------------------------------------
 
     /**
-     * channelsData() returns the `H`, `S`, `L` and `A` channels as
-     * an object.
+     * channelsData() returns the color channels as an object.
      */
-    public channelsData(): CssHslColorChannelsData
+    public channelsData(): CssCmykColorChannelsData
     {
         return this.data.channels;
     }
 
     /**
-     * channelsTuple() returns the `H`, `S` and `L` channels as an
-     * array.
-     *
-     * NOTE that we deliberately leave out the alpha channel, as third-party
-     * color conversion packages seem to prefer this.
+     * channelsTuple() returns the color channels as an array.
      */
-    public channelsTuple(): CssHslColorChannelsTuple
+    public channelsTuple(): CssCmykColorChannelsTuple
     {
         return [
-            this.data.channels.hue,
-            this.data.channels.saturation,
-            this.data.channels.luminosity,
+            this.data.channels.cyan,
+            this.data.channels.magenta,
+            this.data.channels.yellow,
+            this.data.channels.key,
         ];
     }
 
-    public conversionModel(): Hsl {
-        return convertHslChannelsDataToConversionModel(this.data.channels);
+    public hex(): CssHexColorDefinition
+    {
+        return this.rgb().hex();
+    }
+
+    public conversionModel(): Rgb {
+        return this.rgb().conversionModel();
+    }
+
+    public css()
+    {
+        // CMYK isn't supported in CSS
+        return this.rgb().css();
     }
 
     // ================================================================
@@ -177,46 +186,46 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
     // ----------------------------------------------------------------
 
     /**
-     * alpha() returns the alpha channel value of this color, as a number
-     * between 0-1
+     * cyan() returns the `C` component from the CMYK definition, as a
+     * number between 0-100.
      *
-     * @returns the `alpha` channel of this color
+     * @returns the `C` component from the CMYK definition
      */
-    public alpha(): number
+    public cyan(): number
     {
-        return this.data.channels.alpha;
+        return this.data.channels.cyan;
     }
 
     /**
-     * hue() returns the `h` component from the hsl definition, as a number
-     * between 0-359
+     * magenta() returns the `M` component from the CMYK definition, as a
+     * number between 0-100.
      *
-     * @returns the `h` component from the hsl definition
+     * @returns the `M` component from the CMYK definition
      */
-    public hue(): number
+    public magenta(): number
     {
-        return this.data.channels.hue;
+        return this.data.channels.magenta;
     }
 
     /**
-     * saturation() returns the `s` component from the hsl definition,
-     * as a number between 0-100
+     * yellow() returns the `Y` component from the CMYK definition, as a
+     * number between 0-100.
      *
-     * @returns the `s` component from the hsl definition
+     * @returns the `Y` component from the CMYK definition
      */
-    public saturation(): number
+    public yellow(): number
     {
-        return this.data.channels.saturation;
+        return this.data.channels.yellow;
     }
 
     /**
-     * luminosity() returns the `l` component from the hsl definition,
-     * as a number between 0-1
+     * key() returns the 'K' component from the CMYK definition, as a number
+     * between 0-100
      *
-     * @returns the `l` component from the hsl definition
+     * @returns the 'K' component from the CMYK definition
      */
-    public luminosity(): number
+    public key(): number
     {
-        return this.data.channels.luminosity;
+        return this.data.channels.key;
     }
 }

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,18 +32,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-/**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
- */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { CssCmykColorData } from "./CssCmykColorData.type";
+import { validateCssCmykColorData } from "./validateCssCmykColorData";
+
+export function mustBeCssCmykColorData(
+    input: unknown,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {}
+): CssCmykColorData
+{
+    return mustBe(input, { onError })
+        .next((x) => validateCssCmykColorData(x, { path }))
+        .value();
+}

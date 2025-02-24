@@ -32,18 +32,35 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-/**
- * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
- * support in this package.
- *
- * This is very useful for iterating over in unit tests!
- */
-export const SUPPORTED_CSS_COLOR_FORMATS = [
-    "cmyk",
-    "hex",
-    "hsl",
-    "hwb",
-    "keyword",
-    "oklch",
-    "rgb"
-] as const;
+import { convertConversionModelToCmykChannelsData } from "@safelytyped/css-color";
+import { expect } from "chai";
+import { describe } from "mocha";
+import { VALID_CMYK_CONVERSIONS_FIXTURES } from "./_fixtures/CmykConversionData";
+
+describe("convertConversionModelToCmykChannelsData()", () => {
+    VALID_CMYK_CONVERSIONS_FIXTURES.forEach((fixture) => {
+        it("successfully converts for input: " + JSON.stringify(fixture.conversionModel), () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the converter function returns the
+            // expected output for the given input
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = fixture.conversionModel;
+            const expectedResult = fixture.cmykChannelsData;
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualResult = convertConversionModelToCmykChannelsData(inputValue);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualResult).to.eql(expectedResult);
+        });
+    })
+});

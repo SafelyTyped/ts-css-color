@@ -60,6 +60,23 @@ export { isCssExtendedColor } from "./CssExtendedColors/isCssExtendedColor";
 export { mustBeCssExtendedColor } from "./CssExtendedColors/mustBeCssExtendedColor";
 export { validateCssExtendedColor } from "./CssExtendedColors/validateCssExtendedColor";
 
+export { convertConversionModelToCmykChannelsData } from "./CssCmykColor/convertConversionModelToCmykChannelsData";
+export { CssCmykColor } from "./CssCmykColor/CssCmykColor";
+export type { CssCmykColorChannelsData } from "./CssCmykColor/CssCmykColorChannelsData.type";
+export type { CssCmykColorChannelsTuple } from "./CssCmykColor/CssCmykColorChannelsTuple.type";
+export type { CssCmykColorData } from "./CssCmykColor/CssCmykColorData.type";
+export { isCssCmykColorChannelsData } from "./CssCmykColor/isCssCmykColorChannelsData";
+export { isCssCmykColorData } from "./CssCmykColor/isCssCmykColorData";
+export { makeCssCmykColor } from "./CssCmykColor/makeCssCmykColor";
+export { makeCssCmykColorData } from "./CssCmykColor/makeCssCmykColorData";
+export { makeCssCmykColorFromConversionModel } from "./CssCmykColor/makeCssCmykColorFromConversionModel";
+export { makeCssCmykColorFromCssColor } from "./CssCmykColor/makeCssCmykColorFromCssColor";
+export { mustBeCssCmykColorChannelsData } from "./CssCmykColor/mustBeCssCmykColorChannelsData";
+export { mustBeCssCmykColorData } from "./CssCmykColor/mustBeCssCmykColorData";
+export { validateCssCmykColorChannelsData } from "./CssCmykColor/validateCssCmykColorChannelsData";
+export { validateCssCmykColorData } from "./CssCmykColor/validateCssCmykColorData";
+
+
 export { convertKeywordToConversionModel } from "./CssKeywordColor/convertKeywordToConversionModel";
 export { CssKeywordColor } from "./CssKeywordColor/CssKeywordColor";
 export type { CssKeywordColorData } from "./CssKeywordColor/CssKeywordColorData.type";

@@ -33,9 +33,10 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssRgbColor, makeCssRgbColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { CssRgbColor, makeCssRgbColorData, type CssCmykColorData, type CssHslColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
+import { CSS_CMYK_CONVERSIONS } from "../CssCmykColor/CSS_CMYK_CONVERSIONS";
 import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
 import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
@@ -178,6 +179,172 @@ describe('CssRgbColor', () => {
             // perform the change
 
             const actualValue = unit.rgb({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('red');
+            expect(unit.definition()).eqls('#ff0000');
+        });
+    });
+
+    describe(".cmyk()", () => {
+        ValidCssRgbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to CMYK format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .cmyk() method returns the CMYK
+                // equivalent of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.cmyk();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.cmykChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .cmyk() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.cmyk();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .cmyk() method preserves the original
+                // color definition, and does not replace it with the CMYK
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssRgbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssRgbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.cmyk();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the `.cmyk*()` method will cache any
+            // static conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_CMYK_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.cmyk();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_CMYK_CONVERSIONS.has(actualValue)).to.be.true;
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the `.cmyk()` method will run any
+            // functional operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssRgbColorData(
+                "red",
+                "#ff0000",
+                {
+                    red: 255,
+                    green: 0,
+                    blue: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssRgbColor(inputValue);
+
+            const f1 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.cmyk({}, f1, f2);
 
             // ----------------------------------------------------------------
             // test the results

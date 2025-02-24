@@ -33,6 +33,7 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
+import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
 import type { SupportedCssColorSpace } from "../../CssColorspace/SupportedCssColorSpace.type";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
@@ -43,6 +44,7 @@ import type { SupportedCssColorFormat } from "../../SupportedCssColorFormat/Supp
 export type ValidCssColor = {
     name: string;
     definition: string;
+    cmykChannels: CssCmykColorChannelsData;
     hslChannels: CssHslColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
     rgbChannels: CssRgbColorChannelsData;
@@ -56,6 +58,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "all-100",
         definition: "rgb(100,100,100)",
+        cmykChannels: {
+            cyan: 0,
+            magenta: 0,
+            yellow: 0,
+            key: 61,
+        },
         hslChannels: {
             hue: 0,
             saturation: 0,
@@ -88,6 +96,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "apple-moss",
         definition: "#008040",
+        cmykChannels: {
+            cyan: 100,
+            magenta: 0,
+            yellow: 50,
+            key: 50,
+        },
         hslChannels: {
             hue: 150,
             saturation: 100,
@@ -120,6 +134,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "red",
         definition: "#ff0000",
+        cmykChannels: {
+            cyan: 0,
+            magenta: 100,
+            yellow: 100,
+            key: 0,
+        },
         hslChannels: {
             hue: 0,
             saturation: 100,
@@ -152,6 +172,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "black (6 char definition)",
         definition: "#000000",
+        cmykChannels: {
+            cyan: 0,
+            magenta: 0,
+            yellow: 0,
+            key: 100,
+        },
         hslChannels: {
             hue: 0,
             saturation: 0,
@@ -184,6 +210,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "black (3 char definition)",
         definition: "#000",
+        cmykChannels: {
+            cyan: 0,
+            magenta: 0,
+            yellow: 0,
+            key: 100,
+        },
         hslChannels: {
             hue: 0,
             saturation: 0,
@@ -216,6 +248,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "white (6 char definition)",
         definition: "#ffffff",
+        cmykChannels: {
+            cyan: 0,
+            magenta: 0,
+            yellow: 0,
+            key: 0,
+        },
         hslChannels: {
             hue: 0,
             saturation: 0,
@@ -248,6 +286,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "white (3 char definition)",
         definition: "#fff",
+        cmykChannels: {
+            cyan: 0,
+            magenta: 0,
+            yellow: 0,
+            key: 0,
+        },
         hslChannels: {
             hue: 0,
             saturation: 0,
@@ -280,6 +324,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "skyblue",
         definition: "hsl(196, 100%, 64%)",
+        cmykChannels: {
+            cyan: 72,
+            magenta: 19,
+            yellow: 0,
+            key: 0,
+        },
         hslChannels: {
             hue: 196,
             saturation: 100,
@@ -312,6 +362,12 @@ export const ValidCssColors: ValidCssColor[] = [
     {
         name: "palegreen",
         definition: "hwb(100 76% 12%)",
+        cmykChannels: {
+            cyan: 9,
+            magenta: 0,
+            yellow: 13,
+            key: 12,
+        },
         hwbChannels: {
             hue: 100,
             whiteness: 76,
