@@ -55,8 +55,8 @@ import { validateObjectHasStringProperty } from "./validateObjectHasStringProper
  * - input on success
  * - an AppError otherwise
  */
-export function validateCssColorFormat<T extends object>(
-    input: object,
+export function validateCssColorDataHasColorFormat<T extends object>(
+    input: T,
     expectedColorFormat: SupportedCssColorFormat,
     {
         path = DEFAULT_DATA_PATH

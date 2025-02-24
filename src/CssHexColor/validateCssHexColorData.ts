@@ -34,7 +34,7 @@
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssColorFormat } from "../helpers/validateCssColorFormat";
+import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
 import { validateCssColorSpace } from "../helpers/validateCssColorSpace";
 import type { CssHexColorData } from "./CssHexColorData.type";
 import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
@@ -47,7 +47,7 @@ export function validateCssHexColorData(
 ): AppErrorOr<CssHexColorData> {
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
-        .next((x) => validateCssColorFormat(x, "hex", { path }))
+        .next((x) => validateCssColorDataHasColorFormat(x, "hex", { path }))
         .next((x) => validateCssColorSpace(x, "sRGB", { path }))
         .next((x) => validateObjectHasHex(x, { path }))
         .value();

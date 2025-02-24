@@ -35,7 +35,7 @@
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
 import { validateCssColorData } from "../CssColor/validateCssColorData";
 import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
-import { validateCssColorFormat } from "../helpers/validateCssColorFormat";
+import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
 import { validateCssColorSpace } from "../helpers/validateCssColorSpace";
 import type { CssHslColorData } from "./CssHslColorData.type";
 import { validateCssHslColorChannelsData } from "./validateCssHslColorChannelsData";
@@ -49,7 +49,7 @@ export function validateCssHslColorData(
 {
     return validate(input)
         .next((x) => validateCssColorData(x, { path }))
-        .next((x) => validateCssColorFormat(x, "hsl", { path }))
+        .next((x) => validateCssColorDataHasColorFormat(x, "hsl", { path }))
         .next((x) => validateCssColorSpace(x, "sRGB", { path }))
         .next((x) => validateCssColorDataHasChannels(x, { path }))
         .next((x) => recastIfValid<CssHslColorData>(

@@ -32,10 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { SUPPORTED_CSS_COLOR_FORMATS } from "./SUPPORTED_CSS_COLOR_FORMATS";
-
 /**
- * SupportedCssColorFormat is the set of color formats / notations that
- * are supported by this package.
+ * SUPPORTED_CSS_COLOR_FORMATS is a list of CSS color notations that we
+ * support in this package.
+ *
+ * This is very useful for iterating over in unit tests!
  */
-export type SupportedCssColorFormat = typeof SUPPORTED_CSS_COLOR_FORMATS[number];
+export const SUPPORTED_CSS_COLOR_FORMATS = [
+    "hex",
+    "hsl",
+    "hwb",
+    "keyword",
+    "oklch",
+    "rgb"
+] as const;

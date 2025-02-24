@@ -159,6 +159,7 @@ export { validateCssRgbColorData } from "./CssRgbColor/validateCssRgbColorData";
 export type { AnyConversionModel } from "./ConversionModel/AnyConversionModel.type";
 export type { ConversionModel } from "./ConversionModel/ConversionModel.type";
 export type { CssColorConverter } from "./CssColorConversions/CssColorConverter.type";
+export { SUPPORTED_CSS_COLOR_FORMATS } from "./SupportedCssColorFormat/SUPPORTED_CSS_COLOR_FORMATS";
 export type { SupportedCssColorFormat } from "./SupportedCssColorFormat/SupportedCssColorFormat.type";
 export type { WcagContrastRatings } from "./WcagContrastRatings/WcagContrastRatings.type";
 
@@ -184,6 +185,7 @@ export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColor
 
 export { validateCssColorChannel } from "./helpers/validateCssColorChannel";
 export { validateCssColorDataHasChannels } from "./helpers/validateCssColorDataHasChannels";
+export { validateCssColorDataHasColorFormat } from "./helpers/validateCssColorDataHasColorFormat";
 export { validateObjectHasStringProperty } from "./helpers/validateObjectHasStringProperty";
 
 // ================================================================
