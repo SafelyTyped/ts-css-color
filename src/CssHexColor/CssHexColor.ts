@@ -59,18 +59,6 @@ import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
  */
 export class CssHexColor extends CssColor<CssHexColorData, Rgb>
 {
-    public constructor(
-        data: CssHexColorData
-    )
-    {
-        // make sure that the hex value is in lower-case
-        // so that we don't have to convert it everywhere
-        data.definition = data.definition.toLowerCase() as CssHexColorDefinition;
-
-        // all done
-        super(data);
-    }
-
     // ================================================================
     //
     // CORE FORMATS
