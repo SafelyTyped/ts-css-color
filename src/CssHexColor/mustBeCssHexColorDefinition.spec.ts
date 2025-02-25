@@ -32,11 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { InvalidCssHexColorDefinitionInputs, InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
+import { AppError } from "@safelytyped/core-types";
 import { mustBeCssHexColorDefinition, type CssHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";
-import { AppError } from "@safelytyped/core-types";
+import { describe } from "mocha";
+import { InvalidCssHexColorDefinitionInputs, InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
 
 describe("mustBeCssHexColorDefinition()", () => {
     it("casts the return value to CssHexColorDefinition", () => {
@@ -67,8 +67,8 @@ describe("mustBeCssHexColorDefinition()", () => {
         expect(true).to.be.true;
     });
 
-    ValidCssHexColorDefinitions.forEach((inputValue) => {
-        it("accepts hex definition " + inputValue, () => {
+    ValidCssHexColorDefinitions.forEach((fixture) => {
+        it("accepts hex definition " + fixture.inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -77,7 +77,8 @@ describe("mustBeCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // setup your test
 
-
+            const inputValue = fixture.inputValue;
+            const expectedValue = fixture.expectedValue;
 
             // ----------------------------------------------------------------
             // perform the change
@@ -95,7 +96,7 @@ describe("mustBeCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.eqls(inputValue);
+            expect(actualValue).to.eqls(expectedValue);
             expect(errorThrown).to.be.null;
         });
     });

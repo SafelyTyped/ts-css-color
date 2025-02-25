@@ -32,11 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
+import { AppError, type AnySmartConstructor } from "@safelytyped/core-types";
 import { makeCssHexColorDefinition, type CssHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";
-import { AppError, type AnySmartConstructor } from "@safelytyped/core-types";
+import { describe } from "mocha";
+import { InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
 
 describe("makeCssHexColorDefinition()", () => {
     it("is a smart constructor", ()=>  {
@@ -92,8 +92,8 @@ describe("makeCssHexColorDefinition()", () => {
         expect(true).to.be.true;
     });
 
-    ValidCssHexColorDefinitions.forEach((inputValue) => {
-        it("accepts hex definition '" + inputValue + "'", () => {
+    ValidCssHexColorDefinitions.forEach((fixture) => {
+        it("accepts hex definition '" + fixture.inputValue + "'", () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -102,7 +102,8 @@ describe("makeCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // setup your test
 
-
+            const inputValue = fixture.inputValue;
+            const expectedValue = fixture.expectedValue;
 
             // ----------------------------------------------------------------
             // perform the change
@@ -120,7 +121,7 @@ describe("makeCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.eqls(inputValue);
+            expect(actualValue).to.eqls(expectedValue);
             expect(errorThrown).to.be.null;
         });
     });

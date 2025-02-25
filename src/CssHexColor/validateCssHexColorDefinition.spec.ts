@@ -32,15 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { AppError } from "@safelytyped/core-types";
+import { validateCssHexColorDefinition } from "@safelytyped/css-color";
+import { expect } from "chai";
 import { describe } from "mocha";
 import { InvalidCssHexColorDefinitionInputs, InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
-import { validateCssHexColorDefinition } from "@safelytyped/css-color";
-import { AppError } from "@safelytyped/core-types";
-import { expect } from "chai";
 
 describe("validateCssHexColorDefinition()", () => {
-    ValidCssHexColorDefinitions.forEach((inputValue) => {
-        it("accepts hex definition " + inputValue, () => {
+    ValidCssHexColorDefinitions.forEach((fixture) => {
+        it("accepts hex definition " + fixture.inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -54,7 +54,7 @@ describe("validateCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = validateCssHexColorDefinition(inputValue);
+            const actualValue = validateCssHexColorDefinition(fixture.inputValue);
 
             // ----------------------------------------------------------------
             // test the results

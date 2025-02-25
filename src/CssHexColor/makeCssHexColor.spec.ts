@@ -41,26 +41,32 @@ const VALID_COLOR_CSS = [
     {
         description: "hex CSS definition",
         inputValue: "#fff",
+        expectedHexValue: "#ffffff",
     },
     {
         description: "CSS named color",
         inputValue: "red",
+        expectedHexValue: "#ff0000",
     },
     {
         description: "hsl() CSS definition",
         inputValue: "hsl(359 100 100)",
+        expectedHexValue: "#ffffff",
     },
     {
         description: "hwb() CSS definition",
-        inputValue: "hwb(359 100 100)"
+        inputValue: "hwb(359 100 100)",
+        expectedHexValue: "#808080",
     },
     {
         description: "oklch() CSS definition",
-        inputValue: "oklch(0.5032 0 0)"
+        inputValue: "oklch(0.5032 0 0)",
+        expectedHexValue: "#646464",
     },
     {
         description: "rgb() CSS definition",
-        inputValue: "rgb(255, 255, 255)"
+        inputValue: "rgb(255, 255, 255)",
+        expectedHexValue: "#ffffff",
     },
 ];
 
@@ -85,6 +91,27 @@ describe("makeCssHexColor()", () => {
             // test the results
 
             expect(actualValue).to.be.instanceof(CssHexColor);
+        });
+
+        it("produces the expected color from " + fixture.inputValue, () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that makeCssHexColor produces a CSS Color
+            // that contains the data we expect
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = makeCssHexColor(fixture.inputValue);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.hex()).to.eql(fixture.expectedHexValue);
         });
     });
 })

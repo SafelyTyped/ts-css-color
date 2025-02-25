@@ -21,9 +21,18 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+## v2.0.1
+
+Released Tuesday, 25th February 2025.
+
+### Fix
+
+* `CssHexColor.hex()` now outputs `#RRGGBB` format-only again
+  * was fixed by making `makeCssHexColorDefinition()` normalise to `#RRGGBB` format
+
 ## v2.0.0
 
-Released Monday 24th February, 2025.
+Released Monday, 24th February 2025.
 
 The headline is:
 

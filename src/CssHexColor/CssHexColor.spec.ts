@@ -1271,6 +1271,7 @@ describe('CssHexColor', () => {
                 // test the results
 
                 expect(actualValue).to.eql(expectedValue);
+                expect(actualValue.length).to.eql(7);
             });
         });
     });

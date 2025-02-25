@@ -209,7 +209,7 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      * for example, "new CssRgbColor(XXX).hsl().css()" returns the color
      * as a `hsl(h% s l / alpha)` notation.
      *
-     * Use {@link CssColor.definition} if you want the color's original
+     * Use {@link CssColor.definition()} if you want the color's original
      * CSS string.
      */
     public css(): string
