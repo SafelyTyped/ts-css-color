@@ -33,11 +33,26 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "../../inspectors/_fixtures/colorShades";
 import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssExtendedColors/CssExtendedColors.const";
+import { DARK_COLORS, LIGHT_COLORS, MIDTONE_COLORS } from "../../inspectors/_fixtures/colorShades";
+import type { CssHexColorDefinition } from "../CssHexColorDefinition.type";
+import { normaliseCssHexColorDefinition } from "../normaliseCssHexColorDefinition";
 
-export const ValidCssHexColorDefinitions = [
-    // we use Set() to dedupe the color definitions
+// export const ValidCssHexColorDefinitions = [
+//     // we use Set() to dedupe the color definitions
+//     ...new Set([
+//         ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX),
+//         ...LIGHT_COLORS,
+//         ...DARK_COLORS,
+//         ...MIDTONE_COLORS
+
+//         // add additional values here
+//     ]),
+// ].sort();
+
+export const ValidCssHexColorDefinitions: {inputValue: string, expectedValue: string}[] = [];
+
+const validHexColors = [    // we use Set() to dedupe the color definitions
     ...new Set([
         ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX),
         ...LIGHT_COLORS,
@@ -46,7 +61,13 @@ export const ValidCssHexColorDefinitions = [
 
         // add additional values here
     ]),
-].sort();
+];
+validHexColors.forEach((inputValue) => {
+    ValidCssHexColorDefinitions.push({
+        inputValue,
+        expectedValue: normaliseCssHexColorDefinition(inputValue as CssHexColorDefinition),
+    })
+});
 
 export const InvalidCssHexColorDefinitions = [
     "000000",

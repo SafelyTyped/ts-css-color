@@ -39,6 +39,7 @@ import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
  * Use it to make sure that the given CSS color definition follows our
  * conventions:
  *
+ * - always '#RRGGBB', never just '#RGB'
  * - all lower case
  *
  * @param input
@@ -48,5 +49,13 @@ export function normaliseCssHexColorDefinition(
     input: CssHexColorDefinition
 ): CssHexColorDefinition
 {
+    // special case - convert from '#RGB' to '#RRGGBB'
+    if (input.length === 4) {
+        input = "#"
+            + input[1] + input[1]
+            + input[2] + input[2]
+            + input[3] + input[3] as CssHexColorDefinition;
+    }
+
     return input.toLowerCase() as CssHexColorDefinition;
 }

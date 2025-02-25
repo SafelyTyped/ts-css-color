@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { InvalidCssHexColorDefinitionInputs, InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
 import { isCssHexColorDefinition, type CssHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { InvalidCssHexColorDefinitionInputs, InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
 
 describe("isCssHexColorDefinition()", () => {
     it("is a type guard", () => {
@@ -67,8 +67,8 @@ describe("isCssHexColorDefinition()", () => {
         expect(true).to.be.true;
     });
 
-    ValidCssHexColorDefinitions.forEach((inputValue) => {
-        it("approves hex definition " + inputValue, () => {
+    ValidCssHexColorDefinitions.forEach((fixture) => {
+        it("approves hex definition " + fixture.inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -77,7 +77,7 @@ describe("isCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // setup your test
 
-
+            const { inputValue } = fixture;
 
             // ----------------------------------------------------------------
             // perform the change
