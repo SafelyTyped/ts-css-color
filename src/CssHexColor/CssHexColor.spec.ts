@@ -1557,7 +1557,7 @@ describe('CssHexColor', () => {
 
     describe(".definition()", () => {
         ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the color's original definition", () => {
+            it("[fixture " + validFixture.name + "] returns the color's original definition " + validFixture.definition, () => {
                 // ----------------------------------------------------------------
                 // explain your test
 

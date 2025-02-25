@@ -61,7 +61,7 @@ describe("makeCssHexColorData()", () => {
         const res = makeCssHexColorData(
             "black",
             "#000",
-            makeCssHexColorDefinition("#000000"),
+            makeCssHexColorDefinition("#000"),
         );
 
         // this will only compile if makeCssHexColorData() returns the
@@ -76,7 +76,7 @@ describe("makeCssHexColorData()", () => {
     });
 
     ValidCssHexColorData.forEach((inputValue) => {
-        it("accepts hex definition " + JSON.stringify(inputValue), () => {
+        it("accepts hex definition " + JSON.stringify({name: inputValue.name, definition: inputValue.definition, hex: inputValue.hex}), () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -103,7 +103,7 @@ describe("makeCssHexColorData()", () => {
                 actualValue = makeCssHexColorData(
                     inputValue.name,
                     inputValue.definition,
-                    makeCssHexColorDefinition(inputValue.hex),
+                    makeCssHexColorDefinition(inputValue.definition),
                 );
             }
             catch (e) {

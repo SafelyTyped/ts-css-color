@@ -37,6 +37,7 @@ import { makeCssColorData } from "../CssColor/makeCssColorData";
 import type { CssHexColorData } from "./CssHexColorData.type";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { mustBeCssHexColorData } from "./mustBeCssHexColorData";
+import { normaliseCssHexColorDefinitionFormat } from "./normaliseCssHexColorDefinitionFormat";
 
 export function makeCssHexColorData(
     name: string,
@@ -54,7 +55,7 @@ export function makeCssHexColorData(
         mustBeCssHexColorData,
         {
             ...cssColorData,
-            hex,
+            hex: normaliseCssHexColorDefinitionFormat(hex),
             colorFormat: "hex",
             colorSpace: "sRGB",
         },

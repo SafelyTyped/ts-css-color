@@ -35,18 +35,26 @@
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 
 /**
- * normaliseCssHexColorDefinition() is a data transform function.
+ * normaliseCssHexColorDefinitionFormat() is a data transform function.
  * Use it to make sure that the given CSS color definition follows our
  * conventions:
  *
- * - all lower case
+ * - always '#RRGGBB', never just '#RGB'
  *
  * @param input
  * @returns
  */
-export function normaliseCssHexColorDefinition(
+export function normaliseCssHexColorDefinitionFormat(
     input: CssHexColorDefinition
 ): CssHexColorDefinition
 {
-    return input.toLowerCase() as CssHexColorDefinition;
+    // special case - convert from '#RGB' to '#RRGGBB'
+    if (input.length === 4) {
+        input = "#"
+            + input[1] + input[1]
+            + input[2] + input[2]
+            + input[3] + input[3] as CssHexColorDefinition;
+    }
+
+    return input;
 }
