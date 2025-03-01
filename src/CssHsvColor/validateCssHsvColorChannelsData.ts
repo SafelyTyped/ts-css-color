@@ -32,4 +32,25 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import { DEFAULT_DATA_PATH, recastIfValid, validate, validateObject, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
+import { validateCssColorChannel } from "../helpers/validateCssColorChannel";
+import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
+
+export function validateCssHsvColorChannelsData(
+    input: unknown,
+    {
+        path = DEFAULT_DATA_PATH
+    }: TypeValidatorOptions = {}
+): AppErrorOr<CssHsvColorChannelsData>
+{
+    return recastIfValid<CssHsvColorChannelsData>(
+        input,
+        () => validate(input)
+            .next((x) => validateObject(x, { path }))
+            .next((x) => validateCssColorChannel(x, "hue", 0, 360, { path }))
+            .next((x) => validateCssColorChannel(x, "saturation", 0, 100, { path }))
+            .next((x) => validateCssColorChannel(x, "value", 0, 100, { path }))
+            .next((x) => validateCssColorChannel(x, "alpha", 0, 1, { path }))
+            .value()
+    );
+}

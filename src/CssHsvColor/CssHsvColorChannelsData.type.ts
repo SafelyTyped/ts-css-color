@@ -32,4 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+/**
+ * CssHsvColorChannelsData represents the four channels of an HSV color
+ * as an object.
+ */
+export interface CssHsvColorChannelsData {
+    "hue": number;
+    "saturation": number;
+    "value": number;
+    "alpha": number;
+}

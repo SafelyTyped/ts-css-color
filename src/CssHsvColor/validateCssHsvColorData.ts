@@ -32,4 +32,29 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
+import { validateCssColorData } from "../CssColor/validateCssColorData";
+import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
+import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
+import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
+import type { CssHsvColorData } from "./CssHsvColorData.type";
+import { validateCssHsvColorChannelsData } from "./validateCssHsvColorChannelsData";
+
+export function validateCssHsvColorData(
+    input: unknown,
+    {
+        path = DEFAULT_DATA_PATH
+    }: TypeValidatorOptions = {}
+): AppErrorOr<CssHsvColorData>
+{
+    return validate(input)
+        .next((x) => validateCssColorData(x, { path }))
+        .next((x) => validateCssColorDataHasColorFormat(x, "hsv", { path }))
+        .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
+        .next((x) => validateCssColorDataHasChannels(x, { path }))
+        .next((x) => recastIfValid<CssHsvColorData>(
+            x,
+            () => validateCssHsvColorChannelsData(x.channels, { path: extendDataPath(path, "channels") })
+        ))
+        .value();
+}

@@ -32,4 +32,43 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import type { CssHsvColorChannelsData } from "../CssHsvColorChannelsData.type";
+import type { Hsv } from "../Hsv.type";
+
+export type HsvConversionData = {
+    hsvChannelsData: CssHsvColorChannelsData;
+    conversionModel: Hsv;
+}
+
+export const VALID_HSV_CONVERSIONS_FIXTURES: HsvConversionData[] = [
+    {
+        hsvChannelsData: {
+            hue: 0,
+            saturation: 0,
+            value: 39,
+            alpha: 1,
+        },
+        conversionModel: {
+            mode: "hsv",
+            h: 0,
+            s: 0,
+            v: 0.39,
+            alpha: 1,
+        }
+    },
+    {
+        hsvChannelsData: {
+            hue: 150,
+            saturation: 100,
+            value: 50,
+            alpha: 1,
+        },
+        conversionModel: {
+            mode: "hsv",
+            h: 150,
+            s: 1,
+            v: 0.50,
+            alpha: 1,
+        }
+    }
+];

@@ -32,4 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
+import type { CssHsvColorData } from "./CssHsvColorData.type";
+import { validateCssHsvColorData } from "./validateCssHsvColorData";
+
+export function isCssHsvColorData(
+    input: unknown
+): input is CssHsvColorData
+{
+    return isType(validateCssHsvColorData, input, IS_TYPE_DEFAULT_OPTIONS);
+}

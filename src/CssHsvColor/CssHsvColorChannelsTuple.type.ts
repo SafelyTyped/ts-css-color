@@ -32,4 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+/**
+ * CssHsvColorChannelsTuple represents the three channels of an HSV color
+ * as an array.
+ */
+export type CssHsvColorChannelsTuple = [ number, number, number ];

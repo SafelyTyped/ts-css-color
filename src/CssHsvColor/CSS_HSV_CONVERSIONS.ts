@@ -32,4 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import { CssColorConversionsCache } from "../CssColorConversions/CssColorConversionsCache";
+import { CssHsvColor } from "./CssHsvColor";
+import type { CssHsvColorData } from "./CssHsvColorData.type";
+
+export const CSS_HSV_CONVERSIONS = new CssColorConversionsCache<CssHsvColor, CssHsvColorData>("hsv");

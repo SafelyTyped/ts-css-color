@@ -32,4 +32,79 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import type { CssHsvColorChannelsData } from "../CssHsvColorChannelsData.type";
+
+export const ValidCssHsvColorChannelsData: CssHsvColorChannelsData[] = [
+    {
+        hue: 0,
+        saturation: 0,
+        value: 39,
+        alpha: 1,
+    },
+    {
+        hue: 150,
+        saturation: 100,
+        value: 50,
+        alpha: 1,
+    },
+    {
+        hue: 200,
+        saturation: 75,
+        value: 80,
+        alpha: 0.5,
+    }
+];
+
+export const InvalidCssHsvColorChannelsDataObjects = [
+    {
+        description: "channels completely missing",
+        inputValue: {}
+    },
+    {
+        description: "hue channel missing",
+        inputValue: {
+            saturation: 0,
+            value: 39,
+            alpha: 1,
+        }
+    },
+    {
+        description: "saturation channel missing",
+        inputValue: {
+            hue: 0,
+            value: 39,
+            alpha: 1,
+        }
+    },
+    {
+        description: "value channel missing",
+        inputValue: {
+            hue: 0,
+            saturation: 0,
+            alpha: 1,
+        }
+    },
+    {
+        description: "alpha channel missing",
+        inputValue: {
+            hue: 0,
+            saturation: 0,
+            value: 39,
+        }
+    },
+];
+
+export const InvalidCssHsvColorChannelsDataInputs = [
+    null,
+    undefined,
+    [],
+    true,
+    false,
+    0,
+    -100,
+    100,
+    3.1415927,
+    () => true,
+    {},
+    "#ffffff",
+]

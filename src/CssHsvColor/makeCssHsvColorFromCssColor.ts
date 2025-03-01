@@ -32,4 +32,31 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { CSS_HSV_CONVERSIONS } from "./CSS_HSV_CONVERSIONS";
+import type { CssHsvColorData } from "./CssHsvColorData.type";
+import { makeCssHsvColorFromConversionModel } from "./makeCssHsvColorFromConversionModel";
+
+export function makeCssHsvColorFromCssColor(
+    input: AnyCssColor,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {},
+    ...fnOpts: FunctionalOption<CssHsvColorData, TypeGuaranteeOptions>[]
+)
+{
+    // how to do the conversion
+    const converterFn = () => {
+        return makeCssHsvColorFromConversionModel(
+            input.name(),
+            input.definition(),
+            input.conversionModel(),
+            {path, onError},
+            ...fnOpts,
+        );
+    };
+
+    return CSS_HSV_CONVERSIONS.convert(converterFn, input, fnOpts);
+}

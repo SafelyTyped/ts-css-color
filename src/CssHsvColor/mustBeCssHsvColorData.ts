@@ -32,4 +32,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { CssHsvColorData } from "./CssHsvColorData.type";
+import { validateCssHsvColorData } from "./validateCssHsvColorData";
+
+export function mustBeCssHsvColorData(
+    input: unknown,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {}
+): CssHsvColorData
+{
+    return mustBe(input, { onError })
+        .next((x) => validateCssHsvColorData(x, { path }))
+        .value();
+}

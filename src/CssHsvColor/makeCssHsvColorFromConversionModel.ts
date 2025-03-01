@@ -32,4 +32,31 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { CssHsvColor } from "./CssHsvColor";
+import type { CssHsvColorData } from "./CssHsvColorData.type";
+import { convertConversionModelToHsvChannelsData } from "./convertConversionModelToHsvChannelsData";
+import { makeCssHsvColorData } from "./makeCssHsvColorData";
+
+export function makeCssHsvColorFromConversionModel(
+    colorName: string,
+    cssDefinition: string,
+    model: ConversionModel,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {},
+    ...fnOpts: FunctionalOption<CssHsvColorData, TypeGuaranteeOptions>[]
+)
+{
+    return new CssHsvColor(
+        makeCssHsvColorData(
+            colorName,
+            cssDefinition,
+            convertConversionModelToHsvChannelsData(model),
+            { path, onError },
+            ...fnOpts,
+        ),
+    );
+}

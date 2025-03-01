@@ -32,4 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import type { CssColorData } from "../CssColor/CssColorData.type";
+import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
+
+/**
+ * CssHsvColorData represents the data that makes up a CSS HSV color.
+ */
+export interface CssHsvColorData extends CssColorData {
+    colorFormat: "hsv";
+    colorSpace: "sRGB";
+
+    channels: CssHsvColorChannelsData;
+
+    readonly "_type": "@safelytyped/css-color/CssHsvColorData";
+}

@@ -32,4 +32,26 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
+import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
+import type { Hsv } from "./Hsv.type";
+
+/**
+ * convertHsvChannelsDataToConversionModel() is a helper method. It converts
+ * an instance of our preferred data format to the HSV model used for
+ * color conversion.
+ *
+ * @param input
+ * @returns
+ */
+export function convertHsvChannelsDataToConversionModel(
+    input: CssHsvColorChannelsData
+): Hsv
+{
+    return {
+        mode: "hsv",
+        h: input.hue,
+        s: input.saturation / 100,
+        v: input.value / 100,
+        alpha: input.alpha,
+    };
+}
