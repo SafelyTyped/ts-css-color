@@ -32,6 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Color } from "culori";
+import type { ConversionModel } from "./ConversionModel.type";
 
-export type AnyConversionModel = Color;
+export type AnyConversionModel = ConversionModel;

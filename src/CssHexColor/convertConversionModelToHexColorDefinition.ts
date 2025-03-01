@@ -32,7 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { type Color, formatHex } from "culori";
+import { formatHex } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
 
@@ -45,7 +46,7 @@ import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
  * @returns
  */
 export function convertConversionModelToHexColorDefinition(
-    input: Color
+    input: ConversionModel
 ): CssHexColorDefinition
 {
     const model = formatHex(input).toLowerCase();

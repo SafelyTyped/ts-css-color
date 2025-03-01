@@ -176,6 +176,9 @@ export { validateCssRgbColorData } from "./CssRgbColor/validateCssRgbColorData";
 
 export type { AnyConversionModel } from "./ConversionModel/AnyConversionModel.type";
 export type { ConversionModel } from "./ConversionModel/ConversionModel.type";
+export { isConversionModel } from "./ConversionModel/isConversionModel";
+export { mustBeConversionModel } from "./ConversionModel/mustBeConversionModel";
+export { validateConversionModel } from "./ConversionModel/validateConversionModel";
 export type { CssColorConverter } from "./CssColorConversions/CssColorConverter.type";
 export { SUPPORTED_CSS_COLOR_FORMATS } from "./SupportedCssColorFormat/SUPPORTED_CSS_COLOR_FORMATS";
 export type { SupportedCssColorFormat } from "./SupportedCssColorFormat/SupportedCssColorFormat.type";

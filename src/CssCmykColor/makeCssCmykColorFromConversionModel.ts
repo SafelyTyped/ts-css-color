@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { Color } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import { CssCmykColor } from "./CssCmykColor";
 import type { CssCmykColorData } from "./CssCmykColorData.type";
 import { convertConversionModelToCmykChannelsData } from "./convertConversionModelToCmykChannelsData";
@@ -42,7 +42,7 @@ import { makeCssCmykColorData } from "./makeCssCmykColorData";
 export function makeCssCmykColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
-    model: Color,
+    model: ConversionModel,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR

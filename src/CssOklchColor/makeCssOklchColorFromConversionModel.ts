@@ -33,16 +33,16 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { CssOklchColor } from "./CssOklchColor";
 import type { CssOklchColorData } from "./CssOklchColorData.type";
 import { convertConversionModelToOklchChannelsData } from "./convertConversionModelToOklchChannelsData";
 import { makeCssOklchColorData } from "./makeCssOklchColorData";
-import { CssOklchColor } from "./CssOklchColor";
-import type { Color } from "culori";
 
 export function makeCssOklchColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
-    model: Color,
+    model: ConversionModel,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR

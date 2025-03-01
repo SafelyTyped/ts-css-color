@@ -32,13 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Color } from "culori";
+import type { ConversionModel } from "../../ConversionModel/ConversionModel.type";
 import type { CssHexColorDefinition } from "../CssHexColorDefinition.type";
 import { makeCssHexColorDefinition } from "../makeCssHexColorDefinition";
 
 export type HexConversionData = {
     hex: CssHexColorDefinition;
-    conversionModel: Color;
+    conversionModel: ConversionModel;
 }
 
 export const VALID_HEX_CONVERSIONS_FIXTURES: HexConversionData[] = [

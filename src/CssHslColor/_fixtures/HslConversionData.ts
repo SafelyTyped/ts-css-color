@@ -32,12 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Color } from "culori";
+import type { ConversionModel } from "../../ConversionModel/ConversionModel.type";
 import type { CssHslColorChannelsData } from "../CssHslColorChannelsData.type";
 
 export type HslConversionData = {
     hslChannelsData: CssHslColorChannelsData;
-    conversionModel: Color;
+    conversionModel: ConversionModel;
 }
 
 export const VALID_HSL_CONVERSIONS_FIXTURES: HslConversionData[] = [

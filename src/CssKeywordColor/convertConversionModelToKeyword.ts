@@ -33,7 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
-import { type Color, formatHex } from "culori";
+import { formatHex } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
@@ -47,7 +48,7 @@ import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColo
  * @returns
  */
 export function convertConversionModelToKeyword(
-    input: Color
+    input: ConversionModel
 ): CssExtendedColor
 {
     // turn the input into a hex code

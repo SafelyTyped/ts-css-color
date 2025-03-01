@@ -32,9 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Color } from "culori";
 
 import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuaranteeOptions, type DispatchMap } from "@safelytyped/core-types";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
 import { makeCssHslColorFromConversionModel } from "../CssHslColor/makeCssHslColorFromConversionModel";
 import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
 import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
@@ -74,7 +75,7 @@ const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssC
 export function makeCssColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
-    model: Color,
+    model: ConversionModel,
     {
         onError = THROW_THE_ERROR,
         path = DEFAULT_DATA_PATH
@@ -95,9 +96,12 @@ export function makeCssColorFromConversionModel(
         return onError(err);
     };
 
+    // robustness!
+    const vettedModel = mustBeConversionModel(model);
+
     // find out which function to call for the given model
-    const colorMaker = searchDispatchMap(DISPATCH_MAP, [model.mode], fallback);
+    const colorMaker = searchDispatchMap(DISPATCH_MAP, [vettedModel.mode], fallback);
 
     // call it
-    return colorMaker(colorName, cssDefinition, model, opts);
+    return colorMaker(colorName, cssDefinition, vettedModel, opts);
 }

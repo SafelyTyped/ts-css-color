@@ -33,16 +33,16 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { CssRgbColor } from "./CssRgbColor";
 import type { CssRgbColorData } from "./CssRgbColorData.type";
 import { convertConversionModelToRgbChannelsData } from "./convertConversionModelToRgbChannelsData";
 import { makeCssRgbColorData } from "./makeCssRgbColorData";
-import { CssRgbColor } from "./CssRgbColor";
-import type { Color } from "culori";
 
 export function makeCssRgbColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
-    model: Color,
+    model: ConversionModel,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR

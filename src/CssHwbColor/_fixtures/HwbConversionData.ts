@@ -32,12 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Color } from "culori";
+import type { ConversionModel } from "../../ConversionModel/ConversionModel.type";
 import type { CssHwbColorChannelsData } from "../CssHwbColorChannelsData.type";
 
 export type HwbConversionData = {
     hwbChannelsData: CssHwbColorChannelsData;
-    conversionModel: Color;
+    conversionModel: ConversionModel;
 }
 
 export const VALID_HWB_CONVERSIONS_FIXTURES: HwbConversionData[] = [

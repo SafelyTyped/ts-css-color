@@ -33,12 +33,12 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import type { Color } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { AnyCssColor } from "./AnyCssColor.type";
 
 export type CssColorFromConversionModelSmartConstructor = (
     colorName: string,
     definition: string,
-    model: Color,
+    model: ConversionModel,
     opts: DataGuaranteeOptions,
 ) => AnyCssColor;

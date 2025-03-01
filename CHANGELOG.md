@@ -21,6 +21,16 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### New
+
+### Refactor
+
+- Improve type strictness internally
+  - `ConversionModel` replaces the wider `Color` type
+  - added `validateConversionModel()` data validator
+  - added `mustBeConversionModel()` data guarantee
+  - added `isConversionModel()` data guard
+
 ### Tests
 
 - `npm run build` now ignores `_fixture` folders

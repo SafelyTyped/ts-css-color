@@ -33,16 +33,16 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { convertConversionModelToHexColorDefinition } from "./convertConversionModelToHexColorDefinition";
+import { CssHexColor } from "./CssHexColor";
 import type { CssHexColorData } from "./CssHexColorData.type";
 import { makeCssHexColorData } from "./makeCssHexColorData";
-import { CssHexColor } from "./CssHexColor";
-import type { Color } from "culori";
-import { convertConversionModelToHexColorDefinition } from "./convertConversionModelToHexColorDefinition";
 
 export function makeCssHexColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
-    model: Color,
+    model: ConversionModel,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR

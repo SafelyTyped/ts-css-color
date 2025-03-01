@@ -32,6 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Color } from "culori";
+import type { Hsl, Hwb, Oklch, Rgb } from "culori";
 
-export type ConversionModel<T extends Color = Color> = T;
+export type ConversionModel = Hsl | Hwb | Oklch | Rgb;
