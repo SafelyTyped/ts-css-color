@@ -33,7 +33,9 @@
 //
 
 import { roundTo } from "@safelytyped/math-rounding";
-import { type Color, oklch } from "culori";
+import { oklch } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { convertConversionModelToOklchColorSpace } from "../ConversionModel/convertConversionModelToOklchColorSpace";
 import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
 
 /**
@@ -45,10 +47,12 @@ import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type
  * @returns
  */
 export function convertConversionModelToOklchChannelsData(
-    input: Color
+    input: ConversionModel,
 ): CssOklchColorChannelsData
 {
-    const model = oklch(input);
+    const model = oklch(
+        convertConversionModelToOklchColorSpace(input)
+    );
 
     return {
         lightness: round(model.l),

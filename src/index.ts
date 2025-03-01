@@ -176,6 +176,8 @@ export { validateCssRgbColorData } from "./CssRgbColor/validateCssRgbColorData";
 
 export type { AnyConversionModel } from "./ConversionModel/AnyConversionModel.type";
 export type { ConversionModel } from "./ConversionModel/ConversionModel.type";
+export { convertConversionModelToOklchColorSpace } from "./ConversionModel/convertConversionModelToOklchColorSpace";
+export { convertConversionModelToSrgbColorSpace } from "./ConversionModel/convertConversionModelToSrgbColorSpace";
 export { isConversionModel } from "./ConversionModel/isConversionModel";
 export { mustBeConversionModel } from "./ConversionModel/mustBeConversionModel";
 export { validateConversionModel } from "./ConversionModel/validateConversionModel";

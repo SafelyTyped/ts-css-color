@@ -32,9 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { type Color, hwb } from "culori";
-import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
 import { roundTo } from "@safelytyped/math-rounding";
+import { hwb } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { convertConversionModelToSrgbColorSpace } from "../ConversionModel/convertConversionModelToSrgbColorSpace";
+import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
 
 /**
  * convertConversionModelToHwbChannelsData() is a helper method. It converts
@@ -45,10 +47,12 @@ import { roundTo } from "@safelytyped/math-rounding";
  * @returns
  */
 export function convertConversionModelToHwbChannelsData(
-    input: Color
+    input: ConversionModel
 ): CssHwbColorChannelsData
 {
-    const model = hwb(input);
+    const model = hwb(
+        convertConversionModelToSrgbColorSpace(input)
+    );
 
     return {
         hue: round(model.h || 0),

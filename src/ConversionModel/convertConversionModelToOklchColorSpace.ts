@@ -32,43 +32,39 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { roundTo } from "@safelytyped/math-rounding";
-import { hsl } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { convertConversionModelToSrgbColorSpace } from "../ConversionModel/convertConversionModelToSrgbColorSpace";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
+import { identity, searchDispatchMap, type DispatchMap } from "@safelytyped/core-types";
+import { rgb } from "culori";
+import { normaliseRgbConversionModel } from "../CssRgbColor/normaliseRgbConversionModel";
+import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { ConversionModel } from "./ConversionModel.type";
+
+type ConversionModelConverter = (input: ConversionModel) => ConversionModel;
+
+const convertViaRgb = (
+    input: ConversionModel
+) => normaliseRgbConversionModel(rgb(input));
 
 /**
- * convertConversionModelToHslChannelsData() is a helper method. It converts
- * an instance of the HSL model used by our chosen third-party color
- * conversion package to our preferred data format.
- *
- * @param input
- * @returns
+ * how we convert each supported type of input model to the OKLCH color space
  */
-export function convertConversionModelToHslChannelsData(
+const OKLCH_DISPATCH_MAP: DispatchMap<SupportedCssColorFormat, ConversionModelConverter> = {
+    // CssCmykColor.conversionModel() already returns RGB
+    "cmyk": identity,
+    // CssHexColor.conversionModel() already returns RGB
+    "hex": identity,
+    "hsl": convertViaRgb,
+    "hwb": convertViaRgb,
+    // CssKeywordColor.conversionModel() already returns RGB
+    "keyword": identity,
+    // CssOklchColor.conversionModel() already returns OKLCH
+    "oklch": identity,
+    // CssRgbColor.conversionModel() already returns RGB
+    "rgb": identity,
+};
+
+export function convertConversionModelToOklchColorSpace(
     input: ConversionModel
-): CssHslColorChannelsData
+): ConversionModel
 {
-    const model = hsl(
-        convertConversionModelToSrgbColorSpace(input)
-    );
-
-    return {
-        hue: round(model.h || 0),
-        saturation: round(model.s * 100),
-        luminosity: round(model.l * 100),
-        alpha: model.alpha || 1,
-    };
-}
-
-function round(input: number)
-{
-    return Math.abs(
-        roundTo(
-            Math.round,
-            0,
-            input,
-        )
-    );
+    return searchDispatchMap(OKLCH_DISPATCH_MAP, [input.mode], identity)(input);
 }

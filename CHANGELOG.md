@@ -23,6 +23,17 @@ The following changes have been completed, and will be included in the next tagg
 
 ### New
 
+### Fix
+
+- `makeCssXxxColorFromCssColor()` and `makeCssXxxColorFromConversionModel()` constructors now do the necessary color-space conversions internally
+  - added `convertConversionModelToOklchColorSpace()` helper
+  - added `convertConversionModelToSrgbColorSpace()` helper
+  - added color-space conversion support
+    - updated `convertConversionModelToHslChannelsData()`
+    - updated `convertConversionModelToHwbChannelsData()`
+    - updated `convertConversionModelToOklchChannelsData()`
+    - updated `convertConversionModelToRgbChannelsData()`
+
 ### Refactor
 
 - Improve type strictness internally

@@ -33,32 +33,25 @@
 //
 
 import { roundTo } from "@safelytyped/math-rounding";
-import { hsl } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { convertConversionModelToSrgbColorSpace } from "../ConversionModel/convertConversionModelToSrgbColorSpace";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
+import type { Rgb } from "culori";
 
 /**
- * convertConversionModelToHslChannelsData() is a helper method. It converts
- * an instance of the HSL model used by our chosen third-party color
- * conversion package to our preferred data format.
+ * normaliseRgbConversionModel() is a helper method. It applies our target
+ * degree of accuracy to the given input model.
  *
  * @param input
  * @returns
  */
-export function convertConversionModelToHslChannelsData(
-    input: ConversionModel
-): CssHslColorChannelsData
+export function normaliseRgbConversionModel(
+    input: Rgb
+): Rgb
 {
-    const model = hsl(
-        convertConversionModelToSrgbColorSpace(input)
-    );
-
     return {
-        hue: round(model.h || 0),
-        saturation: round(model.s * 100),
-        luminosity: round(model.l * 100),
-        alpha: model.alpha || 1,
+        mode: "rgb",
+        r: round(input.r),
+        g: round(input.g),
+        b: round(input.b),
+        alpha: input.alpha,
     };
 }
 
@@ -67,7 +60,7 @@ function round(input: number)
     return Math.abs(
         roundTo(
             Math.round,
-            0,
+            3,
             input,
         )
     );
