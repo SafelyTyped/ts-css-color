@@ -32,9 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssHsvColorChannelsData } from "../CssHsvColorChannelsData.type";
 
-export const ValidCssHsvColorChannelsData: CssHsvColorChannelsData[] = [
+export const ValidCssHsvColorChannelsData = [
     {
         hue: 0,
         saturation: 0,
