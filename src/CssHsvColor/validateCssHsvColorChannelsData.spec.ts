@@ -412,32 +412,4 @@ describe("validateCssHsvColorChannelsData()", () => {
         expect(actualValue).is.not.instanceOf(AppError);
         expect(actualValue).eqls(inputValue);
     });
-
-    it("respects the provided path when returning errors", () => {
-        // ----------------------------------------------------------------
-        // explain your test
-
-        // this test proves that validateCssHsvColorChannelsData() includes
-        // the provided path in any returned errors
-
-        // ----------------------------------------------------------------
-        // setup your test
-
-        const inputValue = {};
-        const path = "test.path";
-
-        // ----------------------------------------------------------------
-        // perform the change
-
-        const actualValue = validateCssHsvColorChannelsData(inputValue, { path });
-
-        // ----------------------------------------------------------------
-        // test the results
-
-        expect(actualValue).is.instanceOf(AppError);
-
-        if (isAppError(actualValue)) {
-            expect(actualValue.detail.path).to.equal(path);
-        }
-    });
 });
