@@ -118,6 +118,8 @@ export { mustBeCssHslColorData } from "./CssHslColor/mustBeCssHslColorData";
 export { validateCssHslColorChannelsData } from "./CssHslColor/validateCssHslColorChannelsData";
 export { validateCssHslColorData } from "./CssHslColor/validateCssHslColorData";
 
+export { convertConversionModelToHsvChannelsData } from "./CssHsvColor/convertConversionModelToHsvChannelsData";
+export { convertHsvChannelsDataToConversionModel } from "./CssHsvColor/convertHsvChannelsDataToConversionModel";
 export type { CssHsvColorChannelsData } from "./CssHsvColor/CssHsvColorChannelsData.type";
 export { isCssHsvColorChannelsData } from "./CssHsvColor/isCssHsvColorChannelsData";
 export { isCssHsvColorData } from "./CssHsvColor/isCssHsvColorData";
