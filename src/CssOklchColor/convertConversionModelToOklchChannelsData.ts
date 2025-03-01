@@ -57,8 +57,8 @@ export function convertConversionModelToOklchChannelsData(
     return {
         lightness: round(model.l),
         chroma: round(model.c),
-        hue: round(model.h || 0),
-        alpha: model.alpha || 1,
+        hue: round(model.h ??= 0),
+        alpha: model.alpha ??= 1,
     };
 }
 

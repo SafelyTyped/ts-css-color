@@ -55,7 +55,7 @@ export function convertHexColorDefinitionToConversionModel(
         retval.r = round(retval.r);
         retval.g = round(retval.g);
         retval.b = round(retval.b);
-        retval.alpha = retval.alpha || 1;
+        retval.alpha = retval.alpha ??= 1;
         return retval;
     }
 
