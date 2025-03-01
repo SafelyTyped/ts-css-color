@@ -37,6 +37,7 @@ import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuarant
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
 import { makeCssHslColorFromConversionModel } from "../CssHslColor/makeCssHslColorFromConversionModel";
+import { makeCssHsvColorFromConversionModel } from "../CssHsvColor/makeCssHsvColorFromConversionModel";
 import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
 import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
 import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
@@ -49,6 +50,7 @@ type UnsupportedCssColorFormats = "cmyk" | "hex" | "keyword";
 
 const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssColorFormats>, CssColorFromConversionModelSmartConstructor> = {
     "hsl": makeCssHslColorFromConversionModel,
+    "hsv": makeCssHsvColorFromConversionModel,
     "hwb": makeCssHwbColorFromConversionModel,
     "oklch": makeCssOklchColorFromConversionModel,
     "rgb": makeCssRgbColorFromConversionModel,
