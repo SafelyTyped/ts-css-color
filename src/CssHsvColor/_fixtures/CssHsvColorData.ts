@@ -356,6 +356,38 @@ export const InvalidCssHsvColorDataObjects = [
             }
         }
     },
+    {
+        description: "colorFormat is incorrect",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssHsvColorData",
+            colorFormat: "hsl", // wrong format, should be "hsv"
+            colorSpace: "sRGB",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "colorSpace is incorrect",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssHsvColorData",
+            colorFormat: "hsv",
+            colorSpace: "Display P3", // wrong space, should be "sRGB"
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
 ];
 
 export const InvalidMakeCssHsvColorParameters = [
