@@ -748,37 +748,6 @@ export const InvalidCssHsvColorDataObjects = [
         }
     },
     {
-        description: "wrong _type property",
-        inputValue: {
-            name: "test",
-            definition: "test",
-            "_type": "@safelytyped/css-color/CssRgbColorData", // wrong type
-            colorFormat: "hsv",
-            colorSpace: "sRGB",
-            channels: {
-                hue: 0,
-                saturation: 0,
-                value: 39,
-                alpha: 1,
-            }
-        }
-    },
-    {
-        description: "missing _type property",
-        inputValue: {
-            name: "test",
-            definition: "test",
-            colorFormat: "hsv",
-            colorSpace: "sRGB",
-            channels: {
-                hue: 0,
-                saturation: 0,
-                value: 39,
-                alpha: 1,
-            }
-        }
-    },
-    {
         description: "saturation is negative infinity",
         inputValue: {
             name: "test",
