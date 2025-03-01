@@ -32,8 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import type { Hsv } from "culori";
 import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
-import type { Hsv } from "./Hsv.type";
 
 /**
  * convertHsvChannelsDataToConversionModel() is a helper method. It converts

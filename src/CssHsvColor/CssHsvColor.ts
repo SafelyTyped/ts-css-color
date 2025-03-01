@@ -33,6 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
+import type { Hsv } from "culori";
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
 import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
@@ -53,7 +54,6 @@ import { convertHsvChannelsDataToConversionModel } from "./convertHsvChannelsDat
 import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
 import type { CssHsvColorChannelsTuple } from "./CssHsvColorChannelsTuple.type";
 import type { CssHsvColorData } from "./CssHsvColorData.type";
-import type { Hsv } from "./Hsv.type";
 import { makeCssHsvColorFromCssColor } from "./makeCssHsvColorFromCssColor";
 
 /**
