@@ -364,7 +364,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
             alpha: 0.789,
         },
         hex: "#46743c",
-        namedColor: null,
+        namedColor: undefined,
     }
 ];
 
