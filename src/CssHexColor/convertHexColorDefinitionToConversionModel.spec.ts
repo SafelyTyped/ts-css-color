@@ -32,6 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
 import { convertHexColorDefinitionToConversionModel, type CssHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";

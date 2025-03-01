@@ -32,10 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { VALID_HEX_CONVERSIONS_FIXTURES } from "./_fixtures/HexConversionData";
+import "../test-init.test";
+
 import { convertConversionModelToHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { VALID_HEX_CONVERSIONS_FIXTURES } from "./_fixtures/HexConversionData";
 
 describe("convertConversionModelToHexChannelsData()", () => {
     VALID_HEX_CONVERSIONS_FIXTURES.forEach((fixture) => {

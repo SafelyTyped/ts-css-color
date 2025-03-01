@@ -32,6 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
 import { convertRgbChannelsDataToConversionModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";

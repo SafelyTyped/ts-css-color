@@ -32,16 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { expect } from "chai";
+import "../test-init.test";
+
 import { HashMap } from "@safelytyped/core-types";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "@safelytyped/css-color";
-import { makeCssColor } from "@safelytyped/css-color";
-import { CssColor } from "@safelytyped/css-color";
-import { CssRgbColor } from "@safelytyped/css-color";
-import { CssHslColor } from "@safelytyped/css-color";
-import { CssHwbColor } from "@safelytyped/css-color";
-import { CssKeywordColor } from "@safelytyped/css-color";
+import { CSS_EXTENDED_COLORS_TO_HEX, CssColor, CssHslColor, CssHwbColor, CssKeywordColor, CssRgbColor, makeCssColor } from "@safelytyped/css-color";
+import { expect } from "chai";
+import { describe } from "mocha";
 
 describe("CssExtendedColors", () => {
     HashMap.forEach(CSS_EXTENDED_COLORS_TO_HEX, (value, name) => {

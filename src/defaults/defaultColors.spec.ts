@@ -32,10 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
+import "../test-init.test";
+
 import { expect } from "chai";
-import { BLACK, WHITE } from "./defaultColors.const";
+import { describe } from "mocha";
 import { CssHexColor } from "../CssHexColor/CssHexColor";
+import { BLACK, WHITE } from "./defaultColors.const";
 
 describe("BLACK (internal const)", () => {
     it("has the hex value of #000000", () => {

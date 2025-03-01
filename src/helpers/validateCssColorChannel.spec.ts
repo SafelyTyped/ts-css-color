@@ -32,10 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { validateCssColorChannel } from "@safelytyped/css-color";
+import "../test-init.test";
+
 import { AppError } from "@safelytyped/core-types";
+import { validateCssColorChannel } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe, it } from "mocha";
 
 const VALID_INPUTS = [
     {

@@ -32,11 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
 import { AppError } from "@safelytyped/core-types";
+import { validateCssKeywordColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { InvalidCssKeywordColorDataInput, InvalidCssKeywordColorDataObjects, ValidCssKeywordColorData } from "./_fixtures/CssKeywordColorDataFixtures";
-import { validateCssKeywordColorData } from "@safelytyped/css-color";
 
 describe("validateCssKeywordColorData()", () => {
     ValidCssKeywordColorData.forEach((inputValue) => {

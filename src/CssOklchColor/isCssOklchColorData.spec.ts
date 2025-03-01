@@ -32,12 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { expect } from "chai";
-import { describe, it } from "mocha";
+import "../test-init.test";
 
 import { isCssOklchColorData } from "@safelytyped/css-color";
-import { InvalidCssOklchColorDataObjects, ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
+import { expect } from "chai";
+import { describe, it } from "mocha";
 import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
+import { InvalidCssOklchColorDataObjects, ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
 
 describe("isCssOklchColorData()", () => {
     ValidCssOklchColorData.forEach((inputValue) => {

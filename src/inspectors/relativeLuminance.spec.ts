@@ -32,10 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
+import "../test-init.test";
+
 import { relativeLuminance } from "@safelytyped/css-color";
-import { BLACK, WHITE } from "../defaults/defaultColors.const";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { BLACK, WHITE } from "../defaults/defaultColors.const";
 
 describe("relativeLuminance()", () => {
     it("returns 0.0 for black", () => {

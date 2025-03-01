@@ -32,6 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
 import { isAppError } from "@safelytyped/core-types";
 import { validateObjectHasStringProperty } from "@safelytyped/css-color";
 import { expect } from "chai";

@@ -32,13 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
 import { expect } from "chai";
 import { describe, it } from "mocha";
 
-import { mustBeCssHslColorData } from "@safelytyped/css-color";
 import { AppError } from "@safelytyped/core-types";
-import { InvalidCssHslColorDataObjects, ValidCssHslColorData } from "./_fixtures/CssHslColorData";
+import { mustBeCssHslColorData } from "@safelytyped/css-color";
 import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
+import { InvalidCssHslColorDataObjects, ValidCssHslColorData } from "./_fixtures/CssHslColorData";
 
 describe("mustBeCssHslColorData()", () => {
     ValidCssHslColorData.forEach((inputValue) => {

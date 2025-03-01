@@ -26,6 +26,7 @@ The following changes have been completed, and will be included in the next tagg
 - `npm run build` now ignores `_fixture` folders
 - `npm run build` now ignores `*.test.ts` files
 - added `test-init.test.ts` global test startup file
+- all existing tests now call the global test startup file
 
 ## v2.0.2
 

@@ -32,10 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { makeCssColor, isDark } from "@safelytyped/css-color";
+import "../test-init.test";
+
+import { isDark, makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
-import { DARK_COLORS, MIDTONE_COLORS, LIGHT_COLORS } from "./_fixtures/colorShades";
+import { describe } from "mocha";
+import { DARK_COLORS, LIGHT_COLORS, MIDTONE_COLORS } from "./_fixtures/colorShades";
 
 describe("isDark()", () => {
     it("returns 'false' from colors that are lighter", () => {
