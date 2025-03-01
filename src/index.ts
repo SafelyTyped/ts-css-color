@@ -120,10 +120,13 @@ export { validateCssHslColorData } from "./CssHslColor/validateCssHslColorData";
 
 export { convertConversionModelToHsvChannelsData } from "./CssHsvColor/convertConversionModelToHsvChannelsData";
 export { convertHsvChannelsDataToConversionModel } from "./CssHsvColor/convertHsvChannelsDataToConversionModel";
+export { CssHsvColor } from "./CssHsvColor/CssHsvColor";
 export type { CssHsvColorChannelsData } from "./CssHsvColor/CssHsvColorChannelsData.type";
+export type { CssHsvColorData } from "./CssHsvColor/CssHsvColorData.type";
 export { isCssHsvColorChannelsData } from "./CssHsvColor/isCssHsvColorChannelsData";
 export { isCssHsvColorData } from "./CssHsvColor/isCssHsvColorData";
 export { makeCssHsvColor } from "./CssHsvColor/makeCssHsvColor";
+export { makeCssHsvColorData } from "./CssHsvColor/makeCssHsvColorData";
 export { mustBeCssHsvColorChannelsData } from "./CssHsvColor/mustBeCssHsvColorChannelsData";
 export { mustBeCssHsvColorData } from "./CssHsvColor/mustBeCssHsvColorData";
 export { validateCssHsvColorChannelsData } from "./CssHsvColor/validateCssHsvColorChannelsData";
