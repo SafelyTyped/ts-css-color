@@ -230,6 +230,141 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#ffffff",
         namedColor: "white",
+    },
+    {
+        name: "blue",
+        definition: "hsv(240, 100%, 100%)",
+        channels: {
+            hue: 240,
+            saturation: 100,
+            value: 100,
+            alpha: 1,
+        },
+        "_type": "@safelytyped/css-color/CssHsvColorData",
+        colorFormat: "hsv",
+        colorSpace: "sRGB",
+        cmykChannels: {
+            cyan: 100,
+            magenta: 100,
+            yellow: 0,
+            key: 0,
+        },
+        hslChannels: {
+            hue: 240,
+            saturation: 100,
+            luminosity: 50,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 240,
+            whiteness: 0,
+            blackness: 0,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 0,
+            green: 0,
+            blue: 255,
+            alpha: 1,
+        },
+        oklchChannels: {
+            lightness: 0.452053,
+            chroma: 0.295603,
+            hue: 264.052809,
+            alpha: 1,
+        },
+        hex: "#0000ff",
+        namedColor: "blue",
+    },
+    {
+        name: "semi-transparent-yellow",
+        definition: "hsv(60, 100%, 100%, 0.5)",
+        channels: {
+            hue: 60,
+            saturation: 100,
+            value: 100,
+            alpha: 0.5,
+        },
+        "_type": "@safelytyped/css-color/CssHsvColorData",
+        colorFormat: "hsv",
+        colorSpace: "sRGB",
+        cmykChannels: {
+            cyan: 0,
+            magenta: 0,
+            yellow: 100,
+            key: 0,
+        },
+        hslChannels: {
+            hue: 60,
+            saturation: 100,
+            luminosity: 50,
+            alpha: 0.5,
+        },
+        hwbChannels: {
+            hue: 60,
+            whiteness: 0,
+            blackness: 0,
+            alpha: 0.5,
+        },
+        rgbChannels: {
+            red: 255,
+            green: 255,
+            blue: 0,
+            alpha: 0.5,
+        },
+        oklchChannels: {
+            lightness: 0.971393,
+            chroma: 0.167745,
+            hue: 109.786179,
+            alpha: 0.5,
+        },
+        hex: "#ffff00",
+        namedColor: "yellow",
+    },
+    {
+        name: "decimal-values",
+        definition: "hsv(123.45, 67.89%, 45.67%, 0.789)",
+        channels: {
+            hue: 123.45,
+            saturation: 67.89,
+            value: 45.67,
+            alpha: 0.789,
+        },
+        "_type": "@safelytyped/css-color/CssHsvColorData",
+        colorFormat: "hsv",
+        colorSpace: "sRGB",
+        cmykChannels: {
+            cyan: 68,
+            magenta: 0,
+            yellow: 48,
+            key: 54,
+        },
+        hslChannels: {
+            hue: 123.45,
+            saturation: 67.89,
+            luminosity: 22.835,
+            alpha: 0.789,
+        },
+        hwbChannels: {
+            hue: 123.45,
+            whiteness: 14.71,
+            blackness: 54.33,
+            alpha: 0.789,
+        },
+        rgbChannels: {
+            red: 70,
+            green: 116,
+            blue: 60,
+            alpha: 0.789,
+        },
+        oklchChannels: {
+            lightness: 0.481,
+            chroma: 0.091,
+            hue: 142.5,
+            alpha: 0.789,
+        },
+        hex: "#46743c",
+        namedColor: null,
     }
 ];
 
@@ -557,6 +692,185 @@ export const InvalidCssHsvColorDataObjects = [
                 alpha: 1,
             }
         }
+    },
+    {
+        description: "hue channel is an empty string",
+        inputValue: {
+            hue: "",
+            saturation: 50,
+            value: 50,
+            alpha: 1,
+        }
+    },
+    {
+        description: "saturation channel is an object",
+        inputValue: {
+            hue: 180,
+            saturation: {},
+            value: 50,
+            alpha: 1,
+        }
+    },
+    {
+        description: "value channel is an array",
+        inputValue: {
+            hue: 180,
+            saturation: 50,
+            value: [],
+            alpha: 1,
+        }
+    },
+    {
+        description: "alpha channel is a function",
+        inputValue: {
+            hue: 180,
+            saturation: 50,
+            value: 50,
+            alpha: function() {},
+        }
+    },
+    {
+        description: "all channels are strings",
+        inputValue: {
+            hue: "180",
+            saturation: "50",
+            value: "75",
+            alpha: "1"
+        }
+    },
+    {
+        description: "all channels have incorrect types",
+        inputValue: {
+            hue: true,
+            saturation: null,
+            value: undefined,
+            alpha: {}
+        }
+    },
+    {
+        description: "wrong _type property",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssRgbColorData", // wrong type
+            colorFormat: "hsv",
+            colorSpace: "sRGB",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "missing _type property",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            colorFormat: "hsv",
+            colorSpace: "sRGB",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "saturation is negative infinity",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssHsvColorData",
+            colorFormat: "hsv",
+            colorSpace: "sRGB",
+            channels: {
+                hue: 0,
+                saturation: -Infinity,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "value is NaN",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssHsvColorData",
+            colorFormat: "hsv",
+            colorSpace: "sRGB",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: NaN,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "name is not a string",
+        inputValue: {
+            name: 123,
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssHsvColorData",
+            colorFormat: "hsv",
+            colorSpace: "sRGB",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "definition is not a string",
+        inputValue: {
+            name: "test",
+            definition: 123,
+            "_type": "@safelytyped/css-color/CssHsvColorData",
+            colorFormat: "hsv",
+            colorSpace: "sRGB",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "colorFormat missing",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssHsvColorData",
+            colorSpace: "sRGB",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "colorSpace missing",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            "_type": "@safelytyped/css-color/CssHsvColorData",
+            colorFormat: "hsv",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
     }
 ];
 
@@ -688,6 +1002,74 @@ export const InvalidMakeCssHsvColorParameters = [
                 saturation: 0,
                 value: 39,
                 alpha: 1.1,
+            }
+        }
+    },
+    {
+        description: "name is not a string",
+        inputValue: {
+            name: 123,
+            definition: "test",
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "definition is not a string",
+        inputValue: {
+            name: "test",
+            definition: 123,
+            channels: {
+                hue: 0,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "channels is null",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: null
+        }
+    },
+    {
+        description: "channels is not an object",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: "invalid"
+        }
+    },
+    {
+        description: "hue channel is NaN",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                hue: NaN,
+                saturation: 0,
+                value: 39,
+                alpha: 1,
+            }
+        }
+    },
+    {
+        description: "channels are non-numeric strings",
+        inputValue: {
+            name: "test",
+            definition: "test",
+            channels: {
+                hue: "abc",
+                saturation: "def",
+                value: "ghi",
+                alpha: "jkl",
             }
         }
     },
