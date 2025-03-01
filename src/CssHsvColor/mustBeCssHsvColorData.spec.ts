@@ -37,7 +37,7 @@ import { describe, it } from "mocha";
 
 import { AppError } from "@safelytyped/core-types";
 import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
-import { InvalidCssHsvColorDataObjects, ValidCssHsvColorData } from "./CssHsvColorData";
+import { InvalidCssHsvColorDataObjects, ValidCssHsvColorData } from "./_fixtures/CssHsvColorData";
 import { mustBeCssHsvColorData } from "./mustBeCssHsvColorData";
 
 describe("mustBeCssHsvColorData()", () => {
