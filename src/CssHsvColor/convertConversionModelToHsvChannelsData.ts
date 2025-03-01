@@ -33,7 +33,7 @@
 //
 
 import { roundTo } from "@safelytyped/math-rounding";
-import { rgb } from "culori";
+import { hsv } from "culori";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import { convertConversionModelToSrgbColorSpace } from "../ConversionModel/convertConversionModelToSrgbColorSpace";
 import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
@@ -52,45 +52,14 @@ export function convertConversionModelToHsvChannelsData(
 ): CssHsvColorChannelsData
 {
     // Convert to RGB first
-    const rgbModel = rgb(
+    const hsvModel = hsv(
         convertConversionModelToSrgbColorSpace(input)
     );
 
-    // Extract RGB components (0-1 scale)
-    const r = rgbModel.r;
-    const g = rgbModel.g;
-    const b = rgbModel.b;
-
-    // Calculate min, max, and delta
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    const delta = max - min;
-
-    // Initialize HSV values
-    let h = 0;
-    let s = max === 0 ? 0 : delta / max;
-    let v = max;
-
-    // Calculate hue
-    if (delta !== 0) {
-        if (max === r) {
-            h = ((g - b) / delta) % 6;
-        } else if (max === g) {
-            h = (b - r) / delta + 2;
-        } else {
-            h = (r - g) / delta + 4;
-        }
-
-        h = h * 60;
-        if (h < 0) {
-            h += 360;
-        }
-    }
-
     return {
-        hue: round(h),
-        saturation: round(s * 100),
-        value: round(v * 100),
+        hue: round(hsvModel.h || 0),
+        saturation: round(hsvModel.s * 100),
+        value: round(hsvModel.v * 100),
         alpha: input.alpha || 1,
     };
 }
