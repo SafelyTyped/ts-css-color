@@ -33,11 +33,11 @@
 //
 
 import { AppError, isAppError } from "@safelytyped/core-types";
+import { validateCssHsvColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
 import { InvalidCssHsvColorDataObjects, ValidCssHsvColorData } from "./_fixtures/CssHsvColorData";
-import { validateCssHsvColorData } from "./validateCssHsvColorData";
 
 describe("validateCssHsvColorData()", () => {
     ValidCssHsvColorData.forEach((inputValue, index) => {
