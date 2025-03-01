@@ -32,12 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
 import { expect } from "chai";
 import { describe, it } from "mocha";
 
 import { isCssHexColorData } from "@safelytyped/css-color";
-import { InvalidCssHexColorDataObjects, ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
 import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
+import { InvalidCssHexColorDataObjects, ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
 
 describe("isCssHexColorData()", () => {
     ValidCssHexColorData.forEach((inputValue) => {

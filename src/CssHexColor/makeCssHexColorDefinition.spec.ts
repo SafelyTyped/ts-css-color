@@ -32,6 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
 import { AppError, type AnySmartConstructor } from "@safelytyped/core-types";
 import { makeCssHexColorDefinition, type CssHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";

@@ -21,6 +21,13 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### Tests
+
+- `npm run build` now ignores `_fixture` folders
+- `npm run build` now ignores `*.test.ts` files
+- added `test-init.test.ts` global test startup file
+- all existing tests now call the global test startup file
+
 ## v2.0.2
 
 Released Tuesday, 25th February 2025.

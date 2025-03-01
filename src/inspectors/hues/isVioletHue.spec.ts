@@ -32,11 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { VIOLET_COLORS, NON_VIOLET_COLORS } from "../_fixtures/colorHues";
-import { isVioletHue } from "@safelytyped/css-color";
-import { makeCssColor } from "@safelytyped/css-color";
+import "../../test-init.test";
+
+import { isVioletHue, makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe, it } from "mocha";
+import { NON_VIOLET_COLORS, VIOLET_COLORS } from "../_fixtures/colorHues";
 
 describe("isVioletHue()", () => {
     VIOLET_COLORS.forEach((inputValue) => {

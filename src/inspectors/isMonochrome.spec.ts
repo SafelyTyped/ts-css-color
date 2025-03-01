@@ -32,9 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
+import "../test-init.test";
+
 import { isMonochrome, makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
 import { MONOCHROME_COLORS, NON_MONOCHROME_COLORS } from "./_fixtures/colorHues";
 
 describe("isMonochrome()", () => {

@@ -32,10 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { EXPECTED_CONTRAST_RATIOS } from "./_fixtures/contrastRatios";
+import "../test-init.test";
+
 import { contrastRatio, makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { EXPECTED_CONTRAST_RATIOS } from "./_fixtures/contrastRatios";
 
 describe("contrastRatio()", () => {
     EXPECTED_CONTRAST_RATIOS.forEach(({a, b, expectedValue }) => {

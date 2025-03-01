@@ -32,11 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
+import { AppError } from "@safelytyped/core-types";
+import { makeCssOklchColorData, type CssOklchColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-
-import { makeCssOklchColorData, type CssOklchColorData } from "@safelytyped/css-color";
-import { AppError } from "@safelytyped/core-types";
 import { InvalidMakeCssOklchColorParameters, ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
 
 describe("makeCssOklchColorData()", () => {

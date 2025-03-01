@@ -32,11 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { WCAG_CONSTRAST_RATINGS } from "./_fixtures/wcagContrastRatings";
+import "../test-init.test";
+
 import { HashMap } from "@safelytyped/core-types";
 import { wcagContrast } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { WCAG_CONSTRAST_RATINGS } from "./_fixtures/wcagContrastRatings";
 
 describe("wcagContrast()", () => {
     HashMap.forEach(WCAG_CONSTRAST_RATINGS, (expectedValue, contrastRatio) => {

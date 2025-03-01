@@ -32,12 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "./CssExtendedColors.const";
+import "../test-init.test";
+
 import { AppError, HashMap } from "@safelytyped/core-types";
 import { mustBeCssExtendedColor } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe, it } from "mocha";
 import { InvalidCssExtendedColors } from "./_fixtures/CssExtendedColorsFixtures";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "./CssExtendedColors.const";
 
 describe("mustBeCssExtendedColor()", () => {
     HashMap.forEach(CSS_EXTENDED_COLORS_TO_HEX, (hex, keyword) => {

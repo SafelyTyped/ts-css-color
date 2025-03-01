@@ -32,10 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import type { InvalidCssColorDataData } from "@safelytyped/css-color";
+import "../../test-init.test";
+
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+import type { InvalidCssColorDataData } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe, it } from "mocha";
 
 describe("InvalidCssColorDataData", () => {
     it("compiles", () => {

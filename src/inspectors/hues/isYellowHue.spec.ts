@@ -32,11 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe, it } from "mocha";
-import { YELLOW_COLORS, NON_YELLOW_COLORS } from "../_fixtures/colorHues";
-import { isYellowHue } from "@safelytyped/css-color";
-import { makeCssColor } from "@safelytyped/css-color";
+import "../../test-init.test";
+
+import { isYellowHue, makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe, it } from "mocha";
+import { NON_YELLOW_COLORS, YELLOW_COLORS } from "../_fixtures/colorHues";
 
 describe("isYellowHue()", () => {
     YELLOW_COLORS.forEach((inputValue) => {

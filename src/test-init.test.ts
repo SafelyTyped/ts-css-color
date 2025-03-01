@@ -32,37 +32,33 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
+import chai from "chai";
 
-import { convertRgbChannelsDataToConversionModel } from "@safelytyped/css-color";
-import { expect } from "chai";
-import { describe } from "mocha";
-import { VALID_RGB_CONVERSIONS_FIXTURES } from "./_fixtures/RgbConversionData";
+import { CSS_HEX_CONVERSIONS } from "./CssHexColor/CSS_HEX_CONVERSIONS";
+import { CSS_HSL_CONVERSIONS } from "./CssHslColor/CSS_HSL_CONVERSIONS";
+import { CSS_HWB_CONVERSIONS } from "./CssHwbColor/CSS_HWB_CONVERSIONS";
+import { CSS_OKLCH_CONVERSIONS } from "./CssOklchColor/CSS_OKLCH_CONVERSIONS";
+import { CSS_RGB_CONVERSIONS } from "./CssRgbColor/CSS_RGB_CONVERSIONS";
 
-describe("convertRgbChannelsDataToConversionModel()", () => {
-    VALID_RGB_CONVERSIONS_FIXTURES.forEach((fixture) => {
-        it("successfully converts for input: " + JSON.stringify(fixture.rgbChannelsData), () => {
-            // ----------------------------------------------------------------
-            // explain your test
+// ================================================================
+//
+// TEST FAILURE REPORTING
+//
+// ----------------------------------------------------------------
 
-            // this test proves that the converter function returns the
-            // expected output for the given input
+// show full-length test failure
+chai.config.truncateThreshold = 0;
 
-            // ----------------------------------------------------------------
-            // setup your test
+// ================================================================
+//
+// CACHE MANAGEMENT
+//
+// ----------------------------------------------------------------
 
-            const inputValue = fixture.rgbChannelsData;
-            const expectedResult = fixture.conversionModel;
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualResult = convertRgbChannelsDataToConversionModel(inputValue);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualResult).to.eql(expectedResult);
-        });
-    });
-});
+// reset all color conversion caches, to avoid failed tests
+// poisoning the cache
+CSS_HEX_CONVERSIONS.reset();
+CSS_HSL_CONVERSIONS.reset();
+CSS_HWB_CONVERSIONS.reset();
+CSS_OKLCH_CONVERSIONS.reset();
+CSS_RGB_CONVERSIONS.reset();

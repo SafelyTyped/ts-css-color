@@ -32,11 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../../test-init.test";
+
+import { isBlackHue, makeCssColor } from "@safelytyped/css-color";
+import { expect } from "chai";
 import { describe, it } from "mocha";
 import { BLACK_COLORS, NON_BLACK_COLORS } from "../_fixtures/colorHues";
-import { isBlackHue } from "@safelytyped/css-color";
-import { makeCssColor } from "@safelytyped/css-color";
-import { expect } from "chai";
 
 describe("isBlackHue()", () => {
     BLACK_COLORS.forEach((inputValue) => {

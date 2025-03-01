@@ -32,6 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import "../test-init.test";
+
 import { AppError, isAppError } from "@safelytyped/core-types";
 import { validateCssCmykColorChannelsData } from "@safelytyped/css-color";
 import { expect } from "chai";
