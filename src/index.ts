@@ -119,6 +119,7 @@ export { validateCssHslColorChannelsData } from "./CssHslColor/validateCssHslCol
 export { validateCssHslColorData } from "./CssHslColor/validateCssHslColorData";
 
 export type { CssHsvColorChannelsData } from "./CssHsvColor/CssHsvColorChannelsData.type";
+export { mustBeCssHsvColorChannelsData } from "./CssHsvColor/mustBeCssHsvColorChannelsData";
 export { validateCssHsvColorChannelsData } from "./CssHsvColor/validateCssHsvColorChannelsData";
 
 export { convertConversionModelToHwbChannelsData } from "./CssHwbColor/convertConversionModelToHwbChannelsData";
