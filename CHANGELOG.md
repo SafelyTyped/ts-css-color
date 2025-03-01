@@ -21,8 +21,6 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
-### New
-
 ### Fix
 
 - `makeCssXxxColorFromCssColor()` and `makeCssXxxColorFromConversionModel()` constructors now do the necessary color-space conversions internally
@@ -33,6 +31,7 @@ The following changes have been completed, and will be included in the next tagg
     - updated `convertConversionModelToHwbChannelsData()`
     - updated `convertConversionModelToOklchChannelsData()`
     - updated `convertConversionModelToRgbChannelsData()`
+  - CssColor conversion methods (`CssColor.hsl()` et al) no longer need to do their own color-space conversion
 
 ### Refactor
 

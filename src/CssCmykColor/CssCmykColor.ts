@@ -39,10 +39,13 @@ import { makeCssColor } from "../CssColor/makeCssColor";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import { CssOklchColor } from "../CssOklchColor/CssOklchColor";
 import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
+import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
@@ -52,8 +55,8 @@ import type { CssCmykColorData } from "./CssCmykColorData.type";
 import { makeCssCmykColorFromCssColor } from "./makeCssCmykColorFromCssColor";
 
 /**
- * CssCmykColor represents a {@link CssColor} that was defined using the
- * CSS CMYKA format.
+ * CssCmykColor represents a {@link CssColor} that was defined in the
+ * CMYK color model format.
  */
 export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
 {
@@ -86,8 +89,7 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        // direct conversion doesn't seem to be reliable
-        return this.rgb().hsl({path, onError}, ...fnOpts);
+        return makeCssHslColorFromCssColor(this, {path, onError}, ...fnOpts);
     }
 
     public hwb(
@@ -98,8 +100,7 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // direct conversion doesn't seem to be reliable
-        return this.rgb().hwb({path, onError}, ...fnOpts);
+        return makeCssHwbColorFromCssColor(this, {path, onError}, ...fnOpts);
     }
 
     public oklch(
@@ -110,8 +111,7 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
         ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
     ): CssOklchColor
     {
-        // direct conversion doesn't seem to be reliable
-        return this.rgb().oklch({path, onError}, ...fnOpts);
+        return makeCssOklchColorFromCssColor(this, { path, onError }, ...fnOpts);
     }
 
     public rgb(
@@ -133,7 +133,9 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
                     path,
                     onError
                 }
-            )
+            ),
+            { path, onError },
+            ...fnOpts
         );
     }
 
