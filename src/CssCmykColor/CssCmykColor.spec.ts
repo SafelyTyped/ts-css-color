@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
-
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
 import { CssCmykColor, makeCssCmykColorData, makeCssRgbColor, type CssCmykColorData, type CssHslColorData, type CssHwbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";

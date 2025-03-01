@@ -25,8 +25,9 @@ The following changes have been completed, and will be included in the next tagg
 
 - `npm run build` now ignores `_fixture` folders
 - `npm run build` now ignores `*.test.ts` files
-- added `test-init.test.ts` global test startup file
-- all existing tests now call the global test startup file
+- added `test-hooks.test.ts` global test startup file
+- tests now show full diffs when `expect()` fails
+- we now clear the internal color conversion caches before each unit test
 
 ## v2.0.2
 

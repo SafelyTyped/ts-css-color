@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
-
 import { AppError } from "@safelytyped/core-types";
 import { validateCssHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";

@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
-
 import { contrastRatio, makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";

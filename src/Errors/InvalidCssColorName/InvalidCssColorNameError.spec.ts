@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../../test-init.test";
-
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 import { expect } from "chai";
 import { describe } from "mocha";

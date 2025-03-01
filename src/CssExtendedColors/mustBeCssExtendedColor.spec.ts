@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
-
 import { AppError, HashMap } from "@safelytyped/core-types";
 import { mustBeCssExtendedColor } from "@safelytyped/css-color";
 import { expect } from "chai";

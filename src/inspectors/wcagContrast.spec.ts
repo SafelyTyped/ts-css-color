@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
-
 import { HashMap } from "@safelytyped/core-types";
 import { wcagContrast } from "@safelytyped/css-color";
 import { expect } from "chai";

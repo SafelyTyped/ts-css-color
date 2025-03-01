@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
-
 import { AppError } from "@safelytyped/core-types";
 import { SUPPORTED_CSS_COLOR_FORMATS, validateCssColorDataHasColorFormat } from "@safelytyped/css-color";
 import { expect } from "chai";

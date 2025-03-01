@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
-
 import { expect } from "chai";
 import { describe } from "mocha";
 import { CssHslColor } from "./CssHslColor";

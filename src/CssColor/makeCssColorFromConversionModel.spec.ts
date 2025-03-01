@@ -32,8 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import "../test-init.test";
-
 import { expect } from "chai";
 import { jab, type Jab } from "culori";
 import { describe } from "mocha";

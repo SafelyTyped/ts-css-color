@@ -40,25 +40,33 @@ import { CSS_HWB_CONVERSIONS } from "./CssHwbColor/CSS_HWB_CONVERSIONS";
 import { CSS_OKLCH_CONVERSIONS } from "./CssOklchColor/CSS_OKLCH_CONVERSIONS";
 import { CSS_RGB_CONVERSIONS } from "./CssRgbColor/CSS_RGB_CONVERSIONS";
 
-// ================================================================
-//
-// TEST FAILURE REPORTING
-//
-// ----------------------------------------------------------------
+export const mochaHooks = {
+    beforeAll(done) {
+        // ================================================================
+        //
+        // TEST FAILURE REPORTING
+        //
+        // ----------------------------------------------------------------
 
-// show full-length test failure
-chai.config.truncateThreshold = 0;
+        // show full-length test failure
+        chai.config.truncateThreshold = 0;
+        done();
+    },
+    beforeEach(done) {
+        // ================================================================
+        //
+        // CACHE MANAGEMENT
+        //
+        // ----------------------------------------------------------------
 
-// ================================================================
-//
-// CACHE MANAGEMENT
-//
-// ----------------------------------------------------------------
+        // reset all color conversion caches, to avoid failed tests
+        // poisoning the cache
+        CSS_HEX_CONVERSIONS.reset();
+        CSS_HSL_CONVERSIONS.reset();
+        CSS_HWB_CONVERSIONS.reset();
+        CSS_OKLCH_CONVERSIONS.reset();
+        CSS_RGB_CONVERSIONS.reset();
 
-// reset all color conversion caches, to avoid failed tests
-// poisoning the cache
-CSS_HEX_CONVERSIONS.reset();
-CSS_HSL_CONVERSIONS.reset();
-CSS_HWB_CONVERSIONS.reset();
-CSS_OKLCH_CONVERSIONS.reset();
-CSS_RGB_CONVERSIONS.reset();
+        done();
+    }
+};
