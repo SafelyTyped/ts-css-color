@@ -123,6 +123,7 @@ export { convertHsvChannelsDataToConversionModel } from "./CssHsvColor/convertHs
 export type { CssHsvColorChannelsData } from "./CssHsvColor/CssHsvColorChannelsData.type";
 export { isCssHsvColorChannelsData } from "./CssHsvColor/isCssHsvColorChannelsData";
 export { isCssHsvColorData } from "./CssHsvColor/isCssHsvColorData";
+export { makeCssHsvColor } from "./CssHsvColor/makeCssHsvColor";
 export { mustBeCssHsvColorChannelsData } from "./CssHsvColor/mustBeCssHsvColorChannelsData";
 export { mustBeCssHsvColorData } from "./CssHsvColor/mustBeCssHsvColorData";
 export { validateCssHsvColorChannelsData } from "./CssHsvColor/validateCssHsvColorChannelsData";

@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { makeCssHsvColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 import { CssHsvColor } from "./CssHsvColor";
-import { makeCssHsvColor } from "./makeCssHsvColor";
 
 const VALID_COLOR_CSS = [
     {
