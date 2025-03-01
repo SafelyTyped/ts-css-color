@@ -53,8 +53,8 @@ import { convertHsvChannelsDataToConversionModel } from "./convertHsvChannelsDat
 import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
 import type { CssHsvColorChannelsTuple } from "./CssHsvColorChannelsTuple.type";
 import type { CssHsvColorData } from "./CssHsvColorData.type";
-import { makeCssHsvColorFromCssColor } from "./makeCssHsvColorFromCssColor";
 import type { Hsv } from "./Hsv.type";
+import { makeCssHsvColorFromCssColor } from "./makeCssHsvColorFromCssColor";
 
 /**
  * CssHsvColor is a {@link CssColor} that was created from a CSS HSV
@@ -255,3 +255,4 @@ export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>
     {
         return this.data.channels.value;
     }
+}
