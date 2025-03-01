@@ -121,6 +121,7 @@ export { validateCssHslColorData } from "./CssHslColor/validateCssHslColorData";
 export type { CssHsvColorChannelsData } from "./CssHsvColor/CssHsvColorChannelsData.type";
 export { isCssHsvColorChannelsData } from "./CssHsvColor/isCssHsvColorChannelsData";
 export { mustBeCssHsvColorChannelsData } from "./CssHsvColor/mustBeCssHsvColorChannelsData";
+export { mustBeCssHsvColorData } from "./CssHsvColor/mustBeCssHsvColorData";
 export { validateCssHsvColorChannelsData } from "./CssHsvColor/validateCssHsvColorChannelsData";
 export { validateCssHsvColorData } from "./CssHsvColor/validateCssHsvColorData";
 
