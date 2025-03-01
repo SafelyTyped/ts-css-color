@@ -55,6 +55,8 @@ const DISPATCH_MAP: DispatchMap<SupportedCssColorFormat, ConversionModelConverte
     // already in the sRGB color space
     "hsl": identity,
     // already in the sRGB color space
+    "hsv": identity,
+    // already in the sRGB color space
     "hwb": identity,
     // already in the sRGB color space
     "keyword": identity,
