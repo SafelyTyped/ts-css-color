@@ -65,6 +65,25 @@ export const ValidCssHsvColorChannelsData: CssHsvColorChannelsData[] = [
         value: 100,
         alpha: 1,
     },
+    {
+        hue: 180,
+        saturation: 50,
+        value: 75,
+        alpha: 1,
+        extraProperty: "should be ignored" // Extra properties shouldn't affect validation
+    },
+    {
+        hue: 180.5,
+        saturation: 50.5,
+        value: 75.5,
+        alpha: 0.5
+    },
+    {
+        hue: 359.999,
+        saturation: 99.999,
+        value: 99.999,
+        alpha: 0.999
+    },
 ];
 
 export const InvalidCssHsvColorChannelsDataObjects = [
@@ -175,6 +194,51 @@ export const InvalidCssHsvColorChannelsDataObjects = [
             value: 50,
             alpha: 1.1,
         },
+    },
+    {
+        description: "hue channel is a string",
+        inputValue: {
+            hue: "0",
+            saturation: 50,
+            value: 75,
+            alpha: 1
+        }
+    },
+    {
+        description: "hue channel is NaN",
+        inputValue: {
+            hue: NaN,
+            saturation: 50,
+            value: 75,
+            alpha: 1
+        }
+    },
+    {
+        description: "saturation channel is NaN",
+        inputValue: {
+            hue: 180,
+            saturation: NaN,
+            value: 75,
+            alpha: 1,
+        }
+    },
+    {
+        description: "value channel is Infinity",
+        inputValue: {
+            hue: 180,
+            saturation: 50,
+            value: Infinity,
+            alpha: 1,
+        }
+    },
+    {
+        description: "alpha channel is Infinity",
+        inputValue: {
+            hue: 180,
+            saturation: 50,
+            value: 75,
+            alpha: Infinity,
+        }
     },
 ];
 
