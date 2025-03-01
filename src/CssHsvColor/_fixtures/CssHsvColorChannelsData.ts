@@ -52,7 +52,19 @@ export const ValidCssHsvColorChannelsData: CssHsvColorChannelsData[] = [
         saturation: 75,
         value: 80,
         alpha: 0.5,
-    }
+    },
+    {
+        hue: 0,
+        saturation: 0,
+        value: 0,
+        alpha: 0
+    },
+    {
+        hue: 360,
+        saturation: 100,
+        value: 100,
+        alpha: 1,
+    },
 ];
 
 export const InvalidCssHsvColorChannelsDataObjects = [
@@ -91,6 +103,78 @@ export const InvalidCssHsvColorChannelsDataObjects = [
             saturation: 0,
             value: 39,
         }
+    },
+    {
+        description: "hue channel too small",
+        inputValue: {
+            hue: -1,
+            saturation: 50,
+            value: 50,
+            alpha: 1,
+        },
+    },
+    {
+        description: "hue channel too large",
+        inputValue: {
+            hue: 361,
+            saturation: 50,
+            value: 50,
+            alpha: 1,
+        },
+    },
+    {
+        description: "saturation channel is too small",
+        inputValue: {
+            hue: 180,
+            saturation: -1,
+            value: 50,
+            alpha: 1,
+        },
+    },
+    {
+        description: "saturation channel is too large",
+        inputValue: {
+            hue: 180,
+            saturation: 101,
+            value: 50,
+            alpha: 1,
+        }
+    },
+    {
+        description: "value channel is too small",
+        inputValue: {
+            hue: 180,
+            saturation: 50,
+            value: -1,
+            alpha: 1,
+        }
+    },
+    {
+        description: "value channel is too large",
+        inputValue: {
+            hue: 180,
+            saturation: 50,
+            value: 101,
+            alpha: 1,
+        }
+    },
+    {
+        description: "alpha channel is too small",
+        inputValue: {
+            hue: 180,
+            saturation: 50,
+            value: 50,
+            alpha: -0.1,
+        },
+    },
+    {
+        description: "alpha channel is too large",
+        inputValue: {
+            hue: 180,
+            saturation: 50,
+            value: 50,
+            alpha: 1.1,
+        },
     },
 ];
 
