@@ -33,35 +33,38 @@
 //
 
 import { roundTo } from "@safelytyped/math-rounding";
-import type { Hsv } from "culori";
-import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
+import { rgb } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
 
 /**
- * convertHsvChannelsDataToConversionModel() is a helper method. It converts
- * an instance of our preferred data format to the HSV model used for
- * color conversion.
+ * convertConversionModelToRgbChannelsData() is a helper method. It converts
+ * an instance of the RGB model used by our chosen third-party color
+ * conversion package to our preferred data format.
  *
  * @param input
  * @returns
  */
-export function convertHsvChannelsDataToConversionModel(
-    input: CssHsvColorChannelsData
-): Hsv
+export function convertConversionModelViaRgbChannelsData(
+    input: ConversionModel,
+): CssRgbColorChannelsData
 {
+    const model = rgb(input);
+
     return {
-        mode: "hsv",
-        h: input.hue,
-        s: round(input.saturation / 100),
-        v: round(input.value / 100),
-        alpha: input.alpha,
+        red: round(model.r * 255),
+        green: round(model.g * 255),
+        blue: round(model.b * 255),
+        alpha: model.alpha ??= 1,
     };
 }
 
-function round(input: number) {
+function round(input: number)
+{
     return Math.abs(
         roundTo(
             Math.round,
-            4,
+            0,
             input,
         )
     );

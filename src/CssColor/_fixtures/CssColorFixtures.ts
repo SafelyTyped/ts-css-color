@@ -397,4 +397,42 @@ export const ValidCssColors: ValidCssColor[] = [
         colorFormat: "rgb",
         colorSpace: "sRGB",
     },
+    {
+        name: "navyblue",
+        definition: "hsv(240, 100%, 50%)",
+        cmykChannels: {
+            cyan: 100,
+            magenta: 100,
+            yellow: 0,
+            key: 50,
+        },
+        hslChannels: {
+            hue: 240,
+            saturation: 100,
+            luminosity: 25,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 240,
+            whiteness: 0,
+            blackness: 50,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 0,
+            green: 0,
+            blue: 128,
+            alpha: 1,
+        },
+        oklchChannels: {
+            lightness: 0.271165,
+            chroma: 0.187899,
+            hue: 264.052021,
+            alpha: 1,
+        },
+        hex: "#000080",
+        namedColor: "navy",
+        colorFormat: "hsv",
+        colorSpace: "sRGB",
+    },
 ];
