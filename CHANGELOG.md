@@ -21,6 +21,10 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+## v2.1.0
+
+Released Sunday, 2nd March 2025.
+
 ### New
 
 - added HSV color format
