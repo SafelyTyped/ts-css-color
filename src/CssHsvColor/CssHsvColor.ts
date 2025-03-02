@@ -196,14 +196,12 @@ export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>
     /**
      * css() returns the color's current data as a valid CSS definition
      *
-     * HSV is not directly supported in CSS, so we return a custom
-     * format: `hsv(h s% v% / alpha)` similar to other CSS color formats.
+     * HSV is not directly supported in CSS, so we return the equivalent
+     * HSL definition.
      */
     public css(): string
     {
-        const channels = this.data.channels;
-        const alpha = channels.alpha < 1 ? ` / ${channels.alpha}` : "";
-        return `hsv(${channels.hue} ${channels.saturation}% ${channels.value}%${alpha})`;
+        return this.hsl().css();
     }
 
     // ================================================================

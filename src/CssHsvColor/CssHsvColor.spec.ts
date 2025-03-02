@@ -1281,12 +1281,16 @@ describe('CssHsvColor', () => {
 
     describe(".css()", () => {
         ValidCssHsvColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the CSS definition as a hsv() spec", () => {
+            it("[fixture " + validFixture.name + "] returns the CSS definition as a hsl() spec", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
                 // this test proves that the .css() method returns CSS that
-                // uses the `hsv()` format
+                // uses the `hsl()` format
+                //
+                // no, that isn't a typo. HSV/HSB isn't supported by CSS,
+                // so if we want a valid CSS string, we need to output it
+                // as something else instead
 
                 // ----------------------------------------------------------------
                 // setup your test
@@ -1298,12 +1302,7 @@ describe('CssHsvColor', () => {
                 );
                 const unit = new CssHsvColor(inputValue);
 
-                const expectedResult = "hsv("
-                    + validFixture.channels.hue + " "
-                    + validFixture.channels.saturation + "% "
-                    + validFixture.channels.value + "%"
-                    + (validFixture.channels.alpha < 1 ? " / " + validFixture.channels.alpha : "")
-                    + ")";
+                const expectedResult = validFixture.cssOutput;
 
                 // ----------------------------------------------------------------
                 // perform the change

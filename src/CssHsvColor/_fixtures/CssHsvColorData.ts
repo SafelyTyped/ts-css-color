@@ -48,6 +48,7 @@ type ValidCssHsvColor = CssHsvColorData & {
     oklchChannels: CssOklchColorChannelsData;
     hex: string;
     namedColor: Maybe<string>;
+    cssOutput: string;
 }
 
 export const ValidCssHsvColorData: ValidCssHsvColor[] = [
@@ -95,6 +96,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#ff0000",
         namedColor: "red",
+        cssOutput: "hsl(0 100% 50%)",
     },
     {
         name: "green",
@@ -140,6 +142,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#00ff00",
         namedColor: "lime",
+        cssOutput: "hsl(120 100% 50%)",
     },
     {
         name: "edge-case-minimum",
@@ -185,6 +188,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#000000",
         namedColor: "black",
+        cssOutput: "hsl(0 0% 0% / 0)",
     },
     {
         name: "edge-case-maximum",
@@ -230,6 +234,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#ff0000",
         namedColor: "red",
+        cssOutput: "hsl(0 100% 50%)",
     },
     {
         name: "blue",
@@ -275,6 +280,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#0000ff",
         namedColor: "blue",
+        cssOutput: "hsl(240 100% 50%)",
     },
     {
         name: "navyblue",
@@ -320,6 +326,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#000080",
         namedColor: "navy",
+        cssOutput: "hsl(240 100% 25%)",
     },
     {
         name: "semi-transparent-yellow",
@@ -365,6 +372,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#ffff00",
         namedColor: "yellow",
+        cssOutput: "hsl(60 100% 50% / 0.5)",
     },
     {
         name: "decimal-values",
@@ -410,6 +418,7 @@ export const ValidCssHsvColorData: ValidCssHsvColor[] = [
         },
         hex: "#25742a",
         namedColor: undefined,
+        cssOutput: "hsl(124 52% 30% / 0.789)",
     }
 ];
 
