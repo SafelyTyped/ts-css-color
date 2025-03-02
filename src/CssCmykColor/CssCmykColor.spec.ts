@@ -33,7 +33,7 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssCmykColor, makeCssCmykColorData, makeCssRgbColor, type CssCmykColorData, type CssHsvColorData, type CssHwbColorData } from "@safelytyped/css-color";
+import { CssCmykColor, makeCssCmykColorData, makeCssRgbColor, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
@@ -312,6 +312,47 @@ describe('CssCmykColor', () => {
             // test the results
 
             expect(CSS_HSL_CONVERSIONS.has(actualValue)).to.be.true;
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .hsl() method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssCmykColorData(
+                "red",
+                "#ff0000",
+                {
+                    cyan: 100,
+                    magenta: 0,
+                    yellow: 0,
+                    key: 1,
+                }
+            );
+            const unit = new CssCmykColor(inputValue);
+
+            const f1 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsl({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('red');
+            expect(unit.definition()).eqls('#ff0000');
         });
     });
 
