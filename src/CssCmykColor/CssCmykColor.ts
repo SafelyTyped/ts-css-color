@@ -40,6 +40,9 @@ import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
+import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
+import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
@@ -90,6 +93,21 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
     ): CssHslColor
     {
         return makeCssHslColorFromCssColor(this, {path, onError}, ...fnOpts);
+    }
+
+    public hsv(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
+    ): CssHsvColor
+    {
+        return makeCssHsvColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     public hwb(

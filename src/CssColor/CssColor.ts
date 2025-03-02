@@ -43,6 +43,8 @@ import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColo
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
+import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
@@ -109,6 +111,11 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
         opt?: TypeGuaranteeOptions,
         ...fnOpts: FunctionalOption<CssHslColorData, TypeGuaranteeOptions>[]
     ): CssHslColor;
+
+    public abstract hsv(
+        opt?: TypeGuaranteeOptions,
+        ...fnOpts: FunctionalOption<CssHsvColorData, TypeGuaranteeOptions>[]
+    ): CssHsvColor;
 
     /**
      * hwb() converts this color to the CSS hwb() format

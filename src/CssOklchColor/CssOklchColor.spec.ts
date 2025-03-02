@@ -33,7 +33,7 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssOklchColor, makeCssOklchColorData, type CssCmykColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { CssOklchColor, makeCssOklchColorData, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
@@ -406,6 +406,139 @@ describe('CssOklchColor', () => {
             // perform the change
 
             const actualValue = unit.hsl({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('red');
+            expect(unit.definition()).eqls('#ff0000');
+        });
+    });
+
+    describe(".hsv()", () => {
+        ValidCssOklchColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to HSV format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method returns the HSV equivalent
+                // of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssOklchColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssOklchColor(inputValue);
+
+                const expectedChannels = validFixture.hsvChannels;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+                const actualChannels = actualResult.channelsData();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualChannels).to.eqls(expectedChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssOklchColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssOklchColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method preserves the original
+                // color definition, and does not replace it with the HSV
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssOklchColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssOklchColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .hsv() method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssOklchColorData(
+                "red",
+                "#ff0000",
+                {
+                    lightness: 0.628,
+                    chroma: 0.2577,
+                    hue: 29.23,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssOklchColor(inputValue);
+
+            const f1 = (x: CssHsvColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssHsvColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsv({}, f1, f2);
 
             // ----------------------------------------------------------------
             // test the results

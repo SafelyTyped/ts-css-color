@@ -33,11 +33,12 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssHwbColor, makeCssHwbColorData, type CssCmykColorData, type CssHslColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { CssHwbColor, makeCssHwbColorData, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { CSS_CMYK_CONVERSIONS } from "../CssCmykColor/CSS_CMYK_CONVERSIONS";
 import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
+import { CSS_HSV_CONVERSIONS } from "../CssHsvColor/CSS_HSV_CONVERSIONS";
 import { CSS_OKLCH_CONVERSIONS } from "../CssOklchColor/CSS_OKLCH_CONVERSIONS";
 import { CSS_RGB_CONVERSIONS } from "../CssRgbColor/CSS_RGB_CONVERSIONS";
 import { ValidCssHwbColorData } from "./_fixtures/CssHwbColorData";
@@ -511,6 +512,173 @@ describe('CssHwbColor', () => {
             // perform the change
 
             const actualValue = unit.hsl({}, f1, f2);
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualValue.name()).eqls('f1');
+            expect(actualValue.definition()).eqls('f2');
+
+            // make sure the original color object has not been altered
+            expect(unit.name()).eqls('original');
+            expect(unit.definition()).eqls('hwb(255, 0%, 0%)');
+        });
+
+    });
+
+    describe(".hsv()", () => {
+        ValidCssHwbColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to HSV format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method returns the HSV equivalent
+                // of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.hsvChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method preserves the original
+                // color definition, and does not replace it with the HSV
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+
+        it("caches static conversions", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .hsv() method will cache static
+            // conversions
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHwbColorData(
+                "original",
+                "hwb(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    whiteness: 0,
+                    blackness: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHwbColor(inputValue);
+
+            // make sure that the cache is empty
+            CSS_HSV_CONVERSIONS.reset();
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsv();
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(CSS_HSV_CONVERSIONS.has(actualValue)).to.be.true;
+        });
+
+        it("supports functional operators", () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the .hsv() method will run any functional
+            // operators that are passed into it
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            const inputValue = makeCssHwbColorData(
+                "original",
+                "hwb(255, 0%, 0%)",
+                {
+                    hue: 255,
+                    whiteness: 0,
+                    blackness: 0,
+                    alpha: 1,
+                }
+            );
+            const unit = new CssHwbColor(inputValue);
+
+            const f1 = (x: CssHsvColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
+            const f2 = (x: CssHsvColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualValue = unit.hsv({}, f1, f2);
 
             // ----------------------------------------------------------------
             // test the results
