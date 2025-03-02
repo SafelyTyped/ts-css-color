@@ -35,8 +35,8 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
 
-import { mustBeCssHslColorChannelsData } from "@safelytyped/css-color";
 import { AppError } from "@safelytyped/core-types";
+import { mustBeCssHslColorChannelsData } from "@safelytyped/css-color";
 import { InvalidCssHslColorChannelsDataInputs, InvalidCssHslColorChannelsDataObjects, ValidCssHslColorChannelsData } from "./_fixtures/CssHslColorChannelsData";
 
 describe("mustBeCssHslColorChannelsData()", () => {

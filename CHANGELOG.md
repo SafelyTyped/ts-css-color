@@ -21,6 +21,43 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+## v2.1.0
+
+Released Sunday, 2nd March 2025.
+
+### New
+
+- added HSV color format
+
+### Fix
+
+- color conversions from colors with alpha channel of `0` no longer end up with an alpha channel of `1`
+- `makeCssXxxColorFromCssColor()` and `makeCssXxxColorFromConversionModel()` constructors now do the necessary color-space conversions internally
+  - added `convertConversionModelToOklchColorSpace()` helper
+  - added `convertConversionModelToSrgbColorSpace()` helper
+  - added color-space conversion support
+    - updated `convertConversionModelToHslChannelsData()`
+    - updated `convertConversionModelToHwbChannelsData()`
+    - updated `convertConversionModelToOklchChannelsData()`
+    - updated `convertConversionModelToRgbChannelsData()`
+  - CssColor conversion methods (`CssColor.hsl()` et al) no longer need to do their own color-space conversion
+
+### Refactor
+
+- Improve type strictness internally
+  - `ConversionModel` replaces the wider `Color` type
+  - added `validateConversionModel()` data validator
+  - added `mustBeConversionModel()` data guarantee
+  - added `isConversionModel()` data guard
+
+### Tests
+
+- `npm run build` now ignores `_fixture` folders
+- `npm run build` now ignores `*.test.ts` files
+- added `test-hooks.test.ts` global test startup file
+- tests now show full diffs when `expect()` fails
+- we now clear the internal color conversion caches before each unit test
+
 ## v2.0.2
 
 Released Tuesday, 25th February 2025.

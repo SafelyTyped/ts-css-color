@@ -32,11 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { AppError } from "@safelytyped/core-types";
+import { makeCssRgbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-
-import { makeCssRgbColorData, type CssRgbColorData } from "@safelytyped/css-color";
-import { AppError } from "@safelytyped/core-types";
 import { InvalidMakeCssRgbColorParameters, ValidCssRgbColorData } from "./_fixtures/CssRgbColorData";
 
 describe("makeCssRgbColorData()", () => {

@@ -36,8 +36,8 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 
 import { isCssHslColorData } from "@safelytyped/css-color";
-import { InvalidCssHslColorDataObjects, ValidCssHslColorData } from "./_fixtures/CssHslColorData";
 import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
+import { InvalidCssHslColorDataObjects, ValidCssHslColorData } from "./_fixtures/CssHslColorData";
 
 describe("isCssHslColorData()", () => {
     ValidCssHslColorData.forEach((inputValue) => {

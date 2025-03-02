@@ -36,12 +36,18 @@ import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type Fun
 import type { Oklch } from "culori";
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
 import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
+import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
+import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
+import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
 import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
+import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
@@ -65,7 +71,7 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
         ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
     ): CssCmykColor
     {
-        return this.rgb().cmyk({path, onError}, ...fnOpts);
+        return makeCssCmykColorFromCssColor(this, { path, onError }, ...fnOpts);
     }
 
     public hsl(
@@ -76,9 +82,22 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
         ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
     ): CssHslColor
     {
-        // because we are converting between color spaces,
-        // best we go via rgb() first
-        return this.rgb().hsl({ path, onError}, ...fnOpts);
+        return makeCssHslColorFromCssColor(this, { path, onError }, ...fnOpts);
+    }
+
+    public hsv(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
+    ): CssHsvColor
+    {
+        return makeCssHsvColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     public hwb(
@@ -89,9 +108,7 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
         ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
     ): CssHwbColor
     {
-        // because we are converting between color spaces,
-        // best we go via rgb() first
-        return this.rgb().hwb({ path, onError}, ...fnOpts);
+        return makeCssHwbColorFromCssColor(this, { path, onError }, ...fnOpts);
     }
 
     public oklch(

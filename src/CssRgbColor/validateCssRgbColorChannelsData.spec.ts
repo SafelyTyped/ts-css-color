@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { validateCssRgbColorChannelsData } from "@safelytyped/css-color";
 import { AppError, isAppError } from "@safelytyped/core-types";
+import { validateCssRgbColorChannelsData } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
 import { InvalidCssRgbColorChannelsDataInputs, InvalidCssRgbColorChannelsDataObjects, ValidCssRgbColorChannelsData } from "./_fixtures/CssRgbColorChannelsData";
 
 describe("validateCssRgbColorChannelsData()", () => {

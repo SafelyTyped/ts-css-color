@@ -32,11 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 import { expect } from "chai";
 import { describe } from "mocha";
-
 import { InvalidCssColorNameError } from "./InvalidCssColorNameError";
-import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 
 describe("InvalidCssColorNameError", () => {
     describe(".constructor", () => {

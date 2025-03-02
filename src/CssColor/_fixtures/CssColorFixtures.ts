@@ -36,6 +36,7 @@ import type { Maybe } from "@safelytyped/core-types";
 import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
 import type { SupportedCssColorSpace } from "../../CssColorspace/SupportedCssColorSpace.type";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
+import type { CssHsvColorChannelsData } from "../../CssHsvColor/CssHsvColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
 import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
 import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
@@ -46,6 +47,7 @@ export type ValidCssColor = {
     definition: string;
     cmykChannels: CssCmykColorChannelsData;
     hslChannels: CssHslColorChannelsData;
+    hsvChannels: CssHsvColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
     rgbChannels: CssRgbColorChannelsData;
     oklchChannels: CssOklchColorChannelsData;
@@ -68,6 +70,12 @@ export const ValidCssColors: ValidCssColor[] = [
             hue: 0,
             saturation: 0,
             luminosity: 39,
+            alpha: 1,
+        },
+        hsvChannels: {
+            hue: 0,
+            saturation: 0,
+            value: 39,
             alpha: 1,
         },
         hwbChannels: {
@@ -108,6 +116,12 @@ export const ValidCssColors: ValidCssColor[] = [
             luminosity: 25,
             alpha: 1,
         },
+        hsvChannels: {
+            hue: 150,
+            saturation: 100,
+            value: 50,
+            alpha: 1,
+        },
         hwbChannels: {
             hue: 150,
             whiteness: 0,
@@ -144,6 +158,12 @@ export const ValidCssColors: ValidCssColor[] = [
             hue: 0,
             saturation: 100,
             luminosity: 50,
+            alpha: 1,
+        },
+        hsvChannels: {
+            hue: 0,
+            saturation: 100,
+            value: 100,
             alpha: 1,
         },
         hwbChannels: {
@@ -184,6 +204,12 @@ export const ValidCssColors: ValidCssColor[] = [
             luminosity: 0,
             alpha: 1,
         },
+        hsvChannels: {
+            hue: 0,
+            saturation: 0,
+            value: 0,
+            alpha: 1,
+        },
         hwbChannels: {
             hue: 0,
             whiteness: 0,
@@ -220,6 +246,12 @@ export const ValidCssColors: ValidCssColor[] = [
             hue: 0,
             saturation: 0,
             luminosity: 0,
+            alpha: 1,
+        },
+        hsvChannels: {
+            hue: 0,
+            saturation: 0,
+            value: 0,
             alpha: 1,
         },
         hwbChannels: {
@@ -260,6 +292,12 @@ export const ValidCssColors: ValidCssColor[] = [
             luminosity: 100,
             alpha: 1,
         },
+        hsvChannels: {
+            hue: 0,
+            saturation: 0,
+            value: 100,
+            alpha: 1,
+        },
         hwbChannels: {
             hue: 0,
             whiteness: 100,
@@ -296,6 +334,12 @@ export const ValidCssColors: ValidCssColor[] = [
             hue: 0,
             saturation: 0,
             luminosity: 100,
+            alpha: 1,
+        },
+        hsvChannels: {
+            hue: 0,
+            saturation: 0,
+            value: 100,
             alpha: 1,
         },
         hwbChannels: {
@@ -336,6 +380,12 @@ export const ValidCssColors: ValidCssColor[] = [
             luminosity: 64,
             alpha: 1,
         },
+        hsvChannels: {
+            hue: 196,
+            saturation: 72,
+            value: 100,
+            alpha: 1,
+        },
         hwbChannels: {
             hue: 196,
             whiteness: 28,
@@ -368,16 +418,22 @@ export const ValidCssColors: ValidCssColor[] = [
             yellow: 13,
             key: 12,
         },
-        hwbChannels: {
-            hue: 100,
-            whiteness: 76,
-            blackness: 12,
-            alpha: 1,
-        },
         hslChannels: {
             hue: 100,
             saturation: 33,
             luminosity: 82,
+            alpha: 1,
+        },
+        hsvChannels: {
+            hue: 100,
+            saturation: 14,
+            value: 88,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 100,
+            whiteness: 76,
+            blackness: 12,
             alpha: 1,
         },
         oklchChannels: {
@@ -395,6 +451,50 @@ export const ValidCssColors: ValidCssColor[] = [
         hex: "#cce0c2",
         namedColor: undefined,
         colorFormat: "rgb",
+        colorSpace: "sRGB",
+    },
+    {
+        name: "navyblue",
+        definition: "hsv(240, 100%, 50%)",
+        cmykChannels: {
+            cyan: 100,
+            magenta: 100,
+            yellow: 0,
+            key: 50,
+        },
+        hslChannels: {
+            hue: 240,
+            saturation: 100,
+            luminosity: 25,
+            alpha: 1,
+        },
+        hsvChannels: {
+            hue: 240,
+            saturation: 100,
+            value: 50,
+            alpha: 1,
+        },
+        hwbChannels: {
+            hue: 240,
+            whiteness: 0,
+            blackness: 50,
+            alpha: 1,
+        },
+        rgbChannels: {
+            red: 0,
+            green: 0,
+            blue: 128,
+            alpha: 1,
+        },
+        oklchChannels: {
+            lightness: 0.271165,
+            chroma: 0.187899,
+            hue: 264.052021,
+            alpha: 1,
+        },
+        hex: "#000080",
+        namedColor: "navy",
+        colorFormat: "hsv",
         colorSpace: "sRGB",
     },
 ];

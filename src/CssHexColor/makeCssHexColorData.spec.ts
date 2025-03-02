@@ -34,13 +34,10 @@
 
 import { AppError } from "@safelytyped/core-types";
 import { convertConversionModelToRgbChannelsData, convertHexColorDefinitionToConversionModel, makeCssHexColorData, makeCssHexColorDefinition, type CssHexColorData } from "@safelytyped/css-color";
-import chai, { expect } from "chai";
+import { expect } from "chai";
 import { describe } from "mocha";
 import { InvalidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
 import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
-
-// show full-length test failure
-chai.config.truncateThreshold = 0;
 
 describe("makeCssHexColorData()", () => {
     it("casts the return value to CssHexColorData", () => {

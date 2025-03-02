@@ -32,12 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Color } from "culori";
+import type { ConversionModel } from "../../ConversionModel/ConversionModel.type";
 import type { CssCmykColorChannelsData } from "../CssCmykColorChannelsData.type";
 
 export type CmykConversionData = {
     cmykChannelsData: CssCmykColorChannelsData;
-    conversionModel: Color;
+    conversionModel: ConversionModel;
 }
 
 export const VALID_CMYK_CONVERSIONS_FIXTURES: CmykConversionData[] = [

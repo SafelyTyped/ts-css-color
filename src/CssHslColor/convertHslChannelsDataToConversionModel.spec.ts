@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { VALID_HSL_CONVERSIONS_FIXTURES } from "./_fixtures/HslConversionData";
 import { convertHslChannelsDataToConversionModel } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { VALID_HSL_CONVERSIONS_FIXTURES } from "./_fixtures/HslConversionData";
 
 describe("convertHslChannelsDataToConversionModel()", () => {
     VALID_HSL_CONVERSIONS_FIXTURES.forEach((fixture) => {

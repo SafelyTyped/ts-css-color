@@ -32,9 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { type Color, hsl } from "culori";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
 import { roundTo } from "@safelytyped/math-rounding";
+import { hsl } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { convertConversionModelToSrgbColorSpace } from "../ConversionModel/convertConversionModelToSrgbColorSpace";
+import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
 
 /**
  * convertConversionModelToHslChannelsData() is a helper method. It converts
@@ -45,16 +47,18 @@ import { roundTo } from "@safelytyped/math-rounding";
  * @returns
  */
 export function convertConversionModelToHslChannelsData(
-    input: Color
+    input: ConversionModel
 ): CssHslColorChannelsData
 {
-    const model = hsl(input);
+    const model = hsl(
+        convertConversionModelToSrgbColorSpace(input)
+    );
 
     return {
-        hue: round(model.h || 0),
+        hue: round(model.h ??= 0),
         saturation: round(model.s * 100),
         luminosity: round(model.l * 100),
-        alpha: model.alpha || 1,
+        alpha: model.alpha ??= 1,
     };
 }
 

@@ -35,6 +35,7 @@
 import { parse } from "culori";
 
 import { applyFunctionalOptions, DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type DataPath, type FunctionalOption, type OnError } from "@safelytyped/core-types";
+import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
 import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
 import { CssHexColor } from "../CssHexColor/CssHexColor";
 import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
@@ -120,7 +121,7 @@ export function makeCssColor(
         retval = makeCssColorFromConversionModel(
             colorName,
             cssDefinition,
-            model,
+            mustBeConversionModel(model),
             opts,
         );
     }

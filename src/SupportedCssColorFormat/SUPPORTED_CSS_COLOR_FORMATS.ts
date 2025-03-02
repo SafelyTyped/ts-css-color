@@ -42,6 +42,7 @@ export const SUPPORTED_CSS_COLOR_FORMATS = [
     "cmyk",
     "hex",
     "hsl",
+    "hsv",
     "hwb",
     "keyword",
     "oklch",

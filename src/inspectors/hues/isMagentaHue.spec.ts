@@ -32,11 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { isMagentaHue, makeCssColor } from "@safelytyped/css-color";
+import { expect } from "chai";
 import { describe, it } from "mocha";
 import { MAGENTA_COLORS, NON_MAGENTA_COLORS } from "../_fixtures/colorHues";
-import { isMagentaHue } from "@safelytyped/css-color";
-import { makeCssColor } from "@safelytyped/css-color";
-import { expect } from "chai";
 
 describe("isMagentaHue()", () => {
     MAGENTA_COLORS.forEach((inputValue) => {

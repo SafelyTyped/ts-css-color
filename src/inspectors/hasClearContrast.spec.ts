@@ -32,11 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { hasClearContrast, makeCssColor } from "@safelytyped/css-color";
+import { expect } from "chai";
 import { describe } from "mocha";
 import { CONTRASTING_COLORS, NON_CONTRASTING_COLORS } from "./_fixtures/contrastingColors";
-import { makeCssColor } from "@safelytyped/css-color";
-import { hasClearContrast } from "@safelytyped/css-color";
-import { expect } from "chai";
 
 describe("hasClearContrast()", () => {
     CONTRASTING_COLORS.forEach(({ a, b }) => {

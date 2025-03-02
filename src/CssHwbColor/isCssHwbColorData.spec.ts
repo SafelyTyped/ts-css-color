@@ -36,8 +36,8 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 
 import { isCssHwbColorData } from "@safelytyped/css-color";
-import { InvalidCssHwbColorDataObjects, ValidCssHwbColorData } from "./_fixtures/CssHwbColorData";
 import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFixtures";
+import { InvalidCssHwbColorDataObjects, ValidCssHwbColorData } from "./_fixtures/CssHwbColorData";
 
 describe("isCssHwbColorData()", () => {
     ValidCssHwbColorData.forEach((inputValue) => {

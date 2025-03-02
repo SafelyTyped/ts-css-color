@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { isCssKeywordColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { InvalidCssKeywordColorDataInput, InvalidCssKeywordColorDataObjects, ValidCssKeywordColorData } from "./_fixtures/CssKeywordColorDataFixtures";
-import { isCssKeywordColorData } from "@safelytyped/css-color";
 
 describe("isCssKeywordColorData()", () => {
     ValidCssKeywordColorData.forEach((inputValue) => {

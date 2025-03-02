@@ -37,10 +37,14 @@ import type { Rgb } from "culori";
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
 import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
+import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
 import { CssColor } from "../CssColor/CssColor";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
+import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
+import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
+import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
@@ -75,7 +79,11 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
         ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
     ): CssCmykColor
     {
-        return this.rgb().cmyk({path, onError}, ...fnOpts);
+        return makeCssCmykColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
     }
 
     public hsl(
@@ -87,6 +95,21 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
     ): CssHslColor
     {
         return makeCssHslColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
+
+    public hsv(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
+    ): CssHsvColor
+    {
+        return makeCssHsvColorFromCssColor(
             this,
             { path, onError },
             ...fnOpts

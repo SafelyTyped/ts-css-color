@@ -335,6 +335,93 @@ describe('CssKeywordColor', () => {
         });
     });
 
+    describe(".hsv()", () => {
+        ValidCssKeywordColorData.forEach((validFixture) => {
+            it("[fixture " + validFixture.name + "] converts the original color to HSV format", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method returns the HSV equivalent
+                // of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.hsvChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method preserves the
+                // original name of the test color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+                expect(unit.name()).to.eql(validFixture.name);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.name()).to.eql(validFixture.name);
+            });
+
+            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method preserves the original
+                // color definition, and does not replace it with the HSV
+                // definition
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssKeywordColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                );
+                const unit = new CssKeywordColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.definition()).to.eql(validFixture.definition);
+            });
+        });
+    });
+
     describe(".hwb()", () => {
         ValidCssKeywordColorData.forEach((validFixture) => {
             it("[fixture " + validFixture.name + "] converts the original color to HWB format", () => {

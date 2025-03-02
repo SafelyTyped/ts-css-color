@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { VALID_HWB_CONVERSIONS_FIXTURES } from "./_fixtures/HwbConversionData";
 import { convertConversionModelToHwbChannelsData } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { VALID_HWB_CONVERSIONS_FIXTURES } from "./_fixtures/HwbConversionData";
 
 describe("convertConversionModelToHwbChannelsData()", () => {
     VALID_HWB_CONVERSIONS_FIXTURES.forEach((fixture) => {

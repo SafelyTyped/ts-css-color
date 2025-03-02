@@ -32,11 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { isBlueHue, makeCssColor } from "@safelytyped/css-color";
+import { expect } from "chai";
 import { describe, it } from "mocha";
 import { BLUE_COLORS, NON_BLUE_COLORS } from "../_fixtures/colorHues";
-import { isBlueHue } from "@safelytyped/css-color";
-import { makeCssColor } from "@safelytyped/css-color";
-import { expect } from "chai";
 
 describe("isBlueHue()", () => {
     BLUE_COLORS.forEach((inputValue) => {

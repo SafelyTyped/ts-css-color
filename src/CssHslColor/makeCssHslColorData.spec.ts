@@ -35,8 +35,8 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
 
-import { makeCssHslColorData, type CssHslColorData } from "@safelytyped/css-color";
 import { AppError } from "@safelytyped/core-types";
+import { makeCssHslColorData, type CssHslColorData } from "@safelytyped/css-color";
 import { InvalidMakeCssHslColorParameters, ValidCssHslColorData } from "./_fixtures/CssHslColorData";
 
 describe("makeCssHslColorData()", () => {

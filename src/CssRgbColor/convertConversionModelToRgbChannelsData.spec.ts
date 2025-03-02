@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { VALID_RGB_CONVERSIONS_FIXTURES } from "./_fixtures/RgbConversionData";
 import { convertConversionModelToRgbChannelsData } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { VALID_RGB_CONVERSIONS_FIXTURES } from "./_fixtures/RgbConversionData";
 
 describe("convertConversionModelToRgbChannelsData()", () => {
     VALID_RGB_CONVERSIONS_FIXTURES.forEach((fixture) => {

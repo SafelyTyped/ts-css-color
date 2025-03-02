@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
 import { darkModeContrastRatio } from "@safelytyped/css-color";
-import { BLACK, WHITE } from "../defaults/defaultColors.const";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { BLACK, WHITE } from "../defaults/defaultColors.const";
 
 describe("darkModeContrastRatio()", () => {
     it("returns 1.0 for black", () => {

@@ -32,10 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Color } from "culori";
 
 import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuaranteeOptions, type DispatchMap } from "@safelytyped/core-types";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
 import { makeCssHslColorFromConversionModel } from "../CssHslColor/makeCssHslColorFromConversionModel";
+import { makeCssHsvColorFromConversionModel } from "../CssHsvColor/makeCssHsvColorFromConversionModel";
 import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
 import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
 import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
@@ -48,6 +50,7 @@ type UnsupportedCssColorFormats = "cmyk" | "hex" | "keyword";
 
 const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssColorFormats>, CssColorFromConversionModelSmartConstructor> = {
     "hsl": makeCssHslColorFromConversionModel,
+    "hsv": makeCssHsvColorFromConversionModel,
     "hwb": makeCssHwbColorFromConversionModel,
     "oklch": makeCssOklchColorFromConversionModel,
     "rgb": makeCssRgbColorFromConversionModel,
@@ -74,7 +77,7 @@ const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssC
 export function makeCssColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
-    model: Color,
+    model: ConversionModel,
     {
         onError = THROW_THE_ERROR,
         path = DEFAULT_DATA_PATH
@@ -85,6 +88,10 @@ export function makeCssColorFromConversionModel(
     const opts = { onError, path };
 
     // if we're given a model that we do not support
+    //
+    // this code can only be reached if `mustBeConversionModel()`
+    // contains a bug
+    /* c8 ignore start */
     const fallback = () => {
         const err = new UnsupportedCssColorDefinitionError({
             public: {
@@ -94,10 +101,14 @@ export function makeCssColorFromConversionModel(
         });
         return onError(err);
     };
+    /* c8 ignore stop */
+
+    // robustness!
+    const vettedModel = mustBeConversionModel(model);
 
     // find out which function to call for the given model
-    const colorMaker = searchDispatchMap(DISPATCH_MAP, [model.mode], fallback);
+    const colorMaker = searchDispatchMap(DISPATCH_MAP, [vettedModel.mode], fallback);
 
     // call it
-    return colorMaker(colorName, cssDefinition, model, opts);
+    return colorMaker(colorName, cssDefinition, vettedModel, opts);
 }

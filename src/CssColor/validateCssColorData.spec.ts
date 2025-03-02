@@ -35,8 +35,8 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
 
-import { validateCssColorData } from "@safelytyped/css-color";
 import { AppError } from "@safelytyped/core-types";
+import { validateCssColorData } from "@safelytyped/css-color";
 import { InvalidCssColorDataInputs, InvalidCssColorDataObjects, ValidCssColorData } from "./_fixtures/CssColorDataFixtures";
 
 describe("validateCssColorData()", () => {

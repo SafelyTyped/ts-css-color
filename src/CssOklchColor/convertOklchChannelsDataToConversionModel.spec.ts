@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { describe } from "mocha";
-import { VALID_OKLCH_CONVERSIONS_FIXTURES } from "./_fixtures/OklchConversionData";
 import { convertOklchChannelsDataToConversionModel } from "@safelytyped/css-color";
 import { expect } from "chai";
+import { describe } from "mocha";
+import { VALID_OKLCH_CONVERSIONS_FIXTURES } from "./_fixtures/OklchConversionData";
 
 describe("convertOklchChannelsDataToConversionModel()", () => {
     VALID_OKLCH_CONVERSIONS_FIXTURES.forEach((fixture) => {

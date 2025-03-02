@@ -33,7 +33,8 @@
 //
 
 import { roundTo } from "@safelytyped/math-rounding";
-import { type Color, rgb } from "culori";
+import { rgb } from "culori";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
 
 /**
@@ -51,7 +52,7 @@ import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
  * @returns
  */
 export function convertConversionModelToCmykChannelsData(
-    input: Color
+    input: ConversionModel
 ): CssCmykColorChannelsData
 {
     const model = rgb(input);

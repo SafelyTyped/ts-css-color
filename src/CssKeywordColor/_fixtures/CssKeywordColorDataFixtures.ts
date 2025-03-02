@@ -36,6 +36,7 @@ import type { Maybe } from "@safelytyped/core-types";
 import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
 import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
+import type { CssHsvColorChannelsData } from "../../CssHsvColor/CssHsvColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
 import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
 import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
@@ -45,6 +46,7 @@ type ValidCssKeywordColorData = CssKeywordColorData & {
     cmykChannels: CssCmykColorChannelsData;
     rgbChannels: CssRgbColorChannelsData;
     hslChannels: CssHslColorChannelsData;
+    hsvChannels: CssHsvColorChannelsData;
     hwbChannels: CssHwbColorChannelsData;
     oklchChannels: CssOklchColorChannelsData;
     hex: string;
@@ -62,6 +64,7 @@ ValidCssColors.forEach((fixture) => {
             colorSpace: "sRGB",
             cmykChannels: fixture.cmykChannels,
             hslChannels: fixture.hslChannels,
+            hsvChannels: fixture.hsvChannels,
             hwbChannels: fixture.hwbChannels,
             rgbChannels: fixture.rgbChannels,
             oklchChannels: fixture.oklchChannels,
