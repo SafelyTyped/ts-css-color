@@ -673,7 +673,7 @@ describe('CssHexColor', () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that the HSL method will run any functional
+            // this test proves that the .hsv() method will run any functional
             // operators that are passed into it
 
             // ----------------------------------------------------------------

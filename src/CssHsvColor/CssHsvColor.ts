@@ -57,7 +57,7 @@ import type { CssHsvColorData } from "./CssHsvColorData.type";
 import { makeCssHsvColorFromCssColor } from "./makeCssHsvColorFromCssColor";
 
 /**
- * CssHsvColor is a {@link CssColor} that was created from a CSS HSV
+ * CssHsvColor is a {@link CssColor} that was created from a HSV color
  * definition.
  */
 export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>

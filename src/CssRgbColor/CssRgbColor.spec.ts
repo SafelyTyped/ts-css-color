@@ -617,7 +617,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that the HSV method will cache any static
+            // this test proves that the .hsv() method will cache any static
             // conversions
 
             // ----------------------------------------------------------------

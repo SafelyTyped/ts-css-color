@@ -36,7 +36,7 @@ import type { CssColorData } from "../CssColor/CssColorData.type";
 import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
 
 /**
- * CssHsvColorData represents the data that makes up a CSS HSV color.
+ * CssHsvColorData represents the data that makes up a HSV color.
  */
 export interface CssHsvColorData extends CssColorData {
     colorFormat: "hsv";
