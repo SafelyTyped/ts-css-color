@@ -53,7 +53,6 @@ export function convertConversionModelToRgbChannelsData(
     const model = rgb(
         convertConversionModelToSrgbColorSpace(input)
     );
-    console.log(model);
 
     return {
         red: round(model.r * 255),
