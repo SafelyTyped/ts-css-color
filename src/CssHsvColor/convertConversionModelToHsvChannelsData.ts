@@ -60,6 +60,7 @@ export function convertConversionModelToHsvChannelsData(
         hue: round(hsvModel.h ??= 0),
         saturation: round(hsvModel.s * 100),
         value: round(hsvModel.v * 100),
+        /* c8 ignore next */
         alpha: hsvModel.alpha ??= 1,
     };
 }

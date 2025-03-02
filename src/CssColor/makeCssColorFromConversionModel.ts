@@ -88,6 +88,10 @@ export function makeCssColorFromConversionModel(
     const opts = { onError, path };
 
     // if we're given a model that we do not support
+    //
+    // this code can only be reached if `mustBeConversionModel()`
+    // contains a bug
+    /* c8 ignore start */
     const fallback = () => {
         const err = new UnsupportedCssColorDefinitionError({
             public: {
@@ -97,6 +101,7 @@ export function makeCssColorFromConversionModel(
         });
         return onError(err);
     };
+    /* c8 ignore stop */
 
     // robustness!
     const vettedModel = mustBeConversionModel(model);

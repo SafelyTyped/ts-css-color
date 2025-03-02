@@ -62,11 +62,6 @@ export function makeCssHsvColor(
         input = makeCssColor(input, { path, onError });
     }
 
-    // special case - no conversion needed
-    if (input instanceof CssHsvColor) {
-        return input;
-    }
-
     // convert it (if necessary) and return it
     return makeCssHsvColorFromCssColor(
         input,

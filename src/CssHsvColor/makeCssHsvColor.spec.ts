@@ -50,6 +50,13 @@ const VALID_COLOR_CSS = [
         description: "hsl() CSS definition",
         inputValue: "hsl(359 100 100)",
     },
+    // hsv() is currently unsupported by CSS
+    //
+    // it's not even part of the draft CSS Color 5 spec
+    // {
+    //     description: "hsv() CSS definition",
+    //     inputValue: "hsv(240 100% 50%)",
+    // },
     {
         description: "hwb() CSS definition",
         inputValue: "hwb(359 100 100)"

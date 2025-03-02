@@ -34,6 +34,7 @@
 
 import { convertConversionModelToHsvChannelsData } from "@safelytyped/css-color";
 import { expect } from "chai";
+import type { Hsv } from "culori";
 import { describe } from "mocha";
 import { VALID_HSV_CONVERSIONS_FIXTURES } from "./_fixtures/HsvConversionData";
 
@@ -62,5 +63,40 @@ describe("convertConversionModelToHsvChannelsData()", () => {
 
             expect(actualResult).to.eql(expectedResult);
         });
-    })
+    });
+
+    it("sets the alpha channel to 1 if not specified", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that the converter function always sets the
+        // alpha channel
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const inputValue = {
+            mode: "hsv",
+            h: 240,
+            s: 1,
+            v: 0.5
+        } satisfies Hsv;
+
+        const expectedValue = {
+            hue: 240,
+            saturation: 100,
+            value: 50,
+            alpha: 1,
+        };
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualValue = convertConversionModelToHsvChannelsData(inputValue);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.eqls(expectedValue);
+    });
 });
