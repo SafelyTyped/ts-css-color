@@ -40,8 +40,8 @@ import { InvalidCssColorDataInputs } from "../CssColor/_fixtures/CssColorDataFix
 import { InvalidCssHsvColorDataObjects, ValidCssHsvColorData } from "./_fixtures/CssHsvColorData";
 
 describe("validateCssHsvColorData()", () => {
-    ValidCssHsvColorData.forEach((inputValue, index) => {
-        it("correctly validates test input #" + index.toString(), () => {
+    ValidCssHsvColorData.forEach((inputValue) => {
+        it("correctly validates test input: " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -67,7 +67,7 @@ describe("validateCssHsvColorData()", () => {
             expect(actualValue).is.not.instanceOf(AppError);
         });
 
-        it("returns the given input when validation passes, using test input #" + index.toString(), () => {
+        it("returns the given input when validation passes, using test input: " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
