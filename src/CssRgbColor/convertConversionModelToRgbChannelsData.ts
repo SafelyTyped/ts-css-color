@@ -32,11 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { roundTo } from "@safelytyped/math-rounding";
-import { rgb } from "culori";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import { convertConversionModelToSrgbColorSpace } from "../ConversionModel/convertConversionModelToSrgbColorSpace";
 import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
+import { convertConversionModelViaRgbChannelsData } from "./convertConversionModelViaRgbChannelsData";
 
 /**
  * convertConversionModelToRgbChannelsData() is a helper method. It converts
@@ -50,25 +49,9 @@ export function convertConversionModelToRgbChannelsData(
     input: ConversionModel,
 ): CssRgbColorChannelsData
 {
-    const model = rgb(
-        convertConversionModelToSrgbColorSpace(input)
-    );
-
-    return {
-        red: round(model.r * 255),
-        green: round(model.g * 255),
-        blue: round(model.b * 255),
-        alpha: model.alpha || 1,
-    };
-}
-
-function round(input: number)
-{
-    return Math.abs(
-        roundTo(
-            Math.round,
-            0,
-            input,
+    return convertConversionModelViaRgbChannelsData(
+        convertConversionModelToSrgbColorSpace(
+            input
         )
     );
 }

@@ -37,6 +37,7 @@ import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuarant
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
 import { makeCssHslColorFromConversionModel } from "../CssHslColor/makeCssHslColorFromConversionModel";
+import { makeCssHsvColorFromConversionModel } from "../CssHsvColor/makeCssHsvColorFromConversionModel";
 import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
 import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
 import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
@@ -49,6 +50,7 @@ type UnsupportedCssColorFormats = "cmyk" | "hex" | "keyword";
 
 const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssColorFormats>, CssColorFromConversionModelSmartConstructor> = {
     "hsl": makeCssHslColorFromConversionModel,
+    "hsv": makeCssHsvColorFromConversionModel,
     "hwb": makeCssHwbColorFromConversionModel,
     "oklch": makeCssOklchColorFromConversionModel,
     "rgb": makeCssRgbColorFromConversionModel,
@@ -86,6 +88,10 @@ export function makeCssColorFromConversionModel(
     const opts = { onError, path };
 
     // if we're given a model that we do not support
+    //
+    // this code can only be reached if `mustBeConversionModel()`
+    // contains a bug
+    /* c8 ignore start */
     const fallback = () => {
         const err = new UnsupportedCssColorDefinitionError({
             public: {
@@ -95,6 +101,7 @@ export function makeCssColorFromConversionModel(
         });
         return onError(err);
     };
+    /* c8 ignore stop */
 
     // robustness!
     const vettedModel = mustBeConversionModel(model);

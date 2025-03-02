@@ -21,8 +21,13 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+### New
+
+- added HSV color format
+
 ### Fix
 
+- color conversions from colors with alpha channel of `0` no longer end up with an alpha channel of `1`
 - `makeCssXxxColorFromCssColor()` and `makeCssXxxColorFromConversionModel()` constructors now do the necessary color-space conversions internally
   - added `convertConversionModelToOklchColorSpace()` helper
   - added `convertConversionModelToSrgbColorSpace()` helper

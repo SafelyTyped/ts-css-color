@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, isData } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, isData, type DataGuardOptions } from "@safelytyped/core-types";
 import type { Color } from "culori";
 import type { ConversionModel } from "./ConversionModel.type";
 import { validateConversionModel } from "./validateConversionModel";
@@ -41,7 +41,7 @@ export function isConversionModel(
     input: Color,
     {
         path = DEFAULT_DATA_PATH,
-    }
+    }: DataGuardOptions = {}
 ): input is ConversionModel
 {
     return isData(validateConversionModel, input, { path });

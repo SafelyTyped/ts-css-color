@@ -55,10 +55,10 @@ export function convertConversionModelToHslChannelsData(
     );
 
     return {
-        hue: round(model.h || 0),
+        hue: round(model.h ??= 0),
         saturation: round(model.s * 100),
         luminosity: round(model.l * 100),
-        alpha: model.alpha || 1,
+        alpha: model.alpha ??= 1,
     };
 }
 

@@ -32,10 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { converter } from "culori";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+import { rgb } from "culori";
+import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
+import { normaliseRgbConversionModel } from "../CssRgbColor/normaliseRgbConversionModel";
+import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
 
 /**
  * convertKeywordToConversionModel() is a helper method. It converts
@@ -49,10 +50,10 @@ export function convertKeywordToConversionModel(
     input: CssExtendedColor
 )
 {
-    const retval = converter("rgb")(input);
+    const retval = rgb(input);
     if (retval) {
         retval.alpha = 1;
-        return retval;
+        return normaliseRgbConversionModel(retval);
     }
 
     // this should be unreachable in practice

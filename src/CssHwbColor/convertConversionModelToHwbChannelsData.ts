@@ -55,10 +55,10 @@ export function convertConversionModelToHwbChannelsData(
     );
 
     return {
-        hue: round(model.h || 0),
+        hue: round(model.h ??= 0),
         whiteness: round(model.w * 100),
         blackness: round(model.b * 100),
-        alpha: model.alpha || 1,
+        alpha: model.alpha ??= 1,
     };
 }
 

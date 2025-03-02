@@ -33,8 +33,9 @@
 //
 
 import { expect } from "chai";
-import { jab, type Jab } from "culori";
+import { jab } from "culori";
 import { describe } from "mocha";
+import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
 
 describe("makeCssColorFromConversionModel()", () => {
@@ -64,7 +65,7 @@ describe("makeCssColorFromConversionModel()", () => {
             makeCssColorFromConversionModel(
                 "red",
                 "red",
-                inputValue as Jab
+                inputValue as unknown as ConversionModel
             );
         }
         catch (e) {

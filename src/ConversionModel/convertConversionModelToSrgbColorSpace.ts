@@ -34,11 +34,26 @@
 
 import { identity, searchDispatchMap, type DispatchMap } from "@safelytyped/core-types";
 import { rgb } from "culori";
+import { convertConversionModelViaRgbChannelsData } from "../CssRgbColor/convertConversionModelViaRgbChannelsData";
+import { convertRgbChannelsDataToConversionModel } from "../CssRgbColor/convertRgbChannelsDataToConversionModel";
 import { normaliseRgbConversionModel } from "../CssRgbColor/normaliseRgbConversionModel";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import type { ConversionModel } from "./ConversionModel.type";
 
 type ConversionModelConverter = (input: ConversionModel) => ConversionModel;
+
+/**
+ * convertWithinRgb() turns the given ConversionModel into one that's in
+ * the normalised RGB format.
+ *
+ * This step allows us to produce the same OKLCH result from different
+ * color formats.
+ */
+const convertWithinRgb = (
+    input: ConversionModel
+) => convertRgbChannelsDataToConversionModel(
+    convertConversionModelViaRgbChannelsData(input)
+);
 
 const convertViaRgb = (
     input: ConversionModel
@@ -54,6 +69,8 @@ const DISPATCH_MAP: DispatchMap<SupportedCssColorFormat, ConversionModelConverte
     "hex": identity,
     // already in the sRGB color space
     "hsl": identity,
+    // direct conversion produces different results
+    "hsv": convertWithinRgb,
     // already in the sRGB color space
     "hwb": identity,
     // already in the sRGB color space

@@ -32,4 +32,4 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hwb", "oklch", "rgb" ];
+export const SUPPORTED_CONVERSION_MODEL_MODES = [ "hsl", "hsv", "hwb", "oklch", "rgb" ];
