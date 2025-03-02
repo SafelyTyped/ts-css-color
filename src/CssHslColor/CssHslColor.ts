@@ -42,7 +42,7 @@ import { CssColor } from "../CssColor/CssColor";
 import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
 import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
 import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
-import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";

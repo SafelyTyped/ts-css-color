@@ -33,7 +33,7 @@
 //
 
 import { CssColorConversionsCache } from "../CssColorConversions/CssColorConversionsCache";
-import { CssHwbColor } from "./CssHwbColor";
+import type { CssHwbColor } from "./CssHwbColor";
 import type { CssHwbColorData } from "./CssHwbColorData.type";
 
 export const CSS_HWB_CONVERSIONS = new CssColorConversionsCache<CssHwbColor, CssHwbColorData>("hwb");

@@ -33,7 +33,7 @@
 //
 
 import { CssColorConversionsCache } from "../CssColorConversions/CssColorConversionsCache";
-import { CssRgbColor } from "./CssRgbColor";
+import type { CssRgbColor } from "./CssRgbColor";
 import type { CssRgbColorData } from "./CssRgbColorData.type";
 
 export const CSS_RGB_CONVERSIONS = new CssColorConversionsCache<CssRgbColor, CssRgbColorData>("rgb");

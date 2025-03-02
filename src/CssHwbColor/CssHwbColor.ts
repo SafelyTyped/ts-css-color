@@ -38,7 +38,7 @@ import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type Fun
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
 import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import { CssColor } from "../CssColor/CssColor";
-import { CssHslColor } from "../CssHslColor/CssHslColor";
+import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannelsTuple.type";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
