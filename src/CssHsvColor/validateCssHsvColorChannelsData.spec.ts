@@ -40,7 +40,7 @@ import { InvalidCssHsvColorChannelsDataInputs, InvalidCssHsvColorChannelsDataObj
 
 describe("validateCssHsvColorChannelsData()", () => {
     ValidCssHsvColorChannelsData.forEach((inputValue, index) => {
-        it("correctly validates test input #" + index.toString(), () => {
+        it("correctly validates test input: " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -64,7 +64,7 @@ describe("validateCssHsvColorChannelsData()", () => {
             expect(actualValue).is.not.instanceOf(AppError);
         });
 
-        it("returns the given input when validation passes, using test input #" + index.toString(), () => {
+        it("returns the given input when validation passes, using test input: " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
