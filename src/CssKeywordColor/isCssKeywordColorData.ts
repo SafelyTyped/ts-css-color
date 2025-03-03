@@ -33,8 +33,7 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import type { CssKeywordColorData } from "./CssKeywordColorData.type";
-import { validateCssKeywordColorData } from "./validateCssKeywordColorData";
+import { validateCssKeywordColorData, type CssKeywordColorData } from "../index";
 
 export function isCssKeywordColorData(
     input: unknown

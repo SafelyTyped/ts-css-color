@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { validateCssOklchColorData } from "./validateCssOklchColorData";
-import type { CssOklchColorData } from "./CssOklchColorData.type";
+import { validateCssOklchColorData, type CssOklchColorData } from "../index";
 
 export function mustBeCssOklchColorData(
     input: unknown,

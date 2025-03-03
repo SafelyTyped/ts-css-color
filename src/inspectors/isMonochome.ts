@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { AnyCssColor } from "../index";
 
 /**
  * isMonochrome() returns `true` if the given input color is black, white,

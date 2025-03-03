@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { tonality } from "./tonality";
+import { tonality, type AnyCssColor } from "../index";
 
 /**
  * hasClearContrast() determines whether or not two given colors are

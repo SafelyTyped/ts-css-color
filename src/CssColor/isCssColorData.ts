@@ -33,8 +33,7 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import type { CssColorData } from "./CssColorData.type";
-import { validateCssColorData } from "./validateCssColorData";
+import { validateCssColorData, type CssColorData } from "../index";
 
 /**
  * isCssColorData() is a type guard. Use it to prove that the given `input`

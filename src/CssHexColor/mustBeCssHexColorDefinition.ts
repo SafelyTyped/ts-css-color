@@ -33,9 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
-import { normaliseCssHexColorDefinition } from "./normaliseCssHexColorDefinition";
+import { normaliseCssHexColorDefinition, validateCssHexColorDefinition, type CssHexColorDefinition } from "../index";
 
 /**
  * mustBeCssHexColorDefinition() is a type guarantee. Use it to ensure that

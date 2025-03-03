@@ -34,16 +34,7 @@
 
 
 import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuaranteeOptions, type DispatchMap } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
-import { makeCssHslColorFromConversionModel } from "../CssHslColor/makeCssHslColorFromConversionModel";
-import { makeCssHsvColorFromConversionModel } from "../CssHsvColor/makeCssHsvColorFromConversionModel";
-import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
-import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
-import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
-import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import type { AnyCssColor } from "./AnyCssColor.type";
+import { makeCssHslColorFromConversionModel, makeCssHsvColorFromConversionModel, makeCssHwbColorFromConversionModel, makeCssOklchColorFromConversionModel, makeCssRgbColorFromConversionModel, mustBeConversionModel, UnsupportedCssColorDefinitionError, type AnyCssColor, type ConversionModel, type SupportedCssColorFormat } from "../index";
 import type { CssColorFromConversionModelSmartConstructor } from "./CssColorFromConversionModelSmartConstructor.type";
 
 type UnsupportedCssColorFormats = "cmyk" | "hex" | "keyword";

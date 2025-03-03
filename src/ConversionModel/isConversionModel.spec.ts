@@ -32,6 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { isConversionModel, type ConversionModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { jab, type Color } from "culori";
 import { describe, it } from "mocha";
@@ -42,8 +43,6 @@ import { VALID_HSV_CONVERSIONS_FIXTURES } from "../CssHsvColor/_fixtures/HsvConv
 import { VALID_HWB_CONVERSIONS_FIXTURES } from "../CssHwbColor/_fixtures/HwbConversionData";
 import { VALID_OKLCH_CONVERSIONS_FIXTURES } from "../CssOklchColor/_fixtures/OklchConversionData";
 import { VALID_RGB_CONVERSIONS_FIXTURES } from "../CssRgbColor/_fixtures/RgbConversionData";
-import type { ConversionModel } from "./ConversionModel.type";
-import { isConversionModel } from "./isConversionModel";
 
 const VALID_CONVERSION_MODELS: ConversionModel[] = [];
 

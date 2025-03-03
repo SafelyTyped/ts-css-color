@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { hues, type Hue } from "./hues";
+import { hues, type AnyCssColor, type Hue } from "../index";
 
 /**
  * isHue() returns `true` if the given `input` maps onto all of the given

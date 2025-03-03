@@ -34,8 +34,7 @@
 
 import { DEFAULT_DATA_PATH, isData, type DataGuardOptions } from "@safelytyped/core-types";
 import type { Color } from "culori";
-import type { ConversionModel } from "./ConversionModel.type";
-import { validateConversionModel } from "./validateConversionModel";
+import { validateConversionModel, type ConversionModel } from "../index";
 
 export function isConversionModel(
     input: Color,

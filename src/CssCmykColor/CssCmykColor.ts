@@ -34,28 +34,7 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
 import type { Rgb } from "culori";
-import { CssColor } from "../CssColor/CssColor";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
-import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
-import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
-import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
-import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
-import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
-import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
-import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
-import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
-import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
-import type { CssCmykColorChannelsTuple } from "./CssCmykColorChannelsTuple.type";
-import type { CssCmykColorData } from "./CssCmykColorData.type";
-import { makeCssCmykColorFromCssColor } from "./makeCssCmykColorFromCssColor";
+import { CssColor, makeCssCmykColorFromCssColor, makeCssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, type CssCmykColorChannelsData, type CssCmykColorChannelsTuple, type CssCmykColorData, type CssHexColorDefinition, type CssHslColor, type CssHslColorData, type CssHsvColor, type CssHsvColorData, type CssHwbColor, type CssHwbColorData, type CssOklchColor, type CssOklchColorData, type CssRgbColor, type CssRgbColorData } from "../index";
 
 /**
  * CssCmykColor represents a {@link CssColor} that was defined in the

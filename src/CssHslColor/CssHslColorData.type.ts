@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
+import type { CssColorData, CssHslColorChannelsData } from "../index";
 
 /**
  * CssHslColorData represents the data that makes up a CSS HSL color.

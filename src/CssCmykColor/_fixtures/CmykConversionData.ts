@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ConversionModel } from "../../ConversionModel/ConversionModel.type";
-import type { CssCmykColorChannelsData } from "../CssCmykColorChannelsData.type";
+import type { ConversionModel, CssCmykColorChannelsData } from "@safelytyped/css-color";
 
 export type CmykConversionData = {
     cmykChannelsData: CssCmykColorChannelsData;

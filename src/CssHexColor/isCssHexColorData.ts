@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, isType, type TypeGuardOptions } from "@safelytyped/core-types";
-import { validateCssHexColorData } from "./validateCssHexColorData";
-import type { CssHexColorData } from "./CssHexColorData.type";
+import { validateCssHexColorData, type CssHexColorData } from "../index";
 
 export function isCssHexColorData (
     input: unknown,

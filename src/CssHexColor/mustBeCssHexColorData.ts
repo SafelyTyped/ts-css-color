@@ -33,9 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { validateCssHexColorData } from "./validateCssHexColorData";
-import { normaliseCssHexColorDefinition } from "./normaliseCssHexColorDefinition";
-import type { CssHexColorData } from "./CssHexColorData.type";
+import { normaliseCssHexColorDefinition, validateCssHexColorData, type CssHexColorData } from "../index";
 
 export function mustBeCssHexColorData(
     input: unknown,

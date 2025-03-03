@@ -32,10 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { CssCmykColor, makeCssCmykColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { CssCmykColor } from "./CssCmykColor";
-import { makeCssCmykColor } from "./makeCssCmykColor";
 
 const VALID_COLOR_CSS = [
     {

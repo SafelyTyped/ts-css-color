@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, UnsupportedTypeError, isObject, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import type { CssColorData } from "../CssColor/CssColorData.type";
+import type { CssColorData } from "../index";
 
 /**
  * validateCssColorDataHasChannels() is a data validator. Use it to prove

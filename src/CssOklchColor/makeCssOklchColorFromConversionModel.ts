@@ -33,11 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { CssOklchColor } from "./CssOklchColor";
-import type { CssOklchColorData } from "./CssOklchColorData.type";
-import { convertConversionModelToOklchChannelsData } from "./convertConversionModelToOklchChannelsData";
-import { makeCssOklchColorData } from "./makeCssOklchColorData";
+import { convertConversionModelToOklchChannelsData, CssOklchColor, makeCssOklchColorData, type ConversionModel, type CssOklchColorData } from "../index";
 
 export function makeCssOklchColorFromConversionModel(
     colorName: string,

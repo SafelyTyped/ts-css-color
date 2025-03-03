@@ -33,10 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { makeCssHexColorFromConversionModel, type AnyCssColor, type CssHexColorData } from "../index";
 import { CSS_HEX_CONVERSIONS } from "./CSS_HEX_CONVERSIONS";
-import type { CssHexColorData } from "./CssHexColorData.type";
-import { makeCssHexColorFromConversionModel } from "./makeCssHexColorFromConversionModel";
 
 export function makeCssHexColorFromCssColor(
     input: AnyCssColor,

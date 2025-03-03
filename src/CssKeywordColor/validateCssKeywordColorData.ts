@@ -33,12 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssExtendedColor } from "../CssExtendedColors/validateCssExtendedColor";
-import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
-import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
-import { validateObjectHasStringProperty } from "../helpers/validateObjectHasStringProperty";
-import type { CssKeywordColorData } from "./CssKeywordColorData.type";
+import { validateCssColorData, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, validateCssExtendedColor, validateObjectHasStringProperty, type CssKeywordColorData } from "../index";
 
 export function validateCssKeywordColorData(
     input: unknown,

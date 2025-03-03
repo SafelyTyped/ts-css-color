@@ -32,11 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { CssHexColor, makeCssHexColor, type CssHexColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { CssHexColor } from "../CssHexColor/CssHexColor";
-import type { CssHexColorData } from "../CssHexColor/CssHexColorData.type";
-import { makeCssHexColor } from "../CssHexColor/makeCssHexColor";
 import { CSS_RGB_CONVERSIONS } from "../CssRgbColor/CSS_RGB_CONVERSIONS";
 import { CssColorConversionsCache } from "./CssColorConversionsCache";
 

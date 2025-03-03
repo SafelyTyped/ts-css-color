@@ -33,7 +33,7 @@
 //
 
 import type { Hwb } from "culori";
-import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
+import type { CssHwbColorChannelsData } from "../index";
 
 /**
  * convertHwbChannelsDataToConversionModel() is a helper method. It converts

@@ -33,8 +33,7 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
-import { validateCssCmykColorChannelsData } from "./validateCssCmykColorChannelsData";
+import { validateCssCmykColorChannelsData, type CssCmykColorChannelsData } from "../index";
 
 export function isCssCmykColorChannelsData(
     input: unknown

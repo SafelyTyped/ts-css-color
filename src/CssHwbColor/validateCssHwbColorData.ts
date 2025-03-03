@@ -33,12 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
-import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
-import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
-import { validateCssHwbColorChannelsData } from "./validateCssHwbColorChannelsData";
+import { validateCssColorData, validateCssColorDataHasChannels, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, validateCssHwbColorChannelsData, type CssHwbColorData } from "../index";
 
 export function validateCssHwbColorData(
     input: unknown,

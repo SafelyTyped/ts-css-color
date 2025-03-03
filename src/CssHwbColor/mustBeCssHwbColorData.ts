@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { validateCssHwbColorData } from "./validateCssHwbColorData";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
+import { validateCssHwbColorData, type CssHwbColorData } from "../index";
 
 export function mustBeCssHwbColorData(
     input: unknown,

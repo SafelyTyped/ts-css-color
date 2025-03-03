@@ -33,8 +33,7 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import { validateCssHwbColorData } from "./validateCssHwbColorData";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
+import { validateCssHwbColorData, type CssHwbColorData } from "../index";
 
 export function isCssHwbColorData(
     input: unknown

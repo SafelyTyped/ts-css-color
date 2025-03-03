@@ -34,7 +34,7 @@
 
 import { DEFAULT_DATA_PATH, UnsupportedTypeError, type AppErrorOr, type DataValidatorOptions } from "@safelytyped/core-types";
 import type { Color } from "culori";
-import type { ConversionModel } from "./ConversionModel.type";
+import type { ConversionModel } from "../index";
 import { SUPPORTED_CONVERSION_MODEL_MODES } from "./SUPPORTED_CONVERSION_MODEL_MODES";
 
 export function validateConversionModel(

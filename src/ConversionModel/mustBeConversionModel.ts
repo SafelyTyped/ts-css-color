@@ -34,7 +34,7 @@
 
 import { DEFAULT_DATA_PATH, mustBe, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
 import type { Color } from "culori";
-import { validateConversionModel } from "./validateConversionModel";
+import { validateConversionModel } from "../index";
 
 export function mustBeConversionModel(
     input: Color,

@@ -33,9 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { AnyCssColor, CssHsvColorData } from "../index";
 import { CSS_HSV_CONVERSIONS } from "./CSS_HSV_CONVERSIONS";
-import type { CssHsvColorData } from "./CssHsvColorData.type";
 import { makeCssHsvColorFromConversionModel } from "./makeCssHsvColorFromConversionModel";
 
 export function makeCssHsvColorFromCssColor(

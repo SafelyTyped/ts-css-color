@@ -32,10 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type FunctionalOption, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssColorData } from "../CssColor/makeCssColorData";
-import type { CssKeywordColorData } from "./CssKeywordColorData.type";
-import { mustBeCssKeywordColorData } from "./mustBeCssKeywordColorData";
+import { DEFAULT_DATA_PATH, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssColorData, mustBeCssKeywordColorData, type CssKeywordColorData } from "../index";
 
 export function makeCssKeywordColorData(
     name: string,

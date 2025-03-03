@@ -34,11 +34,7 @@
 
 import { identity, searchDispatchMap, type DispatchMap } from "@safelytyped/core-types";
 import { rgb } from "culori";
-import { convertConversionModelViaRgbChannelsData } from "../CssRgbColor/convertConversionModelViaRgbChannelsData";
-import { convertRgbChannelsDataToConversionModel } from "../CssRgbColor/convertRgbChannelsDataToConversionModel";
-import { normaliseRgbConversionModel } from "../CssRgbColor/normaliseRgbConversionModel";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import type { ConversionModel } from "./ConversionModel.type";
+import { convertConversionModelViaRgbChannelsData, convertRgbChannelsDataToConversionModel, normaliseRgbConversionModel, type ConversionModel, type SupportedCssColorFormat } from "../index";
 
 type ConversionModelConverter = (input: ConversionModel) => ConversionModel;
 

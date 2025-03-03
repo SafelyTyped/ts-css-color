@@ -33,11 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { CssHslColor } from "./CssHslColor";
-import type { CssHslColorData } from "./CssHslColorData.type";
-import { convertConversionModelToHslChannelsData } from "./convertConversionModelToHslChannelsData";
-import { makeCssHslColorData } from "./makeCssHslColorData";
+import { convertConversionModelToHslChannelsData, CssHslColor, makeCssHslColorData, type ConversionModel, type CssHslColorData } from "../index";
 
 export function makeCssHslColorFromConversionModel(
     colorName: string,

@@ -33,10 +33,7 @@
 //
 
 import { HashMap, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssColorConverter } from "../CssColorConversions/CssColorConverter.type";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { AnyCssColor, CssColorConverter, CssColorData, SupportedCssColorFormat } from "../index";
 
 export class CssColorConversionsCache<T extends AnyCssColor, D extends CssColorData>
 {

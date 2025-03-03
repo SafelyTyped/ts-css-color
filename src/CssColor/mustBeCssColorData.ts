@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { validateCssColorData } from "./validateCssColorData";
-import type { CssColorData } from "./CssColorData.type";
+import { validateCssColorData, type CssColorData } from "../index";
 
 /**
  * mustBeCssColorData() is a type guarantee. Use it to ensure that the

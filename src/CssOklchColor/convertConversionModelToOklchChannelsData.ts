@@ -34,9 +34,7 @@
 
 import { roundTo } from "@safelytyped/math-rounding";
 import { oklch } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { convertConversionModelToOklchColorSpace } from "../ConversionModel/convertConversionModelToOklchColorSpace";
-import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
+import { convertConversionModelToOklchColorSpace, type ConversionModel, type CssOklchColorChannelsData } from "../index";
 
 /**
  * convertConversionModelToOklchChannelsData() is a helper method. It converts

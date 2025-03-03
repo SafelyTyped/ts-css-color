@@ -33,7 +33,6 @@
 //
 
 import { CssColorConversionsCache } from "../CssColorConversions/CssColorConversionsCache";
-import type { CssHexColor } from "./CssHexColor";
-import type { CssHexColorData } from "./CssHexColorData.type";
+import type { CssHexColor, CssHexColorData } from "../index";
 
 export const CSS_HEX_CONVERSIONS = new CssColorConversionsCache<CssHexColor, CssHexColorData>("hex");

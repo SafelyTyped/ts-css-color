@@ -33,10 +33,9 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssCmykColor, makeCssCmykColorData, makeCssRgbColor, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData } from "@safelytyped/css-color";
+import { CssCmykColor, makeCssCmykColorData, makeCssRgbColor, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData, type SupportedCssColorSpace } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
 import { CSS_HSV_CONVERSIONS } from "../CssHsvColor/CSS_HSV_CONVERSIONS";
 import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";

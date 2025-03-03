@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, recastIfValid, validate, validateObject, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorChannel } from "../helpers/validateCssColorChannel";
-import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
+import { validateCssColorChannel, type CssHsvColorChannelsData } from "../index";
 
 export function validateCssHsvColorChannelsData(
     input: unknown,

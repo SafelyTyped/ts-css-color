@@ -33,8 +33,7 @@
 //
 
 import type { Branded } from "@safelytyped/core-types";
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace.type";
+import type { CssColorData, CssSrgbColorSpace } from "../index";
 
 /**
  * CssKeywordColorData represents a CSS color that's defined using one

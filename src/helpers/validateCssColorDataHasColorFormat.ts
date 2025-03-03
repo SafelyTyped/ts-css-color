@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import { validateObjectHasStringProperty } from "./validateObjectHasStringProperty";
+import { validateObjectHasStringProperty, type SupportedCssColorFormat } from "../index";
 
 /**
  * validateCssColorChannel() is a data validator. Use it to prove that:

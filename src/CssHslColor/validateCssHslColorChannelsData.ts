@@ -32,9 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateObject, recastIfValid } from "@safelytyped/core-types";
-import { validateCssColorChannel } from "../helpers/validateCssColorChannel";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
+import { DEFAULT_DATA_PATH, recastIfValid, validate, validateObject, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
+import { validateCssColorChannel, type CssHslColorChannelsData } from "../index";
 
 export function validateCssHslColorChannelsData(
     input: unknown,

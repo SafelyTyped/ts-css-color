@@ -32,6 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { AnyCssColor } from "../index";
 
 export type CssColorConverter<T extends AnyCssColor> = () => T;

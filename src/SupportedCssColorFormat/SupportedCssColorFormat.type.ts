@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { SUPPORTED_CSS_COLOR_FORMATS } from "./SUPPORTED_CSS_COLOR_FORMATS";
+import type { SUPPORTED_CSS_COLOR_FORMATS } from "../index";
 
 /**
  * SupportedCssColorFormat is the set of color formats / notations that

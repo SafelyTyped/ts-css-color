@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, recastIfValid, validate, validateObject, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorChannel } from "../helpers/validateCssColorChannel";
-import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
+import { validateCssColorChannel, type CssCmykColorChannelsData } from "../index";
 
 export function validateCssCmykColorChannelsData(
     input: unknown,

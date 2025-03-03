@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssKeywordColorData } from "./CssKeywordColorData.type";
-import { validateCssKeywordColorData } from "./validateCssKeywordColorData";
+import { validateCssKeywordColorData, type CssKeywordColorData } from "../index";
 
 export function mustBeCssKeywordColorData(
     input: unknown,

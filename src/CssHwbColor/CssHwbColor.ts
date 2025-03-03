@@ -35,25 +35,7 @@
 import type { Hwb } from "culori";
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
-import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
-import { CssColor } from "../CssColor/CssColor";
-import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHslColorChannelsTuple } from "../CssHslColor/CssHslColorChannelsTuple.type";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
-import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
-import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
-import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
-import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
-import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
-import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
-import { convertHwbChannelsDataToConversionModel } from "./convertHwbChannelsDataToConversionModel";
-import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
-import { makeCssHwbColorFromCssColor } from "./makeCssHwbColorFromCssColor";
+import { convertHwbChannelsDataToConversionModel, CssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, type CssCmykColor, type CssCmykColorData, type CssHslColor, type CssHslColorChannelsTuple, type CssHslColorData, type CssHsvColor, type CssHsvColorData, type CssHwbColorChannelsData, type CssHwbColorData, type CssOklchColor, type CssOklchColorData, type CssRgbColorData } from "../index";
 
 export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
 {

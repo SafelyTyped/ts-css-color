@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
-import { isHue } from "../isHue";
+import { isHue, type AnyCssColor } from "../../index";
 
 /**
  * isPinkHue() returns true if the given `input` color is a pink hue.

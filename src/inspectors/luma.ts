@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { AnyCssColor } from "../index";
 
 /**
  * luma() calculate's the given color's 'Y' (or luma) component from the

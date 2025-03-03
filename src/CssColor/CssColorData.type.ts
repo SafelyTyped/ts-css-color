@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { SupportedCssColorFormat, SupportedCssColorSpace } from "../index";
 
 /**
  * CssColorData is the base data for defining a CSSColor.

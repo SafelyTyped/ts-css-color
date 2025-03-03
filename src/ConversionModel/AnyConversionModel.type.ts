@@ -32,6 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ConversionModel } from "./ConversionModel.type";
+import type { ConversionModel } from "../index";
 
 export type AnyConversionModel = ConversionModel;

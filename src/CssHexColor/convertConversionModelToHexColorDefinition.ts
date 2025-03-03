@@ -33,9 +33,7 @@
 //
 
 import { formatHex } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
-import { makeCssHexColorDefinition } from "./makeCssHexColorDefinition";
+import { makeCssHexColorDefinition, type ConversionModel, type CssHexColorDefinition } from "../index";
 
 /**
  * convertConversionModelToHexColorDefinition() is a helper method. It

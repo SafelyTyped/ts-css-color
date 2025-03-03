@@ -33,7 +33,6 @@
 //
 
 import { CssColorConversionsCache } from "../CssColorConversions/CssColorConversionsCache";
-import type { CssCmykColor } from "./CssCmykColor";
-import type { CssCmykColorData } from "./CssCmykColorData.type";
+import type { CssCmykColor, CssCmykColorData } from "../index";
 
 export const CSS_CMYK_CONVERSIONS = new CssColorConversionsCache<CssCmykColor, CssCmykColorData>("cmyk");

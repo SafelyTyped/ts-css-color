@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
-import { validateObjectHasStringProperty } from "./validateObjectHasStringProperty";
+import { validateObjectHasStringProperty, type SupportedCssColorSpace } from "../index";
 
 /**
  * validateCssColorDataHasColorSpace() is a data validator. Use it to prove

@@ -33,7 +33,6 @@
 //
 
 import { CssColorConversionsCache } from "../CssColorConversions/CssColorConversionsCache";
-import type { CssHslColor } from "./CssHslColor";
-import type { CssHslColorData } from "./CssHslColorData.type";
+import type { CssHslColor, CssHslColorData } from "../index";
 
 export const CSS_HSL_CONVERSIONS = new CssColorConversionsCache<CssHslColor, CssHslColorData>("hsl");

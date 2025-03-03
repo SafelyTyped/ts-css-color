@@ -32,9 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions, makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
-import { mustBeCssHexColorDefinition } from "./mustBeCssHexColorDefinition";
+import { DEFAULT_DATA_PATH, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { mustBeCssHexColorDefinition, type CssHexColorDefinition } from "../index";
 
 /**
  * makeCssHexColorDefinition() is a smart constructor. Use it to safely

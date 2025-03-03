@@ -33,10 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { makeCssOklchColorFromConversionModel, type AnyCssColor, type CssOklchColorData } from "../index";
 import { CSS_OKLCH_CONVERSIONS } from "./CSS_OKLCH_CONVERSIONS";
-import type { CssOklchColorData } from "./CssOklchColorData.type";
-import { makeCssOklchColorFromConversionModel } from "./makeCssOklchColorFromConversionModel";
 
 export function makeCssOklchColorFromCssColor(
     input: AnyCssColor,

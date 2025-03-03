@@ -34,9 +34,8 @@
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 import { roundTo } from "@safelytyped/math-rounding";
-import { type Rgb, rgb } from "culori";
-import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import { rgb, type Rgb } from "culori";
+import { UnsupportedCssColorConversionError, type CssHexColorDefinition } from "../index";
 
 /**
  * convertHslChannelsDataToConversionModel() is a helper method. It converts

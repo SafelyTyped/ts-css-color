@@ -35,16 +35,7 @@
 import { parse } from "culori";
 
 import { applyFunctionalOptions, DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type DataPath, type FunctionalOption, type OnError } from "@safelytyped/core-types";
-import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
-import { CssHexColor } from "../CssHexColor/CssHexColor";
-import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
-import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
-import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
-import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
-import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import type { AnyCssColor } from "./AnyCssColor.type";
-import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
+import { CSS_EXTENDED_COLORS_TO_HEX, CssHexColor, CssKeywordColor, makeCssColorFromConversionModel, makeCssHexColorData, makeCssHexColorDefinition, makeCssKeywordColorData, mustBeConversionModel, UnsupportedCssColorDefinitionError, type AnyCssColor } from "../index";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition

@@ -33,10 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { makeCssCmykColorFromConversionModel, type AnyCssColor, type CssCmykColorData } from "../index";
 import { CSS_CMYK_CONVERSIONS } from "./CSS_CMYK_CONVERSIONS";
-import type { CssCmykColorData } from "./CssCmykColorData.type";
-import { makeCssCmykColorFromConversionModel } from "./makeCssCmykColorFromConversionModel";
 
 export function makeCssCmykColorFromCssColor(
     input: AnyCssColor,

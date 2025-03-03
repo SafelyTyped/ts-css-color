@@ -33,8 +33,7 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import type { CssExtendedColors } from "./CssExtendedColors.type";
-import type { CssExtendedColor } from "./CssExtendedColor.type";
+import type { CssExtendedColor, CssExtendedColors } from "../index";
 
 /**
  * CSS_EXTENDED_COLORS_TO_HEX is a map, mapping the list of CSS extended

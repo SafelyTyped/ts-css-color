@@ -32,11 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { makeCssColorFromConversionModel, type ConversionModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { jab } from "culori";
 import { describe } from "mocha";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
 
 describe("makeCssColorFromConversionModel()", () => {
     it("throws an error if passed an unsupported conversion model", () => {

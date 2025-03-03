@@ -32,8 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type AppErrorOr, type TypeValidatorOptions, validate, validateStringMatches, validateString, recast } from "@safelytyped/core-types";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import { DEFAULT_DATA_PATH, recast, validate, validateString, validateStringMatches, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
+import type { CssHexColorDefinition } from "../index";
 
 const cssHexRegex = /#[A-Fa-f0-9]{6}|#[A-Fa-f0-9]{3}/;
 

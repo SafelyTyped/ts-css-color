@@ -32,17 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { FunctionalOption, Maybe, PrimitiveHint, TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe, type PrimitiveHint, type TypeGuaranteeOptions } from "@safelytyped/core-types";
 import { formatCss } from "culori";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
 import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
 import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
 import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
+import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
 import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
@@ -51,6 +51,7 @@ import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
 import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
+import { CSS_HEX_TO_EXTENDED_COLORS } from "../index";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import type { CssColorData } from "./CssColorData.type";
 
@@ -107,10 +108,20 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
     /**
      * hsl() converts this color to the CSS hsl() format
      */
-    public abstract hsl(
-        opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssHslColorData, TypeGuaranteeOptions>[]
-    ): CssHslColor;
+    public hsl(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
+    ): CssHslColor
+    {
+        return makeCssHslColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
 
     public abstract hsv(
         opt?: TypeGuaranteeOptions,

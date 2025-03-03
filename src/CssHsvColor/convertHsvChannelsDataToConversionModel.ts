@@ -34,7 +34,7 @@
 
 import { roundTo } from "@safelytyped/math-rounding";
 import type { Hsv } from "culori";
-import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
+import type { CssHsvColorChannelsData } from "../index";
 
 /**
  * convertHsvChannelsDataToConversionModel() is a helper method. It converts

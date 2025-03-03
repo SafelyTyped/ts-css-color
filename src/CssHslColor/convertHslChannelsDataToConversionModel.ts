@@ -33,7 +33,7 @@
 //
 
 import type { Hsl } from "culori";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
+import type { CssHslColorChannelsData } from "../index";
 
 /**
  * convertHslChannelsDataToConversionModel() is a helper method. It converts

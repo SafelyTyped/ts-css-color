@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import type { CssHexColorDefinition } from "../index";
 
 /**
  * normaliseCssHexColorDefinition() is a data transform function.

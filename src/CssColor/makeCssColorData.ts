@@ -32,10 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type TypeGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { CssColorData } from "./CssColorData.type";
-import { mustBeCssColorData } from "./mustBeCssColorData";
-import { makeNominalTypeFromTypeGuarantee } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { mustBeCssColorData, type CssColorData } from "../index";
 
 /**
  * makeCssColorData() is a smart constructor. Use it to build a

@@ -32,9 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
 import { WHITE } from "../defaults/defaultColors.const";
-import { contrastRatio } from "./contrastRatio";
+import { contrastRatio, type AnyCssColor } from "../index";
 
 /**
  * lightModeContrastRatio() calculates the contrast ratio of the given

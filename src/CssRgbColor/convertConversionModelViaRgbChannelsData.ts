@@ -34,8 +34,7 @@
 
 import { roundTo } from "@safelytyped/math-rounding";
 import { rgb } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
+import type { ConversionModel, CssRgbColorChannelsData } from "../index";
 
 /**
  * convertConversionModelToRgbChannelsData() is a helper method. It converts

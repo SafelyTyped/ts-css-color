@@ -34,9 +34,7 @@
 
 import { roundTo } from "@safelytyped/math-rounding";
 import { hsl } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { convertConversionModelToSrgbColorSpace } from "../ConversionModel/convertConversionModelToSrgbColorSpace";
-import type { CssHslColorChannelsData } from "./CssHslColorChannelsData.type";
+import { convertConversionModelToSrgbColorSpace, type ConversionModel, type CssHslColorChannelsData } from "../index";
 
 /**
  * convertConversionModelToHslChannelsData() is a helper method. It converts

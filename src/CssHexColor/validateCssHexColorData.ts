@@ -33,12 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
-import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
-import { validateObjectHasStringProperty } from "../helpers/validateObjectHasStringProperty";
-import type { CssHexColorData } from "./CssHexColorData.type";
-import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
+import { validateCssColorData, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, validateCssHexColorDefinition, validateObjectHasStringProperty, type CssHexColorData } from "../index";
 
 export function validateCssHexColorData(
     input: unknown,

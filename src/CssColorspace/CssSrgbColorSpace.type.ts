@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorspacedColor } from "./CssColorspacedColor.type";
+import type { CssColorspacedColor } from "../index";
 
 export type CssSrgbColorSpace = CssColorspacedColor &
 {

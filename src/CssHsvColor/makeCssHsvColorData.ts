@@ -32,11 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, type FunctionalOption, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssColorData } from "../CssColor/makeCssColorData";
-import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
-import type { CssHsvColorData } from "./CssHsvColorData.type";
-import { mustBeCssHsvColorData } from "./mustBeCssHsvColorData";
+import { DEFAULT_DATA_PATH, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssColorData, mustBeCssHsvColorData, type CssHsvColorChannelsData, type CssHsvColorData } from "../index";
 
 export function makeCssHsvColorData(
     name: string,

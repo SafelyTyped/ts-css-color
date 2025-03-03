@@ -33,8 +33,7 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import { validateCssOklchColorChannelsData } from "./validateCssOklchColorChannelsData";
-import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
+import { validateCssOklchColorChannelsData, type CssOklchColorChannelsData } from "../index";
 
 export function isCssOklchColorChannelsData(
     input: unknown

@@ -33,7 +33,6 @@
 //
 
 import { CssColorConversionsCache } from "../CssColorConversions/CssColorConversionsCache";
-import type { CssOklchColor } from "./CssOklchColor";
-import type { CssOklchColorData } from "./CssOklchColorData.type";
+import type { CssOklchColor, CssOklchColorData } from "../index";
 
 export const CSS_OKLCH_CONVERSIONS = new CssColorConversionsCache<CssOklchColor, CssOklchColorData>("oklch");

@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { shade } from "./shade";
+import { shade, type AnyCssColor } from "../index";
 
 /**
  * isDull() returns true if the given `input` color is a dull color

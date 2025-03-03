@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
+import { CSS_EXTENDED_COLORS_TO_HEX, makeCssColor } from "../index";
 
 // this is a list of colors that we use in our operations
 //

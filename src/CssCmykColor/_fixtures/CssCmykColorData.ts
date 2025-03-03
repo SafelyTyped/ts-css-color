@@ -34,12 +34,7 @@
 
 import type { Maybe } from "@safelytyped/core-types";
 import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
-import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
-import type { CssHsvColorChannelsData } from "../../CssHsvColor/CssHsvColorChannelsData.type";
-import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
-import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
-import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
-import type { CssCmykColorData } from "../CssCmykColorData.type";
+import type { CssCmykColorData, CssHslColorChannelsData, CssHsvColorChannelsData, CssHwbColorChannelsData, CssOklchColorChannelsData, CssRgbColorChannelsData } from "../../index";
 
 type ValidCssCmykColor = CssCmykColorData & {
     hslChannels: CssHslColorChannelsData;

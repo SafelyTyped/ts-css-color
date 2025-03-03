@@ -33,14 +33,7 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
-import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
-import type { SupportedCssColorSpace } from "../../CssColorspace/SupportedCssColorSpace.type";
-import type { CssHslColorChannelsData } from "../../CssHslColor/CssHslColorChannelsData.type";
-import type { CssHsvColorChannelsData } from "../../CssHsvColor/CssHsvColorChannelsData.type";
-import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
-import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
-import type { CssRgbColorChannelsData } from "../../CssRgbColor/CssRgbColorChannelsData.type";
-import type { SupportedCssColorFormat } from "../../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { CssCmykColorChannelsData, CssHslColorChannelsData, CssHsvColorChannelsData, CssHwbColorChannelsData, CssOklchColorChannelsData, CssRgbColorChannelsData, SupportedCssColorFormat, SupportedCssColorSpace } from "@safelytyped/css-color";
 
 export type ValidCssColor = {
     name: string;

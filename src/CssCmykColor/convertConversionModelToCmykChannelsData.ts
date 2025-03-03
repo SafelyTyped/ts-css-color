@@ -34,8 +34,7 @@
 
 import { roundTo } from "@safelytyped/math-rounding";
 import { rgb } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import type { CssCmykColorChannelsData } from "./CssCmykColorChannelsData.type";
+import type { ConversionModel, CssCmykColorChannelsData } from "../index";
 
 /**
  * convertConversionModelToCmykChannelsData() is a helper method. It converts

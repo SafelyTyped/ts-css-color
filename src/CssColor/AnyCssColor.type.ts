@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyConversionModel } from "../ConversionModel/AnyConversionModel.type";
-import type { CssColor } from "./CssColor";
+import type { AnyConversionModel, CssColor } from "../index";
 
 /**
  * AnyCssColor is a type. Use it wherever you can accept and/or return

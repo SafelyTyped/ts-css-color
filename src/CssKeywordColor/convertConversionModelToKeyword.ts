@@ -34,10 +34,7 @@
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 import { formatHex } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
-import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
+import { CSS_HEX_TO_EXTENDED_COLORS, UnsupportedCssColorConversionError, type ConversionModel, type CssExtendedColor } from "../index";
 
 /**
  * convertConversionModelToKeyword() is a helper method. It converts

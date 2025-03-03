@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssExtendedColor } from "./CssExtendedColor.type";
+import type { CssExtendedColor } from "../index";
 
 /**
  * CssExtendedColors is a mapped type, mapping the list of CSS extended

@@ -33,12 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorData } from "../CssColor/validateCssColorData";
-import { validateCssColorDataHasChannels } from "../helpers/validateCssColorDataHasChannels";
-import { validateCssColorDataHasColorFormat } from "../helpers/validateCssColorDataHasColorFormat";
-import { validateCssColorDataHasColorSpace } from "../helpers/validateCssColorDataHasColorSpace";
-import type { CssRgbColorData } from "./CssRgbColorData.type";
-import { validateCssRgbColorChannelsData } from "./validateCssRgbColorChannelsData";
+import { validateCssColorData, validateCssColorDataHasChannels, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, validateCssRgbColorChannelsData, type CssRgbColorData } from "../index";
 
 /**
  * validateCssRgbColorData() is a type validator. Use it to prove that the

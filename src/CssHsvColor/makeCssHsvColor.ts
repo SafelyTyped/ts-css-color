@@ -33,11 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { CssHsvColor } from "./CssHsvColor";
-import type { CssHsvColorData } from "./CssHsvColorData.type";
-import { makeCssHsvColorFromCssColor } from "./makeCssHsvColorFromCssColor";
+import { makeCssColor, makeCssHsvColorFromCssColor, type AnyCssColor, type CssHsvColor, type CssHsvColorData } from "../index";
 
 /**
  * makeCssHsvColor() is a smart constructor. Use it to create a CssHsvColor

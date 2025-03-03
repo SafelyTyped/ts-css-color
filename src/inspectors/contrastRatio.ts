@@ -33,8 +33,7 @@
 //
 
 import { roundDown } from "@safelytyped/math-rounding";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { relativeLuminance } from "./relativeLuminance";
+import { relativeLuminance, type AnyCssColor } from "../index";
 
 /**
  * contrastRatio() calculates the WCAG relative contrast between two

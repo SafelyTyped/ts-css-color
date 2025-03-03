@@ -33,8 +33,7 @@
 //
 
 import type { Rgb } from "culori";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
-import { normaliseRgbConversionModel } from "./normaliseRgbConversionModel";
+import { normaliseRgbConversionModel, type CssRgbColorChannelsData } from "../index";
 
 /**
  * convertRgbChannelsDataToConversionModel() is a helper method. It converts

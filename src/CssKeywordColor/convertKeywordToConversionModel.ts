@@ -34,9 +34,7 @@
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 import { rgb } from "culori";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import { normaliseRgbConversionModel } from "../CssRgbColor/normaliseRgbConversionModel";
-import { UnsupportedCssColorConversionError } from "../Errors/UnsupportedCssColorConversion/UnsupportedCssColorConversionError";
+import { normaliseRgbConversionModel, UnsupportedCssColorConversionError, type CssExtendedColor } from "../index";
 
 /**
  * convertKeywordToConversionModel() is a helper method. It converts

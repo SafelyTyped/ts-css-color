@@ -32,9 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, validate, type TypeValidatorOptions, validateObject, type AppErrorOr, UnsupportedTypeError } from "@safelytyped/core-types";
-import type { CssColorData } from "./CssColorData.type";
-import { InvalidCssColorDataError } from "../Errors/InvalidCssColorData/InvalidCssColorDataError";
+import { DEFAULT_DATA_PATH, UnsupportedTypeError, validate, validateObject, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
+import { InvalidCssColorDataError, type CssColorData } from "../index";
 
 /**
  * validateCssColorData() is a type validator. Use it to determine if the

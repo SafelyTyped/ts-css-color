@@ -33,11 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { makeCssRgbColorFromCssColor } from "./makeCssRgbColorFromCssColor";
-import { CssRgbColor } from "./CssRgbColor";
-import type { CssRgbColorData } from "./CssRgbColorData.type";
+import { CssRgbColor, makeCssColor, makeCssRgbColorFromCssColor, type AnyCssColor, type CssRgbColorData } from "../index";
 
 export function makeCssRgbColor(
     input: string|AnyCssColor,

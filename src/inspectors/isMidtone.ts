@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { tonality } from "./tonality";
+import { tonality, type AnyCssColor } from "../index";
 
 /**
  * isMidtone() returns true if the given `input` color is neither a light

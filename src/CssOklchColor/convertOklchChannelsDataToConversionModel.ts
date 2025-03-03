@@ -33,7 +33,7 @@
 //
 
 import type { Oklch } from "culori";
-import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
+import type { CssOklchColorChannelsData } from "../index";
 
 /**
  * convertOklchChannelsDataToConversionModel() is a helper method. It converts

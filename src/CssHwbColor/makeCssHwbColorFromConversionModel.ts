@@ -33,11 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { CssHwbColor } from "./CssHwbColor";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
-import { convertConversionModelToHwbChannelsData } from "./convertConversionModelToHwbChannelsData";
-import { makeCssHwbColorData } from "./makeCssHwbColorData";
+import { convertConversionModelToHwbChannelsData, CssHwbColor, makeCssHwbColorData, type ConversionModel, type CssHwbColorData } from "../index";
 
 export function makeCssHwbColorFromConversionModel(
     colorName: string,

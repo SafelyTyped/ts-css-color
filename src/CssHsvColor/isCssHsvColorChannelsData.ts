@@ -33,8 +33,7 @@
 //
 
 import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
-import { validateCssHsvColorChannelsData } from "./validateCssHsvColorChannelsData";
+import { validateCssHsvColorChannelsData, type CssHsvColorChannelsData } from "../index";
 
 export function isCssHsvColorChannelsData(
     input: unknown

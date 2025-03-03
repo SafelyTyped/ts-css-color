@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { validateCssRgbColorChannelsData } from "./validateCssRgbColorChannelsData";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
+import { validateCssRgbColorChannelsData, type CssRgbColorChannelsData } from "../index";
 
 export function mustBeCssRgbColorChannelsData(
     input: unknown,

@@ -32,10 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { convertConversionModelToSrgbColorSpace } from "../ConversionModel/convertConversionModelToSrgbColorSpace";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
-import { convertConversionModelViaRgbChannelsData } from "./convertConversionModelViaRgbChannelsData";
+import { convertConversionModelToSrgbColorSpace, convertConversionModelViaRgbChannelsData, type ConversionModel, type CssRgbColorChannelsData } from "../index";
 
 /**
  * convertConversionModelToRgbChannelsData() is a helper method. It converts

@@ -33,11 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssColorData } from "../CssColor/makeCssColorData";
-import type { CssHexColorData } from "./CssHexColorData.type";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
-import { mustBeCssHexColorData } from "./mustBeCssHexColorData";
-import { normaliseCssHexColorDefinitionFormat } from "./normaliseCssHexColorDefinitionFormat";
+import { makeCssColorData, mustBeCssHexColorData, normaliseCssHexColorDefinitionFormat, type CssHexColorData, type CssHexColorDefinition } from "../index";
 
 export function makeCssHexColorData(
     name: string,

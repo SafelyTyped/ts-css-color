@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssRgbColorChannelsData } from "./CssRgbColorChannelsData.type";
+import type { CssColorData, CssRgbColorChannelsData } from "../index";
 
 /**
  * CssRgbColorData represents the data for a CSS color that was defined

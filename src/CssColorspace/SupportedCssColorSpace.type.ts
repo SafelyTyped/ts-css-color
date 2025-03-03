@@ -32,6 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { SUPPORTED_CSS_COLOR_SPACES } from "./SUPPORTED_CSS_COLOR_SPACES";
+import { SUPPORTED_CSS_COLOR_SPACES } from "../index";
 
 export type SupportedCssColorSpace = typeof SUPPORTED_CSS_COLOR_SPACES[number];

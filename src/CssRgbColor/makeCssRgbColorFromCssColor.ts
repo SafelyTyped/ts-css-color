@@ -33,10 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { makeCssRgbColorFromConversionModel, type AnyCssColor, type CssRgbColorData } from "../index";
 import { CSS_RGB_CONVERSIONS } from "./CSS_RGB_CONVERSIONS";
-import type { CssRgbColorData } from "./CssRgbColorData.type";
-import { makeCssRgbColorFromConversionModel } from "./makeCssRgbColorFromConversionModel";
 
 export function makeCssRgbColorFromCssColor(
     input: AnyCssColor,

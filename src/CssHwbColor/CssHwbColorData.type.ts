@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssHwbColorChannelsData } from "./CssHwbColorChannelsData.type";
+import type { CssColorData, CssHwbColorChannelsData } from "../index";
 
 export interface CssHwbColorData extends CssColorData
 {

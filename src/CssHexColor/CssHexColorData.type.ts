@@ -32,9 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssSrgbColorSpace } from "../CssColorspace/CssSrgbColorSpace.type";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import type { CssColorData, CssHexColorDefinition, CssSrgbColorSpace } from "../index";
 
 /**
  * CssHexColorData represents a CSS color that's defined in `#RRGGBB` format.

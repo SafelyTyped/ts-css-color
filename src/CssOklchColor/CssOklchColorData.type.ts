@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssOklchColorChannelsData } from "./CssOklchColorChannelsData.type";
+import type { CssColorData, CssOklchColorChannelsData } from "../index";
 
 /**
  * CssOklchColorData represents the data for a CSS color that was defined in

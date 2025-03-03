@@ -33,8 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssCmykColorData } from "./CssCmykColorData.type";
-import { validateCssCmykColorData } from "./validateCssCmykColorData";
+import { validateCssCmykColorData, type CssCmykColorData } from "../index";
 
 export function mustBeCssCmykColorData(
     input: unknown,

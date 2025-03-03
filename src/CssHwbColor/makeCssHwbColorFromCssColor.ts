@@ -33,10 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import { makeCssHwbColorFromConversionModel, type AnyCssColor, type CssHwbColorData } from "../index";
 import { CSS_HWB_CONVERSIONS } from "./CSS_HWB_CONVERSIONS";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
-import { makeCssHwbColorFromConversionModel } from "./makeCssHwbColorFromConversionModel";
 
 export function makeCssHwbColorFromCssColor(
     input: AnyCssColor,

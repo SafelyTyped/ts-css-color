@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssColorData } from "../CssColor/CssColorData.type";
-import type { CssHsvColorChannelsData } from "./CssHsvColorChannelsData.type";
+import type { CssColorData, CssHsvColorChannelsData } from "../index";
 
 /**
  * CssHsvColorData represents the data that makes up a HSV color.
