@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe, type PrimitiveHint, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe, type PrimitiveHint } from "@safelytyped/core-types";
 import { formatCss } from "culori";
 import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
@@ -49,9 +49,8 @@ import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
 import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
 import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
-import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
 import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { CSS_HEX_TO_EXTENDED_COLORS } from "../index";
+import { CSS_HEX_TO_EXTENDED_COLORS, makeCssCmykColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor } from "../index";
 import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
 import type { CssColorData } from "./CssColorData.type";
 
@@ -100,10 +99,20 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      *   original definition (there's no 100% lossless 2-way conversion
      *   algorithm at this time)
      */
-    public abstract cmyk(
-        opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssCmykColorData, TypeGuaranteeOptions>[]
-    ): CssCmykColor;
+    public cmyk(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+    ): CssCmykColor
+    {
+        return makeCssCmykColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
 
     /**
      * hsl() converts this color to the CSS hsl() format
@@ -123,34 +132,74 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
         );
     }
 
-    public abstract hsv(
-        opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssHsvColorData, TypeGuaranteeOptions>[]
-    ): CssHsvColor;
+    public hsv(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
+    ): CssHsvColor
+    {
+        return makeCssHsvColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
 
     /**
      * hwb() converts this color to the CSS hwb() format
      */
-    public abstract hwb(
-        opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
-    ): CssHwbColor;
+    public hwb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
+    ): CssHwbColor
+    {
+        return makeCssHwbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
 
     /**
      * oklch() converts this color to the CSS oklch() format
      */
-    public abstract oklch(
-        opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssOklchColorData, TypeGuaranteeOptions>[]
-    ): CssOklchColor;
+    public oklch(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
+    ): CssOklchColor
+    {
+        return makeCssOklchColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
 
     /**
      * rgb() converts this color to the CSS rgb()
      */
-    public abstract rgb(
-        opt?: TypeGuaranteeOptions,
-        ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
-    ): CssRgbColor;
+    public rgb(
+        {
+            path = DEFAULT_DATA_PATH,
+            onError = THROW_THE_ERROR
+        }: DataGuaranteeOptions = {},
+        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    )
+    {
+        return makeCssRgbColorFromCssColor(
+            this,
+            { path, onError },
+            ...fnOpts
+        );
+    }
 
     // ================================================================
     //

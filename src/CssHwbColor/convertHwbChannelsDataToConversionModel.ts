@@ -32,6 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { roundTo } from "@safelytyped/math-rounding";
 import type { Hwb } from "culori";
 import type { CssHwbColorChannelsData } from "../index";
 
@@ -50,8 +51,19 @@ export function convertHwbChannelsDataToConversionModel(
     return {
         mode: "hwb",
         h: input.hue,
-        w: input.whiteness / 100,
-        b: input.blackness / 100,
+        w: round(input.whiteness / 100),
+        b: round(input.blackness / 100),
         alpha: input.alpha,
     };
+}
+
+function round(input: number)
+{
+    return Math.abs(
+        roundTo(
+            Math.round,
+            4,
+            input
+        )
+    );
 }

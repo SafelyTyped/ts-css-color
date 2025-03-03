@@ -65,7 +65,7 @@ const OKLCH_DISPATCH_MAP: DispatchMap<SupportedCssColorFormat, ConversionModelCo
     "hex": identity,
     "hsl": convertViaRgb,
     "hsv": convertWithinRgb,
-    "hwb": convertViaRgb,
+    "hwb": convertWithinRgb,
     // CssKeywordColor.conversionModel() already returns RGB
     "keyword": identity,
     // CssOklchColor.conversionModel() already returns OKLCH

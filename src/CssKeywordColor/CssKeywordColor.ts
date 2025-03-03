@@ -32,9 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe } from "@safelytyped/core-types";
+import type { Maybe } from "@safelytyped/core-types";
 import type { Rgb } from "culori";
-import { convertKeywordToConversionModel, CSS_EXTENDED_COLORS_TO_HEX, CssColor, makeCssCmykColorFromCssColor, makeCssHexColorDefinition, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, type CssCmykColor, type CssCmykColorData, type CssExtendedColor, type CssHexColorDefinition, type CssHslColor, type CssHslColorData, type CssHsvColor, type CssHsvColorData, type CssHwbColor, type CssHwbColorData, type CssKeywordColorData, type CssOklchColor, type CssOklchColorData, type CssRgbColorChannelsData, type CssRgbColorChannelsTuple, type CssRgbColorData } from "../index";
+import { convertKeywordToConversionModel, CSS_EXTENDED_COLORS_TO_HEX, CssColor, makeCssHexColorDefinition, type CssExtendedColor, type CssHexColorDefinition, type CssKeywordColorData, type CssRgbColorChannelsData, type CssRgbColorChannelsTuple } from "../index";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
@@ -42,102 +42,6 @@ import { convertKeywordToConversionModel, CSS_EXTENDED_COLORS_TO_HEX, CssColor, 
  */
 export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
 {
-    // ================================================================
-    //
-    // CORE FORMATS
-    //
-    // ----------------------------------------------------------------
-
-    public cmyk(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
-    ): CssCmykColor
-    {
-        return makeCssCmykColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hsl(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
-    ): CssHslColor
-    {
-        return makeCssHslColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hsv(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
-    ): CssHsvColor
-    {
-        return makeCssHsvColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hwb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
-    ): CssHwbColor
-    {
-        return makeCssHwbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public oklch(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
-    ): CssOklchColor
-    {
-        return makeCssOklchColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public rgb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    )
-    {
-        return makeCssRgbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
     // ================================================================
     //
     // OTHER FORMATS

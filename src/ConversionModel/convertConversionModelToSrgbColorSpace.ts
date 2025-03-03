@@ -64,11 +64,11 @@ const DISPATCH_MAP: DispatchMap<SupportedCssColorFormat, ConversionModelConverte
     // already in the sRGB color space
     "hex": identity,
     // already in the sRGB color space
-    "hsl": identity,
+    "hsl": convertWithinRgb,
     // direct conversion produces different results
     "hsv": convertWithinRgb,
     // already in the sRGB color space
-    "hwb": identity,
+    "hwb": convertWithinRgb,
     // already in the sRGB color space
     "keyword": identity,
     // need to convert via RGB to get reliable color conversion

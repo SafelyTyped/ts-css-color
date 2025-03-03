@@ -111,6 +111,34 @@ describe('CssHwbColor', () => {
                 expect(actualResult.channelsData()).to.eql(validFixture.cmykChannels);
             });
 
+            it("[fixture " + validFixture.name + "] produces the same result as going via .rgb()", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .cmyk() method returns the CMYK
+                // equivalent/ of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.rgb().cmyk();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.cmykChannels);
+            });
+
             it("[fixture " + validFixture.name + "] preserves the original color name", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -389,6 +417,34 @@ describe('CssHwbColor', () => {
                 expect(actualResult.channelsData()).to.eql(validFixture.hslChannels);
             });
 
+            it("[fixture " + validFixture.name + "] produces the same result as going via .rgb()", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsl() method returns the HSL equivalent
+                // of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.rgb().hsl();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.hslChannels);
+            });
+
             it("[fixture " + validFixture.name + "] preserves the original color name", () => {
                 // ----------------------------------------------------------------
                 // explain your test
@@ -549,6 +605,34 @@ describe('CssHwbColor', () => {
                 // perform the change
 
                 const actualResult = unit.hsv();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.hsvChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] produces the same result as going via .rgb()", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .hsv() method returns the HSV equivalent
+                // of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.rgb().hsv();
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -882,6 +966,34 @@ describe('CssHwbColor', () => {
                 // perform the change
 
                 const actualResult = unit.oklch();
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult.channelsData()).to.eql(validFixture.oklchChannels);
+            });
+
+            it("[fixture " + validFixture.name + "] produces the same result as going via .rgb()", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that the .oklch() method returns the OKLCH
+                // equivalent/ of the current color
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = makeCssHwbColorData(
+                    validFixture.name,
+                    validFixture.definition,
+                    validFixture.channels,
+                );
+                const unit = new CssHwbColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = unit.rgb().oklch();
 
                 // ----------------------------------------------------------------
                 // test the results

@@ -408,18 +408,18 @@ export const ValidCssColors: ValidCssColor[] = [
         cmykChannels: {
             cyan: 9,
             magenta: 0,
-            yellow: 13,
+            yellow: 14,
             key: 12,
         },
         hslChannels: {
             hue: 100,
-            saturation: 33,
+            saturation: 32,
             luminosity: 82,
             alpha: 1,
         },
         hsvChannels: {
             hue: 100,
-            saturation: 14,
+            saturation: 13,
             value: 88,
             alpha: 1,
         },
@@ -430,9 +430,9 @@ export const ValidCssColors: ValidCssColor[] = [
             alpha: 1,
         },
         oklchChannels: {
-            lightness: 0.884487,
-            chroma: 0.046611,
-            hue: 135.096968,
+            lightness: 0.883484,
+            chroma: 0.045467,
+            hue: 135.090312,
             alpha: 1,
         },
         rgbChannels: {
