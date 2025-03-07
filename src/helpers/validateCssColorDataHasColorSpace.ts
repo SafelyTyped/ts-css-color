@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateObjectHasStringProperty, type SupportedCssColorSpace } from "../index";
+import { validateObjectHasStringProperty, type SupportedColorSpace } from "../index";
 
 /**
  * validateCssColorDataHasColorSpace() is a data validator. Use it to prove
@@ -57,15 +57,15 @@ import { validateObjectHasStringProperty, type SupportedCssColorSpace } from "..
  */
 export function validateCssColorDataHasColorSpace<T extends object>(
     input: T,
-    expectedColorSpace: SupportedCssColorSpace,
+    expectedColorSpace: SupportedColorSpace,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions= {}
-): AppErrorOr<T & { colorSpace: SupportedCssColorSpace }>
+): AppErrorOr<T & { colorSpace: SupportedColorSpace }>
 {
     return validate(input)
         .next((x) => validateObjectHasStringProperty(x, ["colorSpace"], { path }))
-        .next((x) => recastIfValid<T & { colorSpace: SupportedCssColorSpace }>(
+        .next((x) => recastIfValid<T & { colorSpace: SupportedColorSpace }>(
             x,
             () => validateObjectHasExpectedColorSpace(x, expectedColorSpace, { path })
         ))
@@ -74,7 +74,7 @@ export function validateCssColorDataHasColorSpace<T extends object>(
 
 function validateObjectHasExpectedColorSpace<T extends object & Record<"colorSpace", string>>(
     input: T,
-    expectedColorSpace: SupportedCssColorSpace,
+    expectedColorSpace: SupportedColorSpace,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions= {}

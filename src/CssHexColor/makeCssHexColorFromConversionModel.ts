@@ -32,31 +32,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { convertConversionModelToHexColorDefinition } from "./convertConversionModelToHexColorDefinition";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER";
 import { CssHexColor } from "./CssHexColor";
-import type { CssHexColorData } from "./CssHexColorData.type";
-import { makeCssHexColorData } from "./makeCssHexColorData";
 
 export function makeCssHexColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHexColorData, TypeGuaranteeOptions>[]
 )
 {
     return new CssHexColor(
-        makeCssHexColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToHexColorDefinition(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+        colorName,
+        cssDefinition,
+        HEX_MODEL_CONVERTER.toColorModel(model),
     );
 }

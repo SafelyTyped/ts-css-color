@@ -32,31 +32,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { RGB_MODEL_CONVERTER } from "../ConversionModels/Rgb/RGB_MODEL_CONVERTER";
 import { CssRgbColor } from "./CssRgbColor";
-import type { CssRgbColorData } from "./CssRgbColorData.type";
-import { convertConversionModelToRgbChannelsData } from "./convertConversionModelToRgbChannelsData";
-import { makeCssRgbColorData } from "./makeCssRgbColorData";
 
 export function makeCssRgbColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
-)
+): CssRgbColor
 {
     return new CssRgbColor(
-        makeCssRgbColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToRgbChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+        colorName,
+        cssDefinition,
+        RGB_MODEL_CONVERTER.toColorModel(model)
     );
 }

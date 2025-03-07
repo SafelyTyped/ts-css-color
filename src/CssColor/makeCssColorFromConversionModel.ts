@@ -34,12 +34,12 @@
 
 
 import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuaranteeOptions, type DispatchMap } from "@safelytyped/core-types";
-import { makeCssHslColorFromConversionModel, makeCssHsvColorFromConversionModel, makeCssHwbColorFromConversionModel, makeCssOklchColorFromConversionModel, makeCssRgbColorFromConversionModel, mustBeConversionModel, UnsupportedCssColorDefinitionError, type AnyCssColor, type ConversionModel, type SupportedCssColorFormat } from "../index";
+import { makeCssHslColorFromConversionModel, makeCssHsvColorFromConversionModel, makeCssHwbColorFromConversionModel, makeCssOklchColorFromConversionModel, makeCssRgbColorFromConversionModel, UnsupportedCssColorDefinitionError, type AnyCssColor, type ConversionModel, type SupportedColorModel } from "../index";
 import type { CssColorFromConversionModelSmartConstructor } from "./CssColorFromConversionModelSmartConstructor.type";
 
-type UnsupportedCssColorFormats = "cmyk" | "hex" | "keyword";
+type UnsupportedColorModel = "cmyk" | "cssNamedColor" | "hex";
 
-const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssColorFormats>, CssColorFromConversionModelSmartConstructor> = {
+const DISPATCH_MAP: DispatchMap<Exclude<SupportedColorModel, UnsupportedColorModel>, CssColorFromConversionModelSmartConstructor> = {
     "hsl": makeCssHslColorFromConversionModel,
     "hsv": makeCssHsvColorFromConversionModel,
     "hwb": makeCssHwbColorFromConversionModel,
@@ -78,10 +78,7 @@ export function makeCssColorFromConversionModel(
     // shorthand
     const opts = { onError, path };
 
-    // if we're given a model that we do not support
-    //
-    // this code can only be reached if `mustBeConversionModel()`
-    // contains a bug
+    // this code is unreachable in practice
     /* c8 ignore start */
     const fallback = () => {
         const err = new UnsupportedCssColorDefinitionError({
@@ -94,12 +91,9 @@ export function makeCssColorFromConversionModel(
     };
     /* c8 ignore stop */
 
-    // robustness!
-    const vettedModel = mustBeConversionModel(model);
-
     // find out which function to call for the given model
-    const colorMaker = searchDispatchMap(DISPATCH_MAP, [vettedModel.mode], fallback);
+    const colorMaker = searchDispatchMap(DISPATCH_MAP, [model.mode], fallback);
 
     // call it
-    return colorMaker(colorName, cssDefinition, vettedModel, opts);
+    return colorMaker(colorName, cssDefinition, model, opts);
 }

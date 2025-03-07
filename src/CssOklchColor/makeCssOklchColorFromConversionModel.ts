@@ -32,27 +32,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { convertConversionModelToOklchChannelsData, CssOklchColor, makeCssOklchColorData, type ConversionModel, type CssOklchColorData } from "../index";
+import { OKLCH_MODEL_CONVERTER } from "../ConversionModels/Oklch/OKLCH_MODEL_CONVERTER";
+import { CssOklchColor, type ConversionModel } from "../index";
 
 export function makeCssOklchColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssOklchColorData, TypeGuaranteeOptions>[]
-)
+): CssOklchColor
 {
     return new CssOklchColor(
-        makeCssOklchColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToOklchChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+        colorName,
+        cssDefinition,
+        OKLCH_MODEL_CONVERTER.toColorModel(model),
     );
 }

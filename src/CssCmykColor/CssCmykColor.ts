@@ -32,107 +32,27 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { Rgb } from "culori";
-import { CssColor, makeCssCmykColorFromCssColor, makeCssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, type CssCmykColorChannelsData, type CssCmykColorChannelsTuple, type CssCmykColorData, type CssHexColorDefinition, type CssHslColor, type CssHslColorData, type CssHsvColor, type CssHsvColorData, type CssHwbColor, type CssHwbColorData, type CssOklchColor, type CssOklchColorData, type CssRgbColor, type CssRgbColorData } from "../index";
+import { CMYK_MODEL_CONVERTER, CssColor, type CmykColorModel, type CssCmykColorChannelsTuple } from "../index";
 
 /**
  * CssCmykColor represents a {@link CssColor} that was defined in the
  * CMYK color model format.
  */
-export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
+export class CssCmykColor extends CssColor<"cmyk", "CMYK", CmykColorModel, undefined>
 {
-    // ================================================================
-    //
-    // CONVERSIONS TO OTHER FORMATS
-    //
-    // ----------------------------------------------------------------
-
-    public cmyk(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
+    public constructor(
+        name: string,
+        definition: string,
+        colorModel: CmykColorModel
     )
     {
-        return makeCssCmykColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hsl(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
-    ): CssHslColor
-    {
-        return makeCssHslColorFromCssColor(this, {path, onError}, ...fnOpts);
-    }
-
-    public hsv(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
-    ): CssHsvColor
-    {
-        return makeCssHsvColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hwb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
-    ): CssHwbColor
-    {
-        return makeCssHwbColorFromCssColor(this, {path, onError}, ...fnOpts);
-    }
-
-    public oklch(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
-    ): CssOklchColor
-    {
-        return makeCssOklchColorFromCssColor(this, { path, onError }, ...fnOpts);
-    }
-
-    public rgb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor
-    {
-        // conversion FROM cmyk isn't 100% lossless
-        //
-        // safest way is to recreate the color instead
-        return makeCssRgbColorFromCssColor(
-            makeCssColor(
-                this.definition(),
-                {
-                    colorName: this.name(),
-                    path,
-                    onError
-                }
-            ),
-            { path, onError },
-            ...fnOpts
+        super(
+            {
+                name,
+                definition,
+                colorModel,
+            },
+            CMYK_MODEL_CONVERTER,
         );
     }
 
@@ -143,39 +63,16 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
     // ----------------------------------------------------------------
 
     /**
-     * channelsData() returns the color channels as an object.
-     */
-    public channelsData(): CssCmykColorChannelsData
-    {
-        return this.data.channels;
-    }
-
-    /**
      * channelsTuple() returns the color channels as an array.
      */
-    public channelsTuple(): CssCmykColorChannelsTuple
+    public get channelsTuple(): CssCmykColorChannelsTuple
     {
         return [
-            this.data.channels.cyan,
-            this.data.channels.magenta,
-            this.data.channels.yellow,
-            this.data.channels.key,
+            this.data.colorModel.cyan,
+            this.data.colorModel.magenta,
+            this.data.colorModel.yellow,
+            this.data.colorModel.key,
         ];
-    }
-
-    public hex(): CssHexColorDefinition
-    {
-        return this.rgb().hex();
-    }
-
-    public conversionModel(): Rgb {
-        return this.rgb().conversionModel();
-    }
-
-    public css()
-    {
-        // CMYK isn't supported in CSS
-        return this.rgb().css();
     }
 
     // ================================================================
@@ -190,9 +87,9 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
      *
      * @returns the `C` component from the CMYK definition
      */
-    public cyan(): number
+    public get cyan(): number
     {
-        return this.data.channels.cyan;
+        return this.data.colorModel.cyan;
     }
 
     /**
@@ -201,9 +98,9 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
      *
      * @returns the `M` component from the CMYK definition
      */
-    public magenta(): number
+    public get magenta(): number
     {
-        return this.data.channels.magenta;
+        return this.data.colorModel.magenta;
     }
 
     /**
@@ -212,9 +109,9 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
      *
      * @returns the `Y` component from the CMYK definition
      */
-    public yellow(): number
+    public get yellow(): number
     {
-        return this.data.channels.yellow;
+        return this.data.colorModel.yellow;
     }
 
     /**
@@ -223,8 +120,8 @@ export class CssCmykColor extends CssColor<CssCmykColorData, Rgb>
      *
      * @returns the 'K' component from the CMYK definition
      */
-    public key(): number
+    public get key(): number
     {
-        return this.data.channels.key;
+        return this.data.colorModel.key;
     }
 }

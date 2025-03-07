@@ -36,7 +36,7 @@ import type { DataGuaranteeOptions } from "@safelytyped/core-types";
 import { CssOklchColor, makeCssOklchColorData, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
+import type { SupportedColorSpace } from "../ColorSpaces/SupportedColorSpace.type";
 import { ValidCssOklchColorData } from "./_fixtures/CssOklchColorData";
 
 describe('CssOklchColor', () => {
@@ -1705,7 +1705,7 @@ describe('CssOklchColor', () => {
                 }
             );
             const unit = new CssOklchColor(inputValue);
-            const expectedValue: SupportedCssColorSpace = "OKLCH";
+            const expectedValue: SupportedColorSpace = "OKLCH";
 
             // ----------------------------------------------------------------
             // perform the change

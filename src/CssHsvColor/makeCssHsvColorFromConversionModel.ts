@@ -32,27 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { convertConversionModelToHsvChannelsData, CssHsvColor, makeCssHsvColorData, type ConversionModel, type CssHsvColorData } from "../index";
+import { CssHsvColor, HSV_MODEL_CONVERTER, type ConversionModel } from "../index";
 
 export function makeCssHsvColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHsvColorData, TypeGuaranteeOptions>[]
-)
+): CssHsvColor
 {
     return new CssHsvColor(
-        makeCssHsvColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToHsvChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+        colorName,
+        cssDefinition,
+        HSV_MODEL_CONVERTER.toColorModel(model),
     );
 }

@@ -32,15 +32,31 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Oklch } from "culori";
-import { convertOklchChannelsDataToConversionModel, CssColor, type CssHexColorDefinition, type CssOklchColorChannelsData, type CssOklchColorChannelsTuple, type CssOklchColorData } from "../index";
+import { OKLCH_MODEL_CONVERTER } from "../ConversionModels/Oklch/OKLCH_MODEL_CONVERTER";
+import { CssColor, type CssOklchColorChannelsTuple, type OklchColorModel, type OklchConversionModel } from "../index";
 
 /**
  * CssOklchColor represents a {@link CssColor} that was defined using the
  * CSS RGBA format.
  */
-export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
+export class CssOklchColor extends CssColor<"oklch","OKLCH", OklchColorModel, OklchConversionModel>
 {
+    public constructor(
+        name: string,
+        definition: string,
+        colorModel: OklchColorModel,
+    )
+    {
+        super(
+            {
+                name,
+                definition,
+                colorModel,
+            },
+            OKLCH_MODEL_CONVERTER,
+        );
+    }
+
     // ================================================================
     //
     // OTHER FORMATS
@@ -48,35 +64,18 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
     // ----------------------------------------------------------------
 
     /**
-     * channelsData() returns the color channels as an object.
-     */
-    public channelsData(): CssOklchColorChannelsData
-    {
-        return this.data.channels;
-    }
-
-    /**
      * channelsTuple() returns the color channels as an array.
      *
      * NOTE that we deliberately leave out the alpha channel, as third-party
      * color conversion packages seem to prefer this.
      */
-    public channelsTuple(): CssOklchColorChannelsTuple
+    public get channelsTuple(): CssOklchColorChannelsTuple
     {
         return [
-            this.data.channels.lightness,
-            this.data.channels.chroma,
-            this.data.channels.hue,
+            this.data.colorModel.lightness,
+            this.data.colorModel.chroma,
+            this.data.colorModel.hue,
         ];
-    }
-
-    public hex(): CssHexColorDefinition
-    {
-        return this.rgb().hex();
-    }
-
-    public conversionModel(): Oklch {
-        return convertOklchChannelsDataToConversionModel(this.data.channels);
     }
 
     // ================================================================
@@ -85,23 +84,23 @@ export class CssOklchColor extends CssColor<CssOklchColorData, Oklch>
     //
     // ----------------------------------------------------------------
 
-    public lightness(): number
+    public get lightness(): number
     {
-        return this.data.channels.lightness;
+        return this.data.colorModel.lightness;
     }
 
-    public chroma(): number
+    public get chroma(): number
     {
-        return this.data.channels.chroma;
+        return this.data.colorModel.chroma;
     }
 
-    public hue(): number
+    public get hue(): number
     {
-        return this.data.channels.hue;
+        return this.data.colorModel.hue;
     }
 
-    public alpha(): number
+    public get alpha(): number
     {
-        return this.data.channels.alpha;
+        return this.data.colorModel.alpha;
     }
 }

@@ -149,7 +149,7 @@ function grayHues(input: AnyCssColor): Hue[]
     const retval: Hue[] = [];
 
     // what is the hue?
-    const { saturation, luminosity } = input.hsl().channelsData();
+    const { saturation, luminosity } = input.hsl.channelsData;
 
     // special case
     if (saturation < 15) {
@@ -173,7 +173,7 @@ function grayHues(input: AnyCssColor): Hue[]
 function colorHues(input: AnyCssColor): Hue[]
 {
     // what is the hue?
-    const hue = input.hsl().hue();
+    const hue = input.hsl.hue;
 
     // our return value
     const filteredHuesMap = HashMap.filter(

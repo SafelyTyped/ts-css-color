@@ -32,27 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { convertConversionModelToCmykChannelsData, CssCmykColor, makeCssCmykColorData, type ConversionModel, type CssCmykColorData } from "../index";
+import { CMYK_MODEL_CONVERTER, CssCmykColor, type ConversionModel } from "../index";
 
 export function makeCssCmykColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssCmykColorData, TypeGuaranteeOptions>[]
 )
 {
     return new CssCmykColor(
-        makeCssCmykColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToCmykChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+        colorName,
+        cssDefinition,
+        CMYK_MODEL_CONVERTER.toColorModel(model),
     );
 }

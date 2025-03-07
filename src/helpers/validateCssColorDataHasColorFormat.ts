@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateObjectHasStringProperty, type SupportedCssColorFormat } from "../index";
+import { validateObjectHasStringProperty, type SupportedColorModel } from "../index";
 
 /**
  * validateCssColorChannel() is a data validator. Use it to prove that:
@@ -56,15 +56,15 @@ import { validateObjectHasStringProperty, type SupportedCssColorFormat } from ".
  */
 export function validateCssColorDataHasColorFormat<T extends object>(
     input: T,
-    expectedColorFormat: SupportedCssColorFormat,
+    expectedColorFormat: SupportedColorModel,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions= {}
-): AppErrorOr<T & { colorFormat: SupportedCssColorFormat }>
+): AppErrorOr<T & { colorFormat: SupportedColorModel }>
 {
     return validate(input)
         .next((x) => validateObjectHasStringProperty(x, ["colorFormat"], { path }))
-        .next((x) => recastIfValid<T & { colorFormat: SupportedCssColorFormat }>(
+        .next((x) => recastIfValid<T & { colorFormat: SupportedColorModel }>(
             x,
             () => validateObjectHasExpectedColorFormat(x, expectedColorFormat, { path })
         ))
@@ -73,16 +73,16 @@ export function validateCssColorDataHasColorFormat<T extends object>(
 
 function validateObjectHasExpectedColorFormat<T extends object>(
     input: T & Record<"colorFormat", string>,
-    expectedColorFormat: SupportedCssColorFormat,
+    expectedColorFormat: SupportedColorModel,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions= {}
-): AppErrorOr<T & { colorFormat: SupportedCssColorFormat }>
+): AppErrorOr<T & { colorFormat: SupportedColorModel }>
 {
     path = extendDataPath(path, "colorFormat");
 
     if (input.colorFormat === expectedColorFormat) {
-        return input as T & { colorFormat: SupportedCssColorFormat };
+        return input as T & { colorFormat: SupportedColorModel };
     }
 
     return new UnsupportedTypeError({

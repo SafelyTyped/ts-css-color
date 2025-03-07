@@ -32,110 +32,32 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { Hsv } from "culori";
-import { convertHsvChannelsDataToConversionModel, CssColor, makeCssCmykColorFromCssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, type CssCmykColor, type CssCmykColorData, type CssHslColor, type CssHslColorData, type CssHsvColorChannelsData, type CssHsvColorChannelsTuple, type CssHsvColorData, type CssHwbColor, type CssHwbColorData, type CssOklchColor, type CssOklchColorData, type CssRgbColor, type CssRgbColorData } from "../index";
+import { CssColor, HSV_MODEL_CONVERTER, type CssHsvColorChannelsTuple, type HsvColorModel, type HsvConversionModel } from "../index";
 
 /**
  * CssHsvColor is a {@link CssColor} that was created from a HSV color
  * definition.
  */
-export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>
+export class CssHsvColor extends CssColor<"hsv", "sRGB", HsvColorModel, HsvConversionModel>
 {
-    // ================================================================
-    //
-    // CORE FORMATS
-    //
-    // ----------------------------------------------------------------
-
-    public cmyk(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
-    ): CssCmykColor
+    public constructor(
+        name: string,
+        definition: string,
+        colorModel: HsvColorModel
+    )
     {
-        return makeCssCmykColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
+        super(
+            {
+                name,
+                definition,
+                colorModel,
+            },
+            HSV_MODEL_CONVERTER,
         );
     }
 
-    public hsl(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
-    ): CssHslColor
-    {
-        return makeCssHslColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hsv(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
-    ): CssHsvColor
-    {
-        return makeCssHsvColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hwb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
-    ): CssHwbColor
-    {
-        return makeCssHwbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public oklch(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
-    ): CssOklchColor
-    {
-        return makeCssOklchColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public rgb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    ): CssRgbColor
-    {
-        return makeCssRgbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+    public get hsv(): CssHsvColor {
+        return this;
     }
 
     // ================================================================
@@ -145,43 +67,19 @@ export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>
     // ----------------------------------------------------------------
 
     /**
-     * channelsData() returns the `H`, `S`, `V` and `A` channels as
-     * an object.
-     */
-    public channelsData(): CssHsvColorChannelsData
-    {
-        return this.data.channels;
-    }
-
-    /**
      * channelsTuple() returns the `H`, `S` and `V` channels as an
      * array.
      *
      * NOTE that we deliberately leave out the alpha channel, as third-party
      * color conversion packages seem to prefer this.
      */
-    public channelsTuple(): CssHsvColorChannelsTuple
+    public get channelsTuple(): CssHsvColorChannelsTuple
     {
         return [
-            this.data.channels.hue,
-            this.data.channels.saturation,
-            this.data.channels.value,
+            this.data.colorModel.hue,
+            this.data.colorModel.saturation,
+            this.data.colorModel.value,
         ];
-    }
-
-    public conversionModel(): Hsv {
-        return convertHsvChannelsDataToConversionModel(this.data.channels);
-    }
-
-    /**
-     * css() returns the color's current data as a valid CSS definition
-     *
-     * HSV is not directly supported in CSS, so we return the equivalent
-     * HSL definition.
-     */
-    public css(): string
-    {
-        return this.hsl().css();
     }
 
     // ================================================================
@@ -196,9 +94,9 @@ export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>
      *
      * @returns the `alpha` channel of this color
      */
-    public alpha(): number
+    public get alpha(): number
     {
-        return this.data.channels.alpha;
+        return this.data.colorModel.alpha;
     }
 
     /**
@@ -207,9 +105,9 @@ export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>
      *
      * @returns the `h` component from the hsv definition
      */
-    public hue(): number
+    public get hue(): number
     {
-        return this.data.channels.hue;
+        return this.data.colorModel.hue;
     }
 
     /**
@@ -218,9 +116,9 @@ export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>
      *
      * @returns the `s` component from the hsv definition
      */
-    public saturation(): number
+    public get saturation(): number
     {
-        return this.data.channels.saturation;
+        return this.data.colorModel.saturation;
     }
 
     /**
@@ -229,8 +127,8 @@ export class CssHsvColor extends CssColor<CssHsvColorData, Hsv>
      *
      * @returns the `v` component from the hsv definition
      */
-    public value(): number
+    public get value(): number
     {
-        return this.data.channels.value;
+        return this.data.colorModel.value;
     }
 }

@@ -34,9 +34,9 @@
 
 import { HashMap } from "@safelytyped/core-types";
 import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssExtendedColors/CssExtendedColors.const";
+import type { CssHexColorDefinition } from "../../CssHexColorDefinition/CssHexColorDefinition.type";
+import { normaliseCssHexColorDefinition } from "../../CssHexColorDefinition/normaliseCssHexColorDefinition";
 import { DARK_COLORS, LIGHT_COLORS, MIDTONE_COLORS } from "../../inspectors/_fixtures/colorShades";
-import type { CssHexColorDefinition } from "../CssHexColorDefinition.type";
-import { normaliseCssHexColorDefinition } from "../normaliseCssHexColorDefinition";
 
 // export const ValidCssHexColorDefinitions = [
 //     // we use Set() to dedupe the color definitions

@@ -32,110 +32,28 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Hsl } from "culori";
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import { convertHslChannelsDataToConversionModel, CssColor, makeCssCmykColorFromCssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, type CssCmykColor, type CssCmykColorData, type CssHslColorChannelsData, type CssHslColorChannelsTuple, type CssHslColorData, type CssHsvColor, type CssHsvColorData, type CssHwbColor, type CssHwbColorData, type CssOklchColor, type CssOklchColorData, type CssRgbColorData } from "../index";
+import { CssColor, HSL_MODEL_CONVERTER, type CssHslColorChannelsTuple, type HslColorModel, type HslConversionModel } from "../index";
 
 /**
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
  * definition.
  */
-export class CssHslColor extends CssColor<CssHslColorData, Hsl>
+export class CssHslColor extends CssColor<"hsl", "sRGB", HslColorModel, HslConversionModel>
 {
-    // ================================================================
-    //
-    // CORE FORMATS
-    //
-    // ----------------------------------------------------------------
-
-    public cmyk(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
-    ): CssCmykColor
-    {
-        return makeCssCmykColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hsl(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
-    ): CssHslColor
-    {
-        return makeCssHslColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hsv(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
-    ): CssHsvColor
-    {
-        return makeCssHsvColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hwb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
-    ): CssHwbColor
-    {
-        return makeCssHwbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public oklch(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
-    ): CssOklchColor
-    {
-        return makeCssOklchColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public rgb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    public constructor(
+        name: string,
+        definition: string,
+        colorModel: HslColorModel
     )
     {
-        return makeCssRgbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
+        super(
+            {
+                name,
+                definition,
+                colorModel,
+            },
+            HSL_MODEL_CONVERTER,
         );
     }
 
@@ -146,32 +64,19 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
     // ----------------------------------------------------------------
 
     /**
-     * channelsData() returns the `H`, `S`, `L` and `A` channels as
-     * an object.
-     */
-    public channelsData(): CssHslColorChannelsData
-    {
-        return this.data.channels;
-    }
-
-    /**
      * channelsTuple() returns the `H`, `S` and `L` channels as an
      * array.
      *
      * NOTE that we deliberately leave out the alpha channel, as third-party
      * color conversion packages seem to prefer this.
      */
-    public channelsTuple(): CssHslColorChannelsTuple
+    public get channelsTuple(): CssHslColorChannelsTuple
     {
         return [
-            this.data.channels.hue,
-            this.data.channels.saturation,
-            this.data.channels.luminosity,
+            this.data.colorModel.hue,
+            this.data.colorModel.saturation,
+            this.data.colorModel.luminosity,
         ];
-    }
-
-    public conversionModel(): Hsl {
-        return convertHslChannelsDataToConversionModel(this.data.channels);
     }
 
     // ================================================================
@@ -186,9 +91,9 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
      *
      * @returns the `alpha` channel of this color
      */
-    public alpha(): number
+    public get alpha(): number
     {
-        return this.data.channels.alpha;
+        return this.data.colorModel.alpha;
     }
 
     /**
@@ -197,9 +102,9 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
      *
      * @returns the `h` component from the hsl definition
      */
-    public hue(): number
+    public get hue(): number
     {
-        return this.data.channels.hue;
+        return this.data.colorModel.hue;
     }
 
     /**
@@ -208,9 +113,9 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
      *
      * @returns the `s` component from the hsl definition
      */
-    public saturation(): number
+    public get saturation(): number
     {
-        return this.data.channels.saturation;
+        return this.data.colorModel.saturation;
     }
 
     /**
@@ -219,8 +124,8 @@ export class CssHslColor extends CssColor<CssHslColorData, Hsl>
      *
      * @returns the `l` component from the hsl definition
      */
-    public luminosity(): number
+    public get luminosity(): number
     {
-        return this.data.channels.luminosity;
+        return this.data.colorModel.luminosity;
     }
 }

@@ -47,7 +47,7 @@ import type { AnyCssColor } from "../index";
 export function luma(input: AnyCssColor): number
 {
     // shorthand
-    const { red, green, blue } = input.rgb().channelsData();
+    const { red, green, blue } = input.rgb.channelsData;
 
     // calculate the value
     const luma = ((red*299)+(green*587)+(blue*114))/1000;

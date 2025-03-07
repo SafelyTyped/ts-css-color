@@ -43,6 +43,6 @@ import type { AnyCssColor } from "../index";
  */
 export function isMonochrome(input: AnyCssColor): boolean
 {
-    const { red, green, blue } = input.rgb().channelsData();
+    const { red, green, blue } = input.rgb.channelsData;
     return red === green && green === blue;
 }

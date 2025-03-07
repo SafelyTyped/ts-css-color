@@ -32,128 +32,29 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Rgb } from "culori";
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import { convertHexColorDefinitionToConversionModel, CssColor, makeCssCmykColorFromCssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, type CssCmykColor, type CssCmykColorData, type CssHexColorData, type CssHexColorDefinition, type CssHslColor, type CssHslColorData, type CssHsvColor, type CssHsvColorData, type CssHwbColor, type CssHwbColorData, type CssOklchColor, type CssOklchColorData, type CssRgbColorChannelsData, type CssRgbColorChannelsTuple, type CssRgbColorData } from "../index";
+import { CssColor, HEX_MODEL_CONVERTER, type CssHexColorDefinition, type CssRgbColorChannelsTuple, type HexColorModel, type RgbConversionModel } from "../index";
 
 /**
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
  * format.
  */
-export class CssHexColor extends CssColor<CssHexColorData, Rgb>
+export class CssHexColor extends CssColor<"hex", "sRGB", HexColorModel, RgbConversionModel>
 {
-    // ================================================================
-    //
-    // CORE FORMATS
-    //
-    // ----------------------------------------------------------------
-
-    public cmyk(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
-    ): CssCmykColor
-    {
-        return makeCssCmykColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hsl(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
-    ): CssHslColor
-    {
-        return makeCssHslColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hsv(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
-    ): CssHsvColor
-    {
-        return makeCssHsvColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public hwb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
-    ): CssHwbColor
-    {
-        return makeCssHwbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public oklch(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
-    ): CssOklchColor
-    {
-        return makeCssOklchColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
-    }
-
-    public rgb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
+    public constructor(
+        name: string,
+        definition: string,
+        colorModel: HexColorModel,
     )
     {
-        return makeCssRgbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
+        super(
+            {
+                name,
+                definition,
+                colorModel,
+            },
+            HEX_MODEL_CONVERTER,
         );
-    }
-
-    // ================================================================
-    //
-    // OTHER FORMATS
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * channelsData() returns the `R`, `G`, `B` and `A` components of
-     * this color as an object.
-     *
-     * @returns
-     */
-    public channelsData(): CssRgbColorChannelsData
-    {
-        return this.rgb().channelsData();
     }
 
     /**
@@ -165,25 +66,15 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
      *
      * @returns
      */
-    public channelsTuple(): CssRgbColorChannelsTuple
+    public get channelsTuple(): CssRgbColorChannelsTuple
     {
-        return this.rgb().channelsTuple();
+        return this.rgb.channelsTuple;
     }
 
-    public hex(): CssHexColorDefinition
+    public get hex(): CssHexColorDefinition
     {
         // general case
-        return this.data.hex;
-    }
-
-    public conversionModel(): Rgb {
-        return convertHexColorDefinitionToConversionModel(this.hex());
-    }
-
-    public css(): string
-    {
-        // special case - we always want to return a HEX format!
-        return this.hex();
+        return this.data.colorModel.hex;
     }
 
     // ================================================================
@@ -198,9 +89,9 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
      *
      * @returns the `R` component from the RGB definition
      */
-    public red()
+    public get red()
     {
-        return this.rgb().red();
+        return this.rgb.red;
     }
 
     /**
@@ -209,9 +100,9 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
      *
      * @returns the `G` component from the RGB definition
      */
-    public green()
+    public get green()
     {
-        return this.rgb().green();
+        return this.rgb.green;
     }
 
     /**
@@ -220,9 +111,9 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
      *
      * @returns the `B` component from the RGB definition
      */
-    public blue()
+    public get blue()
     {
-        return this.rgb().blue();
+        return this.rgb.blue;
     }
 
     /**
@@ -231,8 +122,8 @@ export class CssHexColor extends CssColor<CssHexColorData, Rgb>
      *
      * @returns the `alpha` channel of this color
      */
-    public alpha()
+    public get alpha()
     {
-        return this.rgb().alpha();
+        return this.rgb.alpha;
     }
 }

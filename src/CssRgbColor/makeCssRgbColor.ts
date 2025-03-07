@@ -32,8 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import { CssRgbColor, makeCssColor, makeCssRgbColorFromCssColor, type AnyCssColor, type CssRgbColorData } from "../index";
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { CssRgbColor, makeCssColor, makeCssRgbColorFromCssColor, type AnyCssColor } from "../index";
 
 export function makeCssRgbColor(
     input: string|AnyCssColor,
@@ -41,7 +41,6 @@ export function makeCssRgbColor(
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
     }: DataGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
 ): CssRgbColor
 {
     // normalise to a CssColor class
@@ -55,9 +54,5 @@ export function makeCssRgbColor(
     }
 
     // convert it
-    return makeCssRgbColorFromCssColor(
-        input,
-        { path, onError },
-        ...fnOpts,
-    );
+    return makeCssRgbColorFromCssColor(input);
 }

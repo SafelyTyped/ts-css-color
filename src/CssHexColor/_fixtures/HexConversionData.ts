@@ -32,9 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ConversionModel } from "../../ConversionModel/ConversionModel.type";
-import type { CssHexColorDefinition } from "../CssHexColorDefinition.type";
-import { makeCssHexColorDefinition } from "../makeCssHexColorDefinition";
+import type { ConversionModel } from "../../ConversionModels/ConversionModel.type";
+import type { CssHexColorDefinition } from "../../CssHexColorDefinition/CssHexColorDefinition.type";
+import { makeCssHexColorDefinition } from "../../CssHexColorDefinition/makeCssHexColorDefinition";
 
 export type HexConversionData = {
     hex: CssHexColorDefinition;

@@ -32,10 +32,21 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyConversionModel, CssColor } from "../index";
+import type { AnyColorModel } from "../ColorModels/AnyColorModel.type";
+import type { ConversionModel, CssColor, SupportedColorModel, SupportedColorSpace } from "../index";
 
 /**
  * AnyCssColor is a type. Use it wherever you can accept and/or return
  * any variant of the {@link CssColor} class.
  */
-export type AnyCssColor = CssColor<any, AnyConversionModel>;
+// export type AnyCssColor = CssCmykColor
+//     | CssKeywordColor
+//     | CssHexColor
+//     | CssHslColor
+//     | CssHsvColor
+//     | CssHwbColor
+//     | CssOklchColor
+//     | CssRgbColor
+//     ;
+
+export type AnyCssColor = CssColor<SupportedColorModel, SupportedColorSpace, AnyColorModel, ConversionModel>;

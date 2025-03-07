@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ConversionModel } from "../../ConversionModel/ConversionModel.type";
+import type { ConversionModel } from "../../ConversionModels/ConversionModel.type";
 import type { CssHslColorChannelsData } from "../CssHslColorChannelsData.type";
 
 export type HslConversionData = {

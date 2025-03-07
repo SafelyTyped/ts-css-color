@@ -48,7 +48,7 @@ import type { AnyCssColor } from "../index";
  */
 export function relativeLuminance(input: AnyCssColor): number
 {
-    const { red, green, blue } = input.rgb().channelsData();
+    const { red, green, blue } = input.rgb.channelsData;
 
     // convert the channels to a number between 0-1
     const rsRGB = red / 255;

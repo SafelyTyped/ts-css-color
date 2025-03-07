@@ -32,27 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { convertConversionModelToHwbChannelsData, CssHwbColor, makeCssHwbColorData, type ConversionModel, type CssHwbColorData } from "../index";
+import { CssHwbColor, HWB_MODEL_CONVERTER, type ConversionModel } from "../index";
 
 export function makeCssHwbColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
-)
+): CssHwbColor
 {
     return new CssHwbColor(
-        makeCssHwbColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToHwbChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+        colorName,
+        cssDefinition,
+        HWB_MODEL_CONVERTER.toColorModel(model),
     );
 }

@@ -32,27 +32,27 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption, type Maybe, type PrimitiveHint } from "@safelytyped/core-types";
-import { formatCss } from "culori";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
-import type { CssCmykColorData } from "../CssCmykColor/CssCmykColorData.type";
-import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
+import type { Maybe } from "@safelytyped/core-types";
+import type { SupportedColorModel } from "../ColorModels/SupportedColorModel.type";
+import type { SupportedColorSpace } from "../ColorSpaces/SupportedColorSpace.type";
+import { CssCmykColor } from "../CssCmykColor/CssCmykColor";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import type { CssHexColorDefinition } from "../CssHexColor/CssHexColorDefinition.type";
+import type { CssHexColorDefinition } from "../CssHexColorDefinition/CssHexColorDefinition.type";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import type { CssHslColorData } from "../CssHslColor/CssHslColorData.type";
-import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
-import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
-import type { CssHsvColorData } from "../CssHsvColor/CssHsvColorData.type";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import type { CssHwbColorData } from "../CssHwbColor/CssHwbColorData.type";
-import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
-import type { CssOklchColorData } from "../CssOklchColor/CssOklchColorData.type";
-import type { CssRgbColorData } from "../CssRgbColor/CssRgbColorData.type";
-import { CSS_HEX_TO_EXTENDED_COLORS, makeCssCmykColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor } from "../index";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import type { CssColorData } from "./CssColorData.type";
+import { CssHsvColor } from "../CssHsvColor/CssHsvColor";
+import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import { CSS_HEX_TO_EXTENDED_COLORS, CssRgbColor, makeCssCmykColorFromCssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, RGB_MODEL_CONVERTER, type AnyCssColor, type ColorModel, type ConversionModel, type CssColorData, type ModelConverter } from "../index";
+
+type ConversionCache = {
+    cmyk: Maybe<CssCmykColor>,
+    hex: Maybe<CssHexColorDefinition>,
+    hsl: Maybe<CssHslColor>,
+    hsv: Maybe<CssHsvColor>,
+    hwb: Maybe<CssHwbColor>,
+    oklch: Maybe<CssOklchColor>,
+    rgb: Maybe<CssRgbColor>,
+};
 
 /**
  * CssColor holds the representation of a CSS color.
@@ -62,7 +62,7 @@ import type { CssColorData } from "./CssColorData.type";
  * - obtain the representation details
  * - convert from one format (e.g. rgb) to another (e.g. hsl or hex)
  */
-export abstract class CssColor<E extends CssColorData, C extends ConversionModel> {
+export abstract class CssColor<M extends SupportedColorModel, S extends SupportedColorSpace, CM extends ColorModel<M,S>, CV extends ConversionModel|undefined> {
     /**
      * holds the internal representation of the CSS color,
      * along with common details such as its name and its original
@@ -70,12 +70,23 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      *
      * NOTE: even when we convert formats, we retain the color's original
      * definition
-     *
-     * @protected
-     * @type {E}
-     * @memberof CssColor
      */
-    protected readonly data: E;
+    protected readonly data: CssColorData<M,S,CM>;
+
+    /**
+     * how do we convert this color into other colors?
+     */
+    protected modelConverter: ModelConverter<CM,CV>;
+
+    private conversionCache: ConversionCache = {
+        cmyk: undefined,
+        hex: undefined,
+        hsl: undefined,
+        hsv: undefined,
+        hwb: undefined,
+        oklch: undefined,
+        rgb: undefined,
+    };
 
     /**
      * constructor
@@ -83,11 +94,19 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      * @param data
      */
     public constructor(
-        data: E
+        data: CssColorData<M,S,CM>,
+        modelConverter: ModelConverter<CM,CV>,
     )
     {
         this.data = data;
+        this.modelConverter = modelConverter;
     }
+
+    // ================================================================
+    //
+    // CONVERSION TO OTHER COLOR MODELS
+    //
+    // ----------------------------------------------------------------
 
     /**
      * cmyk() converts this color to CMYK format
@@ -99,106 +118,77 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      *   original definition (there's no 100% lossless 2-way conversion
      *   algorithm at this time)
      */
-    public cmyk(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
-    ): CssCmykColor
+    public get cmyk(): CssCmykColor
     {
-        return makeCssCmykColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        if (this.conversionCache.cmyk === undefined) {
+            this.conversionCache.cmyk = makeCssCmykColorFromCssColor(this as unknown as AnyCssColor);
+        }
+
+        return this.conversionCache.cmyk;
+
+        // return makeCssCmykColorFromCssColor(
+        //     this,
+        //     { path, onError },
+        //     ...fnOpts
+        // );
     }
 
     /**
      * hsl() converts this color to the CSS hsl() format
      */
-    public hsl(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHslColorData, DataGuaranteeOptions>[]
-    ): CssHslColor
+    public get hsl(): CssHslColor
     {
-        return makeCssHslColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        if (this.conversionCache.hsl === undefined) {
+            this.conversionCache.hsl = makeCssHslColorFromCssColor(this as unknown as AnyCssColor);
+        }
+
+        return this.conversionCache.hsl;
     }
 
-    public hsv(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
-    ): CssHsvColor
+    public get hsv(): CssHsvColor
     {
-        return makeCssHsvColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        if (this.conversionCache.hsv === undefined) {
+            this.conversionCache.hsv = makeCssHsvColorFromCssColor(this as unknown as AnyCssColor);
+        }
+
+        return this.conversionCache.hsv;
     }
 
     /**
      * hwb() converts this color to the CSS hwb() format
      */
-    public hwb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
-    ): CssHwbColor
+    public get hwb(): CssHwbColor
     {
-        return makeCssHwbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        if (this.conversionCache.hwb === undefined) {
+            this.conversionCache.hwb = makeCssHwbColorFromCssColor(this as unknown as AnyCssColor);
+        }
+
+        return this.conversionCache.hwb;
     }
 
     /**
      * oklch() converts this color to the CSS oklch() format
      */
-    public oklch(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
-    ): CssOklchColor
+    public get oklch(): CssOklchColor
     {
-        return makeCssOklchColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        if (this.conversionCache.oklch === undefined) {
+            this.conversionCache.oklch = makeCssOklchColorFromCssColor(this as unknown as AnyCssColor);
+        }
+
+        return this.conversionCache.oklch;
     }
 
     /**
-     * rgb() converts this color to the CSS rgb()
+     * rgb
      */
-    public rgb(
-        {
-            path = DEFAULT_DATA_PATH,
-            onError = THROW_THE_ERROR
-        }: DataGuaranteeOptions = {},
-        ...fnOpts: FunctionalOption<CssRgbColorData, DataGuaranteeOptions>[]
-    )
+    public get rgb(): CssRgbColor
     {
-        return makeCssRgbColorFromCssColor(
-            this,
-            { path, onError },
-            ...fnOpts
-        );
+        // we don't want to do this conversion multiple times
+        if (this.conversionCache.rgb === undefined) {
+            this.conversionCache.rgb = makeCssRgbColorFromCssColor(this as unknown as AnyCssColor);
+        }
+
+        return this.conversionCache.rgb;
     }
 
     // ================================================================
@@ -213,9 +203,14 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      * the returned string will always be in lowercase
      * the returned string will always be 7 chars long
      */
-    public hex(): CssHexColorDefinition
+    public get hex(): CssHexColorDefinition
     {
-        return this.rgb().hex();
+        // we don't want to do this conversion multiple times
+        if (this.conversionCache.hex === undefined) {
+            this.conversionCache.hex = this.rgb.hex;
+        }
+
+        return this.conversionCache.hex;
     }
 
     /**
@@ -224,28 +219,9 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      *
      * Otherwise, returns `undefined`
      */
-    public keyword(): Maybe<CssExtendedColor>
+    public get keyword(): Maybe<CssExtendedColor>
     {
-        return CSS_HEX_TO_EXTENDED_COLORS[this.hex()];
-    }
-
-    /**
-     * adds support for automatic conversion to string and number
-     * (although your eslint rules may prevent you making use of this!)
-     *
-     * - for number conversion, returns the {@link CssColor.hex()} value as
-     *   a number
-     * - for string conversion, returns the color's original definition
-     *
-     * @param hint
-     * @returns
-     */
-    public [ Symbol.toPrimitive ](hint: PrimitiveHint): string | number {
-        if (hint === "number") {
-            return parseInt(this.hex().substring(1), 16);
-        }
-
-        return this.toString();
+        return CSS_HEX_TO_EXTENDED_COLORS[this.hex];
     }
 
     /**
@@ -261,14 +237,33 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      */
     public toString(): string
     {
-        return this.definition();
+        return this.definition;
     }
 
     /**
      * returns this color's data in a format that's compatible with our
      * chosen third-party color conversion package.
      */
-    public abstract conversionModel(): C;
+    public get conversionModel(): ConversionModel
+    {
+        // do we support color conversion?
+        if (this.modelConverter.toConversionModel) {
+            return this.modelConverter.toConversionModel(this.data.colorModel);
+        }
+
+        // no, we do not
+        return RGB_MODEL_CONVERTER.parse(this.data.definition);
+    }
+
+    /**
+     * channelsData() returns the color channels as an object.
+     */
+    public get channelsData()
+    {
+        return this.data.colorModel;
+    }
+
+    private cachedCss: Maybe<string>;
 
     /**
      * css() returns the color's current data as a valid CSS definition
@@ -279,9 +274,12 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      * Use {@link CssColor.definition()} if you want the color's original
      * CSS string.
      */
-    public css(): string
+    public get css(): string
     {
-        return formatCss(this.conversionModel());
+        if (!this.cachedCss) {
+            this.cachedCss = this.modelConverter.toCss(this.data.colorModel, this.data.definition);
+        }
+        return this.cachedCss;
     }
 
     // ================================================================
@@ -298,7 +296,7 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      *
      * @returns your name for this color
      */
-    public name(): string
+    public get name(): string
     {
         return this.data.name;
     }
@@ -315,20 +313,20 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      *
      * @returns the color's original definition
      */
-    public definition(): string
+    public get definition(): string
     {
         return this.data.definition;
     }
 
     /**
-     * colorFormat() returns the name of the way that color is represented
+     * colorModel() returns the name of the way that color is represented
      * in this object
      *
      * @returns the color notation used by this object
      */
-    public colorFormat(): SupportedCssColorFormat
+    public get colorModel(): SupportedColorModel
     {
-        return this.data.colorFormat;
+        return this.data.colorModel.colorModel;
     }
 
     /**
@@ -340,8 +338,8 @@ export abstract class CssColor<E extends CssColorData, C extends ConversionModel
      *
      * @returns the name of the color space used by this object
      */
-    public colorSpace(): SupportedCssColorSpace
+    public get colorSpace(): SupportedColorSpace
     {
-        return this.data.colorSpace;
+        return this.data.colorModel.colorSpace;
     }
 }

@@ -32,25 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import { makeCssColor, makeCssHsvColorFromCssColor, type AnyCssColor, type CssHsvColor, type CssHsvColorData } from "../index";
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { CssHsvColor, makeCssColor, makeCssHsvColorFromCssColor, type AnyCssColor } from "../index";
 
-/**
- * makeCssHsvColor() is a smart constructor. Use it to create a CssHsvColor
- * instance from either a CSS color definition string or an existing CssColor.
- *
- * @param input - Either a CSS color definition string or an existing CssColor
- * @param options - Configuration options
- * @param fnOpts - Functions to apply to the created CssHsvColorData
- * @returns A new CssHsvColor instance
- */
 export function makeCssHsvColor(
     input: string|AnyCssColor,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
     }: DataGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHsvColorData, DataGuaranteeOptions>[]
 ): CssHsvColor
 {
     // normalise to a CssColor class
@@ -58,10 +48,11 @@ export function makeCssHsvColor(
         input = makeCssColor(input, { path, onError });
     }
 
+    // special case - no conversion needed
+    if (input instanceof CssHsvColor) {
+        return input;
+    }
+
     // convert it (if necessary) and return it
-    return makeCssHsvColorFromCssColor(
-        input,
-        { path, onError },
-        ...fnOpts,
-    );
+    return makeCssHsvColorFromCssColor(input);
 }

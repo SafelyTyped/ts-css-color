@@ -32,22 +32,32 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Hwb } from "culori";
 
-import { convertHwbChannelsDataToConversionModel, CssColor, type CssHslColorChannelsTuple, type CssHwbColorChannelsData, type CssHwbColorData } from "../index";
+import { CssColor, HWB_MODEL_CONVERTER, type CssHslColorChannelsTuple, type HwbColorModel, type HwbConversionModel } from "../index";
 
-export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
+export class CssHwbColor extends CssColor<"hwb", "sRGB", HwbColorModel, HwbConversionModel>
 {
+    public constructor(
+        name: string,
+        definition: string,
+        colorModel: HwbColorModel,
+    )
+    {
+        super(
+            {
+                name,
+                definition,
+                colorModel
+            },
+            HWB_MODEL_CONVERTER,
+        );
+    }
+
     // ================================================================
     //
     // OTHER FORMATS
     //
     // ----------------------------------------------------------------
-
-    public channelsData(): CssHwbColorChannelsData
-    {
-        return this.data.channels;
-    }
 
     /**
      * channelsTuple() returns the `H`, `W`, `B` components of
@@ -56,17 +66,13 @@ export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
      * NOTE that we deliberately leave out the alpha channel, as third-party
      * color conversion packages seem to prefer this.
      */
-    public channelsTuple(): CssHslColorChannelsTuple
+    public get channelsTuple(): CssHslColorChannelsTuple
     {
         return [
-            this.data.channels.hue,
-            this.data.channels.whiteness,
-            this.data.channels.blackness,
+            this.data.colorModel.hue,
+            this.data.colorModel.whiteness,
+            this.data.colorModel.blackness,
         ];
-    }
-
-    public conversionModel(): Hwb {
-        return convertHwbChannelsDataToConversionModel(this.data.channels);
     }
 
     // ================================================================
@@ -79,35 +85,35 @@ export class CssHwbColor extends CssColor<CssHwbColorData, Hwb>
      * hue() returns the `H` channel from this color, as a number between
      * 0-359.
      */
-    public hue(): number
+    public get hue(): number
     {
-        return this.data.channels.hue;
+        return this.data.colorModel.hue;
     }
 
     /**
      * blackness() returns the `B` channel from this color, as a number
      * between 0-100.
      */
-    public blackness(): number
+    public get blackness(): number
     {
-        return this.data.channels.blackness;
+        return this.data.colorModel.blackness;
     }
 
     /**
      * whiteness() returns the `W` channel from this color, as a number
      * between 0-100.
      */
-    public whiteness(): number
+    public get whiteness(): number
     {
-        return this.data.channels.whiteness;
+        return this.data.colorModel.whiteness;
     }
 
     /**
      * alpha() returns the alpha channel from this color, as a number
      * between 0-1.
      */
-    public alpha(): number
+    public get alpha(): number
     {
-        return this.data.channels.alpha;
+        return this.data.colorModel.alpha;
     }
 }

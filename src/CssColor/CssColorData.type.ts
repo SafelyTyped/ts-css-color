@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { SupportedCssColorFormat, SupportedCssColorSpace } from "../index";
+import type { ColorModel, SupportedColorModel, SupportedColorSpace } from "..";
 
 /**
  * CssColorData is the base data for defining a CSSColor.
@@ -40,7 +40,7 @@ import type { SupportedCssColorFormat, SupportedCssColorSpace } from "../index";
  * Extend this to add channel and colorspace data for each different
  * CSS color format.
  */
-export type CssColorData = {
+export type CssColorData<M extends SupportedColorModel, S extends SupportedColorSpace, CM extends ColorModel<M,S>> = {
     /**
      * what do humans call this color?
      *
@@ -62,22 +62,7 @@ export type CssColorData = {
     definition: string;
 
     /**
-     * what type of color data do we hold?
-     *
-     * this may be different to the notation used in the `definition` field
-     * (for example, if a color was converted from `keyword` to `rgb`)
+     * how is this color described?
      */
-    colorFormat: SupportedCssColorFormat;
-
-    /**
-     * what color space is this data in?
-     *
-     * it's normally lossless to convert between color formats in the same
-     * color space.
-     *
-     * converting between two different color spaces can end up changing
-     * the appearance of the color, or even producing a color that cannot
-     * be rendered as-is
-     */
-    colorSpace: SupportedCssColorSpace;
+    colorModel: CM;
 };

@@ -33,11 +33,11 @@
 //
 
 import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssRgbColor, makeCssRgbColorData, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { CssRgbColor, makeCssRgbColor, makeCssRgbColorData, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData, type CssRgbColorData } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
+import type { SupportedColorSpace } from "../ColorSpaces/SupportedColorSpace.type";
 import { CSS_CMYK_CONVERSIONS } from "../CssCmykColor/CSS_CMYK_CONVERSIONS";
-import type { SupportedCssColorSpace } from "../CssColorspace/SupportedCssColorSpace.type";
 import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
 import { CSS_HSV_CONVERSIONS } from "../CssHsvColor/CSS_HSV_CONVERSIONS";
 import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
@@ -124,17 +124,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             // make sure that the cache is empty
             CSS_RGB_CONVERSIONS.reset();
@@ -161,17 +151,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             const f1 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
             const f2 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
@@ -189,7 +169,7 @@ describe('CssRgbColor', () => {
 
             // make sure the original color object has not been altered
             expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
+            expect(unit.definition()).eqls('red');
         });
     });
 
@@ -291,17 +271,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             // make sure that the cache is empty
             CSS_CMYK_CONVERSIONS.reset();
@@ -327,17 +297,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             const f1 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
             const f2 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
@@ -355,7 +315,7 @@ describe('CssRgbColor', () => {
 
             // make sure the original color object has not been altered
             expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
+            expect(unit.definition()).eqls('red');
         });
     });
 
@@ -457,17 +417,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             // make sure that the cache is empty
             CSS_HSL_CONVERSIONS.reset();
@@ -493,17 +443,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             const f1 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
             const f2 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
@@ -521,7 +461,7 @@ describe('CssRgbColor', () => {
 
             // make sure the original color object has not been altered
             expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
+            expect(unit.definition()).eqls('red');
         });
     });
 
@@ -623,17 +563,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             // make sure that the cache is empty
             CSS_HSV_CONVERSIONS.reset();
@@ -659,17 +589,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             const f1 = (x: CssHsvColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
             const f2 = (x: CssHsvColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
@@ -687,7 +607,7 @@ describe('CssRgbColor', () => {
 
             // make sure the original color object has not been altered
             expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
+            expect(unit.definition()).eqls('red');
         });
     });
 
@@ -789,17 +709,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             // make sure that the cache is empty
             CSS_HWB_CONVERSIONS.reset();
@@ -825,17 +735,7 @@ describe('CssRgbColor', () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const inputValue = makeCssRgbColorData(
-                "red",
-                "#ff0000",
-                {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
-            const unit = new CssRgbColor(inputValue);
+            const unit = makeCssRgbColor("red");
 
             const f1 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
             const f2 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
@@ -853,7 +753,7 @@ describe('CssRgbColor', () => {
 
             // make sure the original color object has not been altered
             expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
+            expect(unit.definition()).eqls('red');
         });
     });
 
@@ -1748,7 +1648,7 @@ describe('CssRgbColor', () => {
                 }
             );
             const unit = new CssRgbColor(inputValue);
-            const expectedValue: SupportedCssColorSpace = "sRGB";
+            const expectedValue: SupportedColorSpace = "sRGB";
 
             // ----------------------------------------------------------------
             // perform the change

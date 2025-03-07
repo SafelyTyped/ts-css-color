@@ -32,29 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssHexColorFromConversionModel, type AnyCssColor, type CssHexColorData } from "../index";
-import { CSS_HEX_CONVERSIONS } from "./CSS_HEX_CONVERSIONS";
+import { makeCssHexColorFromConversionModel, type AnyCssColor } from "../index";
 
 export function makeCssHexColorFromCssColor(
     input: AnyCssColor,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHexColorData, TypeGuaranteeOptions>[]
 )
 {
-    // how to do the conversion
-    const converterFn = () => {
-        return makeCssHexColorFromConversionModel(
-            input.name(),
-            input.definition(),
-            input.conversionModel(),
-            {path, onError},
-            ...fnOpts,
-        );
-    };
-
-    return CSS_HEX_CONVERSIONS.convert(converterFn, input, fnOpts);
+    return makeCssHexColorFromConversionModel(
+        input.name,
+        input.definition,
+        input.conversionModel,
+    );
 }

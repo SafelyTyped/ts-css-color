@@ -32,15 +32,30 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { formatHex, formatRgb, type Rgb } from "culori";
-import { convertRgbChannelsDataToConversionModel, CssColor, makeCssHexColorDefinition, type CssHexColorDefinition, type CssRgbColorChannelsData, type CssRgbColorChannelsTuple, type CssRgbColorData } from "../index";
+import { CssColor, HEX_MODEL_CONVERTER, RGB_MODEL_CONVERTER, type CssHexColorDefinition, type CssRgbColorChannelsTuple, type RgbColorModel, type RgbConversionModel } from "../index";
 
 /**
  * CssRgbColor represents a {@link CssColor} that was defined using the
  * CSS RGBA format.
  */
-export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
+export class CssRgbColor extends CssColor<"rgb", "sRGB", RgbColorModel, RgbConversionModel>
 {
+    public constructor(
+        name: string,
+        definition: string,
+        colorModel: RgbColorModel
+    )
+    {
+        super(
+            {
+                name,
+                definition,
+                colorModel,
+            },
+            RGB_MODEL_CONVERTER
+        );
+    }
+
     // ================================================================
     //
     // OTHER FORMATS
@@ -48,42 +63,23 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
     // ----------------------------------------------------------------
 
     /**
-     * channelsData() returns the color channels as an object.
-     */
-    public channelsData(): CssRgbColorChannelsData
-    {
-        return this.data.channels;
-    }
-
-    /**
      * channelsTuple() returns the color channels as an array.
      *
      * NOTE that we deliberately leave out the alpha channel, as third-party
      * color conversion packages seem to prefer this.
      */
-    public channelsTuple(): CssRgbColorChannelsTuple
+    public get channelsTuple(): CssRgbColorChannelsTuple
     {
         return [
-            this.data.channels.red,
-            this.data.channels.green,
-            this.data.channels.blue,
+            this.data.colorModel.red,
+            this.data.colorModel.green,
+            this.data.colorModel.blue,
         ];
     }
 
-    public hex(): CssHexColorDefinition
+    public get hex(): CssHexColorDefinition
     {
-        return makeCssHexColorDefinition(
-            formatHex(this.conversionModel())
-        );
-    }
-
-    public conversionModel(): Rgb {
-        return convertRgbChannelsDataToConversionModel(this.data.channels);
-    }
-
-    public css()
-    {
-        return formatRgb(this.conversionModel());
+        return HEX_MODEL_CONVERTER.toColorModel(this.conversionModel).hex;
     }
 
     // ================================================================
@@ -98,9 +94,9 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
      *
      * @returns the `R` component from the RGB definition
      */
-    public red(): number
+    public get red(): number
     {
-        return this.data.channels.red;
+        return this.data.colorModel.red;
     }
 
     /**
@@ -109,9 +105,9 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
      *
      * @returns the `G` component from the RGB definition
      */
-    public green(): number
+    public get green(): number
     {
-        return this.data.channels.green;
+        return this.data.colorModel.green;
     }
 
     /**
@@ -120,9 +116,9 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
      *
      * @returns the `B` component from the RGB definition
      */
-    public blue(): number
+    public get blue(): number
     {
-        return this.data.channels.blue;
+        return this.data.colorModel.blue;
     }
 
     /**
@@ -131,8 +127,8 @@ export class CssRgbColor extends CssColor<CssRgbColorData, Rgb>
      *
      * @returns the `alpha` channel of this color
      */
-    public alpha(): number
+    public get alpha(): number
     {
-        return this.data.channels.alpha;
+        return this.data.colorModel.alpha;
     }
 }

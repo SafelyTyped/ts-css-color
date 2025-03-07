@@ -32,29 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssHwbColorFromConversionModel, type AnyCssColor, type CssHwbColorData } from "../index";
-import { CSS_HWB_CONVERSIONS } from "./CSS_HWB_CONVERSIONS";
+import { makeCssHwbColorFromConversionModel, type AnyCssColor } from "../index";
 
 export function makeCssHwbColorFromCssColor(
     input: AnyCssColor,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
 )
 {
-    // how to do the conversion
-    const converterFn = () => {
-        return makeCssHwbColorFromConversionModel(
-            input.name(),
-            input.definition(),
-            input.conversionModel(),
-            {path, onError},
-            ...fnOpts,
-        );
-    };
-
-    return CSS_HWB_CONVERSIONS.convert(converterFn, input, fnOpts);
+    return makeCssHwbColorFromConversionModel(
+        input.name,
+        input.definition,
+        input.conversionModel,
+    );
 }

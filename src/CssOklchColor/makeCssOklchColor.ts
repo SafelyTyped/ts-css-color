@@ -32,8 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import { CssOklchColor, makeCssColor, makeCssOklchColorFromCssColor, type AnyCssColor, type CssOklchColorData } from "../index";
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { CssOklchColor, makeCssColor, makeCssOklchColorFromCssColor, type AnyCssColor } from "../index";
 
 export function makeCssOklchColor(
     input: string|AnyCssColor,
@@ -41,7 +41,6 @@ export function makeCssOklchColor(
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
     }: DataGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
 ): CssOklchColor
 {
     // normalise to a CssColor class
@@ -55,9 +54,5 @@ export function makeCssOklchColor(
     }
 
     // convert it (if necessary) and return it
-    return makeCssOklchColorFromCssColor(
-        input,
-        { path, onError },
-        ...fnOpts,
-    );
+    return makeCssOklchColorFromCssColor(input);
 }

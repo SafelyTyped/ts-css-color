@@ -32,29 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssOklchColorFromConversionModel, type AnyCssColor, type CssOklchColorData } from "../index";
-import { CSS_OKLCH_CONVERSIONS } from "./CSS_OKLCH_CONVERSIONS";
+import { makeCssOklchColorFromConversionModel, type AnyCssColor } from "../index";
 
 export function makeCssOklchColorFromCssColor(
     input: AnyCssColor,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssOklchColorData, TypeGuaranteeOptions>[]
 )
 {
-    // how to do the conversion
-    const converterFn = () => {
-        return makeCssOklchColorFromConversionModel(
-            input.name(),
-            input.definition(),
-            input.conversionModel(),
-            {path, onError},
-            ...fnOpts,
-        );
-    };
-
-    return CSS_OKLCH_CONVERSIONS.convert(converterFn, input, fnOpts);
+    return makeCssOklchColorFromConversionModel(
+        input.name,
+        input.definition,
+        input.conversionModel,
+    );
 }

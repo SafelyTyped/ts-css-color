@@ -32,32 +32,35 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Maybe } from "@safelytyped/core-types";
-import type { Rgb } from "culori";
-import { convertKeywordToConversionModel, CSS_EXTENDED_COLORS_TO_HEX, CssColor, makeCssHexColorDefinition, type CssExtendedColor, type CssHexColorDefinition, type CssKeywordColorData, type CssRgbColorChannelsData, type CssRgbColorChannelsTuple } from "../index";
+import { CssColor, CSSNAMEDCOLOR_MODEL_CONVERTER, type CssExtendedColor, type CssNamedColorColorModel, type CssRgbColorChannelsTuple, type RgbConversionModel } from "../index";
 
 /**
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
  * extended color name.
  */
-export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
+export class CssKeywordColor extends CssColor<"cssNamedColor", "sRGB", CssNamedColorColorModel, RgbConversionModel>
 {
+    public constructor(
+        name: string,
+        definition: string,
+        colorModel: CssNamedColorColorModel,
+    )
+    {
+        super(
+            {
+                name,
+                definition,
+                colorModel,
+            },
+            CSSNAMEDCOLOR_MODEL_CONVERTER,
+        );
+    }
+
     // ================================================================
     //
     // OTHER FORMATS
     //
     // ----------------------------------------------------------------
-
-    /**
-     * channelsData() returns the `R`, `G`, `B` and `A` components of
-     * this color as an object.
-     *
-     * @returns
-     */
-    public channelsData(): CssRgbColorChannelsData
-    {
-        return this.rgb().channelsData();
-    }
 
     /**
      * channelsTuple() returns the `R`, `G`, `B` components of
@@ -66,25 +69,13 @@ export class CssKeywordColor extends CssColor<CssKeywordColorData, Rgb>
      * NOTE that we deliberately leave out the alpha channel, as third-party
      * color conversion packages seem to prefer this
      */
-    public channelsTuple(): CssRgbColorChannelsTuple
+    public get channelsTuple(): CssRgbColorChannelsTuple
     {
-        return this.rgb().channelsTuple();
+        return this.rgb.channelsTuple;
     }
 
-    public hex(): CssHexColorDefinition {
-        return makeCssHexColorDefinition(CSS_EXTENDED_COLORS_TO_HEX[this.data.definition as CssExtendedColor]);
-    }
-
-    public keyword(): Maybe<CssExtendedColor>
+    public get keyword(): CssExtendedColor
     {
-        return this.data.definition as CssExtendedColor;
-    }
-
-    public conversionModel(): Rgb {
-        return convertKeywordToConversionModel(this.definition() as CssExtendedColor);
-    }
-
-    public css() {
-        return this.definition();
+        return this.data.colorModel.color;
     }
 }
