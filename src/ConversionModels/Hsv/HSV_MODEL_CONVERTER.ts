@@ -44,8 +44,8 @@ import type { ModelConverter } from "../ModelConverter.type";
 import type { HsvConversionModel } from "./HsvConversionModel.type";
 
 export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionModel> = {
-    toConversionModel(input: HsvColorModel) {
-        return this.normaliseConversionModel({
+    toConversionModel: (input: HsvColorModel) => {
+        return HSV_MODEL_CONVERTER.normaliseConversionModel({
             mode: "hsv",
             h: input.hue,
             s: input.saturation / 100,
@@ -62,10 +62,10 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
         };
     },
 
-    toColorModel(input: ConversionModel) {
+    toColorModel: (input: ConversionModel) => {
         const model = hsv(prepForSrgb(input));
 
-        return this.normaliseColorModel({
+        return HSV_MODEL_CONVERTER.normaliseColorModel({
             colorModel: "hsv",
             colorSpace: "sRGB",
             hue: model.h ??= 0,
@@ -85,10 +85,10 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
         };
     },
 
-    parse(input: string) { return this.normaliseConversionModel(hsv(parseCss(input))); },
+    parse: (input: string) =>  HSV_MODEL_CONVERTER.normaliseConversionModel(hsv(parseCss(input))),
 
     // HSV isn't supported in CSS, but hsl() is!
-    toCss(input: HsvColorModel, fallback: string) {
+    toCss: (input: HsvColorModel, fallback: string) => {
         return HSL_MODEL_CONVERTER.toCss(
             HSL_MODEL_CONVERTER.toColorModel(
                 convertViaRgb(
