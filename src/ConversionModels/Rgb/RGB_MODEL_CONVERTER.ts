@@ -34,7 +34,12 @@
 
 import { identity } from "@safelytyped/core-types";
 import { formatCss, rgb } from "culori";
-import { parseCss, round, type ConversionModel, type ModelConverter, type RgbColorModel, type RgbConversionModel } from "../..";
+import type { RgbColorModel } from "../../ColorModels/Rgb/RgbColorModel.type";
+import { parseCss } from "../../CssParser/parseCss";
+import { round } from "../../helpers/round";
+import type { ConversionModel } from "../ConversionModel.type";
+import type { ModelConverter } from "../ModelConverter.type";
+import type { RgbConversionModel } from "./RgbConversionModel.type";
 
 export const RGB_MODEL_CONVERTER: ModelConverter<RgbColorModel, RgbConversionModel> = {
     toConversionModel: (input: RgbColorModel) => {
@@ -53,9 +58,9 @@ export const RGB_MODEL_CONVERTER: ModelConverter<RgbColorModel, RgbConversionMod
         return RGB_MODEL_CONVERTER.normaliseColorModel({
             colorModel: "rgb",
             colorSpace: "sRGB",
-            red: round(0, model.r * 255),
-            green: round(0, model.g * 255),
-            blue: round(0, model.b * 255),
+            red: model.r * 255,
+            green: model.g * 255,
+            blue: model.b * 255,
             alpha: model.alpha ??= 1,
         });
     },

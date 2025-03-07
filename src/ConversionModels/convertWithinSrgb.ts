@@ -40,9 +40,7 @@ export function convertWithinSrgb(
     input: ConversionModel
 )
 {
-    return RGB_MODEL_CONVERTER.toConversionModel(
-        RGB_MODEL_CONVERTER.toColorModel(
-            rgb(input)
-        )
+    return RGB_MODEL_CONVERTER.normaliseConversionModel(
+        rgb(input)
     );
 }

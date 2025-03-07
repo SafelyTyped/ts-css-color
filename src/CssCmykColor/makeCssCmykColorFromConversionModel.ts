@@ -32,17 +32,26 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CMYK_MODEL_CONVERTER, CssCmykColor, type ConversionModel } from "../index";
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
+import { CMYK_MODEL_CONVERTER } from "../ConversionModels/Cmyk/CMYK_MODEL_CONVERTER";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import type { CssCmykColor } from "./CssCmykColor.type";
+import { makeCssCmykColorFromCmykColorModel } from "./makeCssCmykColorFromCmykColorModel";
 
 export function makeCssCmykColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-)
+): CssCmykColor
 {
-    return new CssCmykColor(
+    // shorthand
+    const colorModel = CMYK_MODEL_CONVERTER.toColorModel(
+        prepForSrgb(model)
+    );
+
+    return makeCssCmykColorFromCmykColorModel(
         colorName,
         cssDefinition,
-        CMYK_MODEL_CONVERTER.toColorModel(model),
+        colorModel
     );
 }

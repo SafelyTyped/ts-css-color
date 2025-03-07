@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,50 +32,4 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CssColor, CSSNAMEDCOLOR_MODEL_CONVERTER, type CssExtendedColor, type CssNamedColorColorModel, type CssRgbColorChannelsTuple, type RgbConversionModel } from "../index";
-
-/**
- * CssKeywordColor is a {@link CssColor} that was defined from a CSS
- * extended color name.
- */
-export class CssKeywordColor extends CssColor<CssNamedColorColorModel, RgbConversionModel>
-{
-    public constructor(
-        name: string,
-        definition: string,
-        colorModel: CssNamedColorColorModel,
-    )
-    {
-        super(
-            {
-                name,
-                definition,
-                colorModel,
-            },
-            CSSNAMEDCOLOR_MODEL_CONVERTER,
-        );
-    }
-
-    // ================================================================
-    //
-    // OTHER FORMATS
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * channelsTuple() returns the `R`, `G`, `B` components of
-     * this color as an array.
-     *
-     * NOTE that we deliberately leave out the alpha channel, as third-party
-     * color conversion packages seem to prefer this
-     */
-    public get channelsTuple(): CssRgbColorChannelsTuple
-    {
-        return this.rgb.channelsTuple;
-    }
-
-    public get keyword(): CssExtendedColor
-    {
-        return this.data.colorModel.color;
-    }
-}
+export type HslColorTuple = [ number, number, number ];

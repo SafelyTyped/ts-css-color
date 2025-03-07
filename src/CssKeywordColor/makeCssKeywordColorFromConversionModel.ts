@@ -32,18 +32,23 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssNamedColorColorModel } from "../ColorModels/CssNamedColor/CssNamedColorColorModel.type";
-import { CssKeywordColor } from "./CssKeywordColor";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
+import type { CssKeywordColor } from "./CssKeywordColor.type";
+import { makeCssKeywordColorFromCssNamedColorModel } from "./makeCssKeywordColorFromCssNamedColorModel";
 
 export function makeCssKeywordColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
-    model: CssNamedColorColorModel,
-)
+    model: ConversionModel,
+): CssKeywordColor
 {
-    return new CssKeywordColor(
+    // shorthand
+    const colorModel = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(model);
+
+    return makeCssKeywordColorFromCssNamedColorModel(
         colorName,
         cssDefinition,
-        model
+        colorModel,
     );
 }

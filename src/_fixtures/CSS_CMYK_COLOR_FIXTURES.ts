@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,11 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-/**
- * CssRgbColorChannelsTuple represents the channels of a CSS RGB color,
- * as an array.
- *
- * NOTE that we deliberately leave out the alpha channel, to keep the
- * underlying `color-convert` package happy.
- */
-export type CssRgbColorChannelsTuple = [ number, number, number ];
+import { CSS_COLOR_FIXTURES, type ValidCssColor } from "./CSS_COLOR_FIXTURES";
+
+export const CSS_CMYK_COLOR_FIXTURES: ValidCssColor[] = CSS_COLOR_FIXTURES.filter((fixture) => fixture.colorModel === "cmyk");

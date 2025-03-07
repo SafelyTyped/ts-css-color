@@ -32,12 +32,21 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { identity } from "@safelytyped/core-types";
 import { hsv } from "culori";
-import { convertWithinSrgb, HSL_MODEL_CONVERTER, parseCss, round, type ConversionModel, type HsvColorModel, type HsvConversionModel, type ModelConverter } from "../..";
+import type { HsvColorModel } from "../../ColorModels/Hsv/HsvColorModel.type";
+import { prepForSrgb } from "../../ColorSpaces/prepForSrgb";
+import { parseCss } from "../../CssParser/parseCss";
+import { round } from "../../helpers/round";
+import type { ConversionModel } from "../ConversionModel.type";
+import { convertViaRgb } from "../convertViaRgb";
+import { HSL_MODEL_CONVERTER } from "../Hsl/HSL_MODEL_CONVERTER";
+import type { ModelConverter } from "../ModelConverter.type";
+import type { HsvConversionModel } from "./HsvConversionModel.type";
 
 export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionModel> = {
-    toConversionModel: (input: HsvColorModel) => {
-        return HSV_MODEL_CONVERTER.normaliseConversionModel({
+    toConversionModel(input: HsvColorModel) {
+        return this.normaliseConversionModel({
             mode: "hsv",
             h: input.hue,
             s: input.saturation / 100,
@@ -54,10 +63,12 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
         };
     },
 
-    toColorModel: (input: ConversionModel) => {
-        const model = hsv(input);
+    toColorModel(input: ConversionModel) {
+        const model = hsv(prepForSrgb(input));
+        console.log(input);
+        console.log(model);
 
-        return HSV_MODEL_CONVERTER.normaliseColorModel({
+        return this.normaliseColorModel({
             colorModel: "hsv",
             colorSpace: "sRGB",
             hue: model.h ??= 0,
@@ -72,27 +83,30 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
     normaliseColorModel: (input: HsvColorModel) => {
         return {
             ...input,
+            hue: round(0, input.hue),
             saturation: round(0, input.saturation),
             value: round(0, input.value),
         };
     },
 
     // direct conversion to OKLCH produces different results
-    prepForOklch: convertWithinSrgb,
+    prepForOklch: convertViaRgb,
 
     // direct conversion to other sRGB models produces different results
-    prepForSrgb: convertWithinSrgb,
+    prepForSrgb: identity,
 
-    parse: (input: string) => HSV_MODEL_CONVERTER.normaliseConversionModel(hsv(parseCss(input))),
+    parse(input: string) { return this.normaliseConversionModel(hsv(parseCss(input))); },
 
     // HSV isn't supported in CSS, but hsl() is!
-    toCss: (input: HsvColorModel, fallback: string) => HSL_MODEL_CONVERTER.toCss(
-        HSL_MODEL_CONVERTER.toColorModel(
-            HSV_MODEL_CONVERTER.prepForSrgb(
-                HSV_MODEL_CONVERTER.toConversionModel(input)
-            )
-        ),
-        fallback
-    ),
+    toCss(input: HsvColorModel, fallback: string) {
+        return HSL_MODEL_CONVERTER.toCss(
+            HSL_MODEL_CONVERTER.toColorModel(
+                HSV_MODEL_CONVERTER.prepForSrgb(
+                    HSV_MODEL_CONVERTER.toConversionModel(input)
+                )
+            ),
+            fallback
+        );
+    },
 };
 

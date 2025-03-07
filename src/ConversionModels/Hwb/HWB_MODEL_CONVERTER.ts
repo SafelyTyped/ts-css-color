@@ -32,8 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { identity } from "@safelytyped/core-types";
 import { hwb } from "culori";
-import { convertWithinSrgb, parseCss, RGB_MODEL_CONVERTER, round, type ConversionModel, type HwbColorModel, type HwbConversionModel, type ModelConverter } from "../..";
+import { convertViaRgb, parseCss, RGB_MODEL_CONVERTER, round, type ConversionModel, type HwbColorModel, type HwbConversionModel, type ModelConverter } from "../..";
 
 export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionModel> = {
     toConversionModel: (input: HwbColorModel) => {
@@ -49,8 +50,8 @@ export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionMod
     normaliseConversionModel: (input: HwbConversionModel) => {
         return {
             ...input,
-            w: round(4, input.w),
-            b: round(4, input.w),
+            // w: round(4, input.w),
+            // b: round(4, input.w),
         };
     },
 
@@ -72,16 +73,17 @@ export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionMod
     normaliseColorModel: (input: HwbColorModel) => {
         return {
             ...input,
+            hue: round(0, input.hue),
             whiteness: round(0, input.whiteness),
             blackness: round(0, input.blackness),
         };
     },
 
     // direct conversion to OKLCH produces different results
-    prepForOklch: convertWithinSrgb,
+    prepForOklch: convertViaRgb,
 
     // direct conversion to other sRGB models produces different results
-    prepForSrgb: convertWithinSrgb,
+    prepForSrgb: identity,
 
     parse: (input: string) => HWB_MODEL_CONVERTER.normaliseConversionModel(hwb(parseCss(input))),
 

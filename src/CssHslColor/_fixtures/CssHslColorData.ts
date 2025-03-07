@@ -33,8 +33,8 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
+import { CSS_COLOR_FIXTURES } from "../../_fixtures/CSS_COLOR_FIXTURES";
 import type { CssCmykColorChannelsData } from "../../CssCmykColor/CssCmykColorChannelsData.type";
-import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
 import type { CssHsvColorChannelsData } from "../../CssHsvColor/CssHsvColorChannelsData.type";
 import type { CssHwbColorChannelsData } from "../../CssHwbColor/CssHwbColorChannelsData.type";
 import type { CssOklchColorChannelsData } from "../../CssOklchColor/CssOklchColorChannelsData.type";
@@ -52,7 +52,7 @@ type ValidCssHslColor = CssHslColorData & {
 }
 export const ValidCssHslColorData: ValidCssHslColor[] = [];
 
-ValidCssColors.forEach((fixture) => {
+CSS_COLOR_FIXTURES.forEach((fixture) => {
     if (fixture.definition.includes('hsl')) {
         ValidCssHslColorData.push({
             name: fixture.name,

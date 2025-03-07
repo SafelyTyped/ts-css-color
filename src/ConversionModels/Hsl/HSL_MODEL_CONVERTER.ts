@@ -33,7 +33,7 @@
 //
 
 import { formatCss, hsl } from "culori";
-import { convertWithinSrgb, parseCss, round, type ConversionModel, type HslColorModel, type HslConversionModel, type ModelConverter } from "../..";
+import { convertViaRgb, convertWithinSrgb, parseCss, round, type ConversionModel, type HslColorModel, type HslConversionModel, type ModelConverter } from "../..";
 
 export const HSL_MODEL_CONVERTER: ModelConverter<HslColorModel, HslConversionModel> = {
     toConversionModel: (input: HslColorModel) => {
@@ -72,13 +72,14 @@ export const HSL_MODEL_CONVERTER: ModelConverter<HslColorModel, HslConversionMod
     normaliseColorModel: (input: HslColorModel) => {
         return {
             ...input,
+            hue: round(0, input.hue),
             saturation: round(0, input.saturation),
             luminosity: round(0, input.luminosity),
         };
     },
 
     // direct conversion to OKLCH produces different results
-    prepForOklch: convertWithinSrgb,
+    prepForOklch: convertViaRgb,
 
     // direct conversion to other sRGB models produces different results
     prepForSrgb: convertWithinSrgb,

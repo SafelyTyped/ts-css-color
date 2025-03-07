@@ -33,7 +33,14 @@
 //
 
 import { identity } from "@safelytyped/core-types";
-import { CSS_EXTENDED_COLORS_TO_HEX, CSS_HEX_TO_EXTENDED_COLORS, HEX_MODEL_CONVERTER, makeCssHexColorDefinition, RGB_MODEL_CONVERTER, type ConversionModel, type CssNamedColorColorModel, type ModelConverter, type RgbConversionModel } from "../..";
+import type { CssNamedColorColorModel } from "../../ColorModels/CssNamedColor/CssNamedColorColorModel.type";
+import { CSS_EXTENDED_COLORS_TO_HEX, CSS_HEX_TO_EXTENDED_COLORS } from "../../CssExtendedColors/CssExtendedColors.const";
+import { makeCssHexColorDefinition } from "../../CssHexColorDefinition/makeCssHexColorDefinition";
+import type { ConversionModel } from "../ConversionModel.type";
+import { HEX_MODEL_CONVERTER } from "../Hex/HEX_MODEL_CONVERTER";
+import type { ModelConverter } from "../ModelConverter.type";
+import { RGB_MODEL_CONVERTER } from "../Rgb/RGB_MODEL_CONVERTER";
+import type { RgbConversionModel } from "../Rgb/RgbConversionModel.type";
 
 export const CSSNAMEDCOLOR_MODEL_CONVERTER: ModelConverter<CssNamedColorColorModel, RgbConversionModel> = {
 

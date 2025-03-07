@@ -32,13 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+
 import { AppError } from "@safelytyped/core-types";
-import { SUPPORTED_CSS_COLOR_SPACES, validateCssColorDataHasColorSpace } from "@safelytyped/css-color";
+import { SUPPORTED_COLOR_SPACES, validateCssColorDataHasColorSpace } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 
 describe("validateCssColorDataHasColorSpace()", () => {
-    SUPPORTED_CSS_COLOR_SPACES.forEach((cssColorSpace) => {
+    SUPPORTED_COLOR_SPACES.forEach((cssColorSpace) => {
         it("returns the input object if it contains the expected color format: " + cssColorSpace, () => {
             // ----------------------------------------------------------------
             // explain your test

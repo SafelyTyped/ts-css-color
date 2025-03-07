@@ -33,7 +33,7 @@
 //
 
 /**
- * CssCmykColorChannelsTuple represents the channels of a CSS CMYK color,
+ * CmykColorTuple represents the channels of a CSS CMYK color,
  * as an array.
  */
-export type CssCmykColorChannelsTuple = [ number, number, number, number ];
+export type CmykColorTuple = [ number, number, number, number ];

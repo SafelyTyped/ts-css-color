@@ -32,7 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CssHwbColor, HWB_MODEL_CONVERTER, type ConversionModel } from "../index";
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { HWB_MODEL_CONVERTER } from "../ConversionModels/Hwb/HWB_MODEL_CONVERTER";
+import type { CssHwbColor } from "./CssHwbColor.type";
+import { makeCssHwbColorFromHwbColorModel } from "./makeCssHwbColorFromHwbColorModel";
+
 
 export function makeCssHwbColorFromConversionModel(
     colorName: string,
@@ -40,9 +45,14 @@ export function makeCssHwbColorFromConversionModel(
     model: ConversionModel,
 ): CssHwbColor
 {
-    return new CssHwbColor(
+    // shorthand
+    const colorModel = HWB_MODEL_CONVERTER.toColorModel(
+        prepForSrgb(model),
+    );
+
+    return makeCssHwbColorFromHwbColorModel(
         colorName,
         cssDefinition,
-        HWB_MODEL_CONVERTER.toColorModel(model),
+        colorModel,
     );
 }

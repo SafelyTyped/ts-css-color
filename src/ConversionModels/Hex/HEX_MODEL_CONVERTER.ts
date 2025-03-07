@@ -34,7 +34,12 @@
 
 import { identity } from "@safelytyped/core-types";
 import { formatHex, rgb } from "culori";
-import { makeCssHexColorDefinition, RGB_MODEL_CONVERTER, type ConversionModel, type HexColorModel, type ModelConverter, type RgbConversionModel } from "../..";
+import type { HexColorModel } from "../../ColorModels/Hex/HexColorModel.type";
+import { makeCssHexColorDefinition } from "../../CssHexColorDefinition/makeCssHexColorDefinition";
+import type { ConversionModel } from "../ConversionModel.type";
+import type { ModelConverter } from "../ModelConverter.type";
+import { RGB_MODEL_CONVERTER } from "../Rgb/RGB_MODEL_CONVERTER";
+import type { RgbConversionModel } from "../Rgb/RgbConversionModel.type";
 
 export const HEX_MODEL_CONVERTER: ModelConverter<HexColorModel, RgbConversionModel> = {
 

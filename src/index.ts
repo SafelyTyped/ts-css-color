@@ -38,6 +38,8 @@
 //
 // ----------------------------------------------------------------
 
+export type { ColorSpacesSet } from "./ColorSpaces/ColorSpacesSet.type";
+export { SUPPORTED_COLOR_SPACES } from "./ColorSpaces/SUPPORTED_COLOR_SPACES";
 export type { SupportedColorSpace } from "./ColorSpaces/SupportedColorSpace.type";
 
 // ================================================================
@@ -48,8 +50,6 @@ export type { SupportedColorSpace } from "./ColorSpaces/SupportedColorSpace.type
 // internally.
 //
 // ----------------------------------------------------------------
-
-export type { SupportedColorModel } from "./ColorModels/SupportedColorModel.type";
 
 export type { ColorModel } from "./ColorModels/ColorModel.type";
 
@@ -62,13 +62,14 @@ export type { HwbColorModel } from "./ColorModels/Hwb/HwbColorModel.type";
 export type { OklchColorModel } from "./ColorModels/Oklch/OklchColorModel.type";
 export type { RgbColorModel } from "./ColorModels/Rgb/RgbColorModel.type";
 
+export type { SupportedColorModel } from "./ColorModels/SupportedColorModel.type";
+
+export type { ColorModelsSet } from "./ColorModels/ColorModelsSet.type";
+export { SUPPORTED_COLOR_MODELS } from "./ColorModels/SUPPORTED_COLOR_MODELS";
+
 export { isCmykColorModel } from "./ColorModels/Cmyk/isCmykColorModel";
 export { mustBeCmykColorModel } from "./ColorModels/Cmyk/mustBeCmykColorModel";
 export { validateCmykColorModel } from "./ColorModels/Cmyk/validateCmykColorModel";
-
-export { isCssNamedColorColorModel } from "./ColorModels/CssNamedColor/isCssNamedColorColorModel";
-export { mustBeCssNamedColorColorModel } from "./ColorModels/CssNamedColor/mustBeCssNamedColorColorModel";
-export { validateCssNamedColorColorModel } from "./ColorModels/CssNamedColor/validateCssNamedColorColorModel";
 
 export { isHexColorModel } from "./ColorModels/Hex/isHexColorModel";
 export { mustBeHexColorModel } from "./ColorModels/Hex/mustBeHexColorModel";
@@ -93,6 +94,10 @@ export { validateOklchColorModel } from "./ColorModels/Oklch/validateOklchColorM
 export { isRgbColorModel } from "./ColorModels/Rgb/isRgbColorModel";
 export { mustBeRgbColorModel } from "./ColorModels/Rgb/mustBeRgbColorModel";
 export { validateRgbColorModel } from "./ColorModels/Rgb/validateRgbColorModel";
+
+export { isCssNamedColorColorModel } from "./ColorModels/CssNamedColor/isCssNamedColorColorModel";
+export { mustBeCssNamedColorColorModel } from "./ColorModels/CssNamedColor/mustBeCssNamedColorColorModel";
+export { validateCssNamedColorColorModel } from "./ColorModels/CssNamedColor/validateCssNamedColorColorModel";
 
 // ================================================================
 //
@@ -123,17 +128,16 @@ export { convertViaRgb } from "./ConversionModels/convertViaRgb";
 export { convertWithinSrgb } from "./ConversionModels/convertWithinSrgb";
 
 export { CMYK_MODEL_CONVERTER } from "./ConversionModels/Cmyk/CMYK_MODEL_CONVERTER";
-export { CSSNAMEDCOLOR_MODEL_CONVERTER } from "./ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
-export { HEX_MODEL_CONVERTER } from "./ConversionModels/Hex/HEX_MODEL_CONVERTER";
 export { HSL_MODEL_CONVERTER } from "./ConversionModels/Hsl/HSL_MODEL_CONVERTER";
 export { HSV_MODEL_CONVERTER } from "./ConversionModels/Hsv/HSV_MODEL_CONVERTER";
 export { HWB_MODEL_CONVERTER } from "./ConversionModels/Hwb/HWB_MODEL_CONVERTER";
 export { RGB_MODEL_CONVERTER } from "./ConversionModels/Rgb/RGB_MODEL_CONVERTER";
 
+export { CSSNAMEDCOLOR_MODEL_CONVERTER } from "./ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
+export { HEX_MODEL_CONVERTER } from "./ConversionModels/Hex/HEX_MODEL_CONVERTER";
+
 export type { AnyCssColor } from "./CssColor/AnyCssColor.type";
-export { CssColor } from "./CssColor/CssColor";
 export type { CssColorData } from "./CssColor/CssColorData.type";
-export { makeCssColor } from "./CssColor/makeCssColor";
 
 export type { CssExtendedColor } from "./CssExtendedColors/CssExtendedColor.type";
 export { CSS_EXTENDED_COLORS_TO_HEX, CSS_HEX_TO_EXTENDED_COLORS } from "./CssExtendedColors/CssExtendedColors.const";
@@ -142,17 +146,16 @@ export { isCssExtendedColor } from "./CssExtendedColors/isCssExtendedColor";
 export { mustBeCssExtendedColor } from "./CssExtendedColors/mustBeCssExtendedColor";
 export { validateCssExtendedColor } from "./CssExtendedColors/validateCssExtendedColor";
 
-export { CssCmykColor } from "./CssCmykColor/CssCmykColor";
-export type { CssCmykColorChannelsTuple } from "./CssCmykColor/CssCmykColorChannelsTuple.type";
+export type { CmykColorTuple as CssCmykColorChannelsTuple } from "./CssCmykColor/CmykColorTuple.type";
+export type { CssCmykColor } from "./CssCmykColor/CssCmykColor.type";
 export { makeCssCmykColor } from "./CssCmykColor/makeCssCmykColor";
 export { makeCssCmykColorFromConversionModel } from "./CssCmykColor/makeCssCmykColorFromConversionModel";
 export { makeCssCmykColorFromCssColor } from "./CssCmykColor/makeCssCmykColorFromCssColor";
 
-export { CssKeywordColor } from "./CssKeywordColor/CssKeywordColor";
+export type { CssKeywordColor } from "./CssKeywordColor/CssKeywordColor.type";
 
-export { CssHexColor } from "./CssHexColor/CssHexColor";
+export type { CssHexColor } from "./CssHexColor/CssHexColor.type";
 export { makeCssHexColor } from "./CssHexColor/makeCssHexColor";
-export { makeCssHexColorFromConversionModel } from "./CssHexColor/makeCssHexColorFromConversionModel";
 export { makeCssHexColorFromCssColor } from "./CssHexColor/makeCssHexColorFromCssColor";
 
 export type { CssHexColorDefinition } from "./CssHexColorDefinition/CssHexColorDefinition.type";
@@ -163,37 +166,39 @@ export { normaliseCssHexColorDefinition } from "./CssHexColorDefinition/normalis
 export { normaliseCssHexColorDefinitionFormat } from "./CssHexColorDefinition/normaliseCssHexColorDefinitionFormat";
 export { validateCssHexColorDefinition } from "./CssHexColorDefinition/validateCssHexColorDefinition";
 
-export { CssHslColor } from "./CssHslColor/CssHslColor";
+export type { CssHslColor } from "./CssHslColor/CssHslColor.type";
 export type { CssHslColorChannelsTuple } from "./CssHslColor/CssHslColorChannelsTuple.type";
 export { makeCssHslColor } from "./CssHslColor/makeCssHslColor";
 export { makeCssHslColorFromConversionModel } from "./CssHslColor/makeCssHslColorFromConversionModel";
 export { makeCssHslColorFromCssColor } from "./CssHslColor/makeCssHslColorFromCssColor";
 
-export { CssHsvColor } from "./CssHsvColor/CssHsvColor";
+export type { CssHsvColor } from "./CssHsvColor/CssHsvColor.type";
 export type { CssHsvColorChannelsTuple } from "./CssHsvColor/CssHsvColorChannelsTuple.type";
 export { makeCssHsvColor } from "./CssHsvColor/makeCssHsvColor";
 export { makeCssHsvColorFromConversionModel } from "./CssHsvColor/makeCssHsvColorFromConversionModel";
 export { makeCssHsvColorFromCssColor } from "./CssHsvColor/makeCssHsvColorFromCssColor";
 
-export { CssHwbColor } from "./CssHwbColor/CssHwbColor";
+export type { CssHwbColor } from "./CssHwbColor/CssHwbColor.type";
 export type { CssHwbColorChannelsTuple } from "./CssHwbColor/CssHwbColorChannelsTuple.type";
 export { makeCssHwbColor } from "./CssHwbColor/makeCssHwbColor";
 export { makeCssHwbColorFromConversionModel } from "./CssHwbColor/makeCssHwbColorFromConversionModel";
 export { makeCssHwbColorFromCssColor } from "./CssHwbColor/makeCssHwbColorFromCssColor";
 
-export { CssOklchColor } from "./CssOklchColor/CssOklchColor";
+export type { CssOklchColor } from "./CssOklchColor/CssOklchColor.type";
 export type { CssOklchColorChannelsTuple } from "./CssOklchColor/CssOklchColorChannelsTuple.type";
 export { makeCssOklchColor } from "./CssOklchColor/makeCssOklchColor";
 export { makeCssOklchColorFromConversionModel } from "./CssOklchColor/makeCssOklchColorFromConversionModel";
 export { makeCssOklchColorFromCssColor } from "./CssOklchColor/makeCssOklchColorFromCssColor";
 
-export { CssRgbColor } from "./CssRgbColor/CssRgbColor";
-export type { CssRgbColorChannelsTuple } from "./CssRgbColor/CssRgbColorChannelsTuple.type";
+export type { CssRgbColor } from "./CssRgbColor/CssRgbColor.type";
 export { makeCssRgbColor } from "./CssRgbColor/makeCssRgbColor";
 export { makeCssRgbColorFromConversionModel } from "./CssRgbColor/makeCssRgbColorFromConversionModel";
 export { makeCssRgbColorFromCssColor } from "./CssRgbColor/makeCssRgbColorFromCssColor";
+export type { RgbColorTuple as CssRgbColorChannelsTuple } from "./CssRgbColor/RgbColorTuple.type";
 
+export { makeCssColor } from "./CssColor/makeCssColor";
 export { makeCssColorFromConversionModel } from "./CssColor/makeCssColorFromConversionModel";
+export { makeCssHexColorFromConversionModel } from "./CssHexColor/makeCssHexColorFromConversionModel";
 
 // ================================================================
 //

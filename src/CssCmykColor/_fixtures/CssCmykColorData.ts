@@ -33,7 +33,7 @@
 //
 
 import type { Maybe } from "@safelytyped/core-types";
-import { ValidCssColors } from "../../CssColor/_fixtures/CssColorFixtures";
+import { CSS_COLOR_FIXTURES } from "../../_fixtures/CSS_COLOR_FIXTURES";
 import type { CssCmykColorData, CssHslColorChannelsData, CssHsvColorChannelsData, CssHwbColorChannelsData, CssOklchColorChannelsData, CssRgbColorChannelsData } from "../../index";
 
 type ValidCssCmykColor = CssCmykColorData & {
@@ -48,7 +48,7 @@ type ValidCssCmykColor = CssCmykColorData & {
 
 export const ValidCssCmykColorData: ValidCssCmykColor[] = [];
 
-ValidCssColors.forEach((fixture) => {
+CSS_COLOR_FIXTURES.forEach((fixture) => {
     if (fixture.definition.includes("#") || fixture.definition.includes('cmyk')) {
         ValidCssCmykColorData.push({
             name: fixture.name,

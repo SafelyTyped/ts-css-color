@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssCmykColor, CssColor, CssHexColor, CssHslColor, CssHsvColor, CssHwbColor, CssKeywordColor, CssOklchColor, CssRgbColor } from "../";
+import type { CssCmykColor, CssHexColor, CssHslColor, CssHsvColor, CssHwbColor, CssKeywordColor, CssOklchColor, CssRgbColor } from "../";
 
 /**
  * AnyCssColor is a type. Use it wherever you can accept and/or return

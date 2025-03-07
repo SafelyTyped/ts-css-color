@@ -33,12 +33,12 @@
 //
 
 import { AppError } from "@safelytyped/core-types";
-import { SUPPORTED_CSS_COLOR_FORMATS, validateCssColorDataHasColorFormat } from "@safelytyped/css-color";
+import { SUPPORTED_COLOR_MODELS, validateCssColorDataHasColorFormat } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 
 describe("validateCssColorDataHasColorFormat()", () => {
-    SUPPORTED_CSS_COLOR_FORMATS.forEach((cssColorFormat) => {
+    SUPPORTED_COLOR_MODELS.forEach((cssColorFormat) => {
         it("returns the input object if it contains the expected color format: " + cssColorFormat, () => {
             // ----------------------------------------------------------------
             // explain your test

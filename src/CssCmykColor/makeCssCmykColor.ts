@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssCmykColor, makeCssCmykColorFromCssColor, makeCssColor, type AnyCssColor } from "../index";
+import { makeCssCmykColorFromCssColor, makeCssColor, type AnyCssColor, type CssCmykColor } from "../index";
 
 export function makeCssCmykColor(
     input: string|AnyCssColor,
@@ -49,7 +49,7 @@ export function makeCssCmykColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssCmykColor) {
+    if (input.colorModel === "cmyk" && input.colorSpace === "CMYK") {
         return input;
     }
 

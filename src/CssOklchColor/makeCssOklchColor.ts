@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssOklchColor, makeCssColor, makeCssOklchColorFromCssColor, type AnyCssColor } from "../index";
+import { makeCssColor, makeCssOklchColorFromCssColor, type AnyCssColor, type CssOklchColor } from "../index";
 
 export function makeCssOklchColor(
     input: string|AnyCssColor,
@@ -49,7 +49,7 @@ export function makeCssOklchColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssOklchColor) {
+    if (input.colorModel === "oklch" && input.colorSpace === "OKLCH") {
         return input;
     }
 

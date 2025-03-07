@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssHsvColor, makeCssColor, makeCssHsvColorFromCssColor, type AnyCssColor } from "../index";
+import { makeCssColor, makeCssHsvColorFromCssColor, type AnyCssColor, type CssHsvColor } from "../index";
 
 export function makeCssHsvColor(
     input: string|AnyCssColor,
@@ -49,7 +49,7 @@ export function makeCssHsvColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssHsvColor) {
+    if (input.colorModel === "hsv" && input.colorSpace === "sRGB") {
         return input;
     }
 

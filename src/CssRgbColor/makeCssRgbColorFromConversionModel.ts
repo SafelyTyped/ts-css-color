@@ -32,9 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
 import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
 import { RGB_MODEL_CONVERTER } from "../ConversionModels/Rgb/RGB_MODEL_CONVERTER";
-import { CssRgbColor } from "./CssRgbColor";
+import type { CssRgbColor } from "./CssRgbColor.type";
+import { makeCssRgbColorFromRgbColorModel } from "./makeCssRgbColorFromRgbColorModel";
 
 export function makeCssRgbColorFromConversionModel(
     colorName: string,
@@ -42,9 +44,14 @@ export function makeCssRgbColorFromConversionModel(
     model: ConversionModel,
 ): CssRgbColor
 {
-    return new CssRgbColor(
+    // shorthand
+    const colorModel = RGB_MODEL_CONVERTER.toColorModel(
+        prepForSrgb(model),
+    );
+
+    return makeCssRgbColorFromRgbColorModel(
         colorName,
         cssDefinition,
-        RGB_MODEL_CONVERTER.toColorModel(model)
+        colorModel,
     );
 }

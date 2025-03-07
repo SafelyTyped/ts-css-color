@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssHexColor, makeCssColor, makeCssHexColorFromCssColor, type AnyCssColor } from "../index";
+import { makeCssColor, makeCssHexColorFromCssColor, type AnyCssColor, type CssHexColor } from "../index";
 
 export function makeCssHexColor(
     input: string|AnyCssColor,
@@ -49,7 +49,7 @@ export function makeCssHexColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssHexColor) {
+    if (input.colorModel === "hex" && input.colorSpace === "sRGB") {
         return input;
     }
 

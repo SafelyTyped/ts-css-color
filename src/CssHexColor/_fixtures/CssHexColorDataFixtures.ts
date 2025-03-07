@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { ValidCssColors, type ValidCssColor } from "../../CssColor/_fixtures/CssColorFixtures";
+import { CSS_COLOR_FIXTURES, type ValidCssColor } from "../../_fixtures/CSS_COLOR_FIXTURES";
 
 export const ValidCssHexColorData: ValidCssColor[] = [];
-ValidCssColors.forEach((fixture) => {
+CSS_COLOR_FIXTURES.forEach((fixture) => {
     if (fixture.definition.startsWith('#')) {
         ValidCssHexColorData.push(
             {

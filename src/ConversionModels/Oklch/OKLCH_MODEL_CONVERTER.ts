@@ -66,6 +66,7 @@ export const OKLCH_MODEL_CONVERTER: ModelConverter<OklchColorModel, OklchConvers
     normaliseColorModel: (input: OklchColorModel) => {
         return {
             ...input,
+            hue: round(6, input.hue),
             lightness: round(6, input.lightness),
             chroma: round(6, input.chroma),
         };

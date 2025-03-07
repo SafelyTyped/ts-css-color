@@ -34,7 +34,7 @@
 
 import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import { makeCssKeywordColorFromConversionModel } from "./makeCssKeywordColorFromConversionModel";
+import { makeCssKeywordColorFromCssNamedColorModel } from "./makeCssKeywordColorFromCssNamedColorModel";
 
 export function makeCssKeywordColor(
     colorName: string,
@@ -45,7 +45,7 @@ export function makeCssKeywordColor(
         CSSNAMEDCOLOR_MODEL_CONVERTER.parse(cssDefinition)
     );
 
-    return makeCssKeywordColorFromConversionModel(
+    return makeCssKeywordColorFromCssNamedColorModel(
         colorName,
         cssDefinition,
         model

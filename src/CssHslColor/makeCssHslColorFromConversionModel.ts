@@ -32,7 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CssHslColor, HSL_MODEL_CONVERTER, type ConversionModel } from "../index";
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { HSL_MODEL_CONVERTER } from "../ConversionModels/Hsl/HSL_MODEL_CONVERTER";
+import type { CssHslColor } from "./CssHslColor.type";
+import { makeCssHslColorFromHslColorModel } from "./makeCssHslColorFromHslColorModel";
 
 export function makeCssHslColorFromConversionModel(
     colorName: string,
@@ -40,9 +44,14 @@ export function makeCssHslColorFromConversionModel(
     model: ConversionModel,
 ): CssHslColor
 {
-    return new CssHslColor(
+    // shorthand
+    const colorModel = HSL_MODEL_CONVERTER.toColorModel(
+        prepForSrgb(model),
+    );
+
+    return makeCssHslColorFromHslColorModel(
         colorName,
         cssDefinition,
-        HSL_MODEL_CONVERTER.toColorModel(model),
+        colorModel
     );
 }

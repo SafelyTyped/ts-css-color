@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssRgbColor, makeCssColor, makeCssRgbColorFromCssColor, type AnyCssColor } from "../index";
+import { makeCssColor, makeCssRgbColorFromCssColor, type AnyCssColor, type CssRgbColor } from "../index";
 
 export function makeCssRgbColor(
     input: string|AnyCssColor,
@@ -49,7 +49,7 @@ export function makeCssRgbColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssRgbColor) {
+    if (input.colorModel === "rgb" && input.colorSpace === "sRGB") {
         return input;
     }
 

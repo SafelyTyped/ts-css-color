@@ -90,12 +90,12 @@ export type ModelConverter<INT,EXT> = {
     /**
      * prepares our conversion model for conversion into the OKLCH color space
      */
-    prepForOklch: EXT extends undefined ? undefined : (input: EXT) => ConversionModel;
+    prepForOklch: EXT extends undefined ? undefined : (input: ConversionModel) => ConversionModel;
 
     /**
      * prepares our conversion model for conversion into the sRGB color space
      */
-    prepForSrgb: EXT extends undefined ? undefined : (input: EXT) => ConversionModel;
+    prepForSrgb: EXT extends undefined ? undefined : (input: ConversionModel) => ConversionModel;
 
     // ================================================================
     //

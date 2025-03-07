@@ -32,19 +32,28 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
 import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
 import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER";
-import { CssHexColor } from "./CssHexColor";
+import type { CssHexColor } from "./CssHexColor.type";
+import { makeCssHexColorFromHexColorModel } from "./makeCssHexColorFromHexColorModel";
+
+
 
 export function makeCssHexColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-)
+): CssHexColor
 {
-    return new CssHexColor(
+    // shorthand
+    const colorModel = HEX_MODEL_CONVERTER.toColorModel(
+        prepForSrgb(model),
+    );
+
+    return makeCssHexColorFromHexColorModel(
         colorName,
         cssDefinition,
-        HEX_MODEL_CONVERTER.toColorModel(model),
+        colorModel
     );
 }

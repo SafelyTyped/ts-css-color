@@ -32,6 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { Hsl, Hsv, Hwb, Oklch, Rgb } from "culori";
+import type { HslConversionModel } from "./Hsl/HslConversionModel.type";
+import type { HsvConversionModel } from "./Hsv/HsvConversionModel.type";
+import type { HwbConversionModel } from "./Hwb/HwbConversionModel.type";
+import type { OklchConversionModel } from "./Oklch/OklchConversionModel.type";
+import type { RgbConversionModel } from "./Rgb/RgbConversionModel.type";
 
-export type ConversionModel = Hsl | Hsv | Hwb | Oklch | Rgb;
+export type ConversionModel = HslConversionModel
+    | HsvConversionModel
+    | HwbConversionModel
+    | OklchConversionModel
+    | RgbConversionModel;

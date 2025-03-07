@@ -32,8 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { prepForOklch } from "../ColorSpaces/prepForOklch";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
 import { OKLCH_MODEL_CONVERTER } from "../ConversionModels/Oklch/OKLCH_MODEL_CONVERTER";
-import { CssOklchColor, type ConversionModel } from "../index";
+import type { CssOklchColor } from "./CssOklchColor.type";
+import { makeCssOklchColorFromOklchColorModel } from "./makeCssOklchColorFromOklchColorModel";
 
 export function makeCssOklchColorFromConversionModel(
     colorName: string,
@@ -41,9 +44,14 @@ export function makeCssOklchColorFromConversionModel(
     model: ConversionModel,
 ): CssOklchColor
 {
-    return new CssOklchColor(
+    // shorthand
+    const colorModel = OKLCH_MODEL_CONVERTER.toColorModel(
+        prepForOklch(model),
+    );
+
+    return makeCssOklchColorFromOklchColorModel(
         colorName,
         cssDefinition,
-        OKLCH_MODEL_CONVERTER.toColorModel(model),
+        colorModel,
     );
 }
