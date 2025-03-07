@@ -32,9 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyColorModel } from "../ColorModels/AnyColorModel.type";
-import type { SupportedColorModel } from "../ColorModels/SupportedColorModel.type";
-import type { SupportedColorSpace } from "../ColorSpaces/SupportedColorSpace.type";
-import type { CssColorData } from "./CssColorData.type";
+import type { ColorModel, CssColorData } from "..";
 
-export type AnyCssColorData = CssColorData<SupportedColorModel,SupportedColorSpace,AnyColorModel>;
+export type AnyCssColorData = CssColorData<ColorModel>;

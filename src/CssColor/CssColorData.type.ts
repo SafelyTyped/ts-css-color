@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ColorModel, SupportedColorModel, SupportedColorSpace } from "..";
+import type { ColorModel } from "..";
 
 /**
  * CssColorData is the base data for defining a CSSColor.
@@ -40,7 +40,7 @@ import type { ColorModel, SupportedColorModel, SupportedColorSpace } from "..";
  * Extend this to add channel and colorspace data for each different
  * CSS color format.
  */
-export type CssColorData<M extends SupportedColorModel, S extends SupportedColorSpace, CM extends ColorModel<M,S>> = {
+export type CssColorData<CM extends ColorModel> = {
     /**
      * what do humans call this color?
      *

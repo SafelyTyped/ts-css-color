@@ -32,8 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ColorModel, CssExtendedColor } from "../..";
+import type { CssExtendedColor } from "../..";
 
-export type CssNamedColorColorModel = ColorModel<"cssNamedColor", "sRGB"> & {
+export type CssNamedColorColorModel = {
+    colorModel: "cssNamedColor";
+    colorSpace: "sRGB";
     color: CssExtendedColor;
 };

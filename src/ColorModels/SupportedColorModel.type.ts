@@ -32,9 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { SUPPORTED_COLOR_MODELS } from "..";
+import type { ColorModel } from "..";
 
 /**
  * SupportedColorModel is the set of color model names that we've implemented.
  */
-export type SupportedColorModel = typeof SUPPORTED_COLOR_MODELS[number];
+export type SupportedColorModel = ColorModel["colorModel"];

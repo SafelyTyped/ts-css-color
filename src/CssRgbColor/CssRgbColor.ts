@@ -38,7 +38,7 @@ import { CssColor, HEX_MODEL_CONVERTER, RGB_MODEL_CONVERTER, type CssHexColorDef
  * CssRgbColor represents a {@link CssColor} that was defined using the
  * CSS RGBA format.
  */
-export class CssRgbColor extends CssColor<"rgb", "sRGB", RgbColorModel, RgbConversionModel>
+export class CssRgbColor extends CssColor<RgbColorModel, RgbConversionModel>
 {
     public constructor(
         name: string,

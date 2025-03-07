@@ -32,9 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ColorModel } from "../..";
 
-export type HwbColorModel = ColorModel<"hwb", "sRGB"> & {
+export type HwbColorModel = {
+    colorModel: "hwb";
+    colorSpace: "sRGB";
     hue: number;
     whiteness: number;
     blackness: number;

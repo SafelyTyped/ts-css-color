@@ -32,6 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { SUPPORTED_COLOR_SPACES } from "../";
+import type { ColorModel } from "../";
 
-export type SupportedColorSpace = typeof SUPPORTED_COLOR_SPACES[number];
+export type SupportedColorSpace = ColorModel["colorSpace"];

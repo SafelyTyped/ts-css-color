@@ -32,9 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ColorModel } from "../..";
-
-export type RgbColorModel = ColorModel<"rgb", "sRGB"> & {
+export type RgbColorModel = {
+    colorModel: "rgb";
+    colorSpace: "sRGB";
     red: number;
     green: number;
     blue: number;

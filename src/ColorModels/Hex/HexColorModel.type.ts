@@ -32,8 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ColorModel, CssHexColorDefinition } from "../..";
+import type { CssHexColorDefinition } from "../..";
 
-export type HexColorModel = ColorModel<"hex", "sRGB"> & {
+export type HexColorModel = {
+    colorModel: "hex";
+    colorSpace: "sRGB";
     hex: CssHexColorDefinition;
 };

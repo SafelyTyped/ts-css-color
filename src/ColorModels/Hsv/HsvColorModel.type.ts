@@ -32,9 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ColorModel } from "../..";
 
-export type HsvColorModel = ColorModel<"hsv", "sRGB"> & {
+export type HsvColorModel = {
+    colorModel: "hsv";
+    colorSpace: "sRGB";
     hue: number;
     saturation: number;
     value: number;

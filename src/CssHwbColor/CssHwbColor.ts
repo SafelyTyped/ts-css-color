@@ -35,7 +35,7 @@
 
 import { CssColor, HWB_MODEL_CONVERTER, type CssHslColorChannelsTuple, type HwbColorModel, type HwbConversionModel } from "../index";
 
-export class CssHwbColor extends CssColor<"hwb", "sRGB", HwbColorModel, HwbConversionModel>
+export class CssHwbColor extends CssColor<HwbColorModel, HwbConversionModel>
 {
     public constructor(
         name: string,

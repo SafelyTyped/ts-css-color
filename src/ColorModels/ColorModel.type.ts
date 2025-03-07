@@ -32,9 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { SupportedColorModel, SupportedColorSpace } from "..";
+import type { CmykColorModel, CssNamedColorColorModel, HexColorModel, HslColorModel, HsvColorModel, HwbColorModel, OklchColorModel, RgbColorModel } from "..";
 
-export type ColorModel<M extends SupportedColorModel, S extends SupportedColorSpace> = {
-    colorModel: M;
-    colorSpace: S;
-};
+
+export type ColorModel = CmykColorModel
+    | CssNamedColorColorModel
+    | HexColorModel
+    | HslColorModel
+    | HsvColorModel
+    | HwbColorModel
+    | OklchColorModel
+    | RgbColorModel
+    ;

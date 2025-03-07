@@ -32,9 +32,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ColorModel } from "../ColorModel.type";
-
-export type CmykColorModel = ColorModel<"cmyk", "CMYK"> & {
+export type CmykColorModel = {
+    colorModel: "cmyk";
+    colorSpace: "CMYK";
     cyan: number;
     magenta: number;
     yellow: number;

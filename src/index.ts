@@ -38,7 +38,6 @@
 //
 // ----------------------------------------------------------------
 
-export { SUPPORTED_COLOR_SPACES } from "./ColorSpaces/SUPPORTED_COLOR_SPACES";
 export type { SupportedColorSpace } from "./ColorSpaces/SupportedColorSpace.type";
 
 // ================================================================
@@ -50,7 +49,6 @@ export type { SupportedColorSpace } from "./ColorSpaces/SupportedColorSpace.type
 //
 // ----------------------------------------------------------------
 
-export { SUPPORTED_COLOR_MODELS } from "./ColorModels/SUPPORTED_COLOR_MODELS";
 export type { SupportedColorModel } from "./ColorModels/SupportedColorModel.type";
 
 export type { ColorModel } from "./ColorModels/ColorModel.type";

@@ -38,7 +38,7 @@ import { CssColor, HSV_MODEL_CONVERTER, type CssHsvColorChannelsTuple, type HsvC
  * CssHsvColor is a {@link CssColor} that was created from a HSV color
  * definition.
  */
-export class CssHsvColor extends CssColor<"hsv", "sRGB", HsvColorModel, HsvConversionModel>
+export class CssHsvColor extends CssColor<HsvColorModel, HsvConversionModel>
 {
     public constructor(
         name: string,

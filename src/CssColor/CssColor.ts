@@ -35,14 +35,15 @@
 import type { Maybe } from "@safelytyped/core-types";
 import type { SupportedColorModel } from "../ColorModels/SupportedColorModel.type";
 import type { SupportedColorSpace } from "../ColorSpaces/SupportedColorSpace.type";
-import { CssCmykColor } from "../CssCmykColor/CssCmykColor";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import type { CssHexColorDefinition } from "../CssHexColorDefinition/CssHexColorDefinition.type";
 import type { CssHslColor } from "../CssHslColor/CssHslColor";
-import { CssHsvColor } from "../CssHsvColor/CssHsvColor";
-import { CssHwbColor } from "../CssHwbColor/CssHwbColor";
-import { CssOklchColor } from "../CssOklchColor/CssOklchColor";
-import { CSS_HEX_TO_EXTENDED_COLORS, CssRgbColor, makeCssCmykColorFromCssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, RGB_MODEL_CONVERTER, type AnyCssColor, type ColorModel, type ConversionModel, type CssColorData, type ModelConverter } from "../index";
+import type { CssHsvColor } from "../CssHsvColor/CssHsvColor";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor";
+import { CSS_HEX_TO_EXTENDED_COLORS, makeCssCmykColorFromCssColor, makeCssHslColorFromCssColor, makeCssHsvColorFromCssColor, makeCssHwbColorFromCssColor, makeCssOklchColorFromCssColor, makeCssRgbColorFromCssColor, RGB_MODEL_CONVERTER, type AnyCssColor, type ColorModel, type ConversionModel, type CssColorData, type ModelConverter } from "../index";
 
 type ConversionCache = {
     cmyk: Maybe<CssCmykColor>,
@@ -62,7 +63,7 @@ type ConversionCache = {
  * - obtain the representation details
  * - convert from one format (e.g. rgb) to another (e.g. hsl or hex)
  */
-export abstract class CssColor<M extends SupportedColorModel, S extends SupportedColorSpace, CM extends ColorModel<M,S>, CV extends ConversionModel|undefined> {
+export abstract class CssColor<CM extends ColorModel, CV extends ConversionModel|undefined> {
     /**
      * holds the internal representation of the CSS color,
      * along with common details such as its name and its original
@@ -71,7 +72,7 @@ export abstract class CssColor<M extends SupportedColorModel, S extends Supporte
      * NOTE: even when we convert formats, we retain the color's original
      * definition
      */
-    protected readonly data: CssColorData<M,S,CM>;
+    protected readonly data: CssColorData<CM>;
 
     /**
      * how do we convert this color into other colors?
@@ -94,7 +95,7 @@ export abstract class CssColor<M extends SupportedColorModel, S extends Supporte
      * @param data
      */
     public constructor(
-        data: CssColorData<M,S,CM>,
+        data: CssColorData<CM>,
         modelConverter: ModelConverter<CM,CV>,
     )
     {
@@ -125,12 +126,6 @@ export abstract class CssColor<M extends SupportedColorModel, S extends Supporte
         }
 
         return this.conversionCache.cmyk;
-
-        // return makeCssCmykColorFromCssColor(
-        //     this,
-        //     { path, onError },
-        //     ...fnOpts
-        // );
     }
 
     /**

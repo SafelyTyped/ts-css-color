@@ -39,7 +39,7 @@ import { CssColor, HEX_MODEL_CONVERTER, type CssHexColorDefinition, type CssRgbC
  * CssHexColor is a {@link CssColor} that was created from CSS's `#RRGGBB`
  * format.
  */
-export class CssHexColor extends CssColor<"hex", "sRGB", HexColorModel, RgbConversionModel>
+export class CssHexColor extends CssColor<HexColorModel, RgbConversionModel>
 {
     public constructor(
         name: string,

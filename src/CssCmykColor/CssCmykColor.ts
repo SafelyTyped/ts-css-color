@@ -38,7 +38,7 @@ import { CMYK_MODEL_CONVERTER, CssColor, type CmykColorModel, type CssCmykColorC
  * CssCmykColor represents a {@link CssColor} that was defined in the
  * CMYK color model format.
  */
-export class CssCmykColor extends CssColor<"cmyk", "CMYK", CmykColorModel, undefined>
+export class CssCmykColor extends CssColor<CmykColorModel, undefined>
 {
     public constructor(
         name: string,

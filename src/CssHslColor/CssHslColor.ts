@@ -39,7 +39,7 @@ import { CssColor, HSL_MODEL_CONVERTER, type CssHslColorChannelsTuple, type HslC
  * CssHslColor is a {@link CssColor} that was created from a CSS HSL
  * definition.
  */
-export class CssHslColor extends CssColor<"hsl", "sRGB", HslColorModel, HslConversionModel>
+export class CssHslColor extends CssColor<HslColorModel, HslConversionModel>
 {
     public constructor(
         name: string,

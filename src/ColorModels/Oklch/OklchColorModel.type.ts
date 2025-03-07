@@ -32,9 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ColorModel } from "../..";
 
-export type OklchColorModel = ColorModel<"oklch", "OKLCH"> & {
+export type OklchColorModel = {
+    colorModel: "oklch";
+    colorSpace: "OKLCH";
     lightness: number;
     chroma: number;
     hue: number;

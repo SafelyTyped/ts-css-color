@@ -38,7 +38,7 @@ import { CssColor, CSSNAMEDCOLOR_MODEL_CONVERTER, type CssExtendedColor, type Cs
  * CssKeywordColor is a {@link CssColor} that was defined from a CSS
  * extended color name.
  */
-export class CssKeywordColor extends CssColor<"cssNamedColor", "sRGB", CssNamedColorColorModel, RgbConversionModel>
+export class CssKeywordColor extends CssColor<CssNamedColorColorModel, RgbConversionModel>
 {
     public constructor(
         name: string,

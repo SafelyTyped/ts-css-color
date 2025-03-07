@@ -39,7 +39,7 @@ import { CssColor, type CssOklchColorChannelsTuple, type OklchColorModel, type O
  * CssOklchColor represents a {@link CssColor} that was defined using the
  * CSS RGBA format.
  */
-export class CssOklchColor extends CssColor<"oklch","OKLCH", OklchColorModel, OklchConversionModel>
+export class CssOklchColor extends CssColor<OklchColorModel, OklchConversionModel>
 {
     public constructor(
         name: string,
