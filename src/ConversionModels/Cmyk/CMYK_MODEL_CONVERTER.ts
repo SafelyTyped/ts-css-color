@@ -67,9 +67,6 @@ export const CMYK_MODEL_CONVERTER: ModelConverter<CmykColorModel, undefined> = {
     toConversionModel: undefined,
     normaliseConversionModel: undefined,
 
-    prepForOklch: undefined,
-    prepForSrgb: undefined,
-
     parse: undefined,
 
     // CMYK isn't supported in CSS, so we attempt to turn the fallback

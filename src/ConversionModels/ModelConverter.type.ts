@@ -77,28 +77,6 @@ export type ModelConverter<INT,EXT> = {
 
     // ================================================================
     //
-    // CONVERSION BETWEEN COLOR SPACES
-    //
-    // we manage this explicitly, to make sure that we get reliable
-    // two-way conversion between color spaces
-    //
-    // some Color Models (e.g. CMYK) do not support conversion between
-    // color spaces, because they don't support conversion at all
-    //
-    // ----------------------------------------------------------------
-
-    /**
-     * prepares our conversion model for conversion into the OKLCH color space
-     */
-    prepForOklch: EXT extends undefined ? undefined : (input: ConversionModel) => ConversionModel;
-
-    /**
-     * prepares our conversion model for conversion into the sRGB color space
-     */
-    prepForSrgb: EXT extends undefined ? undefined : (input: ConversionModel) => ConversionModel;
-
-    // ================================================================
-    //
     // to/from CSS definitions
     //
     // ----------------------------------------------------------------

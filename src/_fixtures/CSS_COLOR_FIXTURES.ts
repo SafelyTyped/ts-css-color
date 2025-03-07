@@ -708,7 +708,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
                 colorModel: "hsv",
                 colorSpace: "sRGB",
                 hue: 100,
-                saturation: 13,
+                saturation: 14,
                 value: 88,
                 alpha: 1,
             },

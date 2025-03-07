@@ -32,7 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { identity } from "@safelytyped/core-types";
 import { hsv } from "culori";
 import type { HsvColorModel } from "../../ColorModels/Hsv/HsvColorModel.type";
 import { prepForSrgb } from "../../ColorSpaces/prepForSrgb";
@@ -65,8 +64,6 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
 
     toColorModel(input: ConversionModel) {
         const model = hsv(prepForSrgb(input));
-        console.log(input);
-        console.log(model);
 
         return this.normaliseColorModel({
             colorModel: "hsv",
@@ -79,7 +76,6 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
         });
     },
 
-
     normaliseColorModel: (input: HsvColorModel) => {
         return {
             ...input,
@@ -89,19 +85,13 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
         };
     },
 
-    // direct conversion to OKLCH produces different results
-    prepForOklch: convertViaRgb,
-
-    // direct conversion to other sRGB models produces different results
-    prepForSrgb: identity,
-
     parse(input: string) { return this.normaliseConversionModel(hsv(parseCss(input))); },
 
     // HSV isn't supported in CSS, but hsl() is!
     toCss(input: HsvColorModel, fallback: string) {
         return HSL_MODEL_CONVERTER.toCss(
             HSL_MODEL_CONVERTER.toColorModel(
-                HSV_MODEL_CONVERTER.prepForSrgb(
+                convertViaRgb(
                     HSV_MODEL_CONVERTER.toConversionModel(input)
                 )
             ),

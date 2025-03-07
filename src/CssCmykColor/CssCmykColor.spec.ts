@@ -32,13 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssCmykColor, type AnyCssColor } from "@safelytyped/css-color";
+import { makeCssCmykColor, makeCssCmykColorFromCmykColorModel, type AnyCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { CSS_CMYK_COLOR_FIXTURES } from "../_fixtures/CSS_CMYK_COLOR_FIXTURES";
-import { type ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
+import type { ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
 import { testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
-import { makeCssCmykColorFromCmykColorModel } from "./makeCssCmykColorFromCmykColorModel";
 
 describe("CssCmykColor", () => {
     // ================================================================

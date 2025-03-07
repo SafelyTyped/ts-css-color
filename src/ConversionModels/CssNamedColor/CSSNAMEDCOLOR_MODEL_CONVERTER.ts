@@ -67,12 +67,6 @@ export const CSSNAMEDCOLOR_MODEL_CONVERTER: ModelConverter<CssNamedColorColorMod
 
     normaliseConversionModel: RGB_MODEL_CONVERTER.normaliseConversionModel,
 
-    // no prep required
-    prepForOklch: identity,
-
-    // no prep required
-    prepForSrgb: identity,
-
     parse: RGB_MODEL_CONVERTER.parse,
     toCss: (input: CssNamedColorColorModel) => input.color,
 };

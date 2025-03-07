@@ -32,7 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { identity } from "@safelytyped/core-types";
 import { formatCss, rgb } from "culori";
 import type { RgbColorModel } from "../../ColorModels/Rgb/RgbColorModel.type";
 import { parseCss } from "../../CssParser/parseCss";
@@ -82,12 +81,6 @@ export const RGB_MODEL_CONVERTER: ModelConverter<RgbColorModel, RgbConversionMod
             blue: round(0, input.blue),
         };
     },
-
-    // no prep needed
-    prepForOklch: identity,
-
-    // we already use the RgbConversionModel
-    prepForSrgb: identity,
 
     parse: (input: string) => RGB_MODEL_CONVERTER.normaliseConversionModel(rgb(parseCss(input))),
     toCss: (input: RgbColorModel) => formatCss(RGB_MODEL_CONVERTER.toConversionModel(input)),

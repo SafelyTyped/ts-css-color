@@ -32,7 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { identity } from "@safelytyped/core-types";
 import { hwb } from "culori";
 import { convertViaRgb, parseCss, RGB_MODEL_CONVERTER, round, type ConversionModel, type HwbColorModel, type HwbConversionModel, type ModelConverter } from "../..";
 
@@ -69,7 +68,6 @@ export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionMod
         });
     },
 
-
     normaliseColorModel: (input: HwbColorModel) => {
         return {
             ...input,
@@ -79,18 +77,12 @@ export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionMod
         };
     },
 
-    // direct conversion to OKLCH produces different results
-    prepForOklch: convertViaRgb,
-
-    // direct conversion to other sRGB models produces different results
-    prepForSrgb: identity,
-
     parse: (input: string) => HWB_MODEL_CONVERTER.normaliseConversionModel(hwb(parseCss(input))),
 
     // HWB isn't supported in CSS, so fallback to RGB
     toCss: (input: HwbColorModel, fallback: string) => RGB_MODEL_CONVERTER.toCss(
         RGB_MODEL_CONVERTER.toColorModel(
-            HWB_MODEL_CONVERTER.prepForSrgb(
+            convertViaRgb(
                 HWB_MODEL_CONVERTER.toConversionModel(input)
             )
         ),

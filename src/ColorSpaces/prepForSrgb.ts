@@ -35,25 +35,19 @@
 import { identity, searchDispatchMap, type DispatchMap } from "@safelytyped/core-types";
 import type { SupportedColorModel } from "../ColorModels/SupportedColorModel.type";
 import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
-import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
-import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER";
-import { HSL_MODEL_CONVERTER } from "../ConversionModels/Hsl/HSL_MODEL_CONVERTER";
-import { HSV_MODEL_CONVERTER } from "../ConversionModels/Hsv/HSV_MODEL_CONVERTER";
-import { HWB_MODEL_CONVERTER } from "../ConversionModels/Hwb/HWB_MODEL_CONVERTER";
-import { OKLCH_MODEL_CONVERTER } from "../ConversionModels/Oklch/OKLCH_MODEL_CONVERTER";
-import { RGB_MODEL_CONVERTER } from "../ConversionModels/Rgb/RGB_MODEL_CONVERTER";
+import { convertWithinSrgb } from "../ConversionModels/convertWithinSrgb";
 
 type UnsupportedColorModel = "cmyk";
 type ConversionModelPrepper = (input: ConversionModel) => ConversionModel;
 
 const DISPATCH_MAP: DispatchMap<Exclude<SupportedColorModel, UnsupportedColorModel>, ConversionModelPrepper> = {
-    "cssNamedColor": CSSNAMEDCOLOR_MODEL_CONVERTER.prepForSrgb,
-    "hex": HEX_MODEL_CONVERTER.prepForSrgb,
-    "hsl": HSL_MODEL_CONVERTER.prepForSrgb,
-    "hsv": HSV_MODEL_CONVERTER.prepForSrgb,
-    "hwb": HWB_MODEL_CONVERTER.prepForSrgb,
-    "oklch": OKLCH_MODEL_CONVERTER.prepForSrgb,
-    "rgb": RGB_MODEL_CONVERTER.prepForSrgb,
+    "cssNamedColor": identity,
+    "hex": identity,
+    "hsl": convertWithinSrgb,
+    "hsv": convertWithinSrgb,
+    "hwb": convertWithinSrgb,
+    "oklch": identity,
+    "rgb": identity,
 };
 
 export function prepForSrgb(

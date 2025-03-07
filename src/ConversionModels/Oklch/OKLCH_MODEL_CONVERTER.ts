@@ -32,7 +32,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { identity } from "@safelytyped/core-types";
 import { formatCss, oklch } from "culori";
 import { parseCss, round, type ConversionModel, type ModelConverter, type OklchColorModel, type OklchConversionModel } from "../..";
 
@@ -71,12 +70,6 @@ export const OKLCH_MODEL_CONVERTER: ModelConverter<OklchColorModel, OklchConvers
             chroma: round(6, input.chroma),
         };
     },
-
-    // already in the OKLCH color space
-    prepForOklch: identity,
-
-    // no prep needed
-    prepForSrgb: identity,
 
     parse: (input: string) => OKLCH_MODEL_CONVERTER.normaliseConversionModel(oklch(parseCss(input))),
     toCss: (input: OklchColorModel) => formatCss(OKLCH_MODEL_CONVERTER.toConversionModel(input)),
