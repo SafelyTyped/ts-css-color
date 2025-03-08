@@ -35,3 +35,5 @@
 import { CSS_COLOR_FIXTURES, type ValidCssColor } from "./CSS_COLOR_FIXTURES";
 
 export const CSS_CMYK_COLOR_FIXTURES: ValidCssColor[] = CSS_COLOR_FIXTURES.filter((fixture) => fixture.colorModel === "cmyk");
+
+export const NON_CMKY_COLOR_FIXTURES = CSS_COLOR_FIXTURES.filter((fixture) => !CSS_CMYK_COLOR_FIXTURES.includes(fixture));
