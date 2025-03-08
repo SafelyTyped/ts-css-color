@@ -155,7 +155,6 @@ export { makeCssCmykColorFromCssColor } from "./CssCmykColor/makeCssCmykColorFro
 
 export type { CssNamedColor } from "./CssNamedColor/CssNamedColor.type";
 export { makeCssNamedColor } from "./CssNamedColor/makeCssNamedColor";
-export { makeCssNamedColorFromConversionModel } from "./CssNamedColor/makeCssNamedColorFromConversionModel";
 export { makeCssNamedColorFromCssNamedColorModel } from "./CssNamedColor/makeCssNamedColorFromCssNamedColorModel";
 
 export type { CssHexColor } from "./CssHexColor/CssHexColor.type";

@@ -32,12 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { parse } from "culori";
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataPath, type OnError } from "@safelytyped/core-types";
 import { makeCssNamedColor } from "../CssNamedColor/makeCssNamedColor";
 import { parseCmyk } from "../CssParser/parseCmyk";
-import { HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssCmykColorFromCmykColorModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, UnsupportedCssColorDefinitionError, type AnyCssColor } from "../index";
+import { mustBeNonEmptyString } from "../helpers/mustBeNonEmptyString";
+import { HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssCmykColorFromCmykColorModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, parseCss, type AnyCssColor } from "../index";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -70,6 +70,9 @@ export function makeCssColor(
     // shorthand
     const opts = { onError, path };
 
+    // robustness
+    colorName = mustBeNonEmptyString(colorName);
+
     // special case - do we have a CSS keyword color?
     if (isCssExtendedColor(cssDefinition)) {
         return makeCssNamedColor(cssDefinition, { colorName });
@@ -98,17 +101,7 @@ export function makeCssColor(
 
     // general case - CSS color function
     // what are we looking at?
-    const model = parse(cssDefinition);
-
-    // robustness!
-    if (!model) {
-        throw new UnsupportedCssColorDefinitionError({
-            public: {
-                dataPath: path,
-                colorDefinition: cssDefinition,
-            }
-        });
-    }
+    const model = parseCss(cssDefinition);
 
     return makeCssColorFromConversionModel(
         colorName,

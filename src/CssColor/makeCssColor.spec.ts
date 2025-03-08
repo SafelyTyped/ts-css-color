@@ -32,79 +32,123 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { AppError } from "@safelytyped/core-types";
-import { validateCssHexColorDefinition } from "@safelytyped/css-color";
+import { AppError, isObject } from "@safelytyped/core-types";
+import { makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
-import { describe } from "mocha";
-import { InvalidCssHexColorDefinitionInputs, InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
+import { describe, it } from "mocha";
+import { CSS_COLOR_FIXTURES } from "../_fixtures/CSS_COLOR_FIXTURES";
+import { InvalidCssColorDataParameters } from "./_fixtures/CssColorDataFixtures";
 
-describe("validateCssHexColorDefinition()", () => {
-    ValidCssHexColorDefinitions.forEach((fixture) => {
-        it("accepts hex definition " + fixture.inputValue, () => {
+describe('makeCssColor()', () => {
+    CSS_COLOR_FIXTURES.forEach((inputValue) => {
+        it("returns a CssColor object when given acceptable inputs: " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that valid CSS hex definitions are supported
+            // this test proves that an object that contains the right
+            // properties will pass validation
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualResult = makeCssColor(
+                inputValue.definition,
+                { colorName: inputValue.name }
+            );
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(isObject(actualResult)).to.be.true;
+        });
+
+        it("returns a CssColor object with the given name: " + JSON.stringify(inputValue.name), () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the returned object has the definition
+            // that we're expecting
 
             // ----------------------------------------------------------------
             // setup your test
 
 
-
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = validateCssHexColorDefinition(fixture.inputValue);
+            const actualResult = makeCssColor(
+                inputValue.definition,
+                { colorName: inputValue.name }
+            );
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).is.not.instanceOf(AppError);
+            expect(actualResult.name).eqls(inputValue.name);
+        });
+
+        it("returns a CssColor object with the given definition: " + JSON.stringify(inputValue.definition), () => {
+            // ----------------------------------------------------------------
+            // explain your test
+
+            // this test proves that the returned object has the definition
+            // that we're expecting
+
+            // ----------------------------------------------------------------
+            // setup your test
+
+
+            // ----------------------------------------------------------------
+            // perform the change
+
+            const actualResult = makeCssColor(
+                inputValue.definition,
+                { colorName: inputValue.name }
+            );
+
+            // ----------------------------------------------------------------
+            // test the results
+
+            expect(actualResult.definition).eqls(inputValue.definition);
         });
     });
 
-    InvalidCssHexColorDefinitions.forEach((inputValue) => {
-        it("rejects invalid hex definition " + inputValue, () => {
+    InvalidCssColorDataParameters.forEach(({inputValue, description}) => {
+        it("throws an AppError when given invalid inputs where " + description, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that the input string must contain a valid
-            // CSS hex definition
+            // this test proves that malformed / incomplete object will
+            // not pass validation
 
             // ----------------------------------------------------------------
             // setup your test
 
-            // ----------------------------------------------------------------
-            // perform the change
 
-            const actualValue = validateCssHexColorDefinition(inputValue);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue).to.be.instanceOf(AppError);
-        });
-    });
-
-    InvalidCssHexColorDefinitionInputs.forEach((inputValue) => {
-        it("rejects invalid input " + JSON.stringify(inputValue), () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that non-strings are rejected
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const actualValue = validateCssHexColorDefinition(inputValue);
 
             // ----------------------------------------------------------------
             // perform the change
 
+            let exceptionThrown = null;
+            let actualValue = null;
+            try {
+                actualValue = makeCssColor(
+                    inputValue.definition,
+                    { colorName: inputValue.name },
+                );
+            }
+            catch(e) {
+                exceptionThrown = e;
+            }
+
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.instanceOf(AppError);
+            expect(actualValue).is.null;
+            expect(exceptionThrown).is.instanceOf(AppError);
         });
     });
 });

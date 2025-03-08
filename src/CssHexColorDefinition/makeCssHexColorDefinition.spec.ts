@@ -36,7 +36,7 @@ import { AppError, type AnySmartConstructor } from "@safelytyped/core-types";
 import { makeCssHexColorDefinition, type CssHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
+import { INVALID_CSS_HEX_COLOR_DEFINITIONS, VALID_CSS_HEX_COLOR_DEFINITIONS } from "./_fixtures/CssHexColorDefinitionFixtures";
 
 describe("makeCssHexColorDefinition()", () => {
     it("is a smart constructor", ()=>  {
@@ -92,7 +92,7 @@ describe("makeCssHexColorDefinition()", () => {
         expect(true).to.be.true;
     });
 
-    ValidCssHexColorDefinitions.forEach((fixture) => {
+    VALID_CSS_HEX_COLOR_DEFINITIONS.forEach((fixture) => {
         it("accepts hex definition '" + fixture.inputValue + "'", () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -126,7 +126,7 @@ describe("makeCssHexColorDefinition()", () => {
         });
     });
 
-    InvalidCssHexColorDefinitions.forEach((inputValue) => {
+    INVALID_CSS_HEX_COLOR_DEFINITIONS.forEach((inputValue) => {
         it("rejects invalid hex definition " + inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test

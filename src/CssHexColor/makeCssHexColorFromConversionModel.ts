@@ -38,8 +38,6 @@ import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER
 import type { CssHexColor } from "./CssHexColor.type";
 import { makeCssHexColorFromHexColorModel } from "./makeCssHexColorFromHexColorModel";
 
-
-
 export function makeCssHexColorFromConversionModel(
     colorName: string,
     cssDefinition: string,

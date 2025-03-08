@@ -32,59 +32,24 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { expect } from "chai";
-import { describe } from "mocha";
-import { CssHwbColor } from "./CssHwbColor";
-import { makeCssHwbColor } from "./makeCssHwbColor";
+import { DEFAULT_DATA_PATH, UnsupportedStringValueError, type AppErrorOr, type DataValidatorOptions } from "@safelytyped/core-types";
 
-const VALID_COLOR_CSS = [
+export function validateNonEmptyString(
+    input: string,
     {
-        description: "hex CSS definition",
-        inputValue: "#fff",
-    },
-    {
-        description: "CSS named color",
-        inputValue: "red",
-    },
-    {
-        description: "hsl() CSS definition",
-        inputValue: "hsl(359 100 100)",
-    },
-    {
-        description: "hwb() CSS definition",
-        inputValue: "hwb(359 100 100)"
-    },
-    {
-        description: "oklch() CSS definition",
-        inputValue: "oklch(0.5032 0 0)"
-    },
-    {
-        description: "rgb() CSS definition",
-        inputValue: "rgb(255, 255, 255)"
-    },
-];
-
-describe("makeCssHwbColor()", () => {
-    VALID_COLOR_CSS.forEach((fixture) => {
-        it("accepts " + fixture.description + ": " + fixture.inputValue, () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that makeCssHwbColor() accepts a range of
-            // input formats
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = makeCssHwbColor(fixture.inputValue);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue).to.be.instanceof(CssHwbColor);
+        path = DEFAULT_DATA_PATH,
+    }: DataValidatorOptions = {}
+): AppErrorOr<string>
+{
+    if (input.trim().length === 0) {
+        return new UnsupportedStringValueError({
+            public: {
+                dataPath: path,
+                permittedValues: [ "any valid CSS color definition"],
+                actualValue: input,
+            }
         });
-    });
-})
+    }
+
+    return input;
+}

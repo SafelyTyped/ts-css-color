@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,42 +32,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
-import { normaliseCssHexColorDefinition } from "./normaliseCssHexColorDefinition";
-import { validateCssHexColorDefinition } from "./validateCssHexColorDefinition";
+import { DEFAULT_DATA_PATH, mustBe, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { validateNonEmptyString } from "./validateNonEmptyString";
 
-/**
- * mustBeCssHexColorDefinition() is a type guarantee. Use it to ensure that
- * the given input is an acceptable CSS color definition, and that it uses
- * the CSS hex notation.
- *
- * We throw a suitable AppError if validation fails.
- *
- * @param input -
- * the data to guarantee
- * @param path -
- * dot.notation.path to this value in your nested data structures
- * @param onError -
- * we will call this if `input` fails validation
- * @returns
- * - the normalised form of `input` if validation passes
- */
-export function mustBeCssHexColorDefinition(
-    input: unknown,
+export function mustBeNonEmptyString(
+    input: string,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {}
-): CssHexColorDefinition
+    }: DataGuaranteeOptions = {}
+): string
 {
     return mustBe(input, { onError })
-        // all validation steps go here
-        .next((x) => validateCssHexColorDefinition(x, { path }))
-
-        // now that validation is over, we can normalise the return value
-        .next((x) => normaliseCssHexColorDefinition(x))
-
-        // all done
+        .next((x) => validateNonEmptyString(x, { path }))
         .value();
 }

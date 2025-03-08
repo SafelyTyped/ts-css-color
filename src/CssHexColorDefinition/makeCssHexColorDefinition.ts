@@ -33,7 +33,8 @@
 //
 
 import { DEFAULT_DATA_PATH, makeNominalTypeFromTypeGuarantee, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import { mustBeCssHexColorDefinition, type CssHexColorDefinition } from "../index";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import { mustBeCssHexColorDefinition } from "./mustBeCssHexColorDefinition";
 
 /**
  * makeCssHexColorDefinition() is a smart constructor. Use it to safely

@@ -194,7 +194,7 @@ describe("CssHexColor", () => {
 
     describe(".hex", () => {
         CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
-            it("[fixture " + fixture.name + "] contains the hex representation of this color", () => {
+            it("[fixture " + fixture.name + "] contains the #RRGGBB representation of this color", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -217,6 +217,7 @@ describe("CssHexColor", () => {
                 // ----------------------------------------------------------------
                 // test the results
 
+                expect(actualValue.length).to.eql(7);
                 expect(actualValue).to.eql(expectedValue);
             });
         });

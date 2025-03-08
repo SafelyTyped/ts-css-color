@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,16 +32,48 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssHexColorDefinition } from "../../CssHexColorDefinition/CssHexColorDefinition.type";
-import type { HexColorModel } from "./HexColorModel.type";
+import { HashMap } from "@safelytyped/core-types";
+import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssExtendedColors/CssExtendedColors.const";
+import { DARK_COLORS, LIGHT_COLORS, MIDTONE_COLORS } from "../../inspectors/_fixtures/colorShades";
+import type { CssHexColorDefinition } from "../CssHexColorDefinition.type";
+import { normaliseCssHexColorDefinition } from "../normaliseCssHexColorDefinition";
 
-export function makeHexColorModel(
-    input: CssHexColorDefinition
-): HexColorModel
-{
-    return {
-        colorModel: "hex",
-        colorSpace: "sRGB",
-        hex: input,
-    };
-}
+export const VALID_CSS_HEX_COLOR_DEFINITIONS: {inputValue: CssHexColorDefinition, expectedValue: string}[] = [];
+
+const validHexColors = [    // we use Set() to dedupe the color definitions
+    ...new Set([
+        ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX),
+        ...LIGHT_COLORS,
+        ...DARK_COLORS,
+        ...MIDTONE_COLORS
+
+        // add additional values here
+    ]),
+];
+validHexColors.forEach((inputValue) => {
+    VALID_CSS_HEX_COLOR_DEFINITIONS.push({
+        inputValue,
+        expectedValue: normaliseCssHexColorDefinition(inputValue as CssHexColorDefinition),
+    })
+});
+
+export const INVALID_CSS_HEX_COLOR_DEFINITIONS = [
+    "000000",
+    "",
+    "  ",
+    "   ",
+];
+
+export const INVALID_CSS_HEX_COLOR_DEFINITION_INPUTS = [
+    null,
+    undefined,
+    [],
+    true,
+    false,
+    0,
+    -100,
+    100,
+    3.1415927,
+    () => true,
+    {},
+];

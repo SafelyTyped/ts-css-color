@@ -32,17 +32,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { isCssHexColorDefinition, type CssHexColorDefinition } from "@safelytyped/css-color";
+import { AppError } from "@safelytyped/core-types";
+import { mustBeCssHexColorDefinition, type CssHexColorDefinition } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { InvalidCssHexColorDefinitionInputs, InvalidCssHexColorDefinitions, ValidCssHexColorDefinitions } from "./_fixtures/CssHexColorDataDefinitionFixtures";
+import { INVALID_CSS_HEX_COLOR_DEFINITIONS, INVALID_CSS_HEX_COLOR_DEFINITION_INPUTS, VALID_CSS_HEX_COLOR_DEFINITIONS } from "./_fixtures/CssHexColorDefinitionFixtures";
 
-describe("isCssHexColorDefinition()", () => {
-    it("is a type guard", () => {
+describe("mustBeCssHexColorDefinition()", () => {
+    it("casts the return value to CssHexColorDefinition", () => {
         // ----------------------------------------------------------------
         // explain your test
 
-        // this test proves that this function acts as a type guard for
+        // this test proves that this function acts as a type caster for
         // the Typescript compiler
 
         // ----------------------------------------------------------------
@@ -56,9 +57,8 @@ describe("isCssHexColorDefinition()", () => {
 
         // this will only compile if isCssHexColorDefinition() is a working
         // type guard
-        if (isCssHexColorDefinition(inputValue)) {
-            exampleFunc(inputValue);
-        }
+        const res = mustBeCssHexColorDefinition(inputValue);
+        exampleFunc(res);
 
         // ----------------------------------------------------------------
         // test the results
@@ -67,8 +67,8 @@ describe("isCssHexColorDefinition()", () => {
         expect(true).to.be.true;
     });
 
-    ValidCssHexColorDefinitions.forEach((fixture) => {
-        it("approves hex definition " + fixture.inputValue, () => {
+    VALID_CSS_HEX_COLOR_DEFINITIONS.forEach((fixture) => {
+        it("accepts hex definition " + fixture.inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -77,21 +77,31 @@ describe("isCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const { inputValue } = fixture;
+            const inputValue = fixture.inputValue;
+            const expectedValue = fixture.expectedValue;
 
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = isCssHexColorDefinition(inputValue);
+            let errorThrown = null;
+            let actualValue = null;
+
+            try {
+                actualValue = mustBeCssHexColorDefinition(inputValue);
+            }
+            catch (e) {
+                errorThrown = e;
+            }
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).is.true;
+            expect(actualValue).to.eqls(expectedValue);
+            expect(errorThrown).to.be.null;
         });
     });
 
-    InvalidCssHexColorDefinitions.forEach((inputValue) => {
+    INVALID_CSS_HEX_COLOR_DEFINITIONS.forEach((inputValue) => {
         it("rejects invalid hex definition " + inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -105,16 +115,25 @@ describe("isCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = isCssHexColorDefinition(inputValue);
+            let errorThrown = null;
+            let actualValue = null;
+
+            try {
+                actualValue = mustBeCssHexColorDefinition(inputValue);
+            }
+            catch (e) {
+                errorThrown = e;
+            }
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.false;
+            expect(errorThrown).to.be.instanceOf(AppError);
+            expect(actualValue).to.be.null;
         });
     });
 
-    InvalidCssHexColorDefinitionInputs.forEach((inputValue) => {
+    INVALID_CSS_HEX_COLOR_DEFINITION_INPUTS.forEach((inputValue) => {
         it("rejects invalid input " + JSON.stringify(inputValue), () => {
             // ----------------------------------------------------------------
             // explain your test
@@ -124,15 +143,21 @@ describe("isCssHexColorDefinition()", () => {
             // ----------------------------------------------------------------
             // setup your test
 
-            const actualValue = isCssHexColorDefinition(inputValue);
+            let errorThrown = null;
+            let actualValue = null;
 
-            // ----------------------------------------------------------------
-            // perform the change
+            try {
+                actualValue = mustBeCssHexColorDefinition(inputValue);
+            }
+            catch (e) {
+                errorThrown = e;
+            }
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.false;
+            expect(errorThrown).to.be.instanceOf(AppError);
+            expect(actualValue).to.be.null;
         });
     });
 });

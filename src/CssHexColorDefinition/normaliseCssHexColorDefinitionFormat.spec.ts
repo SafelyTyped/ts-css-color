@@ -32,45 +32,39 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CssCmykColor, makeCssCmykColor } from "@safelytyped/css-color";
 import { expect } from "chai";
-import { describe } from "mocha";
+import { describe, it } from "mocha";
+import { VALID_CSS_HEX_COLOR_DEFINITIONS } from "./_fixtures/CssHexColorDefinitionFixtures";
+import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
+import { normaliseCssHexColorDefinitionFormat } from "./normaliseCssHexColorDefinitionFormat";
 
-const VALID_COLOR_CSS = [
-    {
-        description: "hex CSS definition",
-        inputValue: "#fff",
-    },
-    {
-        description: "CSS named color",
-        inputValue: "red",
-    },
-    {
-        description: "hsl() CSS definition",
-        inputValue: "hsl(359 100 100)",
-    },
-    {
-        description: "hwb() CSS definition",
-        inputValue: "hwb(359 100 100)"
-    },
-    {
-        description: "oklch() CSS definition",
-        inputValue: "oklch(0.5032 0 0)"
-    },
-    {
-        description: "rgb() CSS definition",
-        inputValue: "rgb(255, 255, 255)"
-    },
-];
+// we need to split the fixtures up into two types:
+//
+// - ones that need format-normalising
+// - ones that do not
 
-describe("makeCssCmykColor()", () => {
-    VALID_COLOR_CSS.forEach((fixture) => {
-        it("accepts " + fixture.description + ": " + fixture.inputValue, () => {
+const SHORT_HEX_FIXTURES: CssHexColorDefinition[] = [];
+const FULL_FAT_HEX_FIXTURES: CssHexColorDefinition[] = [];
+
+VALID_CSS_HEX_COLOR_DEFINITIONS.forEach((fixture) => {
+    switch(fixture.inputValue.length) {
+        case 4:
+            SHORT_HEX_FIXTURES.push(fixture.inputValue);
+            break;
+
+        default:
+            FULL_FAT_HEX_FIXTURES.push(fixture.inputValue);
+    }
+});
+
+describe("normaliseCssHexColorDefinitionFormat()", () => {
+    SHORT_HEX_FIXTURES.forEach((fixture) => {
+        it(`[${fixture}] converts short hex values to RRGGBB format`, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that makeCssCmykColor() accepts a range of
-            // input formats
+            // this test proves that the unit under test does the reformatting
+            // that we are expecting
 
             // ----------------------------------------------------------------
             // setup your test
@@ -78,34 +72,36 @@ describe("makeCssCmykColor()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = makeCssCmykColor(fixture.inputValue);
+            const actualValue = normaliseCssHexColorDefinitionFormat(fixture);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.be.instanceof(CssCmykColor);
+            expect(actualValue.length).to.eql(7);
+            expect(actualValue).to.not.eql(fixture);
         });
     });
 
-    it("returns the same object if input is a CssCmykColor", () => {
-        // ----------------------------------------------------------------
-        // explain your test
+    FULL_FAT_HEX_FIXTURES.forEach((fixture) => {
+        it(`[${fixture}] leaves RRGGBB hex values untouched`, () => {
+            // ----------------------------------------------------------------
+            // explain your test
 
-        //
+            // this test proves that the unit under test does not make
+            // unnecessary changes
 
-        // ----------------------------------------------------------------
-        // setup your test
+            // ----------------------------------------------------------------
+            // setup your test
 
-        const expectedValue = makeCssCmykColor("red");
+            // ----------------------------------------------------------------
+            // perform the change
 
-        // ----------------------------------------------------------------
-        // perform the change
+            const actualValue = normaliseCssHexColorDefinitionFormat(fixture);
 
-        const actualValue = makeCssCmykColor(expectedValue);
+            // ----------------------------------------------------------------
+            // test the results
 
-        // ----------------------------------------------------------------
-        // test the results
-
-        expect(actualValue).to.equal(expectedValue);
+            expect(actualValue).to.eql(fixture);
+        });
     });
 });

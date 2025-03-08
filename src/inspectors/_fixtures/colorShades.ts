@@ -32,17 +32,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import type { CssHexColorDefinition } from "../../CssHexColorDefinition/CssHexColorDefinition.type";
+
 export const LIGHT_COLORS = [
     "#fff",
     "#ffffff",
-];
+] as CssHexColorDefinition[];
 
 export const DARK_COLORS = [
     "#000",
     "#000000",
-];
+] as CssHexColorDefinition[];
 
 export const MIDTONE_COLORS = [
     "#888",
     "#888888",
-];
+] as CssHexColorDefinition[];

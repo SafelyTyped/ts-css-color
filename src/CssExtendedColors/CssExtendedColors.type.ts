@@ -32,12 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssExtendedColor } from "../index";
+import type { CssExtendedColor, CssHexColorDefinition } from "../index";
 
 /**
  * CssExtendedColors is a mapped type, mapping the list of CSS extended
  * color names to their definition.
  */
 export type CssExtendedColors = {
-    [P in CssExtendedColor]: string;
+    [P in CssExtendedColor]: CssHexColorDefinition;
 };

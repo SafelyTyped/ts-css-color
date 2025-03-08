@@ -32,23 +32,34 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
-import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
-import type { CssNamedColor } from "./CssNamedColor.type";
-import { makeCssNamedColorFromCssNamedColorModel } from "./makeCssNamedColorFromCssNamedColorModel";
+import { makeCssNamedColor } from "@safelytyped/css-color";
+import { expect } from "chai";
+import { describe } from "mocha";
+import { CSS_NAMED_COLOR_FIXTURES } from "../_fixtures/CSS_NAMED_COLOR_FIXTURES";
 
-export function makeCssNamedColorFromConversionModel(
-    colorName: string,
-    cssDefinition: string,
-    model: ConversionModel,
-): CssNamedColor
-{
-    // shorthand
-    const colorModel = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(model);
+describe("makeCssNamedColor()", () => {
+    describe("(string input)", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            it("accepts " + fixture.name + ": " + fixture.definition, () => {
+                // ----------------------------------------------------------------
+                // explain your test
 
-    return makeCssNamedColorFromCssNamedColorModel(
-        colorName,
-        cssDefinition,
-        colorModel,
-    );
-}
+                // this test proves that this smart constructor accepts its
+                // native input format
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = makeCssNamedColor(fixture.colorModels.cssNamedColor.color);
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue.colorModel).to.eql("cssNamedColor");
+            });
+        });
+    });
+});
