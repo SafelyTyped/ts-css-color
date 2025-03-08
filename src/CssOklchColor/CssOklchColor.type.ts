@@ -42,6 +42,7 @@ import type { CssHslColor } from "../CssHslColor/CssHslColor.type";
 import type { CssHsvColor } from "../CssHsvColor/CssHsvColor.type";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor.type";
+import type { OklchColorTuple } from "./OklchColorTuple.type";
 
 export type CssOklchColor = {
     name: string;
@@ -60,6 +61,7 @@ export type CssOklchColor = {
     keyword: Maybe<CssExtendedColor>;
     conversionModel: OklchConversionModel;
     channelsData: OklchColorModel;
+    channelsTuple: OklchColorTuple
     css: string;
 
     lightness: number;

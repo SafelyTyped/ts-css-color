@@ -69,6 +69,7 @@ export function makeCssOklchColorFromOklchColorModel(
 
         conversionModel: conversionModel,
         channelsData: colorModel,
+        channelsTuple: [ colorModel.lightness, colorModel.chroma, colorModel.hue ],
         css: OKLCH_MODEL_CONVERTER.toCss(colorModel, cssDefinition),
 
         ...colorModel,

@@ -33,7 +33,7 @@
 //
 
 /**
- * CssOklchColorChannelsTuple represents the channels of a CSS OKLCH color,
+ * OklchColorTuple represents the channels of a CSS OKLCH color,
  * as an array.
  */
-export type CssOklchColorChannelsTuple = [ number, number, number ];
+export type OklchColorTuple = [ number, number, number ];

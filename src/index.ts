@@ -186,10 +186,10 @@ export { makeCssHwbColorFromConversionModel } from "./CssHwbColor/makeCssHwbColo
 export { makeCssHwbColorFromCssColor } from "./CssHwbColor/makeCssHwbColorFromCssColor";
 
 export type { CssOklchColor } from "./CssOklchColor/CssOklchColor.type";
-export type { CssOklchColorChannelsTuple } from "./CssOklchColor/CssOklchColorChannelsTuple.type";
 export { makeCssOklchColor } from "./CssOklchColor/makeCssOklchColor";
 export { makeCssOklchColorFromConversionModel } from "./CssOklchColor/makeCssOklchColorFromConversionModel";
 export { makeCssOklchColorFromCssColor } from "./CssOklchColor/makeCssOklchColorFromCssColor";
+export type { OklchColorTuple as CssOklchColorChannelsTuple } from "./CssOklchColor/OklchColorTuple.type";
 
 export type { CssRgbColor } from "./CssRgbColor/CssRgbColor.type";
 export { makeCssRgbColor } from "./CssRgbColor/makeCssRgbColor";
