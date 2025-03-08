@@ -32,33 +32,23 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssNamedColorColorModel } from "../ColorModels/CssNamedColor/CssNamedColorColorModel.type";
-import type { RgbConversionModel } from "../ConversionModels/Rgb/RgbConversionModel.type";
-import type { CssCmykColor } from "../CssCmykColor/CssCmykColor.type";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import type { CssHexColorDefinition } from "../CssHexColorDefinition/CssHexColorDefinition.type";
-import type { CssHslColor } from "../CssHslColor/CssHslColor.type";
-import type { CssHsvColor } from "../CssHsvColor/CssHsvColor.type";
-import type { CssHwbColor } from "../CssHwbColor/CssHwbColor.type";
-import type { CssOklchColor } from "../CssOklchColor/CssOklchColor.type";
-import type { CssRgbColor } from "../CssRgbColor/CssRgbColor.type";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
+import type { CssNamedColor } from "./CssNamedColor.type";
+import { makeCssNamedColorFromCssNamedColorModel } from "./makeCssNamedColorFromCssNamedColorModel";
 
-export type CssKeywordColor = {
-    name: string;
-    definition: string;
-    colorModel: "cssNamedColor";
-    colorSpace: "sRGB";
+export function makeCssNamedColorFromConversionModel(
+    colorName: string,
+    cssDefinition: string,
+    model: ConversionModel,
+): CssNamedColor
+{
+    // shorthand
+    const colorModel = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(model);
 
-    cmyk: CssCmykColor;
-    hsl: CssHslColor;
-    hsv: CssHsvColor;
-    hwb: CssHwbColor;
-    oklch: CssOklchColor;
-    rgb: CssRgbColor;
-
-    hex: CssHexColorDefinition;
-    keyword: CssExtendedColor;
-    conversionModel: RgbConversionModel;
-    channelsData: CssNamedColorColorModel;
-    css: string;
-};
+    return makeCssNamedColorFromCssNamedColorModel(
+        colorName,
+        cssDefinition,
+        colorModel,
+    );
+}

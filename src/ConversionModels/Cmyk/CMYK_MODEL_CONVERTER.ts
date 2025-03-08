@@ -33,9 +33,15 @@
 //
 
 import { rgb } from "culori";
-import { RGB_MODEL_CONVERTER, round, type CmykColorModel, type ConversionModel, type ModelConverter } from "../..";
+import type { CmykColorModel } from "../../ColorModels/Cmyk/CmykColorModel.type";
+import { parseCmyk } from "../../CssParser/parseCmyk";
+import { round } from "../../helpers/round";
+import type { ConversionModel } from "../ConversionModel.type";
+import type { ModelConverter } from "../ModelConverter.type";
+import { RGB_MODEL_CONVERTER } from "../Rgb/RGB_MODEL_CONVERTER";
+import type { RgbConversionModel } from "../Rgb/RgbConversionModel.type";
 
-export const CMYK_MODEL_CONVERTER: ModelConverter<CmykColorModel, undefined> = {
+export const CMYK_MODEL_CONVERTER: ModelConverter<CmykColorModel, RgbConversionModel> = {
     normaliseColorModel: (input: CmykColorModel) => {
         return {
             ...input,
@@ -64,10 +70,28 @@ export const CMYK_MODEL_CONVERTER: ModelConverter<CmykColorModel, undefined> = {
         });
     },
 
-    toConversionModel: undefined,
-    normaliseConversionModel: undefined,
+    toConversionModel: (input: CmykColorModel) => {
+        const c = input.cyan / 100;
+        const m = input.magenta / 100;
+        const y = input.yellow / 100;
+        const k = input.key / 100;
 
-    parse: undefined,
+        const r = (1 - c) * (1 - k);
+        const g = (1 - m) * (1 - k);
+        const b = (1 - y) * (1 - k);
+
+        return CMYK_MODEL_CONVERTER.normaliseConversionModel({
+            mode: "rgb",
+            r,
+            g,
+            b,
+        });
+    },
+    normaliseConversionModel: RGB_MODEL_CONVERTER.normaliseConversionModel,
+
+    parse: (input: string) => {
+        return CMYK_MODEL_CONVERTER.toConversionModel(parseCmyk(input));
+    },
 
     // CMYK isn't supported in CSS, so we attempt to turn the fallback
     // definition into CSS

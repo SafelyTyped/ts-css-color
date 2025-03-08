@@ -32,23 +32,27 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
-import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
-import type { CssKeywordColor } from "./CssKeywordColor.type";
-import { makeCssKeywordColorFromCssNamedColorModel } from "./makeCssKeywordColorFromCssNamedColorModel";
+import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
+import type { CssNamedColor } from "./CssNamedColor.type";
+import { makeCssNamedColorFromCssNamedColorModel } from "./makeCssNamedColorFromCssNamedColorModel";
 
-export function makeCssKeywordColorFromConversionModel(
-    colorName: string,
-    cssDefinition: string,
-    model: ConversionModel,
-): CssKeywordColor
+
+export function makeCssNamedColor(
+    input: CssExtendedColor,
+    {
+        colorName = input,
+    }: {
+        colorName? : string,
+    } = {},
+): CssNamedColor
 {
-    // shorthand
-    const colorModel = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(model);
-
-    return makeCssKeywordColorFromCssNamedColorModel(
+    return makeCssNamedColorFromCssNamedColorModel(
         colorName,
-        cssDefinition,
-        colorModel,
+        input,
+        {
+            color: input,
+            colorModel: "cssNamedColor",
+            colorSpace: "sRGB"
+        }
     );
 }

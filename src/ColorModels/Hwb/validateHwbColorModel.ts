@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, recastIfValid, validate, type AppErrorOr, type NonNullableObject, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorChannel, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, type HwbColorModel } from "../../index";
+import { validateCssColorChannel, validateObjectHasColorModel, validateObjectHasColorSpace, type HwbColorModel } from "../../index";
 
 /**
  * inspects the given input, and determines if it has everything that an
@@ -49,8 +49,8 @@ export function validateHwbColorModel(
     return recastIfValid<HwbColorModel>(
         input,
         () => validate(input)
-            .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
-            .next((x) => validateCssColorDataHasColorFormat(x, "hwb", { path }))
+            .next((x) => validateObjectHasColorSpace(x, "sRGB", { path }))
+            .next((x) => validateObjectHasColorModel(x, "hwb", { path }))
             .next((x) => validateCssColorChannel(x, "hue", 0, 360, { path }))
             .next((x) => validateCssColorChannel(x, "whiteness", 0, 100, { path }))
             .next((x) => validateCssColorChannel(x, "blackness", 0, 100, { path }))

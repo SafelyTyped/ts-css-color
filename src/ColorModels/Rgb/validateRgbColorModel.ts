@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, recastIfValid, validate, type AppErrorOr, type NonNullableObject, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorChannel, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, type RgbColorModel } from "../../index";
+import { validateCssColorChannel, validateObjectHasColorModel, validateObjectHasColorSpace, type RgbColorModel } from "../../index";
 
 /**
  * inspects the given input, and determines if it has everything that an
@@ -49,8 +49,8 @@ export function validateRgbColorModel(
     return recastIfValid<RgbColorModel>(
         input,
         () => validate(input)
-            .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
-            .next((x) => validateCssColorDataHasColorFormat(x, "rgb", { path }))
+            .next((x) => validateObjectHasColorSpace(x, "sRGB", { path }))
+            .next((x) => validateObjectHasColorModel(x, "rgb", { path }))
             .next((x) => validateCssColorChannel(x, "red", 0, 255, { path }))
             .next((x) => validateCssColorChannel(x, "green", 0, 255, { path }))
             .next((x) => validateCssColorChannel(x, "blue", 0, 255, { path }))

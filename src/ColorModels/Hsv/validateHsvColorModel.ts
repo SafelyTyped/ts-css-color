@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, recastIfValid, validate, type AppErrorOr, type NonNullableObject, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorChannel, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, type HsvColorModel } from "../../index";
+import { validateCssColorChannel, validateObjectHasColorModel, validateObjectHasColorSpace, type HsvColorModel } from "../../index";
 
 /**
  * inspects the given input, and determines if it has everything that an
@@ -49,8 +49,8 @@ export function validateHsvColorModel(
     return recastIfValid<HsvColorModel>(
         input,
         () => validate(input)
-            .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
-            .next((x) => validateCssColorDataHasColorFormat(x, "hsv", { path }))
+            .next((x) => validateObjectHasColorSpace(x, "sRGB", { path }))
+            .next((x) => validateObjectHasColorModel(x, "hsv", { path }))
             .next((x) => validateCssColorChannel(x, "hue", 0, 360, { path }))
             .next((x) => validateCssColorChannel(x, "saturation", 0, 100, { path }))
             .next((x) => validateCssColorChannel(x, "value", 0, 100, { path }))

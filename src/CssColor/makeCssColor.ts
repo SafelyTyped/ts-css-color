@@ -35,8 +35,9 @@
 import { parse } from "culori";
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataPath, type OnError } from "@safelytyped/core-types";
-import { makeCssKeywordColor } from "../CssKeywordColor/makeCssKeywordColor";
-import { HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, UnsupportedCssColorDefinitionError, type AnyCssColor } from "../index";
+import { makeCssNamedColor } from "../CssNamedColor/makeCssNamedColor";
+import { parseCmyk } from "../CssParser/parseCmyk";
+import { HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssCmykColorFromCmykColorModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, UnsupportedCssColorDefinitionError, type AnyCssColor } from "../index";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -71,7 +72,7 @@ export function makeCssColor(
 
     // special case - do we have a CSS keyword color?
     if (isCssExtendedColor(cssDefinition)) {
-        return makeCssKeywordColor(colorName, cssDefinition);
+        return makeCssNamedColor(cssDefinition, { colorName });
     }
 
     // special case - do we have a CSS hex color?
@@ -80,6 +81,18 @@ export function makeCssColor(
             colorName,
             cssDefinition,
             HEX_MODEL_CONVERTER.parse(cssDefinition),
+        );
+    }
+
+    // special case - do we have a CMYK color?
+    //
+    // these are not supported by CSS at this time, so we have to
+    // handle them ourselves
+    if (cssDefinition.startsWith("color(--device-cmyk ")) {
+        return makeCssCmykColorFromCmykColorModel(
+            colorName,
+            cssDefinition,
+            parseCmyk(cssDefinition),
         );
     }
 

@@ -32,34 +32,33 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-
 import { AppError } from "@safelytyped/core-types";
-import { SUPPORTED_COLOR_SPACES, validateCssColorDataHasColorSpace } from "@safelytyped/css-color";
+import { SUPPORTED_COLOR_MODELS, validateObjectHasColorModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 
-describe("validateCssColorDataHasColorSpace()", () => {
-    SUPPORTED_COLOR_SPACES.forEach((cssColorSpace) => {
-        it("returns the input object if it contains the expected color format: " + cssColorSpace, () => {
+describe("validateObjectHasColorModel()", () => {
+    SUPPORTED_COLOR_MODELS.forEach((cssColorModel) => {
+        it("returns the input object if it contains the expected color format: " + cssColorModel, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this tests proves that validateCssColorDataHasColorSpace()
+            // this tests proves that validateObjectHasColorModel()
             // works as expected if the input object contains valid
-            // colorSpace data
+            // colorFormat data
 
             // ----------------------------------------------------------------
             // setup your test
 
             const inputValue = {
-                colorSpace: cssColorSpace,
+                colorModel: cssColorModel,
             }
 
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = validateCssColorDataHasColorSpace(
-                inputValue, cssColorSpace
+            const actualValue = validateObjectHasColorModel(
+                inputValue, cssColorModel
             )
 
             // ----------------------------------------------------------------
@@ -68,32 +67,32 @@ describe("validateCssColorDataHasColorSpace()", () => {
             expect(actualValue).to.eqls(inputValue);
         });
 
-        it("type-casts the returned object if the input contains the expected color format: " + cssColorSpace, () => {
+        it("type-casts the returned object if the input contains the expected color format: " + cssColorModel, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this tests proves that validateCssColorDataHasColorSpace()
+            // this tests proves that validateObjectHasColorModel()
             // works as expected if the input object contains valid
-            // colorSpace data
+            // colorFormat data
 
             // ----------------------------------------------------------------
             // setup your test
 
             const inputValue = {
-                colorSpace: cssColorSpace,
+                colorModel: cssColorModel,
             }
             const myTestFunc = (
-                input: { colorSpace: typeof cssColorSpace }
+                input: { colorModel: typeof cssColorModel }
             ) => input;
 
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = validateCssColorDataHasColorSpace(
-                inputValue as object, cssColorSpace
+            const actualValue = validateObjectHasColorModel(
+                inputValue as object, cssColorModel
             )
 
-            // this will only compile if validateCssColorDataHasColorSpace()
+            // this will only compile if validateObjectHasColorModel()
             // has typecast the returned value correctly
             myTestFunc(inputValue);
 
@@ -104,12 +103,12 @@ describe("validateCssColorDataHasColorSpace()", () => {
         });
     });
 
-    it("returns an AppError if the input does not contain any colorSpace data", () => {
+    it("returns an AppError if the input does not contain any colorFormat data", () => {
         // ----------------------------------------------------------------
         // explain your test
 
         // this test proves that validation correctly fails if the
-        // .colorSpace field is completely missing
+        // .colorFormat field is completely missing
 
         // ----------------------------------------------------------------
         // setup your test
@@ -119,7 +118,7 @@ describe("validateCssColorDataHasColorSpace()", () => {
         // ----------------------------------------------------------------
         // perform the change
 
-        const actualValue = validateCssColorDataHasColorSpace(inputValue, "sRGB");
+        const actualValue = validateObjectHasColorModel(inputValue, "hex");
 
         // ----------------------------------------------------------------
         // test the results
@@ -127,24 +126,24 @@ describe("validateCssColorDataHasColorSpace()", () => {
         expect(actualValue).to.be.instanceOf(AppError);
     });
 
-    it("returns an AppError if the input does not contain the expected colorSpace data", () => {
+    it("returns an AppError if the input does not contain the expected colorModel data", () => {
         // ----------------------------------------------------------------
         // explain your test
 
         // this test proves that validation correctly fails if the
-        // .colorSpace field is completely missing
+        // .colorModel field is completely missing
 
         // ----------------------------------------------------------------
         // setup your test
 
         const inputValue = {
-            colorSpace: "sRGB",
+            colorModel: "rgb",
         }
 
         // ----------------------------------------------------------------
         // perform the change
 
-        const actualValue = validateCssColorDataHasColorSpace(inputValue, "OKLCH");
+        const actualValue = validateObjectHasColorModel(inputValue, "hex");
 
         // ----------------------------------------------------------------
         // test the results

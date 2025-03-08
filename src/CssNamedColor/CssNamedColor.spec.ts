@@ -32,15 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssOklchColor, type AnyCssColor } from "@safelytyped/css-color";
+import { makeCssNamedColor, mustBeCssExtendedColor, mustBeCssNamedColorColorModel, type AnyCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { type ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
-import { CSS_OKLCH_COLOR_FIXTURES } from "../_fixtures/CSS_OKLCH_COLOR_FIXTURES";
+import { CSS_NAMED_COLOR_FIXTURES } from "../_fixtures/CSS_NAMED_COLOR_FIXTURES";
 import { testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
-import { makeCssOklchColorFromOklchColorModel } from "./makeCssOklchColorFromOklchColorModel";
+import { makeCssNamedColorFromCssNamedColorModel } from "./makeCssNamedColorFromCssNamedColorModel";
 
-describe("CssOklchColor", () => {
+describe("CssNamedColor", () => {
     // ================================================================
     //
     // COLOR CONVERSION TESTS
@@ -55,11 +55,14 @@ describe("CssOklchColor", () => {
     // ----------------------------------------------------------------
 
     describe(".cmyk", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            // keep the compiler happy!
+            const colorModel = mustBeCssNamedColorColorModel(fixture.colorModels.cssNamedColor);
+
+            const colorConstructor = (fixture: ValidCssColor) => makeCssNamedColorFromCssNamedColorModel(
                 fixture.name,
                 fixture.definition,
-                fixture.colorModels.oklch,
+                colorModel,
             );
 
             testCssColorConversionsToTarget(colorConstructor, fixture, "cmyk", (c: AnyCssColor) => c.cmyk, fixture.colorModels.cmyk);
@@ -67,78 +70,70 @@ describe("CssOklchColor", () => {
     });
 
     describe(".hsl", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            // keep the compiler happy!
+            const colorModel = mustBeCssNamedColorColorModel(fixture.colorModels.cssNamedColor);
+
+            const colorConstructor = (fixture: ValidCssColor) => makeCssNamedColorFromCssNamedColorModel(
                 fixture.name,
                 fixture.definition,
-                fixture.colorModels.oklch,
+                colorModel,
             );
             testCssColorConversionsToTarget(colorConstructor, fixture, "hsl", (c: AnyCssColor) => c.hsl, fixture.colorModels.hsl);
         });
     });
 
     describe(".hsv", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            // keep the compiler happy!
+            const colorModel = mustBeCssNamedColorColorModel(fixture.colorModels.cssNamedColor);
+
+            const colorConstructor = (fixture: ValidCssColor) => makeCssNamedColorFromCssNamedColorModel(
                 fixture.name,
                 fixture.definition,
-                fixture.colorModels.oklch,
+                colorModel,
             );
             testCssColorConversionsToTarget(colorConstructor, fixture, "hsv", (c: AnyCssColor) => c.hsv, fixture.colorModels.hsv);
         });
     });
 
     describe(".hwb", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            // keep the compiler happy!
+            const colorModel = mustBeCssNamedColorColorModel(fixture.colorModels.cssNamedColor);
+
+            const colorConstructor = (fixture: ValidCssColor) => makeCssNamedColorFromCssNamedColorModel(
                 fixture.name,
                 fixture.definition,
-                fixture.colorModels.oklch,
+                colorModel,
             );
             testCssColorConversionsToTarget(colorConstructor, fixture, "hwb", (c: AnyCssColor) => c.hwb, fixture.colorModels.hwb);
         });
     });
 
     describe(".oklch", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            // keep the compiler happy!
+            const colorModel = mustBeCssNamedColorColorModel(fixture.colorModels.cssNamedColor);
+
+            const colorConstructor = (fixture: ValidCssColor) => makeCssNamedColorFromCssNamedColorModel(
                 fixture.name,
                 fixture.definition,
-                fixture.colorModels.oklch,
+                colorModel,
             );
             testCssColorConversionsToTarget(colorConstructor, fixture, "oklch", (c: AnyCssColor) => c.oklch, fixture.colorModels.oklch);
-
-            it("[fixture " + fixture.name + "] returns itself when converted to OKLCH", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the OKLCH method (required by the base class)
-                // doesn't mess up the colors
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const unit = makeCssOklchColor(fixture.definition);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.oklch;
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eqls(unit);
-            });
         });
     });
 
     describe(".rgb", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            // keep the compiler happy!
+            const colorModel = mustBeCssNamedColorColorModel(fixture.colorModels.cssNamedColor);
+
+            const colorConstructor = (fixture: ValidCssColor) => makeCssNamedColorFromCssNamedColorModel(
                 fixture.name,
                 fixture.definition,
-                fixture.colorModels.oklch,
+                colorModel,
             );
             testCssColorConversionsToTarget(colorConstructor, fixture, "rgb", (c: AnyCssColor) => c.rgb, fixture.colorModels.rgb);
         });
@@ -151,8 +146,8 @@ describe("CssOklchColor", () => {
     // ----------------------------------------------------------------
 
     describe(".channelsData", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            it("[fixture " + fixture.name + "] contains the OKLCH channels as an object", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            it("[fixture " + fixture.name + "] contains the color channels as an object", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -162,8 +157,8 @@ describe("CssOklchColor", () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const unit = makeCssOklchColor(fixture.definition);
-                const expectedValue = fixture.colorModels.oklch;
+                const unit = makeCssNamedColor(mustBeCssExtendedColor(fixture.definition));
+                const expectedValue = fixture.colorModels.cssNamedColor;
 
                 // ----------------------------------------------------------------
                 // perform the change
@@ -179,8 +174,8 @@ describe("CssOklchColor", () => {
     });
 
     describe(".channelsTuple", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            it("[fixture " + fixture.name + "] returns the OKLCH channels as an array", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            it("[fixture " + fixture.name + "] returns the color channels as an array", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -190,12 +185,12 @@ describe("CssOklchColor", () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const unit = makeCssOklchColor(fixture.definition);
+                const unit = makeCssNamedColor(mustBeCssExtendedColor(fixture.definition));
 
                 const expectedValue = [
-                    fixture.colorModels.oklch.lightness,
-                    fixture.colorModels.oklch.chroma,
-                    fixture.colorModels.oklch.hue,
+                    fixture.colorModels.rgb.red,
+                    fixture.colorModels.rgb.green,
+                    fixture.colorModels.rgb.blue,
                 ];
 
                 // ----------------------------------------------------------------
@@ -217,27 +212,27 @@ describe("CssOklchColor", () => {
     //
     // ----------------------------------------------------------------
 
-    describe(".lightness", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            it("[fixture " + fixture.name + "] contains the L channel as a number", () => {
+    describe(".red", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            it("[fixture " + fixture.name + "] contains the R channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that .lightness contains the channel data
+                // this test proves that .red contains the channel data
                 // that was used to build this color in the first place
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const unit = makeCssOklchColor(fixture.definition);
+                const unit = makeCssNamedColor(mustBeCssExtendedColor(fixture.definition));
 
                 // for readability
-                const expectedValue = fixture.colorModels.oklch.lightness;
+                const expectedValue = fixture.colorModels.rgb.red;
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.lightness;
+                const actualValue = unit.red;
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -247,27 +242,27 @@ describe("CssOklchColor", () => {
         });
     });
 
-    describe(".chroma", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            it("[fixture " + fixture.name + "] contains the C channel as a number", () => {
+    describe(".green", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            it("[fixture " + fixture.name + "] contains the G channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that .chroma contains the channel data
+                // this test proves that .green contains the channel data
                 // that was used to build this color in the first place
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const unit = makeCssOklchColor(fixture.definition);
+                const unit = makeCssNamedColor(mustBeCssExtendedColor(fixture.definition));
 
                 // for readability
-                const expectedValue = fixture.colorModels.oklch.chroma;
+                const expectedValue = fixture.colorModels.rgb.green;
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.chroma;
+                const actualValue = unit.green;
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -277,27 +272,27 @@ describe("CssOklchColor", () => {
         });
     });
 
-    describe(".hue", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
-            it("[fixture " + fixture.name + "] contains the H channel as a number", () => {
+    describe(".blue", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            it("[fixture " + fixture.name + "] contains the B channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that .hue contains the channel data
+                // this test proves that .blue contains the channel data
                 // that was used to build this color in the first place
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const unit = makeCssOklchColor(fixture.definition);
+                const unit = makeCssNamedColor(mustBeCssExtendedColor(fixture.definition));
 
                 // for readability
-                const expectedValue = fixture.colorModels.oklch.hue;
+                const expectedValue = fixture.colorModels.rgb.blue;
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.hue;
+                const actualValue = unit.blue;
 
                 // ----------------------------------------------------------------
                 // test the results
@@ -308,8 +303,8 @@ describe("CssOklchColor", () => {
     });
 
     describe(".alpha", () => {
-        CSS_OKLCH_COLOR_FIXTURES.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] contains the A channel as a number", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            it("[fixture " + fixture.name + "] contains the A channel as a number", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -319,10 +314,10 @@ describe("CssOklchColor", () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const unit = makeCssOklchColor(validFixture.definition);
+                const unit = makeCssNamedColor(mustBeCssExtendedColor(fixture.definition));
 
                 // for readability
-                const expectedValue = validFixture.colorModels.oklch.alpha;
+                const expectedValue = fixture.colorModels.rgb.alpha;
 
                 // ----------------------------------------------------------------
                 // perform the change

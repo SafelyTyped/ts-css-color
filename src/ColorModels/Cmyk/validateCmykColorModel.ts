@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, recastIfValid, validate, type AppErrorOr, type NonNullableObject, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorChannel, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, type CmykColorModel } from "../../index";
+import { validateCssColorChannel, validateObjectHasColorModel, validateObjectHasColorSpace, type CmykColorModel } from "../../index";
 
 /**
  * inspects the given input, and determines if it has everything that a
@@ -49,8 +49,8 @@ export function validateCmykColorModel(
     return recastIfValid<CmykColorModel>(
         input,
         () => validate(input)
-            .next((x) => validateCssColorDataHasColorSpace(x, "CMYK", { path }))
-            .next((x) => validateCssColorDataHasColorFormat(x, "cmyk", { path }))
+            .next((x) => validateObjectHasColorSpace(x, "CMYK", { path }))
+            .next((x) => validateObjectHasColorModel(x, "cmyk", { path }))
             .next((x) => validateCssColorChannel(x, "cyan", 0, 100, { path }))
             .next((x) => validateCssColorChannel(x, "magenta", 0, 100, { path }))
             .next((x) => validateCssColorChannel(x, "yellow", 0, 100, { path }))

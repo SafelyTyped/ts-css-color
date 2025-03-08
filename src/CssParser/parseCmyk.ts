@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,29 +32,32 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, recastIfValid, validate, type AppErrorOr, type NonNullableObject, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorChannel, validateObjectHasColorModel, validateObjectHasColorSpace, type HslColorModel } from "../../index";
+import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+import type { CmykColorModel } from "../ColorModels/Cmyk/CmykColorModel.type";
+import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
 
-/**
- * inspects the given input, and determines if it has everything that an
- * HslColorModel should have
- */
-export function validateHslColorModel(
-    input: NonNullableObject,
-    {
-        path = DEFAULT_DATA_PATH
-    }: TypeValidatorOptions = {}
-): AppErrorOr<HslColorModel>
+export function parseCmyk(
+    input: string
+): CmykColorModel
 {
-    return recastIfValid<HslColorModel>(
-        input,
-        () => validate(input)
-            .next((x) => validateObjectHasColorSpace(x, "sRGB", { path }))
-            .next((x) => validateObjectHasColorModel(x, "hsl", { path }))
-            .next((x) => validateCssColorChannel(x, "hue", 0, 360, { path }))
-            .next((x) => validateCssColorChannel(x, "saturation", 0, 100, { path }))
-            .next((x) => validateCssColorChannel(x, "luminosity", 0, 100, { path }))
-            .next((x) => validateCssColorChannel(x, "alpha", 0, 1, { path }))
-            .value()
-    );
+    // turn the input into an array of values
+    const regex = /^color\(--device-cmyk (1[0-9]{2}|[1-9]{0,1}[0-9]) (1[0-9]{2}|[1-9]{0,1}[0-9]) (1[0-9]{2}|[1-9]{0,1}[0-9]) (1[0-9]{2}|[1-9]{0,1}[0-9])\)$/;
+    const matches = regex.exec(input);
+    if (!matches) {
+        throw new UnsupportedCssColorDefinitionError({
+            public: {
+                dataPath: DEFAULT_DATA_PATH,
+                colorDefinition: input,
+            }
+        });
+    }
+
+    return {
+        colorModel: "cmyk",
+        colorSpace: "CMYK",
+        cyan: parseInt(matches[1]),
+        magenta: parseInt(matches[2]),
+        yellow: parseInt(matches[3]),
+        key: parseInt(matches[4]),
+    };
 }

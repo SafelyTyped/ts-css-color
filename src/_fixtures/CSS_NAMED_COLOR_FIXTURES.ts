@@ -32,6 +32,25 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import type { CssNamedColorColorModel } from "../ColorModels/CssNamedColor/CssNamedColorColorModel.type";
 import { CSS_COLOR_FIXTURES, type ValidCssColor } from "./CSS_COLOR_FIXTURES";
 
-export const CSS_NAMED_COLOR_FIXTURES: ValidCssColor[] = CSS_COLOR_FIXTURES.filter((fixture) => fixture.colorModel === "cssNamedColor");
+type ValidCssNamedColor = ValidCssColor & {
+    colorModels: {
+        cssNamedColor: CssNamedColorColorModel;
+    }
+}
+
+export const CSS_NAMED_COLOR_FIXTURES: ValidCssNamedColor[] = [];
+for (const fixture of CSS_COLOR_FIXTURES) {
+    if (fixtureIsValidCssNamedColor(fixture)) {
+        CSS_NAMED_COLOR_FIXTURES.push(fixture);
+    }
+}
+
+function fixtureIsValidCssNamedColor(
+    input: ValidCssColor
+): input is ValidCssNamedColor
+{
+    return (input.colorModels.cssNamedColor !== undefined && input.colorModel === "cssNamedColor");
+}

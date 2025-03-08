@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type NonNullableObject, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, validateCssExtendedColor, validateObjectHasStringProperty, type CssNamedColorColorModel } from "../..";
+import { validateCssExtendedColor, validateObjectHasColorModel, validateObjectHasColorSpace, validateObjectHasStringProperty, type CssNamedColorColorModel } from "../..";
 
 /**
  * inspects the given input, and determines if it has everything that a
@@ -49,8 +49,8 @@ export function validateCssNamedColorColorModel(
     return recastIfValid<CssNamedColorColorModel>(
         input,
         () => validate(input)
-            .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
-            .next((x) => validateCssColorDataHasColorFormat(x, "cssNamedColor", { path }))
+            .next((x) => validateObjectHasColorSpace(x, "sRGB", { path }))
+            .next((x) => validateObjectHasColorModel(x, "cssNamedColor", { path }))
             .next((x) => validateObjectHasStringProperty(x, ["color"], { path }))
             .next((x) => validateCssExtendedColor(x.color, { path: extendDataPath(path, "color")}))
             .value()

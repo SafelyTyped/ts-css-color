@@ -32,18 +32,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssCmykColor, CssHexColor, CssHslColor, CssHsvColor, CssHwbColor, CssKeywordColor, CssOklchColor, CssRgbColor } from "../";
+import type { CssCmykColor, CssHexColor, CssHslColor, CssHsvColor, CssHwbColor, CssNamedColor, CssOklchColor, CssRgbColor } from "../";
 
 /**
  * AnyCssColor is a type. Use it wherever you can accept and/or return
  * any variant of the {@link CssColor} class.
  */
 export type AnyCssColor = CssCmykColor
-    | CssKeywordColor
     | CssHexColor
     | CssHslColor
     | CssHsvColor
     | CssHwbColor
+    | CssNamedColor
     | CssOklchColor
     | CssRgbColor
     ;

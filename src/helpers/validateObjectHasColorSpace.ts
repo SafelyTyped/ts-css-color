@@ -33,63 +33,64 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, UnsupportedTypeError, validate, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateObjectHasStringProperty, type SupportedColorModel } from "../index";
+import { validateObjectHasStringProperty, type SupportedColorSpace } from "../index";
 
 /**
- * validateCssColorChannel() is a data validator. Use it to prove that:
+ * validateObjectHasColorSpace() is a data validator. Use it to prove
+ * that:
  *
- * - the given input contains a `.colorFormat` with the given value
+ * - the given input contains a `.colorSpace` with the given value
  *
  * @typedef T -
  * what type of input object are we receiving (and returning on success)?
  * @param input -
  * the object to inspect
- * @param expectedColorFormat -
- * the value we require in `.colorFormat`
+ * @param expectedColorSpace -
+ * the value we require in `.colorSpace`
  * @param path -
  * what's the path through your data structures to `input`?
  * we will use this in any errors we return (and automatically extend the
- * path to include `.colorFormat`)
+ * path to include `.colorSpace`)
  * @returns
  * - input on success
  * - an AppError otherwise
  */
-export function validateCssColorDataHasColorFormat<T extends object>(
+export function validateObjectHasColorSpace<T extends object>(
     input: T,
-    expectedColorFormat: SupportedColorModel,
+    expectedColorSpace: SupportedColorSpace,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions= {}
-): AppErrorOr<T & { colorFormat: SupportedColorModel }>
+): AppErrorOr<T & { colorSpace: SupportedColorSpace }>
 {
     return validate(input)
-        .next((x) => validateObjectHasStringProperty(x, ["colorFormat"], { path }))
-        .next((x) => recastIfValid<T & { colorFormat: SupportedColorModel }>(
+        .next((x) => validateObjectHasStringProperty(x, ["colorSpace"], { path }))
+        .next((x) => recastIfValid<T & { colorSpace: SupportedColorSpace }>(
             x,
-            () => validateObjectHasExpectedColorFormat(x, expectedColorFormat, { path })
+            () => validateObjectHasExpectedColorSpace(x, expectedColorSpace, { path })
         ))
         .value();
 }
 
-function validateObjectHasExpectedColorFormat<T extends object>(
-    input: T & Record<"colorFormat", string>,
-    expectedColorFormat: SupportedColorModel,
+function validateObjectHasExpectedColorSpace<T extends object & Record<"colorSpace", string>>(
+    input: T,
+    expectedColorSpace: SupportedColorSpace,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions= {}
-): AppErrorOr<T & { colorFormat: SupportedColorModel }>
+): AppErrorOr<T>
 {
-    path = extendDataPath(path, "colorFormat");
+    path = extendDataPath(path, "colorSpace");
 
-    if (input.colorFormat === expectedColorFormat) {
-        return input as T & { colorFormat: SupportedColorModel };
+    if (input.colorSpace === expectedColorSpace) {
+        return input;
     }
 
     return new UnsupportedTypeError({
         public: {
             dataPath: path,
-            expected: ".colorFormat == " + expectedColorFormat,
-            actual: ".colorFormat == " + input.colorFormat,
+            expected: ".colorSpace == " + expectedColorSpace,
+            actual: ".colorSpace == " + input.colorSpace,
         }
     });
 }

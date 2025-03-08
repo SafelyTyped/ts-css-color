@@ -33,7 +33,7 @@
 //
 
 import type { CmykColorModel } from "../ColorModels/Cmyk/CmykColorModel.type";
-import { makeCssColor } from "../CssColor/makeCssColor";
+import { CMYK_MODEL_CONVERTER } from "../ConversionModels/Cmyk/CMYK_MODEL_CONVERTER";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
@@ -48,21 +48,23 @@ export function makeCssCmykColorFromCmykColorModel(
     colorModel: CmykColorModel,
 ): CssCmykColor
 {
+    const conversionModel = CMYK_MODEL_CONVERTER.toConversionModel(colorModel);
+
     return {
         name: colorName,
         definition: cssDefinition,
 
         get cmyk() { return this; },
-        get hsl()  { return makeCssHslColorFromCssColor(makeCssColor(cssDefinition, { colorName: colorName })); },
-        get hsv()  { return makeCssHsvColorFromCssColor(makeCssColor(cssDefinition, { colorName: colorName })); },
-        get hwb() { return makeCssHwbColorFromCssColor(makeCssColor(cssDefinition, { colorName: colorName })); },
-        get oklch() { return makeCssOklchColorFromCssColor(makeCssColor(cssDefinition, { colorName: colorName })); },
-        get rgb() { return makeCssRgbColorFromCssColor(makeCssColor(cssDefinition, { colorName: colorName })); },
+        get hsl()  { return makeCssHslColorFromCssColor(this); },
+        get hsv()  { return makeCssHsvColorFromCssColor(this); },
+        get hwb() { return makeCssHwbColorFromCssColor(this); },
+        get oklch() { return makeCssOklchColorFromCssColor(this); },
+        get rgb() { return makeCssRgbColorFromCssColor(this); },
 
         get hex() { return this.rgb.hex; },
         get keyword() { return this.rgb.keyword; },
 
-        get conversionModel() { return this.rgb.conversionModel; },
+        conversionModel,
         channelsData: colorModel,
         channelsTuple: [ colorModel.cyan, colorModel.magenta, colorModel.yellow, colorModel.key ],
         css: cssDefinition,

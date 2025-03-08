@@ -153,7 +153,10 @@ export { makeCssCmykColorFromCmykColorModel } from "./CssCmykColor/makeCssCmykCo
 export { makeCssCmykColorFromConversionModel } from "./CssCmykColor/makeCssCmykColorFromConversionModel";
 export { makeCssCmykColorFromCssColor } from "./CssCmykColor/makeCssCmykColorFromCssColor";
 
-export type { CssKeywordColor } from "./CssKeywordColor/CssKeywordColor.type";
+export type { CssNamedColor } from "./CssNamedColor/CssNamedColor.type";
+export { makeCssNamedColor } from "./CssNamedColor/makeCssNamedColor";
+export { makeCssNamedColorFromConversionModel } from "./CssNamedColor/makeCssNamedColorFromConversionModel";
+export { makeCssNamedColorFromCssNamedColorModel } from "./CssNamedColor/makeCssNamedColorFromCssNamedColorModel";
 
 export type { CssHexColor } from "./CssHexColor/CssHexColor.type";
 export { makeCssHexColor } from "./CssHexColor/makeCssHexColor";
@@ -234,8 +237,8 @@ export { UnsupportedCssColorDefinitionError } from "./Errors/UnsupportedCssColor
 export { parseCss } from "./CssParser/parseCss";
 export { round } from "./helpers/round";
 export { validateCssColorChannel } from "./helpers/validateCssColorChannel";
-export { validateCssColorDataHasColorFormat } from "./helpers/validateCssColorDataHasColorFormat";
-export { validateCssColorDataHasColorSpace } from "./helpers/validateCssColorDataHasColorSpace";
+export { validateObjectHasColorModel } from "./helpers/validateObjectHasColorModel";
+export { validateObjectHasColorSpace } from "./helpers/validateObjectHasColorSpace";
 export { validateObjectHasStringProperty } from "./helpers/validateObjectHasStringProperty";
 
 // ================================================================

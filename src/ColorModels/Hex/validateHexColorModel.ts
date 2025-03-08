@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, extendDataPath, recastIfValid, validate, type AppErrorOr, type NonNullableObject, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, validateCssHexColorDefinition, validateObjectHasStringProperty, type HexColorModel } from "../..";
+import { validateCssHexColorDefinition, validateObjectHasColorModel, validateObjectHasColorSpace, validateObjectHasStringProperty, type HexColorModel } from "../..";
 
 /**
  * inspects the given input, and determines if it has everything that a
@@ -49,8 +49,8 @@ export function validateHexColorModel(
     return recastIfValid<HexColorModel>(
         input,
         () => validate(input)
-            .next((x) => validateCssColorDataHasColorSpace(x, "sRGB", { path }))
-            .next((x) => validateCssColorDataHasColorFormat(x, "hex", { path }))
+            .next((x) => validateObjectHasColorSpace(x, "sRGB", { path }))
+            .next((x) => validateObjectHasColorModel(x, "hex", { path }))
             .next((x) => validateObjectHasStringProperty(x, ["hex"], { path }))
             .next((x) => validateCssHexColorDefinition(x.hex, { path: extendDataPath(path, "hex")}))
             .value()

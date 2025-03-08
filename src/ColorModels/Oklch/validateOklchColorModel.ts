@@ -33,7 +33,7 @@
 //
 
 import { DEFAULT_DATA_PATH, recastIfValid, validate, type AppErrorOr, type NonNullableObject, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { validateCssColorChannel, validateCssColorDataHasColorFormat, validateCssColorDataHasColorSpace, type OklchColorModel } from "../../index";
+import { validateCssColorChannel, validateObjectHasColorModel, validateObjectHasColorSpace, type OklchColorModel } from "../../index";
 
 /**
  * inspects the given input, and determines if it has everything that an
@@ -49,8 +49,8 @@ export function validateOklchColorModel(
     return recastIfValid<OklchColorModel>(
         input,
         () => validate(input)
-            .next((x) => validateCssColorDataHasColorSpace(x, "OKLCH", { path }))
-            .next((x) => validateCssColorDataHasColorFormat(x, "oklch", { path }))
+            .next((x) => validateObjectHasColorSpace(x, "OKLCH", { path }))
+            .next((x) => validateObjectHasColorModel(x, "oklch", { path }))
             .next((x) => validateCssColorChannel(x, "lightness", 0, 1, { path }))
             .next((x) => validateCssColorChannel(x, "chroma", 0, 0.4, { path }))
             .next((x) => validateCssColorChannel(x, "hue", 0, 360, { path }))

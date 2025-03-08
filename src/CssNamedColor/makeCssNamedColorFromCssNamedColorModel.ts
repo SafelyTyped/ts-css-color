@@ -35,6 +35,7 @@
 import type { CssNamedColorColorModel } from "../ColorModels/CssNamedColor/CssNamedColorColorModel.type";
 import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
 import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER";
+import { RGB_MODEL_CONVERTER } from "../ConversionModels/Rgb/RGB_MODEL_CONVERTER";
 import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
 import { mustBeCssExtendedColor } from "../CssExtendedColors/mustBeCssExtendedColor";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
@@ -42,21 +43,24 @@ import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromC
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
-import type { CssKeywordColor } from "./CssKeywordColor.type";
+import type { CssNamedColor } from "./CssNamedColor.type";
 
-export function makeCssKeywordColorFromCssNamedColorModel(
+export function makeCssNamedColorFromCssNamedColorModel(
     colorName: string,
     cssDefinition: string,
     model: CssNamedColorColorModel,
-): CssKeywordColor
+): CssNamedColor
 {
     // shorthand
     const conversionModel = CSSNAMEDCOLOR_MODEL_CONVERTER.toConversionModel(model);
+    const colorModel = RGB_MODEL_CONVERTER.toColorModel(conversionModel);
     const hex = HEX_MODEL_CONVERTER.toColorModel(conversionModel).hex;
 
     return {
         name: colorName,
         definition: cssDefinition,
+        ...colorModel,
+
         colorModel: "cssNamedColor",
         colorSpace: "sRGB",
 
@@ -72,6 +76,7 @@ export function makeCssKeywordColorFromCssNamedColorModel(
 
         conversionModel: conversionModel,
         channelsData: model,
+        channelsTuple: [ colorModel.red, colorModel.green, colorModel.blue, ],
         css: cssDefinition,
     };
 }

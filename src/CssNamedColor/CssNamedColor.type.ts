@@ -32,22 +32,40 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
+import type { CssNamedColorColorModel } from "../ColorModels/CssNamedColor/CssNamedColorColorModel.type";
+import type { RgbConversionModel } from "../ConversionModels/Rgb/RgbConversionModel.type";
+import type { CssCmykColor } from "../CssCmykColor/CssCmykColor.type";
 import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
-import { makeCssKeywordColorFromCssNamedColorModel } from "./makeCssKeywordColorFromCssNamedColorModel";
+import type { CssHexColorDefinition } from "../CssHexColorDefinition/CssHexColorDefinition.type";
+import type { CssHslColor } from "../CssHslColor/CssHslColor.type";
+import type { CssHsvColor } from "../CssHsvColor/CssHsvColor.type";
+import type { CssHwbColor } from "../CssHwbColor/CssHwbColor.type";
+import type { CssOklchColor } from "../CssOklchColor/CssOklchColor.type";
+import type { CssRgbColor } from "../CssRgbColor/CssRgbColor.type";
+import type { RgbColorTuple } from "../CssRgbColor/RgbColorTuple.type";
 
-export function makeCssKeywordColor(
-    colorName: string,
-    cssDefinition: CssExtendedColor,
-)
-{
-    const model = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(
-        CSSNAMEDCOLOR_MODEL_CONVERTER.parse(cssDefinition)
-    );
+export type CssNamedColor = {
+    name: string;
+    definition: string;
+    colorModel: "cssNamedColor";
+    colorSpace: "sRGB";
 
-    return makeCssKeywordColorFromCssNamedColorModel(
-        colorName,
-        cssDefinition,
-        model
-    );
-}
+    cmyk: CssCmykColor;
+    hsl: CssHslColor;
+    hsv: CssHsvColor;
+    hwb: CssHwbColor;
+    oklch: CssOklchColor;
+    rgb: CssRgbColor;
+
+    hex: CssHexColorDefinition;
+    keyword: CssExtendedColor;
+    conversionModel: RgbConversionModel;
+    channelsData: CssNamedColorColorModel;
+    channelsTuple: RgbColorTuple;
+    css: string;
+
+    red: number;
+    green: number;
+    blue: number;
+    alpha: number;
+};
