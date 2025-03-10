@@ -59,7 +59,7 @@ export const CSSNAMEDCOLOR_COLOR_MODELS: NamedCssNamedColorColorModel[] = CSS_CO
     (fixture) => ({
         name: fixture.name,
         colorModels: {
-            cssNamedColor: fixture.colorModels.cssNamedColor,
+            cssNamedColor: fixture.colorModels.cssNamedColor as CssNamedColorColorModel,
         },
     })
 );
