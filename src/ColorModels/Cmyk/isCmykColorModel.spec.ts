@@ -32,6 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { HashMap } from "@safelytyped/core-types";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { CMYK_COLOR_MODELS, NON_CMYK_COLOR_MODELS } from "../../_fixtures/CMYK_COLOR_MODELS";
@@ -75,7 +76,7 @@ describe("isCmykColorModel()", () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = fixture.colorModels[fixtureModel] || {};
+                const inputValue = HashMap.get(fixture.colorModels, fixtureModel) || {};
 
                 // ----------------------------------------------------------------
                 // perform the change
