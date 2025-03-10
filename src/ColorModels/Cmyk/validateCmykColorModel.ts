@@ -54,7 +54,7 @@ export function validateCmykColorModel(
             .next((x) => validateCssColorChannel(x, "cyan", 0, 100, { path }))
             .next((x) => validateCssColorChannel(x, "magenta", 0, 100, { path }))
             .next((x) => validateCssColorChannel(x, "yellow", 0, 100, { path }))
-            .next((x) => validateCssColorChannel(x, "alpha", 0, 1, { path }))
+            .next((x) => validateCssColorChannel(x, "key", 0, 100, { path }))
             .value()
     );
 }
