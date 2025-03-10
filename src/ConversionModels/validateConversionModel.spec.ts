@@ -33,8 +33,7 @@
 //
 
 import { expect } from "chai";
-import { describe } from "mocha";
-import { it } from "node:test";
+import { describe, it } from "mocha";
 import { CSS_COLOR_FIXTURES } from "../_fixtures/CSS_COLOR_FIXTURES";
 import { makeCssColor } from "../CssColor/makeCssColor";
 import { validateConversionModel } from "./validateConversionModel";
