@@ -33,18 +33,18 @@
 //
 
 import { expect } from "chai";
-import { describe, it } from "mocha";
+import { describe } from "mocha";
 import { CMYK_COLOR_MODELS, NON_CMYK_COLOR_MODELS } from "../../_fixtures/CMYK_COLOR_MODELS";
-import { validateCmykColorModel } from "./validateCmykColorModel";
+import { mustBeCmykColorModel } from "./mustBeCmykColorModel";
 
-describe("validateCmykColorModel()", () => {
+describe("mustBeCmykColorModel()", () => {
     CMYK_COLOR_MODELS.forEach((fixture) => {
         it(`[fixture ${fixture.name}] accepts valid CmykColorModel`, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that the unit under test does not reject
-            // valid input
+            // this test proves that the unit under test works as expected
+            // when given a valid input
 
             // ----------------------------------------------------------------
             // setup your test
@@ -54,7 +54,7 @@ describe("validateCmykColorModel()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = validateCmykColorModel(inputValue);
+            const actualValue = mustBeCmykColorModel(inputValue);
 
             // ----------------------------------------------------------------
             // test the results
@@ -76,17 +76,23 @@ describe("validateCmykColorModel()", () => {
                 // setup your test
 
                 const inputValue = fixture.colorModels[fixtureModel] || {};
+                let actualError;
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = validateCmykColorModel(inputValue);
+                try {
+                    mustBeCmykColorModel(inputValue);
+                }
+                catch (e) {
+                    actualError = e;
+                }
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(actualValue).to.be.instanceof(Error);
+                expect(actualError).to.be.instanceof(Error);
             });
-        }
+        };
     });
 });

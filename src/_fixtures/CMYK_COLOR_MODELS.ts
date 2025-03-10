@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,9 +32,57 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CSS_COLOR_FIXTURES, type ValidCssColor } from "./CSS_COLOR_FIXTURES";
+import type {
+    CmykColorModel,
+    CssNamedColorColorModel,
+    HexColorModel,
+    HslColorModel,
+    HsvColorModel,
+    HwbColorModel,
+    OklchColorModel,
+    RgbColorModel
+} from "@safelytyped/css-color";
+import { CSS_COLOR_FIXTURES } from "./CSS_COLOR_FIXTURES";
 
-export const CSS_CMYK_COLOR_FIXTURES: ValidCssColor[] = CSS_COLOR_FIXTURES.filter((fixture) => fixture.colorModel === "cmyk");
+// Type for CMYK color models with name
+export type NamedCmykColorModel = {
+    name: string;
+    colorModels: {
+        cmyk: CmykColorModel;
+    }
+};
 
-export const NON_CMKY_COLOR_FIXTURES = CSS_COLOR_FIXTURES.filter((fixture) => !CSS_CMYK_COLOR_FIXTURES.includes(fixture));
+// Extract CMYK color models with name from CSS_COLOR_FIXTURES
+export const CMYK_COLOR_MODELS: NamedCmykColorModel[] = CSS_COLOR_FIXTURES.map(
+    (fixture) => ({
+        name: fixture.name,
+        colorModels: {
+            cmyk: fixture.colorModels.cmyk,
+        },
+    })
+);
 
+// Type to hold all color models except CMYK
+export type NamedNonCmykColorModels = {
+    name: string;
+    colorModels: {
+        cssNamedColor: CssNamedColorColorModel | undefined;
+        hex: HexColorModel;
+        hsl: HslColorModel;
+        hsv: HsvColorModel;
+        hwb: HwbColorModel;
+        oklch: OklchColorModel;
+        rgb: RgbColorModel;
+    }
+};
+
+// Extract everything except the CMYK color models from CSS_COLOR_FIXTURES
+export const NON_CMYK_COLOR_MODELS: NamedNonCmykColorModels[] = CSS_COLOR_FIXTURES.map(
+    (fixture) => {
+        const { cmyk, ...nonCmykModels } = fixture.colorModels;
+        return {
+            colorModels: { ...nonCmykModels },
+            name: fixture.name
+        };
+    }
+);

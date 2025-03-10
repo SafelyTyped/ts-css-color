@@ -35,9 +35,9 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { CMYK_COLOR_MODELS, NON_CMYK_COLOR_MODELS } from "../../_fixtures/CMYK_COLOR_MODELS";
-import { validateCmykColorModel } from "./validateCmykColorModel";
+import { isCmykColorModel } from "./isCmykColorModel";
 
-describe("validateCmykColorModel()", () => {
+describe("isCmykColorModel()", () => {
     CMYK_COLOR_MODELS.forEach((fixture) => {
         it(`[fixture ${fixture.name}] accepts valid CmykColorModel`, () => {
             // ----------------------------------------------------------------
@@ -54,12 +54,12 @@ describe("validateCmykColorModel()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualValue = validateCmykColorModel(inputValue);
+            const actualValue = isCmykColorModel(inputValue);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).to.eqls(inputValue);
+            expect(actualValue).to.eqls(true);
         });
     });
 
@@ -80,12 +80,12 @@ describe("validateCmykColorModel()", () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = validateCmykColorModel(inputValue);
+                const actualValue = isCmykColorModel(inputValue);
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(actualValue).to.be.instanceof(Error);
+                expect(actualValue).to.eqls(false);
             });
         }
     });
