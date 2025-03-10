@@ -33,12 +33,14 @@
 //
 
 import { rgb } from "culori";
-import { RGB_MODEL_CONVERTER, type ConversionModel } from "..";
+import type { ConversionModel } from "..";
+import { RGB_MODEL_CONVERTER } from "../ConversionModels/Rgb/RGB_MODEL_CONVERTER";
 
-export function convertViaRgb(input: ConversionModel) {
-    return RGB_MODEL_CONVERTER.toConversionModel(
-        RGB_MODEL_CONVERTER.toColorModel(
-            rgb(input)
-        )
+export function convertWithinSrgb(
+    input: ConversionModel
+)
+{
+    return RGB_MODEL_CONVERTER.normaliseConversionModel(
+        rgb(input)
     );
 }

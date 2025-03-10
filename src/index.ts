@@ -124,8 +124,8 @@ export type { HwbConversionModel } from "./ConversionModels/Hwb/HwbConversionMod
 export type { OklchConversionModel } from "./ConversionModels/Oklch/OklchConversionModel.type";
 export type { RgbConversionModel } from "./ConversionModels/Rgb/RgbConversionModel.type";
 
-export { convertViaRgb } from "./ConversionModels/convertViaRgb";
-export { convertWithinSrgb } from "./ConversionModels/convertWithinSrgb";
+export { convertViaRgb } from "./ColorSpaces/convertViaRgb";
+export { convertWithinSrgb } from "./ColorSpaces/convertWithinSrgb";
 
 export { CMYK_MODEL_CONVERTER } from "./ConversionModels/Cmyk/CMYK_MODEL_CONVERTER";
 export { HSL_MODEL_CONVERTER } from "./ConversionModels/Hsl/HSL_MODEL_CONVERTER";

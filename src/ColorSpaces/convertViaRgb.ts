@@ -32,15 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { rgb } from "culori";
-import type { ConversionModel } from "..";
-import { RGB_MODEL_CONVERTER } from "./Rgb/RGB_MODEL_CONVERTER";
+import { clampRgb, rgb } from "culori";
+import { RGB_MODEL_CONVERTER, type ConversionModel } from "..";
 
-export function convertWithinSrgb(
-    input: ConversionModel
-)
-{
-    return RGB_MODEL_CONVERTER.normaliseConversionModel(
-        rgb(input)
+export function convertViaRgb(input: ConversionModel) {
+    return RGB_MODEL_CONVERTER.toConversionModel(
+        RGB_MODEL_CONVERTER.toColorModel(
+            clampRgb(
+                rgb(input)
+            ),
+        ),
     );
 }

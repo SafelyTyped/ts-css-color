@@ -35,7 +35,8 @@
 import { identity, searchDispatchMap, type DispatchMap } from "@safelytyped/core-types";
 import type { SupportedColorModel } from "../ColorModels/SupportedColorModel.type";
 import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
-import { convertWithinSrgb } from "../ConversionModels/convertWithinSrgb";
+import { convertViaRgb } from "./convertViaRgb";
+import { convertWithinSrgb } from "./convertWithinSrgb";
 
 type UnsupportedColorModel = "cmyk";
 type ConversionModelPrepper = (input: ConversionModel) => ConversionModel;
@@ -46,7 +47,7 @@ const DISPATCH_MAP: DispatchMap<Exclude<SupportedColorModel, UnsupportedColorMod
     "hsl": convertWithinSrgb,
     "hsv": convertWithinSrgb,
     "hwb": convertWithinSrgb,
-    "oklch": identity,
+    "oklch": convertViaRgb,
     "rgb": identity,
 };
 

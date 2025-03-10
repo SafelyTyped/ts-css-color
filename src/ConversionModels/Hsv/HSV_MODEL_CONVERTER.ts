@@ -34,11 +34,11 @@
 
 import { hsv } from "culori";
 import type { HsvColorModel } from "../../ColorModels/Hsv/HsvColorModel.type";
+import { convertViaRgb } from "../../ColorSpaces/convertViaRgb";
 import { prepForSrgb } from "../../ColorSpaces/prepForSrgb";
 import { parseCss } from "../../CssParser/parseCss";
 import { round } from "../../helpers/round";
 import type { ConversionModel } from "../ConversionModel.type";
-import { convertViaRgb } from "../convertViaRgb";
 import { HSL_MODEL_CONVERTER } from "../Hsl/HSL_MODEL_CONVERTER";
 import type { ModelConverter } from "../ModelConverter.type";
 import type { HsvConversionModel } from "./HsvConversionModel.type";

@@ -35,7 +35,7 @@
 import { identity, searchDispatchMap, type DispatchMap } from "@safelytyped/core-types";
 import type { SupportedColorModel } from "../ColorModels/SupportedColorModel.type";
 import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
-import { convertViaRgb } from "../ConversionModels/convertViaRgb";
+import { convertViaRgb } from "./convertViaRgb";
 
 type UnsupportedColorModel = "cmyk";
 type ConversionModelPrepper = (input: ConversionModel) => ConversionModel;
