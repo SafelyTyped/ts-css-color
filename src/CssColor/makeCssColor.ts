@@ -35,9 +35,8 @@
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataPath, type OnError } from "@safelytyped/core-types";
 import { makeCssNamedColor } from "../CssNamedColor/makeCssNamedColor";
-import { parseCmyk } from "../CssParser/parseCmyk";
 import { mustBeNonEmptyString } from "../helpers/mustBeNonEmptyString";
-import { HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssCmykColorFromCmykColorModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, parseCss, type AnyCssColor } from "../index";
+import { CMYK_MODEL_CONVERTER, HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssCmykColorFromConversionModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, parseCss, type AnyCssColor } from "../index";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -92,10 +91,10 @@ export function makeCssColor(
     // these are not supported by CSS at this time, so we have to
     // handle them ourselves
     if (cssDefinition.startsWith("color(--device-cmyk ")) {
-        return makeCssCmykColorFromCmykColorModel(
+        return makeCssCmykColorFromConversionModel(
             colorName,
             cssDefinition,
-            parseCmyk(cssDefinition),
+            CMYK_MODEL_CONVERTER.parse(cssDefinition),
         );
     }
 
