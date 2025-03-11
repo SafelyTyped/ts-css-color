@@ -37,7 +37,6 @@ import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor
 import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER";
 import { RGB_MODEL_CONVERTER } from "../ConversionModels/Rgb/RGB_MODEL_CONVERTER";
 import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
-import { mustBeCssExtendedColor } from "../CssExtendedColors/mustBeCssExtendedColor";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
@@ -55,6 +54,7 @@ export function makeCssNamedColorFromCssNamedColorModel(
     const conversionModel = CSSNAMEDCOLOR_MODEL_CONVERTER.toConversionModel(model);
     const colorModel = RGB_MODEL_CONVERTER.toColorModel(conversionModel);
     const hex = HEX_MODEL_CONVERTER.toColorModel(conversionModel).hex;
+    const keyword = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
 
     return {
         name: colorName,
@@ -84,11 +84,11 @@ export function makeCssNamedColorFromCssNamedColorModel(
         },
 
         hex,
-        keyword: mustBeCssExtendedColor(cssDefinition),
+        keyword,
 
         conversionModel: conversionModel,
         channelsData: model,
         channelsTuple: [ colorModel.red, colorModel.green, colorModel.blue, ],
-        css: cssDefinition,
+        css: CSSNAMEDCOLOR_MODEL_CONVERTER.toCss(model, cssDefinition),
     };
 }

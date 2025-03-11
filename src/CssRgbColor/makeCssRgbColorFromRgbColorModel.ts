@@ -33,10 +33,10 @@
 //
 
 import type { RgbColorModel } from "../ColorModels/Rgb/RgbColorModel.type";
+import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
 import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER";
 import { RGB_MODEL_CONVERTER } from "../ConversionModels/Rgb/RGB_MODEL_CONVERTER";
 import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
-import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
@@ -55,6 +55,7 @@ export function makeCssRgbColorFromRgbColorModel(
     // shorthand
     const conversionModel = RGB_MODEL_CONVERTER.toConversionModel(colorModel);
     const hex = HEX_MODEL_CONVERTER.toColorModel(conversionModel).hex;
+    const keyword = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
 
     return {
         name: colorName,
@@ -68,7 +69,7 @@ export function makeCssRgbColorFromRgbColorModel(
         get rgb() { return this; },
 
         hex,
-        keyword: CSS_HEX_TO_EXTENDED_COLORS[hex],
+        keyword,
 
         conversionModel: conversionModel,
         channelsData: colorModel,

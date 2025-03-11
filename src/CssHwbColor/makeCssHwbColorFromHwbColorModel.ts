@@ -33,10 +33,10 @@
 //
 
 import type { HwbColorModel } from "../ColorModels/Hwb/HwbColorModel.type";
+import { CSSNAMEDCOLOR_MODEL_CONVERTER } from "../ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
 import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER";
 import { HWB_MODEL_CONVERTER } from "../ConversionModels/Hwb/HWB_MODEL_CONVERTER";
 import { makeCssCmykColorFromCssColor } from "../CssCmykColor/makeCssCmykColorFromCssColor";
-import { CSS_HEX_TO_EXTENDED_COLORS } from "../CssExtendedColors/CssExtendedColors.const";
 import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromCssColor";
 import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
 import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
@@ -53,6 +53,7 @@ export function makeCssHwbColorFromHwbColorModel(
     // shorthand
     const conversionModel = HWB_MODEL_CONVERTER.toConversionModel(colorModel);
     const hex = HEX_MODEL_CONVERTER.toColorModel(conversionModel).hex;
+    const keyword = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
 
     return {
         name: colorName,
@@ -78,7 +79,7 @@ export function makeCssHwbColorFromHwbColorModel(
         },
 
         hex,
-        keyword: CSS_HEX_TO_EXTENDED_COLORS[hex],
+        keyword,
 
         conversionModel: conversionModel,
         channelsData: colorModel,
