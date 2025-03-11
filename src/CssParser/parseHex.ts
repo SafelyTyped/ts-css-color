@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024-present Ganbaro Digital Ltd
+// Copyright (c) 2025-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,33 +32,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, recast, validate, validateString, validateStringMatches, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import type { CssHexColorDefinition } from "../index";
+import type { HexColorModel } from "../ColorModels/Hex/HexColorModel.type";
+import { mustBeHexColorModel } from "../ColorModels/Hex/mustBeHexColorModel";
+import { mustBeCssHexColorDefinition } from "../CssHexColorDefinition/mustBeCssHexColorDefinition";
 
-const cssHexRegex = /^(#[A-Fa-f0-9]{6}|#[A-Fa-f0-9]{3})$/;
-
-/**
- * validateCssHexColorDefinition() is a type validator. Use it to prove that
- * the given input is a valid CSS color definition using the hex notation.
- *
- * @param input -
- * the input to validate
- * @param path -
- * dot.notation.path through your data structures to the input data
- * @returns
- * - `input` if it passes validation
- * - an appropriate AppError otherwise
- */
-export function validateCssHexColorDefinition(
-    input: unknown,
-    {
-        path = DEFAULT_DATA_PATH
-    }: TypeValidatorOptions = {}
-): AppErrorOr<CssHexColorDefinition>
+export function parseHex(
+    input: string
+): HexColorModel
 {
-    return validate(input)
-        .next((x) => validateString(x, { path }))
-        .next((x) => validateStringMatches(cssHexRegex, x, { path }))
-        .next((x) => recast<string, CssHexColorDefinition>(x))
-        .value();
+    return mustBeHexColorModel({
+        colorModel: "hex",
+        colorSpace: "sRGB",
+        // this will ensure we're looking at a valid HEX definition!
+        hex: mustBeCssHexColorDefinition(input),
+    });
 }
