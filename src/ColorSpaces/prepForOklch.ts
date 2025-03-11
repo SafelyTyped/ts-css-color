@@ -37,10 +37,10 @@ import type { SupportedColorModel } from "../ColorModels/SupportedColorModel.typ
 import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
 import { convertViaRgb } from "./convertViaRgb";
 
-type UnsupportedColorModel = "cmyk";
 type ConversionModelPrepper = (input: ConversionModel) => ConversionModel;
 
-const DISPATCH_MAP: DispatchMap<Exclude<SupportedColorModel, UnsupportedColorModel>, ConversionModelPrepper> = {
+const DISPATCH_MAP: DispatchMap<SupportedColorModel, ConversionModelPrepper> = {
+    "cmyk": identity,
     "cssNamedColor": identity,
     "hex": identity,
     "hsl": convertViaRgb,
