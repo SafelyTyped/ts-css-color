@@ -145,7 +145,7 @@ export { isCssExtendedColor } from "./CssExtendedColors/isCssExtendedColor";
 export { mustBeCssExtendedColor } from "./CssExtendedColors/mustBeCssExtendedColor";
 export { validateCssExtendedColor } from "./CssExtendedColors/validateCssExtendedColor";
 
-export type { CmykColorTuple as CssCmykColorChannelsTuple } from "./CssCmykColor/CmykColorTuple.type";
+export type { CmykColorTuple } from "./CssCmykColor/CmykColorTuple.type";
 export type { CssCmykColor } from "./CssCmykColor/CssCmykColor.type";
 export { makeCssCmykColor } from "./CssCmykColor/makeCssCmykColor";
 export { makeCssCmykColorFromCmykColorModel } from "./CssCmykColor/makeCssCmykColorFromCmykColorModel";
