@@ -193,7 +193,7 @@ export type { CssRgbColor } from "./CssRgbColor/CssRgbColor.type";
 export { makeCssRgbColor } from "./CssRgbColor/makeCssRgbColor";
 export { makeCssRgbColorFromConversionModel } from "./CssRgbColor/makeCssRgbColorFromConversionModel";
 export { makeCssRgbColorFromCssColor } from "./CssRgbColor/makeCssRgbColorFromCssColor";
-export type { RgbColorTuple as CssRgbColorChannelsTuple } from "./CssRgbColor/RgbColorTuple.type";
+export type { RgbColorTuple } from "./CssRgbColor/RgbColorTuple.type";
 
 export { makeCssColor } from "./CssColor/makeCssColor";
 export { makeCssColorFromConversionModel } from "./CssColor/makeCssColorFromConversionModel";
