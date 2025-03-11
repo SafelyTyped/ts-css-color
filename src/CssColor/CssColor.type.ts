@@ -32,13 +32,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssCmykColor, CssHexColor, CssHslColor, CssHsvColor, CssHwbColor, CssNamedColor, CssOklchColor, CssRgbColor } from "../";
+import type { CssCmykColor, CssHexColor, CssHslColor, CssHsvColor, CssHwbColor, CssNamedColor, CssOklchColor, CssRgbColor } from "..";
 
 /**
- * AnyCssColor is a type. Use it wherever you can accept and/or return
+ * CssColor is a type. Use it wherever you can accept and/or return
  * any variant of the {@link CssColor} class.
  */
-export type AnyCssColor = CssCmykColor
+export type CssColor = CssCmykColor
     | CssHexColor
     | CssHslColor
     | CssHsvColor

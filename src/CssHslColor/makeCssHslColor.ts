@@ -33,10 +33,10 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssColor, makeCssHslColorFromCssColor, type AnyCssColor, type CssHslColor } from "../index";
+import { makeCssColor, makeCssHslColorFromCssColor, type CssColor, type CssHslColor } from "../index";
 
 export function makeCssHslColor(
-    input: string|AnyCssColor,
+    input: string|CssColor,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR

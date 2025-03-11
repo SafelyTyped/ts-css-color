@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../index";
+import type { CssColor } from "../index";
 import { luma } from "./luma";
 
 /**
@@ -49,7 +49,7 @@ export type Shade = "light" | "dark" | "dull";
  *
  * @deprecated use {@link tonality} instead
  */
-export function shade(input: AnyCssColor): Shade
+export function shade(input: CssColor): Shade
 {
     const y = luma(input);
 

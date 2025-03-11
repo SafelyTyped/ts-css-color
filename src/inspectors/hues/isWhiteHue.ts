@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { isHue, type AnyCssColor } from "../../index";
+import { isHue, type CssColor } from "../../index";
 
 /**
  * isWhiteHue() returns true if the given `input` color is a white hue.
@@ -46,7 +46,7 @@ import { isHue, type AnyCssColor } from "../../index";
  * @deprecated Use `isHue(input, "white")` instead.
  */
 export function isWhiteHue(
-    input: AnyCssColor
+    input: CssColor
 ): boolean
 {
     return isHue(input, "white");

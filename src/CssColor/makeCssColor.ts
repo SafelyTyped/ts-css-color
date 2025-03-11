@@ -36,7 +36,7 @@
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataPath, type OnError } from "@safelytyped/core-types";
 import { makeCssNamedColor } from "../CssNamedColor/makeCssNamedColor";
 import { mustBeNonEmptyString } from "../helpers/mustBeNonEmptyString";
-import { CMYK_MODEL_CONVERTER, HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssCmykColorFromConversionModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, parseCss, type AnyCssColor } from "../index";
+import { CMYK_MODEL_CONVERTER, HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssCmykColorFromConversionModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, parseCss, type CssColor } from "../index";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -64,7 +64,7 @@ export function makeCssColor(
         onError?: OnError,
         path?: DataPath,
     } = {},
-): AnyCssColor
+): CssColor
 {
     // shorthand
     const opts = { onError, path };

@@ -33,7 +33,7 @@
 //
 
 import { roundDown } from "@safelytyped/math-rounding";
-import { relativeLuminance, type AnyCssColor } from "../index";
+import { relativeLuminance, type CssColor } from "../index";
 
 /**
  * contrastRatio() calculates the WCAG relative contrast between two
@@ -51,7 +51,7 @@ import { relativeLuminance, type AnyCssColor } from "../index";
  *
  * The returned contrast ratio is rounded down to one decimal place.
  */
-export function contrastRatio(a: AnyCssColor, b: AnyCssColor): number
+export function contrastRatio(a: CssColor, b: CssColor): number
 {
     const fgLuminance = relativeLuminance(a);
     const bgLuminance = relativeLuminance(b);

@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { isHue, type AnyCssColor } from "../../index";
+import { isHue, type CssColor } from "../../index";
 
 /**
  * isBlackHue() returns true if the given `input` color is a black hue.
@@ -46,7 +46,7 @@ import { isHue, type AnyCssColor } from "../../index";
  * @deprecated Use `isHue(input, "black")` instead.
  */
 export function isBlackHue(
-    input: AnyCssColor
+    input: CssColor
 ): boolean
 {
     return isHue(input, "black");

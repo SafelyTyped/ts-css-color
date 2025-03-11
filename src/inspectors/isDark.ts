@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { tonality, type AnyCssColor } from "../index";
+import { tonality, type CssColor } from "../index";
 
 /**
  * isDark() returns true if the given `input` color is a dark color
@@ -44,7 +44,7 @@ import { tonality, type AnyCssColor } from "../index";
  * - `true` if the color is dark
  * - `false` otherwise
  */
-export function isDark(input: AnyCssColor): boolean
+export function isDark(input: CssColor): boolean
 {
     return tonality(input) == "dark";
 }

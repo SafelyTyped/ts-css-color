@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssRgbColor, type AnyCssColor } from "@safelytyped/css-color";
+import { makeCssRgbColor, type CssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import type { ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
@@ -62,7 +62,7 @@ describe("CssRgbColor", () => {
                 fixture.colorModels.rgb,
             );
 
-            testCssColorConversionsToTarget(colorConstructor, fixture, "cmyk", (c: AnyCssColor) => c.cmyk, fixture.colorModels.cmyk);
+            testCssColorConversionsToTarget(colorConstructor, fixture, "cmyk", (c: CssColor) => c.cmyk, fixture.colorModels.cmyk);
         });
     });
 
@@ -73,7 +73,7 @@ describe("CssRgbColor", () => {
                 fixture.definition,
                 fixture.colorModels.rgb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "hsl", (c: AnyCssColor) => c.hsl, fixture.colorModels.hsl);
+            testCssColorConversionsToTarget(colorConstructor, fixture, "hsl", (c: CssColor) => c.hsl, fixture.colorModels.hsl);
         });
     });
 
@@ -84,7 +84,7 @@ describe("CssRgbColor", () => {
                 fixture.definition,
                 fixture.colorModels.rgb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "hsv", (c: AnyCssColor) => c.hsv, fixture.colorModels.hsv);
+            testCssColorConversionsToTarget(colorConstructor, fixture, "hsv", (c: CssColor) => c.hsv, fixture.colorModels.hsv);
         });
     });
 
@@ -95,7 +95,7 @@ describe("CssRgbColor", () => {
                 fixture.definition,
                 fixture.colorModels.rgb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "hwb", (c: AnyCssColor) => c.hwb, fixture.colorModels.hwb);
+            testCssColorConversionsToTarget(colorConstructor, fixture, "hwb", (c: CssColor) => c.hwb, fixture.colorModels.hwb);
         });
     });
 
@@ -106,7 +106,7 @@ describe("CssRgbColor", () => {
                 fixture.definition,
                 fixture.colorModels.rgb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "oklch", (c: AnyCssColor) => c.oklch, fixture.colorModels.oklch);
+            testCssColorConversionsToTarget(colorConstructor, fixture, "oklch", (c: CssColor) => c.oklch, fixture.colorModels.oklch);
         });
     });
 
@@ -117,7 +117,7 @@ describe("CssRgbColor", () => {
                 fixture.definition,
                 fixture.colorModels.rgb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "rgb", (c: AnyCssColor) => c.rgb, fixture.colorModels.rgb);
+            testCssColorConversionsToTarget(colorConstructor, fixture, "rgb", (c: CssColor) => c.rgb, fixture.colorModels.rgb);
 
             it("[fixture " + fixture.name + "] returns itself when converted to RGB", () => {
                 // ----------------------------------------------------------------

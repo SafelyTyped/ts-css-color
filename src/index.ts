@@ -136,7 +136,7 @@ export { RGB_MODEL_CONVERTER } from "./ConversionModels/Rgb/RGB_MODEL_CONVERTER"
 export { CSSNAMEDCOLOR_MODEL_CONVERTER } from "./ConversionModels/CssNamedColor/CSSNAMEDCOLOR_MODEL_CONVERTER";
 export { HEX_MODEL_CONVERTER } from "./ConversionModels/Hex/HEX_MODEL_CONVERTER";
 
-export type { AnyCssColor } from "./CssColor/AnyCssColor.type";
+export type { CssColor } from "./CssColor/CssColor.type";
 
 export type { CssExtendedColor } from "./CssExtendedColors/CssExtendedColor.type";
 export { CSS_EXTENDED_COLORS_TO_HEX, CSS_HEX_TO_EXTENDED_COLORS } from "./CssExtendedColors/CssExtendedColors.const";

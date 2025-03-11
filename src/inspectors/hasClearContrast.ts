@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { tonality, type AnyCssColor } from "../index";
+import { tonality, type CssColor } from "../index";
 
 /**
  * hasClearContrast() determines whether or not two given colors are
@@ -50,8 +50,8 @@ import { tonality, type AnyCssColor } from "../index";
  * - `false` if both colors are dark
  */
 export function hasClearContrast(
-    a: AnyCssColor,
-    b: AnyCssColor
+    a: CssColor,
+    b: CssColor
 ): boolean
 {
     const toneA = tonality(a);

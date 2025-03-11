@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssHexColorFromConversionModel, type AnyCssColor } from "../index";
+import { makeCssHexColorFromConversionModel, type CssColor } from "../index";
 
 export function makeCssHexColorFromCssColor(
-    input: AnyCssColor,
+    input: CssColor,
 )
 {
     return makeCssHexColorFromConversionModel(

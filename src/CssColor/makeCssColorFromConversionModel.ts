@@ -34,7 +34,7 @@
 
 
 import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuaranteeOptions, type DispatchMap } from "@safelytyped/core-types";
-import { makeCssHslColorFromConversionModel, makeCssHsvColorFromConversionModel, makeCssHwbColorFromConversionModel, makeCssOklchColorFromConversionModel, makeCssRgbColorFromConversionModel, UnsupportedCssColorDefinitionError, type AnyCssColor, type ConversionModel, type SupportedColorModel } from "../index";
+import { makeCssHslColorFromConversionModel, makeCssHsvColorFromConversionModel, makeCssHwbColorFromConversionModel, makeCssOklchColorFromConversionModel, makeCssRgbColorFromConversionModel, UnsupportedCssColorDefinitionError, type ConversionModel, type CssColor, type SupportedColorModel } from "../index";
 import type { CssColorFromConversionModelSmartConstructor } from "./CssColorFromConversionModelSmartConstructor.type";
 
 type UnsupportedColorModel = "cmyk" | "cssNamedColor" | "hex";
@@ -73,7 +73,7 @@ export function makeCssColorFromConversionModel(
         onError = THROW_THE_ERROR,
         path = DEFAULT_DATA_PATH
     }: DataGuaranteeOptions = {},
-): AnyCssColor
+): CssColor
 {
     // shorthand
     const opts = { onError, path };

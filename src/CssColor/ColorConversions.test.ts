@@ -39,12 +39,12 @@ import { expect } from "chai";
 import { it } from "mocha";
 import type { ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
 import type { ColorModel } from "../ColorModels/ColorModel.type";
-import type { AnyCssColor } from "./AnyCssColor.type";
+import type { CssColor } from "./CssColor.type";
 
 type ColorConstructor<T> = (fixture: ValidCssColor) => T;
-type ColorConverter<T,R extends AnyCssColor> = (color: T) => R;
+type ColorConverter<T,R extends CssColor> = (color: T) => R;
 
-export function testCssColorConversionsToTarget<T extends AnyCssColor, R extends AnyCssColor, M extends ColorModel>(
+export function testCssColorConversionsToTarget<T extends CssColor, R extends CssColor, M extends ColorModel>(
     colorConstructor: ColorConstructor<T>,
     fixture: ValidCssColor,
     target: string,
@@ -127,7 +127,7 @@ export function testCssColorConversionsToTarget<T extends AnyCssColor, R extends
     });
 }
 
-export function testCssColorConversionsToHex<T extends AnyCssColor>(
+export function testCssColorConversionsToHex<T extends CssColor>(
     colorConstructor: ColorConstructor<T>,
     fixture: ValidCssColor,
 )
@@ -157,7 +157,7 @@ export function testCssColorConversionsToHex<T extends AnyCssColor>(
     });
 }
 
-export function testCssColorConversionsToCssNamedColor<T extends AnyCssColor>(
+export function testCssColorConversionsToCssNamedColor<T extends CssColor>(
     colorConstructor: ColorConstructor<T>,
     fixture: ValidCssColor,
 )

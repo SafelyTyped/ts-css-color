@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { shade, type AnyCssColor } from "../index";
+import { shade, type CssColor } from "../index";
 
 /**
  * isDull() returns true if the given `input` color is a dull color
@@ -46,7 +46,7 @@ import { shade, type AnyCssColor } from "../index";
  *
  * @deprecated use {@link isMidtone} instead
  */
-export function isDull(input: AnyCssColor): boolean
+export function isDull(input: CssColor): boolean
 {
     return shade(input) === "dull";
 }

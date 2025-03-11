@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { tonality, type AnyCssColor } from "../index";
+import { tonality, type CssColor } from "../index";
 
 /**
  * isMidtone() returns true if the given `input` color is neither a light
@@ -44,7 +44,7 @@ import { tonality, type AnyCssColor } from "../index";
  * - `true` if the color is a midtone
  * - `false` otherwise
  */
-export function isMidtone(input: AnyCssColor): boolean
+export function isMidtone(input: CssColor): boolean
 {
     return tonality(input) === "midtone";
 }

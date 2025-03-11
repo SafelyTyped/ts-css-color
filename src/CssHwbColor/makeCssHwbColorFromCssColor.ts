@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssHwbColorFromConversionModel, type AnyCssColor } from "../index";
+import { makeCssHwbColorFromConversionModel, type CssColor } from "../index";
 
 export function makeCssHwbColorFromCssColor(
-    input: AnyCssColor,
+    input: CssColor,
 )
 {
     return makeCssHwbColorFromConversionModel(

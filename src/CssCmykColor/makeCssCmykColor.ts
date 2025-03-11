@@ -33,10 +33,10 @@
 //
 
 import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
-import { makeCssCmykColorFromCssColor, makeCssColor, type AnyCssColor, type CssCmykColor } from "../index";
+import { makeCssCmykColorFromCssColor, makeCssColor, type CssCmykColor, type CssColor } from "../index";
 
 export function makeCssCmykColor(
-    input: string|AnyCssColor,
+    input: string|CssColor,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR

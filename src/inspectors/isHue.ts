@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { hues, type AnyCssColor, type Hue } from "../index";
+import { hues, type CssColor, type Hue } from "../index";
 
 /**
  * isHue() returns `true` if the given `input` maps onto all of the given
@@ -42,7 +42,7 @@ import { hues, type AnyCssColor, type Hue } from "../index";
  * @param requiredHues - one or more hues to check for
  */
 export function isHue(
-    input: AnyCssColor,
+    input: CssColor,
     ...requiredHues: Hue[]
 ): boolean
 {
