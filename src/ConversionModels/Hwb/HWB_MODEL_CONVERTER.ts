@@ -33,7 +33,7 @@
 //
 
 import { hwb } from "culori";
-import { convertViaRgb, parseCss, RGB_MODEL_CONVERTER, round, type ConversionModel, type HwbColorModel, type HwbConversionModel, type ModelConverter } from "../..";
+import { convertViaRgb, mustBeHwbColorModel, parseCss, RGB_MODEL_CONVERTER, round, type ConversionModel, type HwbColorModel, type HwbConversionModel, type ModelConverter } from "../..";
 
 export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionModel> = {
     toConversionModel: (input: HwbColorModel) => {
@@ -58,15 +58,17 @@ export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionMod
     toColorModel: (input: ConversionModel) => {
         const model = hwb(input);
 
-        return HWB_MODEL_CONVERTER.normaliseColorModel({
-            colorModel: "hwb",
-            colorSpace: "sRGB",
-            hue: model.h ??= 0,
-            whiteness: model.w * 100,
-            blackness: model.b * 100,
-            /* c8 ignore next */
-            alpha: model.alpha ??= 1,
-        });
+        return HWB_MODEL_CONVERTER.normaliseColorModel(
+            mustBeHwbColorModel({
+                colorModel: "hwb",
+                colorSpace: "sRGB",
+                hue: model.h ??= 0,
+                whiteness: model.w * 100,
+                blackness: model.b * 100,
+                /* c8 ignore next */
+                alpha: model.alpha ??= 1,
+            })
+        );
     },
 
     normaliseColorModel: (input: HwbColorModel) => {
