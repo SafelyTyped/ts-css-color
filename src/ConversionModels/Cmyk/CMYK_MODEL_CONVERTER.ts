@@ -34,6 +34,7 @@
 
 import { rgb } from "culori";
 import type { CmykColorModel } from "../../ColorModels/Cmyk/CmykColorModel.type";
+import { mustBeCmykColorModel } from "../../ColorModels/Cmyk/mustBeCmykColorModel";
 import { parseCmyk } from "../../CssParser/parseCmyk";
 import { round } from "../../helpers/round";
 import type { ConversionModel } from "../ConversionModel.type";
@@ -60,14 +61,16 @@ export const CMYK_MODEL_CONVERTER: ModelConverter<CmykColorModel, RgbConversionM
         const m = (1 - model.g - k) / (1 - k) || 0;
         const y = (1 - model.b - k) / (1 - k) || 0;
 
-        return CMYK_MODEL_CONVERTER.normaliseColorModel({
-            colorModel: "cmyk",
-            colorSpace: "CMYK",
-            cyan: c * 100,
-            magenta: m * 100,
-            yellow: y * 100,
-            key: k * 100,
-        });
+        return mustBeCmykColorModel(
+            CMYK_MODEL_CONVERTER.normaliseColorModel({
+                colorModel: "cmyk",
+                colorSpace: "CMYK",
+                cyan: c * 100,
+                magenta: m * 100,
+                yellow: y * 100,
+                key: k * 100,
+            })
+        );
     },
 
     toConversionModel: (input: CmykColorModel) => {
