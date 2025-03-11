@@ -187,7 +187,7 @@ export type { CssOklchColor } from "./CssOklchColor/CssOklchColor.type";
 export { makeCssOklchColor } from "./CssOklchColor/makeCssOklchColor";
 export { makeCssOklchColorFromConversionModel } from "./CssOklchColor/makeCssOklchColorFromConversionModel";
 export { makeCssOklchColorFromCssColor } from "./CssOklchColor/makeCssOklchColorFromCssColor";
-export type { OklchColorTuple as CssOklchColorChannelsTuple } from "./CssOklchColor/OklchColorTuple.type";
+export type { OklchColorTuple } from "./CssOklchColor/OklchColorTuple.type";
 
 export type { CssRgbColor } from "./CssRgbColor/CssRgbColor.type";
 export { makeCssRgbColor } from "./CssRgbColor/makeCssRgbColor";
