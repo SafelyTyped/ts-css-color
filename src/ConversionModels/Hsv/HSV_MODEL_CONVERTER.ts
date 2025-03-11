@@ -59,6 +59,7 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
             ...input,
             s: round(4, input.s),
             v: round(4, input.v),
+            alpha: input.alpha ??= 1,
         };
     },
 

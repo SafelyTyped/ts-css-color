@@ -32,51 +32,38 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { formatCss, oklch } from "culori";
-import { parseCss, round, type ConversionModel, type ModelConverter, type OklchColorModel, type OklchConversionModel } from "../..";
+import { expect } from "chai";
+import { describe, it } from "mocha";
+import { CSS_HSL_COLOR_FIXTURES } from "../../_fixtures/CSS_HSL_COLOR_FIXTURES";
+import { HSL_MODEL_CONVERTER } from "./HSL_MODEL_CONVERTER";
 
-export const OKLCH_MODEL_CONVERTER: ModelConverter<OklchColorModel, OklchConversionModel> = {
-    toConversionModel: (input: OklchColorModel) => {
-        return OKLCH_MODEL_CONVERTER.normaliseConversionModel({
-            mode: "oklch",
-            l: input.lightness,
-            c: input.chroma,
-            h: input.hue,
-            alpha: input.alpha,
+describe("HSL_MODEL_CONVERTER", () => {
+    describe(".parse()", () => {
+        CSS_HSL_COLOR_FIXTURES.forEach((fixture) => {
+            it(`[fixture ${fixture.name}] converts valid CSS colors into the expected color model`, () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .parse() works as expected
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = fixture.definition;
+                const expectedResult = HSL_MODEL_CONVERTER.toConversionModel(
+                    fixture.colorModels.hsl
+                );
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = HSL_MODEL_CONVERTER.parse(inputValue);
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eqls(expectedResult);
+            });
         });
-    },
-
-    normaliseConversionModel: (input: OklchConversionModel) => {
-        return {
-            ...input,
-            alpha: input.alpha ??= 1,
-        };
-    },
-
-    toColorModel: (input: ConversionModel) => {
-        const model = oklch(input);
-
-        return OKLCH_MODEL_CONVERTER.normaliseColorModel({
-            colorModel: "oklch",
-            colorSpace: "OKLCH",
-            lightness: model.l,
-            chroma: model.c,
-            hue: model.h ??= 0,
-            /* c8 ignore next */
-            alpha: model.alpha ??= 1,
-        });
-    },
-
-    normaliseColorModel: (input: OklchColorModel) => {
-        return {
-            ...input,
-            hue: round(6, input.hue),
-            lightness: round(6, input.lightness),
-            chroma: round(6, input.chroma),
-        };
-    },
-
-    parse: (input: string) => OKLCH_MODEL_CONVERTER.normaliseConversionModel(oklch(parseCss(input))),
-    toCss: (input: OklchColorModel) => formatCss(OKLCH_MODEL_CONVERTER.toConversionModel(input)),
-};
-
+    });
+});

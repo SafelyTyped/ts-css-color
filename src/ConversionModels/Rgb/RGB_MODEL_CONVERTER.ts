@@ -70,6 +70,7 @@ export const RGB_MODEL_CONVERTER: ModelConverter<RgbColorModel, RgbConversionMod
             r: round(3, input.r),
             g: round(3, input.g),
             b: round(3, input.b),
+            alpha: input.alpha ??= 1,
         };
     },
 

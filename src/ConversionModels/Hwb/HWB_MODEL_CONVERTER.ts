@@ -51,6 +51,7 @@ export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionMod
             ...input,
             // w: round(4, input.w),
             // b: round(4, input.w),
+            alpha: input.alpha ??= 1,
         };
     },
 

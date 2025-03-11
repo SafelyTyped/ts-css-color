@@ -51,6 +51,7 @@ export const HSL_MODEL_CONVERTER: ModelConverter<HslColorModel, HslConversionMod
             ...input,
             s: round(4, input.s),
             l: round(4, input.l),
+            alpha: input.alpha ??= 1,
         };
     },
 
