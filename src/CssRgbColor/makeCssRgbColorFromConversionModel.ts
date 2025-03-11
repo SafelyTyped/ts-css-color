@@ -44,9 +44,11 @@ export function makeCssRgbColorFromConversionModel(
     model: ConversionModel,
 ): CssRgbColor
 {
-    // shorthand
+    // if we get our native conversion model, we need to avoid prepping it
+    // for sRGB, so that our range validation can work
+    const localConversionModel = model.mode === "rgb" ? model : prepForSrgb(model);
     const colorModel = RGB_MODEL_CONVERTER.toColorModel(
-        prepForSrgb(model),
+        localConversionModel,
     );
 
     return makeCssRgbColorFromRgbColorModel(

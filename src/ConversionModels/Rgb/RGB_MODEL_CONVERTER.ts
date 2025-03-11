@@ -33,6 +33,7 @@
 //
 
 import { formatCss, rgb } from "culori";
+import { mustBeRgbColorModel } from "../../ColorModels/Rgb/mustBeRgbColorModel";
 import type { RgbColorModel } from "../../ColorModels/Rgb/RgbColorModel.type";
 import { parseCss } from "../../CssParser/parseCss";
 import { round } from "../../helpers/round";
@@ -54,14 +55,16 @@ export const RGB_MODEL_CONVERTER: ModelConverter<RgbColorModel, RgbConversionMod
     toColorModel: (input: ConversionModel) => {
         const model = rgb(input);
 
-        return RGB_MODEL_CONVERTER.normaliseColorModel({
-            colorModel: "rgb",
-            colorSpace: "sRGB",
-            red: model.r * 255,
-            green: model.g * 255,
-            blue: model.b * 255,
-            alpha: model.alpha ??= 1,
-        });
+        return RGB_MODEL_CONVERTER.normaliseColorModel(
+            mustBeRgbColorModel({
+                colorModel: "rgb",
+                colorSpace: "sRGB",
+                red: model.r * 255,
+                green: model.g * 255,
+                blue: model.b * 255,
+                alpha: model.alpha ??= 1,
+            })
+        );
     },
 
     normaliseConversionModel: (input: RgbConversionModel) => {
