@@ -93,14 +93,7 @@ export const CMYK_MODEL_CONVERTER: ModelConverter<CmykColorModel, RgbConversionM
         return CMYK_MODEL_CONVERTER.toConversionModel(parseCmyk(input));
     },
 
-    // CMYK isn't supported in CSS, so we attempt to turn the fallback
-    // definition into CSS
-    //
-    // what could possibly go wrong?
-    toCss: (input: CmykColorModel, fallback: string) => RGB_MODEL_CONVERTER.toCss(
-        RGB_MODEL_CONVERTER.toColorModel(
-            RGB_MODEL_CONVERTER.parse(fallback),
-        ),
-        fallback,
-    )
+    // CMYK isn't supported by Culori, so we have to build the CSS
+    // definition ourselves
+    toCss: (input: CmykColorModel, fallback: string) => `color(--device-cmyk ${input.cyan} ${input.magenta} ${input.yellow} ${input.key})`,
 };

@@ -81,7 +81,7 @@ export function makeCssCmykColorFromCmykColorModel(
         conversionModel,
         channelsData: colorModel,
         channelsTuple: [ colorModel.cyan, colorModel.magenta, colorModel.yellow, colorModel.key ],
-        css: cssDefinition,
+        css: CMYK_MODEL_CONVERTER.toCss(colorModel, cssDefinition),
 
         ...colorModel,
     };
