@@ -34,6 +34,7 @@
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
 import type { CmykColorModel } from "../ColorModels/Cmyk/CmykColorModel.type";
+import { mustBeCmykColorModel } from "../ColorModels/Cmyk/mustBeCmykColorModel";
 import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
 
 export function parseCmyk(
@@ -52,12 +53,12 @@ export function parseCmyk(
         });
     }
 
-    return {
+    return mustBeCmykColorModel({
         colorModel: "cmyk",
         colorSpace: "CMYK",
         cyan: parseInt(matches[1]),
         magenta: parseInt(matches[2]),
         yellow: parseInt(matches[3]),
         key: parseInt(matches[4]),
-    };
+    });
 }
