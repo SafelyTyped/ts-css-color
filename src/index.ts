@@ -137,7 +137,6 @@ export { CSSNAMEDCOLOR_MODEL_CONVERTER } from "./ConversionModels/CssNamedColor/
 export { HEX_MODEL_CONVERTER } from "./ConversionModels/Hex/HEX_MODEL_CONVERTER";
 
 export type { AnyCssColor } from "./CssColor/AnyCssColor.type";
-export type { CssColorData } from "./CssColor/CssColorData.type";
 
 export type { CssExtendedColor } from "./CssExtendedColors/CssExtendedColor.type";
 export { CSS_EXTENDED_COLORS_TO_HEX, CSS_HEX_TO_EXTENDED_COLORS } from "./CssExtendedColors/CssExtendedColors.const";
@@ -170,19 +169,16 @@ export { normaliseCssHexColorDefinitionFormat } from "./CssHexColorDefinition/no
 export { validateCssHexColorDefinition } from "./CssHexColorDefinition/validateCssHexColorDefinition";
 
 export type { CssHslColor } from "./CssHslColor/CssHslColor.type";
-export type { CssHslColorChannelsTuple } from "./CssHslColor/CssHslColorChannelsTuple.type";
 export { makeCssHslColor } from "./CssHslColor/makeCssHslColor";
 export { makeCssHslColorFromConversionModel } from "./CssHslColor/makeCssHslColorFromConversionModel";
 export { makeCssHslColorFromCssColor } from "./CssHslColor/makeCssHslColorFromCssColor";
 
 export type { CssHsvColor } from "./CssHsvColor/CssHsvColor.type";
-export type { CssHsvColorChannelsTuple } from "./CssHsvColor/CssHsvColorChannelsTuple.type";
 export { makeCssHsvColor } from "./CssHsvColor/makeCssHsvColor";
 export { makeCssHsvColorFromConversionModel } from "./CssHsvColor/makeCssHsvColorFromConversionModel";
 export { makeCssHsvColorFromCssColor } from "./CssHsvColor/makeCssHsvColorFromCssColor";
 
 export type { CssHwbColor } from "./CssHwbColor/CssHwbColor.type";
-export type { CssHwbColorChannelsTuple } from "./CssHwbColor/CssHwbColorChannelsTuple.type";
 export { makeCssHwbColor } from "./CssHwbColor/makeCssHwbColor";
 export { makeCssHwbColorFromConversionModel } from "./CssHwbColor/makeCssHwbColorFromConversionModel";
 export { makeCssHwbColorFromCssColor } from "./CssHwbColor/makeCssHwbColorFromCssColor";
