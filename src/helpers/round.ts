@@ -36,12 +36,10 @@ import { roundTo } from "@safelytyped/math-rounding";
 
 export function round(precision: number, input: number)
 {
-    return Math.abs(
-        roundTo(
-            Math.round,
-            precision,
-            input,
-        )
+    return roundTo(
+        Math.round,
+        precision,
+        input,
     );
 }
 

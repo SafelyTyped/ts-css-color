@@ -58,8 +58,8 @@ export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionMod
     toColorModel: (input: ConversionModel) => {
         const model = hwb(input);
 
-        return HWB_MODEL_CONVERTER.normaliseColorModel(
-            mustBeHwbColorModel({
+        return mustBeHwbColorModel(
+            HWB_MODEL_CONVERTER.normaliseColorModel({
                 colorModel: "hwb",
                 colorSpace: "sRGB",
                 hue: model.h ??= 0,

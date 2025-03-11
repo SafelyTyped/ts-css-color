@@ -55,8 +55,8 @@ export const RGB_MODEL_CONVERTER: ModelConverter<RgbColorModel, RgbConversionMod
     toColorModel: (input: ConversionModel) => {
         const model = rgb(input);
 
-        return RGB_MODEL_CONVERTER.normaliseColorModel(
-            mustBeRgbColorModel({
+        return mustBeRgbColorModel(
+            RGB_MODEL_CONVERTER.normaliseColorModel({
                 colorModel: "rgb",
                 colorSpace: "sRGB",
                 red: model.r * 255,

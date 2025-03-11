@@ -56,8 +56,8 @@ export const OKLCH_MODEL_CONVERTER: ModelConverter<OklchColorModel, OklchConvers
     toColorModel: (input: ConversionModel) => {
         const model = oklch(input);
 
-        return OKLCH_MODEL_CONVERTER.normaliseColorModel(
-            mustBeOklchColorModel({
+        return mustBeOklchColorModel(
+            OKLCH_MODEL_CONVERTER.normaliseColorModel({
                 colorModel: "oklch",
                 colorSpace: "OKLCH",
                 lightness: model.l,

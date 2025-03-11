@@ -66,8 +66,8 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
     toColorModel: (input: ConversionModel) => {
         const model = hsv(input);
 
-        return HSV_MODEL_CONVERTER.normaliseColorModel(
-            mustBeHsvColorModel({
+        return mustBeHsvColorModel(
+            HSV_MODEL_CONVERTER.normaliseColorModel({
                 colorModel: "hsv",
                 colorSpace: "sRGB",
                 hue: model.h ??= 0,

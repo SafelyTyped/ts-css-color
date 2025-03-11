@@ -58,8 +58,8 @@ export const HSL_MODEL_CONVERTER: ModelConverter<HslColorModel, HslConversionMod
     toColorModel: (input: ConversionModel) => {
         const model = hsl(input);
 
-        return HSL_MODEL_CONVERTER.normaliseColorModel(
-            mustBeHslColorModel({
+        return mustBeHslColorModel(
+            HSL_MODEL_CONVERTER.normaliseColorModel({
                 colorModel: "hsl",
                 colorSpace: "sRGB",
                 hue: model.h ??= 0,
