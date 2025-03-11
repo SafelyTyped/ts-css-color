@@ -44,9 +44,11 @@ export function makeCssHslColorFromConversionModel(
     model: ConversionModel,
 ): CssHslColor
 {
-    // shorthand
+    // if we get our native conversion model, we need to avoid prepping it
+    // for sRGB, so that our range validation can work
+    const localConversionModel = model.mode === "hsl" ? model : prepForSrgb(model);
     const colorModel = HSL_MODEL_CONVERTER.toColorModel(
-        prepForSrgb(model),
+        localConversionModel,
     );
 
     return makeCssHslColorFromHslColorModel(

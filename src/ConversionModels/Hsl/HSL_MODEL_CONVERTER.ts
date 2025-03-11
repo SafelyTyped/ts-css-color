@@ -33,7 +33,7 @@
 //
 
 import { formatCss, hsl } from "culori";
-import { parseCss, round, type ConversionModel, type HslColorModel, type HslConversionModel, type ModelConverter } from "../..";
+import { mustBeHslColorModel, parseCss, round, type ConversionModel, type HslColorModel, type HslConversionModel, type ModelConverter } from "../..";
 
 export const HSL_MODEL_CONVERTER: ModelConverter<HslColorModel, HslConversionModel> = {
     toConversionModel: (input: HslColorModel) => {
@@ -58,15 +58,17 @@ export const HSL_MODEL_CONVERTER: ModelConverter<HslColorModel, HslConversionMod
     toColorModel: (input: ConversionModel) => {
         const model = hsl(input);
 
-        return HSL_MODEL_CONVERTER.normaliseColorModel({
-            colorModel: "hsl",
-            colorSpace: "sRGB",
-            hue: model.h ??= 0,
-            saturation: model.s * 100,
-            luminosity: model.l * 100,
-            /* c8 ignore next */
-            alpha: model.alpha ??= 1,
-        });
+        return HSL_MODEL_CONVERTER.normaliseColorModel(
+            mustBeHslColorModel({
+                colorModel: "hsl",
+                colorSpace: "sRGB",
+                hue: model.h ??= 0,
+                saturation: model.s * 100,
+                luminosity: model.l * 100,
+                /* c8 ignore next */
+                alpha: model.alpha ??= 1,
+            })
+        );
     },
 
 
