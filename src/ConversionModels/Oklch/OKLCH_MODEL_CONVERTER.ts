@@ -33,7 +33,7 @@
 //
 
 import { formatCss, oklch } from "culori";
-import { parseCss, round, type ConversionModel, type ModelConverter, type OklchColorModel, type OklchConversionModel } from "../..";
+import { mustBeOklchColorModel, parseCss, round, type ConversionModel, type ModelConverter, type OklchColorModel, type OklchConversionModel } from "../..";
 
 export const OKLCH_MODEL_CONVERTER: ModelConverter<OklchColorModel, OklchConversionModel> = {
     toConversionModel: (input: OklchColorModel) => {
@@ -56,15 +56,17 @@ export const OKLCH_MODEL_CONVERTER: ModelConverter<OklchColorModel, OklchConvers
     toColorModel: (input: ConversionModel) => {
         const model = oklch(input);
 
-        return OKLCH_MODEL_CONVERTER.normaliseColorModel({
-            colorModel: "oklch",
-            colorSpace: "OKLCH",
-            lightness: model.l,
-            chroma: model.c,
-            hue: model.h ??= 0,
-            /* c8 ignore next */
-            alpha: model.alpha ??= 1,
-        });
+        return OKLCH_MODEL_CONVERTER.normaliseColorModel(
+            mustBeOklchColorModel({
+                colorModel: "oklch",
+                colorSpace: "OKLCH",
+                lightness: model.l,
+                chroma: model.c,
+                hue: model.h ??= 0,
+                /* c8 ignore next */
+                alpha: model.alpha ??= 1,
+            })
+        );
     },
 
     normaliseColorModel: (input: OklchColorModel) => {

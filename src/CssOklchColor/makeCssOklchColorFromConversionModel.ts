@@ -44,9 +44,11 @@ export function makeCssOklchColorFromConversionModel(
     model: ConversionModel,
 ): CssOklchColor
 {
-    // shorthand
+    // if we get our native conversion model, we need to avoid prepping it
+    // for sRGB, so that our range validation can work
+    const localConversionModel = model.mode === "oklch" ? model : prepForOklch(model);
     const colorModel = OKLCH_MODEL_CONVERTER.toColorModel(
-        prepForOklch(model),
+        localConversionModel,
     );
 
     return makeCssOklchColorFromOklchColorModel(
