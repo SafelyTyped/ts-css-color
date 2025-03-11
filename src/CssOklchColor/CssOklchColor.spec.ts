@@ -37,7 +37,7 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 import { type ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
 import { CSS_OKLCH_COLOR_FIXTURES } from "../_fixtures/CSS_OKLCH_COLOR_FIXTURES";
-import { testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
+import { testCssColorConversionsToCssNamedColor, testCssColorConversionsToHex, testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
 import { makeCssOklchColorFromOklchColorModel } from "./makeCssOklchColorFromOklchColorModel";
 
 describe("CssOklchColor", () => {
@@ -149,6 +149,30 @@ describe("CssOklchColor", () => {
     // OTHER FORMATS
     //
     // ----------------------------------------------------------------
+
+    describe(".hex", () => {
+        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.oklch,
+            );
+
+            testCssColorConversionsToHex(colorConstructor, fixture);
+        });
+    });
+
+    describe(".keyword", () => {
+        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.oklch,
+            );
+
+            testCssColorConversionsToCssNamedColor(colorConstructor, fixture);
+        });
+    });
 
     describe(".channelsData", () => {
         CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {

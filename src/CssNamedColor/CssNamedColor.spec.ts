@@ -37,7 +37,7 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 import { type ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
 import { CSS_NAMED_COLOR_FIXTURES } from "../_fixtures/CSS_NAMED_COLOR_FIXTURES";
-import { testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
+import { testCssColorConversionsToCssNamedColor, testCssColorConversionsToHex, testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
 import { makeCssNamedColorFromCssNamedColorModel } from "./makeCssNamedColorFromCssNamedColorModel";
 
 describe("CssNamedColor", () => {
@@ -144,6 +144,36 @@ describe("CssNamedColor", () => {
     // OTHER FORMATS
     //
     // ----------------------------------------------------------------
+
+    describe(".hex", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            // keep the compiler happy!
+            const colorModel = mustBeCssNamedColorColorModel(fixture.colorModels.cssNamedColor);
+
+            const colorConstructor = (fixture: ValidCssColor) => makeCssNamedColorFromCssNamedColorModel(
+                fixture.name,
+                fixture.definition,
+                colorModel,
+            );
+
+            testCssColorConversionsToHex(colorConstructor, fixture);
+        });
+    });
+
+    describe(".keyword", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            // keep the compiler happy!
+            const colorModel = mustBeCssNamedColorColorModel(fixture.colorModels.cssNamedColor);
+
+            const colorConstructor = (fixture: ValidCssColor) => makeCssNamedColorFromCssNamedColorModel(
+                fixture.name,
+                fixture.definition,
+                colorModel,
+            );
+
+            testCssColorConversionsToCssNamedColor(colorConstructor, fixture);
+        });
+    });
 
     describe(".channelsData", () => {
         CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {

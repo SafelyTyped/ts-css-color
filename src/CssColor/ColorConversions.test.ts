@@ -126,3 +126,63 @@ export function testCssColorConversionsToTarget<T extends AnyCssColor, R extends
         expect(actualResult).to.eql(expectedResult);
     });
 }
+
+export function testCssColorConversionsToHex<T extends AnyCssColor>(
+    colorConstructor: ColorConstructor<T>,
+    fixture: ValidCssColor,
+)
+{
+    it("[fixture " + fixture.name + "] converts the original color to the expected hex value", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that that the color's .hex field contains
+        // the value we are expecting
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const unit = colorConstructor(fixture);
+        const expectedValue = fixture.colorModels.hex.hex;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualValue = unit.hex;
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.eqls(expectedValue);
+    });
+}
+
+export function testCssColorConversionsToCssNamedColor<T extends AnyCssColor>(
+    colorConstructor: ColorConstructor<T>,
+    fixture: ValidCssColor,
+)
+{
+    it("[fixture " + fixture.name + "] converts the original color to the expected CSS named color", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that that the color's .keyword field contains
+        // the value we are expecting
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const unit = colorConstructor(fixture);
+        const expectedValue = fixture.colorModels.cssNamedColor?.color;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualValue = unit.keyword;
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.eqls(expectedValue);
+    });
+}

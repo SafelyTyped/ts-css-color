@@ -37,7 +37,7 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 import { CSS_CMYK_COLOR_FIXTURES } from "../_fixtures/CSS_CMYK_COLOR_FIXTURES";
 import type { ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
-import { testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
+import { testCssColorConversionsToCssNamedColor, testCssColorConversionsToHex, testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
 
 describe("CssCmykColor", () => {
     // ================================================================
@@ -148,6 +148,30 @@ describe("CssCmykColor", () => {
     // OTHER FORMATS
     //
     // ----------------------------------------------------------------
+
+    describe(".hex", () => {
+        CSS_CMYK_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssCmykColorFromCmykColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.cmyk,
+            );
+
+            testCssColorConversionsToHex(colorConstructor, fixture);
+        });
+    });
+
+    describe(".keyword", () => {
+        CSS_CMYK_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssCmykColorFromCmykColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.cmyk,
+            );
+
+            testCssColorConversionsToCssNamedColor(colorConstructor, fixture);
+        });
+    });
 
     describe(".channelsData", () => {
         CSS_CMYK_COLOR_FIXTURES.forEach((fixture) => {

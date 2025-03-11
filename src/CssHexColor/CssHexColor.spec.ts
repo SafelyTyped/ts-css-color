@@ -37,7 +37,7 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 import { type ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
 import { CSS_HEX_COLOR_FIXTURES } from "../_fixtures/CSS_HEX_COLOR_FIXTURES";
-import { testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
+import { testCssColorConversionsToCssNamedColor, testCssColorConversionsToHex, testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
 import { makeCssHexColorFromHexColorModel } from "./makeCssHexColorFromHexColorModel";
 
 describe("CssHexColor", () => {
@@ -127,6 +127,30 @@ describe("CssHexColor", () => {
     //
     // ----------------------------------------------------------------
 
+    describe(".hex", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
+            );
+
+            testCssColorConversionsToHex(colorConstructor, fixture);
+        });
+    });
+
+    describe(".keyword", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
+            );
+
+            testCssColorConversionsToCssNamedColor(colorConstructor, fixture);
+        });
+    });
+
     describe(".channelsData", () => {
         CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
             it("[fixture " + fixture.name + "] contains the HEX channels as an object", () => {
@@ -150,6 +174,33 @@ describe("CssHexColor", () => {
                 // ----------------------------------------------------------------
                 // test the results
 
+                expect(actualValue).to.eql(expectedValue);
+            });
+
+            it("[fixture " + fixture.name + "] contains the #RRGGBB representation of this color", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .hex contains the channel data
+                // that was used to build this color in the first place
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const unit = makeCssHexColor(fixture.definition);
+
+                // for readability
+                const expectedValue = fixture.colorModels.hex.hex;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.hex;
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue.length).to.eql(7);
                 expect(actualValue).to.eql(expectedValue);
             });
         });
@@ -190,36 +241,7 @@ describe("CssHexColor", () => {
     //
     // COMPONENT VALUES
     //
+    // CssHexColor currently has no separate component values.
+    //
     // ----------------------------------------------------------------
-
-    describe(".hex", () => {
-        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
-            it("[fixture " + fixture.name + "] contains the #RRGGBB representation of this color", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .hex contains the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const unit = makeCssHexColor(fixture.definition);
-
-                // for readability
-                const expectedValue = fixture.colorModels.hex.hex;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.hex;
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue.length).to.eql(7);
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
 });

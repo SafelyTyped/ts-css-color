@@ -37,7 +37,7 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 import { type ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
 import { CSS_HWB_COLOR_FIXTURES } from "../_fixtures/CSS_HWB_COLOR_FIXTURES";
-import { testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
+import { testCssColorConversionsToCssNamedColor, testCssColorConversionsToHex, testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
 import { makeCssHwbColorFromHwbColorModel } from "./makeCssHwbColorFromHwbColorModel";
 
 describe("CssHwbColor", () => {
@@ -149,6 +149,30 @@ describe("CssHwbColor", () => {
     // OTHER FORMATS
     //
     // ----------------------------------------------------------------
+
+    describe(".hex", () => {
+        CSS_HWB_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHwbColorFromHwbColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hwb,
+            );
+
+            testCssColorConversionsToHex(colorConstructor, fixture);
+        });
+    });
+
+    describe(".keyword", () => {
+        CSS_HWB_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHwbColorFromHwbColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hwb,
+            );
+
+            testCssColorConversionsToCssNamedColor(colorConstructor, fixture);
+        });
+    });
 
     describe(".channelsData", () => {
         CSS_HWB_COLOR_FIXTURES.forEach((fixture) => {

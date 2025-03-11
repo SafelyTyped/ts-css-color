@@ -994,7 +994,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             hex: {
                 colorModel: "hex",
                 colorSpace: "sRGB",
-                hex: makeCssHexColorDefinition("#000080"),
+                hex: makeCssHexColorDefinition("#ef7b00"),
             },
             hsl: {
                 colorModel: "hsl",
@@ -1066,7 +1066,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             hex: {
                 colorModel: "hex",
                 colorSpace: "sRGB",
-                hex: makeCssHexColorDefinition("#000080"),
+                hex: makeCssHexColorDefinition("#f40000"),
             },
             hsl: {
                 colorModel: "hsl",
@@ -1138,7 +1138,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             hex: {
                 colorModel: "hex",
                 colorSpace: "sRGB",
-                hex: makeCssHexColorDefinition("#000080"),
+                hex: makeCssHexColorDefinition("#368629"),
             },
             hsl: {
                 colorModel: "hsl",
