@@ -38,6 +38,7 @@ import { makeCssHslColorFromCssColor } from "../CssHslColor/makeCssHslColorFromC
 import { makeCssHsvColorFromCssColor } from "../CssHsvColor/makeCssHsvColorFromCssColor";
 import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromCssColor";
 import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColorFromCssColor";
+import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
 import type { CssCmykColor } from "./CssCmykColor.type";
 
@@ -49,6 +50,7 @@ export function makeCssCmykColorFromCmykColorModel(
 ): CssCmykColor
 {
     const conversionModel = CMYK_MODEL_CONVERTER.toConversionModel(colorModel);
+    const rgbColor = makeCssRgbColorFromConversionModel(colorName, cssDefinition, conversionModel);
 
     return {
         name: colorName,
@@ -73,12 +75,8 @@ export function makeCssCmykColorFromCmykColorModel(
             return makeCssRgbColorFromCssColor(this);
         },
 
-        get hex() {
-            return this.rgb.hex;
-        },
-        get keyword() {
-            return this.rgb.keyword;
-        },
+        hex: rgbColor.hex,
+        keyword: rgbColor.keyword,
 
         conversionModel,
         channelsData: colorModel,
