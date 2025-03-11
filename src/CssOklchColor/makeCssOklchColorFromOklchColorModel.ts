@@ -57,12 +57,24 @@ export function makeCssOklchColorFromOklchColorModel(
         name: colorName,
         definition: cssDefinition,
 
-        get cmyk() { return makeCssCmykColorFromCssColor(this); },
-        get hsl()  { return makeCssHslColorFromCssColor(this); },
-        get hsv()  { return makeCssHsvColorFromCssColor(this); },
-        get hwb() { return makeCssHwbColorFromCssColor(this); },
-        get oklch() { return this; },
-        get rgb() { return makeCssRgbColorFromCssColor(this); },
+        get cmyk() {
+            return makeCssCmykColorFromCssColor(this);
+        },
+        get hsl()  {
+            return makeCssHslColorFromCssColor(this);
+        },
+        get hsv()  {
+            return makeCssHsvColorFromCssColor(this);
+        },
+        get hwb() {
+            return makeCssHwbColorFromCssColor(this);
+        },
+        get oklch() {
+            return this;
+        },
+        get rgb() {
+            return makeCssRgbColorFromCssColor(this);
+        },
 
         hex,
         keyword: CSS_HEX_TO_EXTENDED_COLORS[hex],

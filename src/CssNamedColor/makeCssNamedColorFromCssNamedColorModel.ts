@@ -64,12 +64,24 @@ export function makeCssNamedColorFromCssNamedColorModel(
         colorModel: "cssNamedColor",
         colorSpace: "sRGB",
 
-        get cmyk() { return makeCssCmykColorFromCssColor(this); },
-        get hsl()  { return makeCssHslColorFromCssColor(this); },
-        get hsv()  { return makeCssHsvColorFromCssColor(this); },
-        get hwb() { return makeCssHwbColorFromCssColor(this); },
-        get oklch() { return makeCssOklchColorFromCssColor(this); },
-        get rgb() { return makeCssRgbColorFromCssColor(this); },
+        get cmyk() {
+            return makeCssCmykColorFromCssColor(this);
+        },
+        get hsl()  {
+            return makeCssHslColorFromCssColor(this);
+        },
+        get hsv()  {
+            return makeCssHsvColorFromCssColor(this);
+        },
+        get hwb() {
+            return makeCssHwbColorFromCssColor(this);
+        },
+        get oklch() {
+            return makeCssOklchColorFromCssColor(this);
+        },
+        get rgb() {
+            return makeCssRgbColorFromCssColor(this);
+        },
 
         hex,
         keyword: mustBeCssExtendedColor(cssDefinition),

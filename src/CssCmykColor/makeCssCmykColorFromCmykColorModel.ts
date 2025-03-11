@@ -54,15 +54,31 @@ export function makeCssCmykColorFromCmykColorModel(
         name: colorName,
         definition: cssDefinition,
 
-        get cmyk() { return this; },
-        get hsl()  { return makeCssHslColorFromCssColor(this); },
-        get hsv()  { return makeCssHsvColorFromCssColor(this); },
-        get hwb() { return makeCssHwbColorFromCssColor(this); },
-        get oklch() { return makeCssOklchColorFromCssColor(this); },
-        get rgb() { return makeCssRgbColorFromCssColor(this); },
+        get cmyk() {
+            return this;
+        },
+        get hsl()  {
+            return makeCssHslColorFromCssColor(this);
+        },
+        get hsv()  {
+            return makeCssHsvColorFromCssColor(this);
+        },
+        get hwb() {
+            return makeCssHwbColorFromCssColor(this);
+        },
+        get oklch() {
+            return makeCssOklchColorFromCssColor(this);
+        },
+        get rgb() {
+            return makeCssRgbColorFromCssColor(this);
+        },
 
-        get hex() { return this.rgb.hex; },
-        get keyword() { return this.rgb.keyword; },
+        get hex() {
+            return this.rgb.hex;
+        },
+        get keyword() {
+            return this.rgb.keyword;
+        },
 
         conversionModel,
         channelsData: colorModel,

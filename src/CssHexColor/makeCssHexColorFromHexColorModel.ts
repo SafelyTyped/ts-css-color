@@ -58,12 +58,24 @@ export function makeCssHexColorFromHexColorModel(
         name: colorName,
         definition: cssDefinition,
 
-        get cmyk() { return makeCssCmykColorFromCssColor(this); },
-        get hsl()  { return makeCssHslColorFromCssColor(this); },
-        get hsv()  { return makeCssHsvColorFromCssColor(this); },
-        get hwb() { return makeCssHwbColorFromCssColor(this); },
-        get oklch() { return makeCssOklchColorFromCssColor(this); },
-        get rgb() { return makeCssRgbColorFromCssColor(this); },
+        get cmyk() {
+            return makeCssCmykColorFromCssColor(this);
+        },
+        get hsl()  {
+            return makeCssHslColorFromCssColor(this);
+        },
+        get hsv()  {
+            return makeCssHsvColorFromCssColor(this);
+        },
+        get hwb() {
+            return makeCssHwbColorFromCssColor(this);
+        },
+        get oklch() {
+            return makeCssOklchColorFromCssColor(this);
+        },
+        get rgb() {
+            return makeCssRgbColorFromCssColor(this);
+        },
 
         keyword: CSS_HEX_TO_EXTENDED_COLORS[colorModel.hex],
 
