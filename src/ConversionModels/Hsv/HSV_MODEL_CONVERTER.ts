@@ -34,8 +34,8 @@
 
 import { hsv } from "culori";
 import type { HsvColorModel } from "../../ColorModels/Hsv/HsvColorModel.type";
+import { mustBeHsvColorModel } from "../../ColorModels/Hsv/mustBeHsvColorModel";
 import { convertViaRgb } from "../../ColorSpaces/convertViaRgb";
-import { prepForSrgb } from "../../ColorSpaces/prepForSrgb";
 import { parseCss } from "../../CssParser/parseCss";
 import { round } from "../../helpers/round";
 import type { ConversionModel } from "../ConversionModel.type";
@@ -64,17 +64,19 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
     },
 
     toColorModel: (input: ConversionModel) => {
-        const model = hsv(prepForSrgb(input));
+        const model = hsv(input);
 
-        return HSV_MODEL_CONVERTER.normaliseColorModel({
-            colorModel: "hsv",
-            colorSpace: "sRGB",
-            hue: model.h ??= 0,
-            saturation: model.s * 100,
-            value: model.v * 100,
-            /* c8 ignore next */
-            alpha: model.alpha ??= 1,
-        });
+        return HSV_MODEL_CONVERTER.normaliseColorModel(
+            mustBeHsvColorModel({
+                colorModel: "hsv",
+                colorSpace: "sRGB",
+                hue: model.h ??= 0,
+                saturation: model.s * 100,
+                value: model.v * 100,
+                /* c8 ignore next */
+                alpha: model.alpha ??= 1,
+            })
+        );
     },
 
     normaliseColorModel: (input: HsvColorModel) => {

@@ -45,9 +45,11 @@ export function makeCssHsvColorFromConversionModel(
     model: ConversionModel,
 ): CssHsvColor
 {
-    // shorthand
+    // if we get our native conversion model, we need to avoid prepping it
+    // for sRGB, so that our range validation can work
+    const localConversionModel = model.mode === "hsv" ? model : prepForSrgb(model);
     const colorModel = HSV_MODEL_CONVERTER.toColorModel(
-        prepForSrgb(model),
+        localConversionModel,
     );
 
     return makeCssHsvColorFromHsvColorModel(
