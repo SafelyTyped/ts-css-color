@@ -32,11 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { makeCssColor, validateConversionModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { CSS_COLOR_FIXTURES } from "../_fixtures/CSS_COLOR_FIXTURES";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { validateConversionModel } from "./validateConversionModel";
 
 import { jab, lab, lch, lrgb, rgb, type Jab, type Lab, type Lch, type Lrgb, type P3 } from "culori";
 type UnsupportedConversionModels = {

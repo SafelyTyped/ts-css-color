@@ -32,13 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssHexColor, type CssColor } from "@safelytyped/css-color";
+import { makeCssHexColor, makeCssHexColorFromHexColorModel, type CssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { type ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
 import { CSS_HEX_COLOR_FIXTURES } from "../_fixtures/CSS_HEX_COLOR_FIXTURES";
 import { testCssColorConversionsToCssNamedColor, testCssColorConversionsToHex, testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
-import { makeCssHexColorFromHexColorModel } from "./makeCssHexColorFromHexColorModel";
 
 describe("CssHexColor", () => {
     // ================================================================

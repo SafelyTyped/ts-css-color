@@ -33,10 +33,10 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
+import { mustBeCmykColorModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 import { CMYK_COLOR_MODELS, NON_CMYK_COLOR_MODELS } from "../../_fixtures/CMYK_COLOR_MODELS";
-import { mustBeCmykColorModel } from "./mustBeCmykColorModel";
 
 describe("mustBeCmykColorModel()", () => {
     CMYK_COLOR_MODELS.forEach((fixture) => {

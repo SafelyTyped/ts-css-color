@@ -33,10 +33,10 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
+import { isHwbColorModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { HWB_COLOR_MODELS, NON_HWB_COLOR_MODELS } from "../../_fixtures/HWB_COLOR_MODELS";
-import { isHwbColorModel } from "./isHwbColorModel";
 
 describe("isHwbColorModel()", () => {
     HWB_COLOR_MODELS.forEach((fixture) => {

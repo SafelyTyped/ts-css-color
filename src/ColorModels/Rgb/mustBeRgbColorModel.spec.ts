@@ -33,10 +33,10 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
+import { mustBeRgbColorModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 import { NON_RGB_COLOR_MODELS, RGB_COLOR_MODELS } from "../../_fixtures/RGB_COLOR_MODELS";
-import { mustBeRgbColorModel } from "./mustBeRgbColorModel";
 
 describe("mustBeRgbColorModel()", () => {
     RGB_COLOR_MODELS.forEach((fixture) => {

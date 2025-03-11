@@ -32,11 +32,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import type { CssHexColorDefinition } from "@safelytyped/css-color";
+import { normaliseCssHexColorDefinitionFormat } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { VALID_CSS_HEX_COLOR_DEFINITIONS } from "./_fixtures/CssHexColorDefinitionFixtures";
-import type { CssHexColorDefinition } from "./CssHexColorDefinition.type";
-import { normaliseCssHexColorDefinitionFormat } from "./normaliseCssHexColorDefinitionFormat";
 
 // we need to split the fixtures up into two types:
 //

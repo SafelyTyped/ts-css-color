@@ -33,9 +33,9 @@
 //
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+import { UnsupportedCssColorConversionError } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { UnsupportedCssColorConversionError } from "./UnsupportedCssColorConversionError";
 
 describe("UnsupportedCssColorDefinitionError", () => {
     describe(".constructor", () => {
@@ -44,7 +44,7 @@ describe("UnsupportedCssColorDefinitionError", () => {
                 public: {
                     dataPath: DEFAULT_DATA_PATH,
                     colorDefinition: "unsupported",
-                    targetFormat: "keyword",
+                    targetFormat: "cssNamedColor",
                 }
             });
 

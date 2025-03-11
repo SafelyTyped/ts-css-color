@@ -33,10 +33,10 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
+import { validateHslColorModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { HSL_COLOR_MODELS, NON_HSL_COLOR_MODELS } from "../../_fixtures/HSL_COLOR_MODELS";
-import { validateHslColorModel } from "./validateHslColorModel";
 
 describe("validateHslColorModel()", () => {
     HSL_COLOR_MODELS.forEach((fixture) => {

@@ -33,10 +33,10 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
+import { mustBeOklchColorModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 import { NON_OKLCH_COLOR_MODELS, OKLCH_COLOR_MODELS } from "../../_fixtures/OKLCH_COLOR_MODELS";
-import { mustBeOklchColorModel } from "./mustBeOklchColorModel";
 
 describe("mustBeOklchColorModel()", () => {
     OKLCH_COLOR_MODELS.forEach((fixture) => {

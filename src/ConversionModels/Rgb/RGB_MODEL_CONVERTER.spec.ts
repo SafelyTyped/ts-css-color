@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { RGB_MODEL_CONVERTER } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { CSS_RGB_COLOR_FIXTURES } from "../../_fixtures/CSS_RGB_COLOR_FIXTURES";
-import { RGB_MODEL_CONVERTER } from "./RGB_MODEL_CONVERTER";
 
 describe("RGB_MODEL_CONVERTER", () => {
     describe(".parse()", () => {

@@ -33,10 +33,10 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
+import { mustBeCssNamedColorColorModel } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 import { CSSNAMEDCOLOR_COLOR_MODELS, NON_CSSNAMEDCOLOR_COLOR_MODELS } from "../../_fixtures/CSSNAMEDCOLOR_COLOR_MODELS";
-import { mustBeCssNamedColorColorModel } from "./mustBeCssNamedColorColorModel";
 
 describe("mustBeCssNamedColorColorModel()", () => {
     CSSNAMEDCOLOR_COLOR_MODELS.forEach((fixture) => {
