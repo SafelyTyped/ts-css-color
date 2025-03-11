@@ -44,16 +44,16 @@ import type { CssHexColorDefinition } from "../index";
  * @param input
  * @returns
  */
-export function normaliseCssHexColorDefinitionFormat(
-    input: CssHexColorDefinition
-): CssHexColorDefinition
+export function normaliseCssHexColorDefinitionFormat<T extends string = CssHexColorDefinition>(
+    input: T
+): T
 {
     // special case - convert from '#RGB' to '#RRGGBB'
     if (input.length === 4) {
         input = "#"
             + input[1] + input[1]
             + input[2] + input[2]
-            + input[3] + input[3] as CssHexColorDefinition;
+            + input[3] + input[3] as T;
     }
 
     return input;
