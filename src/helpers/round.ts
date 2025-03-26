@@ -34,6 +34,16 @@
 
 import { roundTo } from "@safelytyped/math-rounding";
 
+/**
+ * round() rounds a number to the specified precision
+ *
+ * This is a wrapper around roundTo() from the @safelytyped/math-rounding
+ * package, to provide a consistent rounding approach throughout the library.
+ *
+ * @param precision - the number of decimal places to round to
+ * @param input - the number to round
+ * @returns the rounded number
+ */
 export function round(precision: number, input: number)
 {
     return roundTo(

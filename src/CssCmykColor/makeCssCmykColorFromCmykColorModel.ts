@@ -43,6 +43,17 @@ import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromC
 import type { CssCmykColor } from "./CssCmykColor.type";
 
 
+/**
+ * makeCssCmykColorFromCmykColorModel creates a CssCmykColor object from a CmykColorModel.
+ * 
+ * This function creates a CssCmykColor object directly from a CmykColorModel,
+ * without having to go through the more general CssColor object first.
+ * 
+ * @param colorName - the name to assign to the color
+ * @param cssDefinition - the original CSS string that defined this color
+ * @param colorModel - the CMYK color model to convert
+ * @returns a fully initialized CssCmykColor object
+ */
 export function makeCssCmykColorFromCmykColorModel(
     colorName: string,
     cssDefinition: string,

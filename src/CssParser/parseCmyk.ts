@@ -37,6 +37,16 @@ import type { CmykColorModel } from "../ColorModels/Cmyk/CmykColorModel.type";
 import { mustBeCmykColorModel } from "../ColorModels/Cmyk/mustBeCmykColorModel";
 import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
 
+/**
+ * parseCmyk converts a CSS CMYK color string to a CmykColorModel.
+ * 
+ * This function validates that the input is a valid CSS CMYK color string
+ * in the format "color(--device-cmyk c m y k)" and converts it to a CmykColorModel object.
+ *
+ * @param input - the CSS CMYK color string to parse
+ * @returns a CmykColorModel representing the input color
+ * @throws UnsupportedCssColorDefinitionError if the input is not a valid CSS CMYK color string
+ */
 export function parseCmyk(
     input: string
 ): CmykColorModel

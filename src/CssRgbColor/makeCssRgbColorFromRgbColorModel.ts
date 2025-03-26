@@ -44,7 +44,15 @@ import { makeCssOklchColorFromCssColor } from "../CssOklchColor/makeCssOklchColo
 import type { CssRgbColor } from "./CssRgbColor.type";
 
 /**
- * this mostly exists to help with unit testing
+ * makeCssRgbColorFromRgbColorModel creates a CssRgbColor object from an RgbColorModel.
+ * 
+ * This function creates a CssRgbColor object directly from an RgbColorModel,
+ * without having to go through the more general CssColor object first.
+ * 
+ * @param colorName - the name to assign to the color
+ * @param cssDefinition - the original CSS string that defined this color
+ * @param colorModel - the RGB color model to convert
+ * @returns a fully initialized CssRgbColor object
  */
 export function makeCssRgbColorFromRgbColorModel(
     colorName: string,

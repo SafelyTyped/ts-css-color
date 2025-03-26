@@ -44,6 +44,17 @@ import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromC
 import type { CssHwbColor } from "./CssHwbColor.type";
 
 
+/**
+ * makeCssHwbColorFromHwbColorModel creates a CssHwbColor object from a HwbColorModel.
+ * 
+ * This function creates a CssHwbColor object directly from a HwbColorModel,
+ * without having to go through the more general CssColor object first.
+ * 
+ * @param colorName - the name to assign to the color
+ * @param cssDefinition - the original CSS string that defined this color
+ * @param colorModel - the HWB color model to convert
+ * @returns a fully initialized CssHwbColor object
+ */
 export function makeCssHwbColorFromHwbColorModel(
     colorName: string,
     cssDefinition: string,

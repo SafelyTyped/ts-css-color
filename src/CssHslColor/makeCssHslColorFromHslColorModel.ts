@@ -44,6 +44,17 @@ import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromC
 import type { CssHslColor } from "./CssHslColor.type";
 
 
+/**
+ * makeCssHslColorFromHslColorModel creates a CssHslColor object from an HslColorModel.
+ * 
+ * This function creates a CssHslColor object directly from an HslColorModel,
+ * without having to go through the more general CssColor object first.
+ * 
+ * @param colorName - the name to assign to the color
+ * @param cssDefinition - the original CSS string that defined this color
+ * @param colorModel - the HSL color model to convert
+ * @returns a fully initialized CssHslColor object
+ */
 export function makeCssHslColorFromHslColorModel(
     colorName: string,
     cssDefinition: string,

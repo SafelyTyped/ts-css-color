@@ -45,6 +45,17 @@ import type { CssHexColor } from "./CssHexColor.type";
 
 
 
+/**
+ * makeCssHexColorFromHexColorModel creates a CssHexColor object from a HexColorModel.
+ * 
+ * This function creates a CssHexColor object directly from a HexColorModel,
+ * without having to go through the more general CssColor object first.
+ * 
+ * @param colorName - the name to assign to the color
+ * @param cssDefinition - the original CSS string that defined this color
+ * @param colorModel - the hex color model to convert
+ * @returns a fully initialized CssHexColor object
+ */
 export function makeCssHexColorFromHexColorModel(
     colorName: string,
     cssDefinition: string,

@@ -42,6 +42,11 @@ import type { ModelConverter } from "../ModelConverter.type";
 import { RGB_MODEL_CONVERTER } from "../Rgb/RGB_MODEL_CONVERTER";
 import type { RgbConversionModel } from "../Rgb/RgbConversionModel.type";
 
+/**
+ * CSSNAMEDCOLOR_MODEL_CONVERTER is a ModelConverter for CSS named colors.
+ * 
+ * It handles conversion to and from CSS named colors like "red", "blue", etc.
+ */
 export const CSSNAMEDCOLOR_MODEL_CONVERTER: ModelConverter<CssNamedColorColorModel, RgbConversionModel> = {
 
     toColorModel: (input: ConversionModel) => {

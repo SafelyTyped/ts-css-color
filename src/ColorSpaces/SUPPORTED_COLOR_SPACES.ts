@@ -41,4 +41,10 @@ const COLOR_SPACES_SET: ColorSpacesSet<undefined> = {
     "sRGB": undefined,
 };
 
+/**
+ * SUPPORTED_COLOR_SPACES is an array of all color spaces supported by this library.
+ *
+ * Color spaces define the range of colors that can be created and how they relate
+ * to each other. Each color model exists within a specific color space.
+ */
 export const SUPPORTED_COLOR_SPACES = Object.keys(COLOR_SPACES_SET) as SupportedColorSpace[];

@@ -36,6 +36,16 @@ import type { HexColorModel } from "../ColorModels/Hex/HexColorModel.type";
 import { mustBeHexColorModel } from "../ColorModels/Hex/mustBeHexColorModel";
 import { mustBeCssHexColorDefinition } from "../CssHexColorDefinition/mustBeCssHexColorDefinition";
 
+/**
+ * parseHex converts a CSS hex color string to a HexColorModel.
+ * 
+ * This function validates that the input is a valid CSS hex color string
+ * (like #RRGGBB or #RGB) and converts it to a HexColorModel object.
+ *
+ * @param input - the CSS hex color string to parse
+ * @returns a HexColorModel representing the input color
+ * @throws if the input is not a valid CSS hex color string
+ */
 export function parseHex(
     input: string
 ): HexColorModel

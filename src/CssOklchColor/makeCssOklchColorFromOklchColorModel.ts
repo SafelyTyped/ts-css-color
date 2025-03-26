@@ -43,6 +43,17 @@ import { makeCssHwbColorFromCssColor } from "../CssHwbColor/makeCssHwbColorFromC
 import { makeCssRgbColorFromCssColor } from "../CssRgbColor/makeCssRgbColorFromCssColor";
 import type { CssOklchColor } from "./CssOklchColor.type";
 
+/**
+ * makeCssOklchColorFromOklchColorModel creates a CssOklchColor object from an OklchColorModel.
+ * 
+ * This function creates a CssOklchColor object directly from an OklchColorModel,
+ * without having to go through the more general CssColor object first.
+ * 
+ * @param colorName - the name to assign to the color
+ * @param cssDefinition - the original CSS string that defined this color
+ * @param colorModel - the OKLCH color model to convert
+ * @returns a fully initialized CssOklchColor object
+ */
 export function makeCssOklchColorFromOklchColorModel(
     colorName: string,
     cssDefinition: string,

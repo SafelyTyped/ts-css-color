@@ -42,6 +42,11 @@ import type { ModelConverter } from "../ModelConverter.type";
 import { RGB_MODEL_CONVERTER } from "../Rgb/RGB_MODEL_CONVERTER";
 import type { RgbConversionModel } from "../Rgb/RgbConversionModel.type";
 
+/**
+ * HEX_MODEL_CONVERTER is a ModelConverter for hex color values.
+ * 
+ * It handles conversion to and from CSS hex color values like "#ff0000".
+ */
 export const HEX_MODEL_CONVERTER: ModelConverter<HexColorModel, RgbConversionModel> = {
 
     toColorModel: (input: ConversionModel) => {

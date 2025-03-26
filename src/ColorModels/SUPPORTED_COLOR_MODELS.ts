@@ -46,4 +46,10 @@ const COLOR_MODELS_SET: ColorModelsSet<undefined> = {
     "rgb": undefined,
 };
 
+/**
+ * SUPPORTED_COLOR_MODELS is an array of all color models supported by this library.
+ *
+ * These models define how colors are represented (such as rgb, hsl, hex, etc.)
+ * and provide the basis for color conversion between different formats.
+ */
 export const SUPPORTED_COLOR_MODELS = Object.keys(COLOR_MODELS_SET) as SupportedColorModel[];
