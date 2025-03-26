@@ -66,4 +66,31 @@ describe("CSSNAMEDCOLOR_MODEL_CONVERTER", () => {
             });
         });
     });
+
+    describe(".toCss()", () => {
+        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
+            it(`[fixture ${fixture.name}] returns the CSS named color`, () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .toCss() works as expected
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const inputValue = fixture.colorModels.cssNamedColor;
+                const expectedResult = fixture.colorModels.cssNamedColor.color;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualResult = CSSNAMEDCOLOR_MODEL_CONVERTER.toCss(inputValue, "");
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualResult).to.eqls(expectedResult);
+            });
+        });
+    });
 });

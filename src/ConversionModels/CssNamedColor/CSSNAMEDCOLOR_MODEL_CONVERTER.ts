@@ -44,7 +44,7 @@ import type { RgbConversionModel } from "../Rgb/RgbConversionModel.type";
 
 /**
  * CSSNAMEDCOLOR_MODEL_CONVERTER is a ModelConverter for CSS named colors.
- * 
+ *
  * It handles conversion to and from CSS named colors like "red", "blue", etc.
  */
 export const CSSNAMEDCOLOR_MODEL_CONVERTER: ModelConverter<CssNamedColorColorModel, RgbConversionModel> = {
@@ -52,11 +52,11 @@ export const CSSNAMEDCOLOR_MODEL_CONVERTER: ModelConverter<CssNamedColorColorMod
     toColorModel: (input: ConversionModel) => {
         const model = HEX_MODEL_CONVERTER.toColorModel(input);
 
-        return {
+        return CSSNAMEDCOLOR_MODEL_CONVERTER.normaliseColorModel({
             colorModel: "cssNamedColor",
             colorSpace: "sRGB",
             color: CSS_HEX_TO_NAMED_COLOR[model.hex],
-        };
+        });
     },
 
     // we don't need to normalise the color model
@@ -64,11 +64,13 @@ export const CSSNAMEDCOLOR_MODEL_CONVERTER: ModelConverter<CssNamedColorColorMod
 
     // we know this will never fail, because the input.hex has been
     // pre-validated to be a valid CSS HEX value
-    toConversionModel: (input: CssNamedColorColorModel) => HEX_MODEL_CONVERTER.toConversionModel({
-        colorModel: "hex",
-        colorSpace: "sRGB",
-        hex: makeCssHexColorDefinition(CSS_NAMED_COLOR_TO_HEX[input.color]),
-    }),
+    toConversionModel: (input: CssNamedColorColorModel) => CSSNAMEDCOLOR_MODEL_CONVERTER.normaliseConversionModel(
+        HEX_MODEL_CONVERTER.toConversionModel({
+            colorModel: "hex",
+            colorSpace: "sRGB",
+            hex: makeCssHexColorDefinition(CSS_NAMED_COLOR_TO_HEX[input.color]),
+        })
+    ),
 
     normaliseConversionModel: RGB_MODEL_CONVERTER.normaliseConversionModel,
 
