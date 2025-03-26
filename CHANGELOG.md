@@ -30,6 +30,10 @@ The following changes have been completed, and will be included in the next tagg
 - removed deprecated `shade()` function
 - removed deprecated `isDull()` function
 
+### Dependencies
+
+- bumped everything to latest versions
+
 ## v3.0.0
 
 Released Wednesday, 26th March 2025.
