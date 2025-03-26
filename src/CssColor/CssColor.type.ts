@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssCmykColor, CssHexColor, CssHslColor, CssHsvColor, CssHwbColor, CssNamedColor, CssOklchColor, CssRgbColor } from "..";
+import type { CssCmykColor, CssHexColor, CssHslColor, CssHsvColor, CssHwbColor, CssOklchColor, CssRgbColor } from "..";
 
 /**
  * CssColor is a type. Use it wherever you can accept and/or return
@@ -43,7 +43,6 @@ export type CssColor = CssCmykColor
     | CssHslColor
     | CssHsvColor
     | CssHwbColor
-    | CssNamedColor
     | CssOklchColor
     | CssRgbColor
     ;

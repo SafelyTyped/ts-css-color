@@ -53,7 +53,7 @@ export function makeCssHwbColorFromHwbColorModel(
     // shorthand
     const conversionModel = HWB_MODEL_CONVERTER.toConversionModel(colorModel);
     const hex = HEX_MODEL_CONVERTER.toColorModel(conversionModel).hex;
-    const keyword = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
+    const cssName = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
 
     return {
         name: colorName,
@@ -79,7 +79,7 @@ export function makeCssHwbColorFromHwbColorModel(
         },
 
         hex,
-        keyword,
+        cssName,
 
         conversionModel: conversionModel,
         channelsData: colorModel,

@@ -37,7 +37,7 @@
  *
  * anything commented out is a CSS extended color name
  */
-export const InvalidCssExtendedColors: string[] = [
+export const InvalidCssNamedColors: string[] = [
     "Absolute Zero",
     "Acid Green",
     "Aero",

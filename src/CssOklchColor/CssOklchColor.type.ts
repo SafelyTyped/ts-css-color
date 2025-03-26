@@ -36,11 +36,11 @@ import type { Maybe } from "@safelytyped/core-types";
 import type { OklchColorModel } from "../ColorModels/Oklch/OklchColorModel.type";
 import type { OklchConversionModel } from "../ConversionModels/Oklch/OklchConversionModel.type";
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor.type";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import type { CssHexColorDefinition } from "../CssHexColorDefinition/CssHexColorDefinition.type";
 import type { CssHslColor } from "../CssHslColor/CssHslColor.type";
 import type { CssHsvColor } from "../CssHsvColor/CssHsvColor.type";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor.type";
+import type { CssNamedColor } from "../CssNamedColors/CssNamedColor.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor.type";
 import type { OklchColorTuple } from "./OklchColorTuple.type";
 
@@ -58,7 +58,7 @@ export type CssOklchColor = {
     rgb: CssRgbColor;
 
     hex: CssHexColorDefinition;
-    keyword: Maybe<CssExtendedColor>;
+    cssName: Maybe<CssNamedColor>;
     conversionModel: OklchConversionModel;
     channelsData: OklchColorModel;
     channelsTuple: OklchColorTuple

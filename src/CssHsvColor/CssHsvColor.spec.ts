@@ -161,7 +161,7 @@ describe("CssHsvColor", () => {
         });
     });
 
-    describe(".keyword", () => {
+    describe(".cssName", () => {
         CSS_HSV_COLOR_FIXTURES.forEach((fixture) => {
             const colorConstructor = (fixture: ValidCssColor) => makeCssHsvColorFromHsvColorModel(
                 fixture.name,

@@ -166,7 +166,7 @@ export function testCssColorConversionsToCssNamedColor<T extends CssColor>(
         // ----------------------------------------------------------------
         // explain your test
 
-        // this test proves that that the color's .keyword field contains
+        // this test proves that that the color's .cssName field contains
         // the value we are expecting
 
         // ----------------------------------------------------------------
@@ -178,7 +178,7 @@ export function testCssColorConversionsToCssNamedColor<T extends CssColor>(
         // ----------------------------------------------------------------
         // perform the change
 
-        const actualValue = unit.keyword;
+        const actualValue = unit.cssName;
 
         // ----------------------------------------------------------------
         // test the results

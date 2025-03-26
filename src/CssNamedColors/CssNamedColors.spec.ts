@@ -33,12 +33,12 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import { CSS_EXTENDED_COLORS_TO_HEX, CssColor, CssHslColor, CssHwbColor, CssKeywordColor, CssRgbColor, makeCssColor } from "@safelytyped/css-color";
+import { CSS_NAMED_COLOR_TO_HEX, makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
 
-describe("CssExtendedColors", () => {
-    HashMap.forEach(CSS_EXTENDED_COLORS_TO_HEX, (value, name) => {
+describe("CSS Named Colors", () => {
+    HashMap.forEach(CSS_NAMED_COLOR_TO_HEX, (value, name) => {
         describe(name, () => {
             it("can be instantiated", () => {
                 // ----------------------------------------------------------------
@@ -57,8 +57,8 @@ describe("CssExtendedColors", () => {
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(unit).is.instanceOf(CssColor);
-                expect(unit).is.instanceOf(CssKeywordColor);
+                expect(unit).is.not.null;
+                expect(unit).is.not.undefined;
             });
 
             it("can be converted to RGB format", () => {
@@ -76,16 +76,14 @@ describe("CssExtendedColors", () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const converted = unit.rgb();
+                const converted = unit.rgb;
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(converted).is.instanceOf(CssRgbColor);
-
-                // we can check that the hex() matches the color definition
+                // we can check that the .hex property matches the color definition
                 // because conversion is loss-less
-                expect(converted.hex()).eql(value);
+                expect(converted.hex).eql(value);
             });
 
             it("can be converted to HSL format", () => {
@@ -103,12 +101,12 @@ describe("CssExtendedColors", () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const converted = unit.hsl();
+                const converted = unit.hsl;
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(converted).is.instanceOf(CssHslColor);
+                expect(converted.colorModel).to.eql("hsl");
 
                 // we cannot check that the hex() matches the color definition
                 // because conversion is NOT lossless
@@ -129,14 +127,14 @@ describe("CssExtendedColors", () => {
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const converted = unit.hwb();
+                const converted = unit.hwb;
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(converted).is.instanceOf(CssHwbColor);
+                expect(converted.colorModel).to.eql("hwb");
 
-                // we cannot check that the hex() matches the color definition
+                // we cannot check that the .hex matches the color definition
                 // because conversion is NOT lossless
             });
         });

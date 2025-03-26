@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025-present Ganbaro Digital Ltd
+// Copyright (c) 2024-present Ganbaro Digital Ltd
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,34 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssNamedColor } from "@safelytyped/css-color";
-import { expect } from "chai";
-import { describe } from "mocha";
-import { CSS_NAMED_COLOR_FIXTURES } from "../_fixtures/CSS_NAMED_COLOR_FIXTURES";
+import type { CssHexColorDefinition, CssNamedColor } from "../index";
 
-describe("makeCssNamedColor()", () => {
-    describe("(string input)", () => {
-        CSS_NAMED_COLOR_FIXTURES.forEach((fixture) => {
-            it("accepts " + fixture.name + ": " + fixture.definition, () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that this smart constructor accepts its
-                // native input format
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = makeCssNamedColor(fixture.colorModels.cssNamedColor.color);
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue.colorModel).to.eql("cssNamedColor");
-            });
-        });
-    });
-});
+/**
+ * CssNamedColors is a mapped type, mapping the list of CSS named
+ * color names to their definition.
+ */
+export type CssNamedColors = {
+    [P in CssNamedColor]: CssHexColorDefinition;
+};

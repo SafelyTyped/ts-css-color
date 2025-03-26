@@ -161,7 +161,7 @@ describe("CssHwbColor", () => {
         });
     });
 
-    describe(".keyword", () => {
+    describe(".cssName", () => {
         CSS_HWB_COLOR_FIXTURES.forEach((fixture) => {
             const colorConstructor = (fixture: ValidCssColor) => makeCssHwbColorFromHwbColorModel(
                 fixture.name,

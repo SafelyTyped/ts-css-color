@@ -33,20 +33,20 @@
 //
 
 import { AppError, HashMap } from "@safelytyped/core-types";
-import { mustBeCssExtendedColor } from "@safelytyped/css-color";
+import { validateCssNamedColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { InvalidCssExtendedColors } from "./_fixtures/CssExtendedColorsFixtures";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "./CssExtendedColors.const";
+import { InvalidCssNamedColors } from "./_fixtures/CssExtendedColorsFixtures";
+import { CSS_NAMED_COLOR_TO_HEX } from "./CssNamedColors.const";
 
-describe("mustBeCssExtendedColor()", () => {
-    HashMap.forEach(CSS_EXTENDED_COLORS_TO_HEX, (hex, keyword) => {
-        it("accepts CSS color keyword " + keyword, () => {
+describe("validateCssNamedColor()", () => {
+    HashMap.forEach(CSS_NAMED_COLOR_TO_HEX, (hex, cssName) => {
+        it("accepts named CSS color: " + cssName, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that mustBeCssExtendedColor() accepts
-            // the given CSS keyword
+            // this test proves that validateCssExtendedColor() accepts
+            // the given named CSS color
 
             // ----------------------------------------------------------------
             // setup your test
@@ -56,21 +56,21 @@ describe("mustBeCssExtendedColor()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualResult = mustBeCssExtendedColor(keyword);
+            const actualResult = validateCssNamedColor(cssName);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualResult).to.eql(keyword);
+            expect(actualResult).to.eql(cssName);
         });
     });
 
-    InvalidCssExtendedColors.forEach((inputValue) => {
+    InvalidCssNamedColors.forEach((inputValue) => {
         it("rejects color called " + inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that mustBeCssExtendedColor() rejects
+            // this test proves that validateCssNamedColor() rejects
             // common color names that are not part of the CSS standard
 
             // ----------------------------------------------------------------
@@ -79,22 +79,15 @@ describe("mustBeCssExtendedColor()", () => {
             // normalise
             inputValue = inputValue.toLowerCase();
 
-            let errorThrown = null;
-
             // ----------------------------------------------------------------
             // perform the change
 
-            try {
-                mustBeCssExtendedColor(inputValue);
-            }
-            catch (e) {
-                errorThrown = e;
-            }
+            const actualValue = validateCssNamedColor(inputValue);
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(errorThrown).to.be.instanceOf(AppError);
+            expect(actualValue).to.be.instanceOf(AppError);
         });
     });
 });

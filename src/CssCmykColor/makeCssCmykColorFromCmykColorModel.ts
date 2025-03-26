@@ -76,7 +76,7 @@ export function makeCssCmykColorFromCmykColorModel(
         },
 
         hex: rgbColor.hex,
-        keyword: rgbColor.keyword,
+        cssName: rgbColor.cssName,
 
         conversionModel,
         channelsData: colorModel,

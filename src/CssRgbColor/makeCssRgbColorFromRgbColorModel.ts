@@ -55,7 +55,7 @@ export function makeCssRgbColorFromRgbColorModel(
     // shorthand
     const conversionModel = RGB_MODEL_CONVERTER.toConversionModel(colorModel);
     const hex = HEX_MODEL_CONVERTER.toColorModel(conversionModel).hex;
-    const keyword = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
+    const cssName = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
 
     return {
         name: colorName,
@@ -69,7 +69,7 @@ export function makeCssRgbColorFromRgbColorModel(
         get rgb() { return this; },
 
         hex,
-        keyword,
+        cssName,
 
         conversionModel: conversionModel,
         channelsData: colorModel,

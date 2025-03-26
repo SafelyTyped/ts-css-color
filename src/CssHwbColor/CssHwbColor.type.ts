@@ -36,10 +36,10 @@ import type { Maybe } from "@safelytyped/core-types";
 import type { HwbColorModel } from "../ColorModels/Hwb/HwbColorModel.type";
 import type { HwbConversionModel } from "../ConversionModels/Hwb/HwbConversionModel.type";
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor.type";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import type { CssHexColorDefinition } from "../CssHexColorDefinition/CssHexColorDefinition.type";
 import type { CssHslColor } from "../CssHslColor/CssHslColor.type";
 import type { CssHsvColor } from "../CssHsvColor/CssHsvColor.type";
+import type { CssNamedColor } from "../CssNamedColors/CssNamedColor.type";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor.type";
 import type { HwbColorTuple } from "./HwbColorTuple.type";
@@ -58,7 +58,7 @@ export type CssHwbColor = {
     rgb: CssRgbColor;
 
     hex: CssHexColorDefinition;
-    keyword: Maybe<CssExtendedColor>;
+    cssName: Maybe<CssNamedColor>;
     conversionModel: HwbConversionModel;
     channelsData: HwbColorModel;
     channelsTuple: HwbColorTuple;

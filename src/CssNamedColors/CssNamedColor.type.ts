@@ -33,12 +33,12 @@
 //
 
 /**
- * CssExtendedColor represents all valid CSS extended color names.
+ * CssNamedColor represents all valid CSS extended color names.
  *
  * See https://developer.mozilla.org/en-US/docs/Web/CSS/named-color for
  * a list of all CSS named colors.
  */
-export type CssExtendedColor =
+export type CssNamedColor =
     "aliceblue"
     | "antiquewhite"
     | "aqua"

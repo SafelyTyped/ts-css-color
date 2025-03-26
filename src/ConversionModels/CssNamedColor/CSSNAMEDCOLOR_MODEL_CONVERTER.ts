@@ -34,8 +34,8 @@
 
 import { identity } from "@safelytyped/core-types";
 import type { CssNamedColorColorModel } from "../../ColorModels/CssNamedColor/CssNamedColorColorModel.type";
-import { CSS_EXTENDED_COLORS_TO_HEX, CSS_HEX_TO_EXTENDED_COLORS } from "../../CssExtendedColors/CssExtendedColors.const";
 import { makeCssHexColorDefinition } from "../../CssHexColorDefinition/makeCssHexColorDefinition";
+import { CSS_HEX_TO_NAMED_COLOR, CSS_NAMED_COLOR_TO_HEX } from "../../CssNamedColors/CssNamedColors.const";
 import type { ConversionModel } from "../ConversionModel.type";
 import { HEX_MODEL_CONVERTER } from "../Hex/HEX_MODEL_CONVERTER";
 import type { ModelConverter } from "../ModelConverter.type";
@@ -50,7 +50,7 @@ export const CSSNAMEDCOLOR_MODEL_CONVERTER: ModelConverter<CssNamedColorColorMod
         return {
             colorModel: "cssNamedColor",
             colorSpace: "sRGB",
-            color: CSS_HEX_TO_EXTENDED_COLORS[model.hex],
+            color: CSS_HEX_TO_NAMED_COLOR[model.hex],
         };
     },
 
@@ -62,7 +62,7 @@ export const CSSNAMEDCOLOR_MODEL_CONVERTER: ModelConverter<CssNamedColorColorMod
     toConversionModel: (input: CssNamedColorColorModel) => HEX_MODEL_CONVERTER.toConversionModel({
         colorModel: "hex",
         colorSpace: "sRGB",
-        hex: makeCssHexColorDefinition(CSS_EXTENDED_COLORS_TO_HEX[input.color]),
+        hex: makeCssHexColorDefinition(CSS_NAMED_COLOR_TO_HEX[input.color]),
     }),
 
     normaliseConversionModel: RGB_MODEL_CONVERTER.normaliseConversionModel,

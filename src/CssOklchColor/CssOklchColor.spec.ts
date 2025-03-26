@@ -161,7 +161,7 @@ describe("CssOklchColor", () => {
         });
     });
 
-    describe(".keyword", () => {
+    describe(".cssName", () => {
         CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
             const colorConstructor = (fixture: ValidCssColor) => makeCssOklchColorFromOklchColorModel(
                 fixture.name,

@@ -34,9 +34,8 @@
 
 
 import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataPath, type OnError } from "@safelytyped/core-types";
-import { makeCssNamedColor } from "../CssNamedColor/makeCssNamedColor";
 import { mustBeNonEmptyString } from "../helpers/mustBeNonEmptyString";
-import { CMYK_MODEL_CONVERTER, HEX_MODEL_CONVERTER, isCssExtendedColor, makeCssCmykColorFromConversionModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, mustBeConversionModel, parseCss, type CssColor } from "../index";
+import { CMYK_MODEL_CONVERTER, CSSNAMEDCOLOR_MODEL_CONVERTER, HEX_MODEL_CONVERTER, isCssNamedColor, makeCssCmykColorFromConversionModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, makeCssRgbColorFromConversionModel, mustBeConversionModel, parseCss, type CssColor } from "../index";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -72,9 +71,13 @@ export function makeCssColor(
     // robustness
     colorName = mustBeNonEmptyString(colorName);
 
-    // special case - do we have a CSS keyword color?
-    if (isCssExtendedColor(cssDefinition)) {
-        return makeCssNamedColor(cssDefinition, { colorName });
+    // special case - do we have a CSS named color?
+    if (isCssNamedColor(cssDefinition)) {
+        return makeCssRgbColorFromConversionModel(
+            colorName,
+            cssDefinition,
+            CSSNAMEDCOLOR_MODEL_CONVERTER.parse(cssDefinition),
+        );
     }
 
     // special case - do we have a CSS hex color?

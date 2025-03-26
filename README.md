@@ -63,18 +63,14 @@ const myColor = makeCssColor("red");
   - [How To Create A CssHwbColor](#how-to-create-a-csshwbcolor)
   - [Color Channels](#color-channels-4)
   - [Channel Data](#channel-data-4)
-- [CssNamedColor](#cssnamedcolor)
-  - [How To Create A CssNamedColor](#how-to-create-a-cssnamedcolor)
-  - [Color Channels](#color-channels-5)
-  - [Channel Data](#channel-data-5)
 - [CssOklchColor](#cssoklchcolor)
   - [How To Create A CssOklchColor](#how-to-create-a-cssoklchcolor)
-  - [Color Channels](#color-channels-6)
-  - [Channel Data](#channel-data-6)
+  - [Color Channels](#color-channels-5)
+  - [Channel Data](#channel-data-5)
 - [CssRgbColor](#cssrgbcolor)
   - [How To Create A CssRgbColor](#how-to-create-a-cssrgbcolor)
-  - [Color Channels](#color-channels-7)
-  - [Channel Data](#channel-data-7)
+  - [Color Channels](#color-channels-6)
+  - [Channel Data](#channel-data-6)
 - [Inspectors](#inspectors)
   - [contrastRatio()](#contrastratio)
   - [darkModeContrastRatio()](#darkmodecontrastratio)
@@ -89,9 +85,10 @@ const myColor = makeCssColor("red");
   - [tonality()](#tonality)
   - [wcagContrast()](#wcagcontrast)
 - [CSS Named Colors](#css-named-colors)
-  - [Quick Summary](#quick-summary)
-  - [CSS\_NAMED\_COLORS\_TO\_HEX](#css_named_colors_to_hex)
-  - [CSS\_HEX\_TO\_NAMED\_COLORS](#css_hex_to_named_colors)
+  - [What Are CSS Named Colors?](#what-are-css-named-colors)
+  - [CssNamedColor](#cssnamedcolor)
+  - [CSS\_NAMED\_COLOR\_TO\_HEX](#css_named_color_to_hex)
+  - [CSS\_HEX\_TO\_NAMED\_COLOR](#css_hex_to_named_color)
   - [isCssNamedColor()](#iscssnamedcolor)
   - [mustBeCssNamedColor()](#mustbecssnamedcolor)
   - [validateCssNamedColor()](#validatecssnamedcolor)
@@ -739,55 +736,6 @@ const channelData = hwbColor1.channelsData;
 const hwbColor2 = makeCssHwbColorFromHwbColorModel(channelData);
 ```
 
-## CssNamedColor
-
-### How To Create A CssNamedColor
-
-`CssNamedColor` is special. You cannot convert other colors to it. Mostly because there's no need to: we already add the `.cssName` property to all CssColor objects.
-
-You can call `makeCssNamedColor()` directly to create a `CssNamedColor` object.
-
-```typescript
-import { makeCssNamedColor } from "@safelytyped/css-color";
-
-// works with CSS NAMED COLORS
-const color1 = makeCssNamedColor("rebeccapurple");
-```
-
-You can also pass CSS named colors into `makeCssColor()`:
-
-```typescript
-import { makeCssColor } from "@safelytyped/css-color";
-
-// works with CSS NAMED COLORS
-const color1 = makeCssColor("rebeccapurple");
-```
-
-### Color Channels
-
-`CssNamedColor` has no color channels of its own. Convert `CssNamedColor` objects to other formats to access their color channels instead.
-
-### Channel Data
-
-`CssNamedColor.channelsData` returns the CSS named color definition as a plain object:
-
-```typescript
-// smart constructor for creating CssNamedColor objects directly
-import { makeCssNamedColor } from "@safelytyped/css-color";
-
-// create a CssNamedColor to inspect
-const color1 = makeCssNamedColor("rebeccapurple");
-
-// outputs:
-//
-// {
-//     colorModel: "cssNamedColor",
-//     colorSpace: "sRGB",
-//     color: "rebeccapurple",
-// }
-console.log(cssNamedColor.channelsData);
-```
-
 ## CssOklchColor
 
 ### How To Create A CssOklchColor
@@ -1277,14 +1225,87 @@ console.log(
 
 ## CSS Named Colors
 
-### Quick Summary
+### What Are CSS Named Colors?
 
-### CSS_NAMED_COLORS_TO_HEX
+[CSS named colors](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color) are the color names supported by all browsers.
 
-### CSS_HEX_TO_NAMED_COLORS
+For example: "black", "white", "rebeccapurple" are all CSS named colors.
+
+(You may have seen these referred to as "CSS extended colors" in the past. This term has been dropped in the latest [CSS Color Module Level 4 draft spec](https://drafts.csswg.org/css-color/#named-colors)).
+
+### CssNamedColor
+
+`CssNamedColor` is a string literal type. It contains all the known CSS color names.
+
+Use it whenever you want to force someone to pass a CSS named color as a parameter into a function.
+
+### CSS_NAMED_COLOR_TO_HEX
+
+`CSS_NAMED_COLOR_TO_HEX` is a map. Use it to find the CSS hex value of any given CSS named color.
+
+```typescript
+import {
+    type CssNamedColor,
+    CSS_NAMED_COLOR_TO_HEX
+} from "@safelytyped/css-color";
+
+// outputs: #ff0000
+console.log(
+    CSS_NAMED_COLOR_TO_HEX(mustBeCssNamedColor("red"))
+);
+```
+
+### CSS_HEX_TO_NAMED_COLOR
+
+`CSS_HEX_TO_NAMED_COLOR` is a map. Use it to find the named CSS color that matches the given CSS hex definition.
+
+```typescript
+import {
+    mustBeCssHexDefinition,
+    CSS_HEX_TO_NAMED_COLOR
+} from "@safelytyped/css-color";
+
+// outputs: white
+console.log(
+    CSS_HEX_TO_NAMED_COLOR(
+        mustBeCssHexDefinition("#ffffff")
+    )
+);
+```
+
+If two or more CSS named colors have the same hex definition, we don't guarantee which named color we'll return.
 
 ### isCssNamedColor()
 
+`isCssNamedColor()` is a data guard. Use it to prove to the Typescript compiler that the given input is a CSS named color.
+
+```typescript
+import { isCssNamedColor } from "@safelytyped/css-color";
+
+const myColor = "red";
+if (isCssNamedColor(myColor)) {
+    // tsc now treats `myColor` as a `CssNamedColor`
+}
+```
+
 ### mustBeCssNamedColor()
 
+`mustBeCssNamedColor()` is a data guarantee. Use it to ensure that the given input is a CSS named color.
+
+Throws an error if the given input is not a valid CSS named color.
+
+```typescript
+import { mustBeCssNamedColor } from "@safelytyped/css-color";
+
+// myColor has the type: CssNamedColor
+const myColor = mustBeCssNamedColor("red");
+
+// throws an error
+const badColor = mustBeCssNamedColor("amaranth");
+```
+
 ### validateCssNamedColor()
+
+`validateCssNamedColor()` is a data validator. It's used by both `isCssNamedColor()` and `mustBeCssNamedColor()` to determine if the given input is a CSS named color or not.
+
+Only call this directly from other validators.

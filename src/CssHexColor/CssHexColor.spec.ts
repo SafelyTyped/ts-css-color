@@ -138,7 +138,7 @@ describe("CssHexColor", () => {
         });
     });
 
-    describe(".keyword", () => {
+    describe(".cssName", () => {
         CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
             const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
                 fixture.name,

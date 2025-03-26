@@ -33,20 +33,20 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import { isCssExtendedColor } from "@safelytyped/css-color";
+import { isCssNamedColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { InvalidCssExtendedColors } from "./_fixtures/CssExtendedColorsFixtures";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "./CssExtendedColors.const";
+import { InvalidCssNamedColors } from "./_fixtures/CssExtendedColorsFixtures";
+import { CSS_NAMED_COLOR_TO_HEX } from "./CssNamedColors.const";
 
-describe("isCssExtendedColor()", () => {
-    HashMap.forEach(CSS_EXTENDED_COLORS_TO_HEX, (hex, keyword) => {
-        it("accepts CSS color keyword " + keyword, () => {
+describe("isCssNamedColor()", () => {
+    HashMap.forEach(CSS_NAMED_COLOR_TO_HEX, (hex, cssName) => {
+        it("accepts named CSS color: " + cssName, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that isCssExtendedColor() accepts
-            // the given CSS keyword
+            // this test proves that isCssNamedColor() accepts
+            // the given CSS named color
 
             // ----------------------------------------------------------------
             // setup your test
@@ -56,7 +56,7 @@ describe("isCssExtendedColor()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualResult = isCssExtendedColor(keyword);
+            const actualResult = isCssNamedColor(cssName);
 
             // ----------------------------------------------------------------
             // test the results
@@ -65,12 +65,12 @@ describe("isCssExtendedColor()", () => {
         });
     });
 
-    InvalidCssExtendedColors.forEach((inputValue) => {
+    InvalidCssNamedColors.forEach((inputValue) => {
         it("rejects color called " + inputValue, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that isCssExtendedColor() rejects
+            // this test proves that isCssNamedColor() rejects
             // common color names that are not part of the CSS standard
 
             // ----------------------------------------------------------------
@@ -82,7 +82,7 @@ describe("isCssExtendedColor()", () => {
             // ----------------------------------------------------------------
             // perform the change
 
-            const actualResult = isCssExtendedColor(inputValue);
+            const actualResult = isCssNamedColor(inputValue);
 
             // ----------------------------------------------------------------
             // test the results

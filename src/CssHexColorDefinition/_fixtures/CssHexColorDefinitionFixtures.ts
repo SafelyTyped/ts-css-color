@@ -33,7 +33,7 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../../CssExtendedColors/CssExtendedColors.const";
+import { CSS_NAMED_COLOR_TO_HEX } from "../../CssNamedColors/CssNamedColors.const";
 import { DARK_COLORS, LIGHT_COLORS, MIDTONE_COLORS } from "../../inspectors/_fixtures/colorShades";
 import type { CssHexColorDefinition } from "../CssHexColorDefinition.type";
 import { normaliseCssHexColorDefinition } from "../normaliseCssHexColorDefinition";
@@ -42,7 +42,7 @@ export const VALID_CSS_HEX_COLOR_DEFINITIONS: {inputValue: CssHexColorDefinition
 
 const validHexColors = [    // we use Set() to dedupe the color definitions
     ...new Set([
-        ...HashMap.values(CSS_EXTENDED_COLORS_TO_HEX),
+        ...HashMap.values(CSS_NAMED_COLOR_TO_HEX),
         ...LIGHT_COLORS,
         ...DARK_COLORS,
         ...MIDTONE_COLORS

@@ -139,12 +139,12 @@ export { HEX_MODEL_CONVERTER } from "./ConversionModels/Hex/HEX_MODEL_CONVERTER"
 
 export type { CssColor } from "./CssColor/CssColor.type";
 
-export type { CssExtendedColor } from "./CssExtendedColors/CssExtendedColor.type";
-export { CSS_EXTENDED_COLORS_TO_HEX, CSS_HEX_TO_EXTENDED_COLORS } from "./CssExtendedColors/CssExtendedColors.const";
-export type { CssExtendedColors } from "./CssExtendedColors/CssExtendedColors.type";
-export { isCssExtendedColor } from "./CssExtendedColors/isCssExtendedColor";
-export { mustBeCssExtendedColor } from "./CssExtendedColors/mustBeCssExtendedColor";
-export { validateCssExtendedColor } from "./CssExtendedColors/validateCssExtendedColor";
+export type { CssNamedColor } from "./CssNamedColors/CssNamedColor.type";
+export { CSS_HEX_TO_NAMED_COLOR, CSS_NAMED_COLOR_TO_HEX } from "./CssNamedColors/CssNamedColors.const";
+export type { CssNamedColors } from "./CssNamedColors/CssNamedColors.type";
+export { isCssNamedColor } from "./CssNamedColors/isCssNamedColor";
+export { mustBeCssNamedColor } from "./CssNamedColors/mustBeCssNamedColor";
+export { validateCssNamedColor } from "./CssNamedColors/validateCssNamedColor";
 
 export type { CmykColorTuple } from "./CssCmykColor/CmykColorTuple.type";
 export type { CssCmykColor } from "./CssCmykColor/CssCmykColor.type";
@@ -152,10 +152,6 @@ export { makeCssCmykColor } from "./CssCmykColor/makeCssCmykColor";
 export { makeCssCmykColorFromCmykColorModel } from "./CssCmykColor/makeCssCmykColorFromCmykColorModel";
 export { makeCssCmykColorFromConversionModel } from "./CssCmykColor/makeCssCmykColorFromConversionModel";
 export { makeCssCmykColorFromCssColor } from "./CssCmykColor/makeCssCmykColorFromCssColor";
-
-export type { CssNamedColor } from "./CssNamedColor/CssNamedColor.type";
-export { makeCssNamedColor } from "./CssNamedColor/makeCssNamedColor";
-export { makeCssNamedColorFromCssNamedColorModel } from "./CssNamedColor/makeCssNamedColorFromCssNamedColorModel";
 
 export type { CssHexColor } from "./CssHexColor/CssHexColor.type";
 export { makeCssHexColor } from "./CssHexColor/makeCssHexColor";

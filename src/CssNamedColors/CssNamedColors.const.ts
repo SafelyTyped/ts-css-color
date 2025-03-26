@@ -34,14 +34,14 @@
 
 import { HashMap } from "@safelytyped/core-types";
 import { makeCssHexColorDefinition } from "../CssHexColorDefinition/makeCssHexColorDefinition";
-import type { CssExtendedColor } from "./CssExtendedColor.type";
-import type { CssExtendedColors } from "./CssExtendedColors.type";
+import type { CssNamedColor } from "./CssNamedColor.type";
+import type { CssNamedColors } from "./CssNamedColors.type";
 
 /**
- * CSS_EXTENDED_COLORS_TO_HEX is a map, mapping the list of CSS extended
+ * CSS_NAMED_COLOR_TO_HEX is a map, mapping the list of CSS named
  * color names to their hex definition.
  */
-export const CSS_EXTENDED_COLORS_TO_HEX: CssExtendedColors = {
+export const CSS_NAMED_COLOR_TO_HEX: CssNamedColors = {
     "aliceblue": makeCssHexColorDefinition("#f0f8ff"),
     "antiquewhite": makeCssHexColorDefinition("#faebd7"),
     "aqua": makeCssHexColorDefinition("#00ffff"),
@@ -193,14 +193,14 @@ export const CSS_EXTENDED_COLORS_TO_HEX: CssExtendedColors = {
 };
 
 /**
- * CSS_HEX_TO_EXTENDED_COLORS is a map, mapping CSS hex colors to their
- * CSS extended color names.
+ * CSS_HEX_TO_NAMED_COLOR is a map, mapping CSS hex colors to their
+ * CSS named color names.
  *
- * Some CSS extended colors are aliases; in this case, CSS_HEX_TO_EXTENDED_COLORS
+ * Some CSS named colors are aliases; in this case, CSS_HEX_TO_NAMED_COLOR
  * will map onto only one of the aliases (we do not guarantee which one).
  */
-export const CSS_HEX_TO_EXTENDED_COLORS: Record<string, CssExtendedColor> = {};
+export const CSS_HEX_TO_NAMED_COLOR: Record<string, CssNamedColor> = {};
 
-HashMap.forEach(CSS_EXTENDED_COLORS_TO_HEX, (value, name) => {
-    CSS_HEX_TO_EXTENDED_COLORS[value] = name as CssExtendedColor;
+HashMap.forEach(CSS_NAMED_COLOR_TO_HEX, (value, name) => {
+    CSS_HEX_TO_NAMED_COLOR[value] = name as CssNamedColor;
 });

@@ -161,7 +161,7 @@ describe("CssCmykColor", () => {
         });
     });
 
-    describe(".keyword", () => {
+    describe(".cssName", () => {
         CSS_CMYK_COLOR_FIXTURES.forEach((fixture) => {
             const colorConstructor = (fixture: ValidCssColor) => makeCssCmykColorFromCmykColorModel(
                 fixture.name,

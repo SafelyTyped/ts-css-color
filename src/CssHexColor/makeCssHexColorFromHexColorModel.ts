@@ -53,7 +53,7 @@ export function makeCssHexColorFromHexColorModel(
 {
     // shorthand
     const conversionModel = HEX_MODEL_CONVERTER.toConversionModel(colorModel);
-    const keyword = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
+    const cssName = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
 
     return {
         name: colorName,
@@ -78,7 +78,7 @@ export function makeCssHexColorFromHexColorModel(
             return makeCssRgbColorFromCssColor(this);
         },
 
-        keyword,
+        cssName,
 
         conversionModel: conversionModel,
         channelsData: colorModel,

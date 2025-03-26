@@ -52,7 +52,7 @@ export function makeCssOklchColorFromOklchColorModel(
     // shorthand
     const conversionModel = OKLCH_MODEL_CONVERTER.toConversionModel(colorModel);
     const hex = HEX_MODEL_CONVERTER.toColorModel(conversionModel).hex;
-    const keyword = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
+    const cssName = CSSNAMEDCOLOR_MODEL_CONVERTER.toColorModel(conversionModel)?.color;
 
     return {
         name: colorName,
@@ -78,7 +78,7 @@ export function makeCssOklchColorFromOklchColorModel(
         },
 
         hex,
-        keyword,
+        cssName,
 
         conversionModel: conversionModel,
         channelsData: colorModel,

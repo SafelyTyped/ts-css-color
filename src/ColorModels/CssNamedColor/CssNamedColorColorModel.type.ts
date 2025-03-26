@@ -32,10 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { CssExtendedColor } from "../..";
+import type { CssNamedColor } from "../..";
 
 export type CssNamedColorColorModel = {
     colorModel: "cssNamedColor";
     colorSpace: "sRGB";
-    color: CssExtendedColor;
+    color: CssNamedColor;
 };

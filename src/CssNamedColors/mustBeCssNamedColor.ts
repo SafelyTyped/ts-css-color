@@ -32,22 +32,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { IS_TYPE_DEFAULT_OPTIONS, isType } from "@safelytyped/core-types";
-import { validateCssExtendedColor, type CssExtendedColor } from "../index";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, mustBe, type TypeGuaranteeOptions } from "@safelytyped/core-types";
+import { validateCssNamedColor, type CssNamedColor } from "../index";
 
-/**
- * isCssExtendedColor() is a type guard. Use it to prove that the given
- * input is a {@link CssExtendedColor}.
- *
- * @param input
- * - the value to check
- * @returns
- * - `true` if `input` is a valid {@link CssExtendedColor}
- * - `false` otherwise
- */
-export function isCssExtendedColor(
-    input: unknown
-): input is CssExtendedColor
+export function mustBeCssNamedColor(
+    input: unknown,
+    {
+        path = DEFAULT_DATA_PATH,
+        onError = THROW_THE_ERROR
+    }: TypeGuaranteeOptions = {}
+): CssNamedColor
 {
-    return isType(validateCssExtendedColor, input, IS_TYPE_DEFAULT_OPTIONS);
+    return mustBe(input, { onError })
+        .next((x) => validateCssNamedColor(x, { path }))
+        .value();
 }

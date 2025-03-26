@@ -36,11 +36,11 @@ import type { Maybe } from "@safelytyped/core-types";
 import type { HexColorModel } from "../ColorModels/Hex/HexColorModel.type";
 import type { RgbConversionModel } from "../ConversionModels/Rgb/RgbConversionModel.type";
 import type { CssCmykColor } from "../CssCmykColor/CssCmykColor.type";
-import type { CssExtendedColor } from "../CssExtendedColors/CssExtendedColor.type";
 import type { CssHexColorDefinition } from "../CssHexColorDefinition/CssHexColorDefinition.type";
 import type { CssHslColor } from "../CssHslColor/CssHslColor.type";
 import type { CssHsvColor } from "../CssHsvColor/CssHsvColor.type";
 import type { CssHwbColor } from "../CssHwbColor/CssHwbColor.type";
+import type { CssNamedColor } from "../CssNamedColors/CssNamedColor.type";
 import type { CssOklchColor } from "../CssOklchColor/CssOklchColor.type";
 import type { CssRgbColor } from "../CssRgbColor/CssRgbColor.type";
 import type { HexColorTuple } from "./HexColorTuple.type";
@@ -59,7 +59,7 @@ export type CssHexColor = {
     rgb: CssRgbColor;
 
     hex: CssHexColorDefinition;
-    keyword: Maybe<CssExtendedColor>;
+    cssName: Maybe<CssNamedColor>;
     conversionModel: RgbConversionModel;
     channelsData: HexColorModel;
     channelsTuple: HexColorTuple;

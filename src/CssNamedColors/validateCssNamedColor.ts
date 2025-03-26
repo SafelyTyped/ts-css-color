@@ -33,30 +33,30 @@
 //
 
 import { DEFAULT_DATA_PATH, HashMap, validate, validateString, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
-import { CSS_EXTENDED_COLORS_TO_HEX, InvalidCssColorNameError, type CssExtendedColor } from "../index";
+import { CSS_NAMED_COLOR_TO_HEX, InvalidCssColorNameError, type CssNamedColor } from "../index";
 
-export function validateCssExtendedColor(
+export function validateCssNamedColor(
     input: unknown,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions = {}
-): AppErrorOr<CssExtendedColor>
+): AppErrorOr<CssNamedColor>
 {
     return validate(input)
         .next((x) => validateString(x, { path }))
-        .next((x) => validateStringIsCssExtendedColor(x, { path }))
+        .next((x) => validateStringIsCssNamedColor(x, { path }))
         .value();
 }
 
-function validateStringIsCssExtendedColor(
+function validateStringIsCssNamedColor(
     input: string,
     {
         path = DEFAULT_DATA_PATH
     }: TypeValidatorOptions = {}
-): AppErrorOr<CssExtendedColor>
+): AppErrorOr<CssNamedColor>
 {
-    if (HashMap.has(CSS_EXTENDED_COLORS_TO_HEX, input)) {
-        return input as CssExtendedColor;
+    if (HashMap.has(CSS_NAMED_COLOR_TO_HEX, input)) {
+        return input as CssNamedColor;
     }
 
     return new InvalidCssColorNameError({

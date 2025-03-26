@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CSS_EXTENDED_COLORS_TO_HEX, makeCssColor } from "../index";
+import { CSS_NAMED_COLOR_TO_HEX, makeCssColor } from "../index";
 
 // this is a list of colors that we use in our operations
 //
@@ -41,5 +41,5 @@ import { CSS_EXTENDED_COLORS_TO_HEX, makeCssColor } from "../index";
 //
 // there's no need to export these outside the package
 
-export const BLACK = makeCssColor(CSS_EXTENDED_COLORS_TO_HEX.black);
-export const WHITE = makeCssColor(CSS_EXTENDED_COLORS_TO_HEX.white);
+export const BLACK = makeCssColor(CSS_NAMED_COLOR_TO_HEX.black);
+export const WHITE = makeCssColor(CSS_NAMED_COLOR_TO_HEX.white);
