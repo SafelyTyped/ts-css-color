@@ -41,10 +41,19 @@ import { contrastRatio, type CssColor } from "../index";
  *
  * @param input -
  * the color to compare against white
+ * @param lightModeBg -
+ * the color to compare against, instead of using WHITE
  * @returns the calculated contrast ratio, which you can then use in other
  * functions such as {@link contrastLevels}
  */
-export function lightModeContrastRatio(input: CssColor): number
+export function lightModeContrastRatio(
+    input: CssColor,
+    {
+        lightModeBg = WHITE
+    }: {
+        lightModeBg?: CssColor
+    } = {}
+): number
 {
-    return contrastRatio(input, WHITE);
+    return contrastRatio(input, lightModeBg);
 }

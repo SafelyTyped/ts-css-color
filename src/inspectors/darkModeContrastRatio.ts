@@ -41,10 +41,19 @@ import { contrastRatio, type CssColor } from "../index";
  *
  * @param input -
  * the color to compare against black
+ * @param darkModeBg -
+ * replace BLACK with the dark mode color of your choice
  * @returns the calculated contrast ratio, which you can then use in other
  * functions such as {@link contrastLevels}
  */
-export function darkModeContrastRatio(input: CssColor)
+export function darkModeContrastRatio(
+    input: CssColor,
+    {
+        darkModeBg = BLACK
+    }: {
+        darkModeBg?: CssColor
+    } = {}
+)
 {
-    return contrastRatio(input, BLACK);
+    return contrastRatio(input, darkModeBg);
 }
