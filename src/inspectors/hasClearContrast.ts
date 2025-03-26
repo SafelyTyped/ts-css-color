@@ -38,8 +38,8 @@ import { tonality, type CssColor } from "../index";
  * hasClearContrast() determines whether or not two given colors are
  * different from each other on a black-and-white scale.
  *
- * It's an alternative to the {@link contrastRatio}, useful for making
- * decisions outside of the WCAG approach.
+ * Combine this with {@link contrastRatio} to catch the color pairs that
+ * the WCAG 2.2 formula alone doesn't catch.
  *
  * @param a - a color to compare
  * @param b - the other color to compare against
