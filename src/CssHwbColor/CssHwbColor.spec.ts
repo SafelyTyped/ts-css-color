@@ -61,7 +61,14 @@ describe("CssHwbColor", () => {
                 fixture.colorModels.hwb,
             );
 
-            testCssColorConversionsToTarget(colorConstructor, fixture, "cmyk", (c: CssColor) => c.cmyk, fixture.colorModels.cmyk);
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "cmyk",
+                (c: CssColor) => c.cmyk,
+                fixture.colorModels.cmyk,
+                fixture.css.cmyk,
+            );
         });
     });
 
@@ -72,7 +79,14 @@ describe("CssHwbColor", () => {
                 fixture.definition,
                 fixture.colorModels.hwb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "hsl", (c: CssColor) => c.hsl, fixture.colorModels.hsl);
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "hsl",
+                (c: CssColor) => c.hsl,
+                fixture.colorModels.hsl,
+                fixture.css.hsl,
+            );
         });
     });
 
@@ -83,7 +97,14 @@ describe("CssHwbColor", () => {
                 fixture.definition,
                 fixture.colorModels.hwb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "hsv", (c: CssColor) => c.hsv, fixture.colorModels.hsv);
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "hsv",
+                (c: CssColor) => c.hsv,
+                fixture.colorModels.hsv,
+                fixture.css.hsv,
+            );
         });
     });
 
@@ -94,7 +115,14 @@ describe("CssHwbColor", () => {
                 fixture.definition,
                 fixture.colorModels.hwb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "hwb", (c: CssColor) => c.hwb, fixture.colorModels.hwb);
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "hwb",
+                (c: CssColor) => c.hwb,
+                fixture.colorModels.hwb,
+                fixture.css.hwb,
+            );
 
             it("[fixture " + fixture.name + "] returns itself when converted to HWB", () => {
                 // ----------------------------------------------------------------
@@ -128,7 +156,14 @@ describe("CssHwbColor", () => {
                 fixture.definition,
                 fixture.colorModels.hwb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "oklch", (c: CssColor) => c.oklch, fixture.colorModels.oklch);
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "oklch",
+                (c: CssColor) => c.oklch,
+                fixture.colorModels.oklch,
+                fixture.css.oklch,
+            );
         });
     });
 
@@ -139,7 +174,14 @@ describe("CssHwbColor", () => {
                 fixture.definition,
                 fixture.colorModels.hwb,
             );
-            testCssColorConversionsToTarget(colorConstructor, fixture, "rgb", (c: CssColor) => c.rgb, fixture.colorModels.rgb);
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "rgb",
+                (c: CssColor) => c.rgb,
+                fixture.colorModels.rgb,
+                fixture.css.rgb,
+            );
         });
     });
 

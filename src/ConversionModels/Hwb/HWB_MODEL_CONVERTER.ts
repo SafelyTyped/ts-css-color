@@ -32,8 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { hwb } from "culori";
-import { convertViaRgb, mustBeHwbColorModel, parseCss, RGB_MODEL_CONVERTER, round, type ConversionModel, type HwbColorModel, type HwbConversionModel, type ModelConverter } from "../..";
+import { formatCss, hwb } from "culori";
+import { mustBeHwbColorModel, parseCss, round, type ConversionModel, type HwbColorModel, type HwbConversionModel, type ModelConverter } from "../..";
 
 export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionModel> = {
     toConversionModel: (input: HwbColorModel) => {
@@ -82,14 +82,8 @@ export const HWB_MODEL_CONVERTER: ModelConverter<HwbColorModel, HwbConversionMod
 
     parse: (input: string) => HWB_MODEL_CONVERTER.normaliseConversionModel(hwb(parseCss(input))),
 
-    // HWB isn't supported in CSS, so fallback to RGB
-    toCss: (input: HwbColorModel, fallback: string) => RGB_MODEL_CONVERTER.toCss(
-        RGB_MODEL_CONVERTER.toColorModel(
-            convertViaRgb(
-                HWB_MODEL_CONVERTER.toConversionModel(input)
-            )
-        ),
-        fallback
+    toCss: (input: HwbColorModel, fallback: string) => formatCss(
+        HWB_MODEL_CONVERTER.toConversionModel(input)
     ),
 };
 

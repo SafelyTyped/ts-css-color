@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { formatCss, rgb } from "culori";
+import { formatRgb, rgb } from "culori";
 import { mustBeRgbColorModel } from "../../ColorModels/Rgb/mustBeRgbColorModel";
 import type { RgbColorModel } from "../../ColorModels/Rgb/RgbColorModel.type";
 import { parseCss } from "../../CssParser/parseCss";
@@ -87,6 +87,6 @@ export const RGB_MODEL_CONVERTER: ModelConverter<RgbColorModel, RgbConversionMod
     },
 
     parse: (input: string) => RGB_MODEL_CONVERTER.normaliseConversionModel(rgb(parseCss(input))),
-    toCss: (input: RgbColorModel) => formatCss(RGB_MODEL_CONVERTER.toConversionModel(input)),
+    toCss: (input: RgbColorModel) => formatRgb(RGB_MODEL_CONVERTER.toConversionModel(input)),
 };
 

@@ -50,6 +50,7 @@ export function testCssColorConversionsToTarget<T extends CssColor, R extends Cs
     target: string,
     colorConverter: ColorConverter<T,R>,
     expectedColorModel: M,
+    expectedCssDefinition: string|undefined,
 )
 {
     it("[fixture " + fixture.name + "] converts the original color to " + target.toUpperCase() + " format", () => {
@@ -119,6 +120,31 @@ export function testCssColorConversionsToTarget<T extends CssColor, R extends Cs
         // perform the change
 
         const actualResult = colorConverter(unit).definition;
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualResult).to.eql(expectedResult);
+    });
+
+    it(`[fixture ${fixture.name}] produces the right CSS definition for a ${target.toUpperCase()} color`, () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        // this test proves that, after conversion, the resulting CssColor
+        // can generate a CSS definition using the converted color's
+        // natural color model
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const unit = colorConverter(colorConstructor(fixture));
+        const expectedResult = expectedCssDefinition;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualResult = unit.css;
 
         // ----------------------------------------------------------------
         // test the results

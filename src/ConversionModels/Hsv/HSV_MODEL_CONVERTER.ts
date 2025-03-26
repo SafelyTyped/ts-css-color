@@ -32,14 +32,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { hsv } from "culori";
+import { formatCss, hsv } from "culori";
 import type { HsvColorModel } from "../../ColorModels/Hsv/HsvColorModel.type";
 import { mustBeHsvColorModel } from "../../ColorModels/Hsv/mustBeHsvColorModel";
-import { convertViaRgb } from "../../ColorSpaces/convertViaRgb";
 import { parseCss } from "../../CssParser/parseCss";
 import { round } from "../../helpers/round";
 import type { ConversionModel } from "../ConversionModel.type";
-import { HSL_MODEL_CONVERTER } from "../Hsl/HSL_MODEL_CONVERTER";
 import type { ModelConverter } from "../ModelConverter.type";
 import type { HsvConversionModel } from "./HsvConversionModel.type";
 
@@ -91,15 +89,18 @@ export const HSV_MODEL_CONVERTER: ModelConverter<HsvColorModel, HsvConversionMod
     parse: (input: string) =>  HSV_MODEL_CONVERTER.normaliseConversionModel(hsv(parseCss(input))),
 
     // HSV isn't supported in CSS, but hsl() is!
-    toCss: (input: HsvColorModel, fallback: string) => {
-        return HSL_MODEL_CONVERTER.toCss(
-            HSL_MODEL_CONVERTER.toColorModel(
-                convertViaRgb(
-                    HSV_MODEL_CONVERTER.toConversionModel(input)
-                )
-            ),
-            fallback
-        );
-    },
+    // toCss: (input: HsvColorModel, fallback: string) => {
+    //     return HSL_MODEL_CONVERTER.toCss(
+    //         HSL_MODEL_CONVERTER.toColorModel(
+    //             convertViaRgb(
+    //                 HSV_MODEL_CONVERTER.toConversionModel(input)
+    //             )
+    //         ),
+    //         fallback
+    //     );
+    // },
+    toCss: (input: HsvColorModel, fallback: string) => formatCss(
+        HSV_MODEL_CONVERTER.toConversionModel(input)
+    ),
 };
 
