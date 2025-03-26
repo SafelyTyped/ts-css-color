@@ -48,7 +48,7 @@ export type CssOklchColor = {
     name: string;
     definition: string;
     colorModel: "oklch";
-    colorSpace: "OKLCH";
+    colorSpace: "OKLAB";
 
     cmyk: CssCmykColor;
     hsl: CssHslColor;

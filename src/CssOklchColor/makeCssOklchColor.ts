@@ -49,7 +49,7 @@ export function makeCssOklchColor(
     }
 
     // special case - no conversion needed
-    if (input.colorModel === "oklch" && input.colorSpace === "OKLCH") {
+    if (input.colorModel === "oklch" && input.colorSpace === "OKLAB") {
         return input;
     }
 

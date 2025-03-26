@@ -37,7 +37,7 @@ import type { SupportedColorSpace } from "./SupportedColorSpace.type";
 
 const COLOR_SPACES_SET: ColorSpacesSet<undefined> = {
     "CMYK": undefined,
-    "OKLCH": undefined,
+    "OKLAB": undefined,
     "sRGB": undefined,
 };
 

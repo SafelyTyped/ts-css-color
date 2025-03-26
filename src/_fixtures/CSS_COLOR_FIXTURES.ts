@@ -126,7 +126,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.503088,
                 chroma: 0,
                 hue: 0,
@@ -198,7 +198,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.525477,
                 chroma: 0.137772,
                 hue: 152.154811,
@@ -274,7 +274,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.627955,
                 chroma: 0.257683,
                 hue: 29.233885,
@@ -350,7 +350,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0,
                 chroma: 0,
                 hue: 0,
@@ -426,7 +426,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0,
                 chroma: 0,
                 hue: 0,
@@ -502,7 +502,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 1,
                 chroma: 0,
                 hue: 0,
@@ -578,7 +578,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 1,
                 chroma: 0,
                 hue: 0,
@@ -650,7 +650,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.799032,
                 chroma: 0.132928,
                 hue: 226.616339,
@@ -722,7 +722,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.883484,
                 chroma: 0.045467,
                 hue: 135.090312,
@@ -798,7 +798,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.271165,
                 chroma: 0.187899,
                 hue: 264.052021,
@@ -874,7 +874,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.270386,
                 chroma: 0.187359,
                 hue: 264.052021,
@@ -950,7 +950,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.271165,
                 chroma: 0.187899,
                 hue: 264.052021,
@@ -980,7 +980,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
         name: "vividorange",
         definition: "oklch(70% 0.187 60)",
         colorModel: "oklch",
-        colorSpace: "OKLCH",
+        colorSpace: "OKLAB",
         colorModels: {
             cmyk: {
                 colorModel: "cmyk",
@@ -1022,7 +1022,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.70,
                 chroma: 0.187,
                 hue: 60,
@@ -1052,7 +1052,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
         name: "vividred",
         definition: "oklch(50% 0.37 29deg)",
         colorModel: "oklch",
-        colorSpace: "OKLCH",
+        colorSpace: "OKLAB",
         colorModels: {
             cmyk: {
                 colorModel: "cmyk",
@@ -1094,7 +1094,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.5,
                 chroma: 0.37,
                 hue: 29,
@@ -1124,7 +1124,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
         name: "mutedgreen",
         definition: "oklch(55% 0.15 141deg)",
         colorModel: "oklch",
-        colorSpace: "OKLCH",
+        colorSpace: "OKLAB",
         colorModels: {
             cmyk: {
                 colorModel: "cmyk",
@@ -1166,7 +1166,7 @@ export const CSS_COLOR_FIXTURES: ValidCssColor[] = [
             },
             oklch: {
                 colorModel: "oklch",
-                colorSpace: "OKLCH",
+                colorSpace: "OKLAB",
                 lightness: 0.55,
                 chroma: 0.15,
                 hue: 141,

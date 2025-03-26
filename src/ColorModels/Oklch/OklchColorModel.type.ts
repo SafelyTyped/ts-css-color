@@ -35,7 +35,7 @@
 
 export type OklchColorModel = {
     colorModel: "oklch";
-    colorSpace: "OKLCH";
+    colorSpace: "OKLAB";
     lightness: number;
     chroma: number;
     hue: number;

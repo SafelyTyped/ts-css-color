@@ -144,7 +144,7 @@ describe("validateObjectHasColorSpace()", () => {
         // ----------------------------------------------------------------
         // perform the change
 
-        const actualValue = validateObjectHasColorSpace(inputValue, "OKLCH");
+        const actualValue = validateObjectHasColorSpace(inputValue, "OKLAB");
 
         // ----------------------------------------------------------------
         // test the results
