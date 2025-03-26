@@ -17,15 +17,16 @@ const compat = new FlatCompat({
 
 export default [{
     ignores: [
-        "**/.eslintrc.*",
-        "**/eslint.config.mjs",
+        ".eslintrc.*",
+        "eslint.config.mjs",
+        "lib/",
+        ".mocharc.cjs",
+        "scripts/**",
         "**/*.spec.ts",
         "**/*.test.ts",
         "**/_fixtures/**/*",
         "**/coverage/",
         "**/reference-docs/",
-        "**/lib/",
-        "**/.mocharc.cjs",
     ],
 }, ...compat.extends("eslint:recommended", "plugin:@typescript-eslint/recommended-type-checked"), {
     plugins: {

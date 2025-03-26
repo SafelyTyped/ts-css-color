@@ -249,14 +249,12 @@ export { contrastRatio } from "./inspectors/contrastRatio";
 export { darkModeContrastRatio } from "./inspectors/darkModeContrastRatio";
 export { hasClearContrast } from "./inspectors/hasClearContrast";
 export { isDark } from "./inspectors/isDark";
-export { isDull } from "./inspectors/isDull";
 export { isLight } from "./inspectors/isLight";
 export { isMidtone } from "./inspectors/isMidtone";
 export { isMonochrome } from "./inspectors/isMonochome";
 export { lightModeContrastRatio } from "./inspectors/lightModeContrastRatio";
 export { luma } from "./inspectors/luma";
 export { relativeLuminance } from "./inspectors/relativeLuminance";
-export { shade, type Shade } from "./inspectors/shade";
 export { tonality, type Tonality } from "./inspectors/tonality";
 export { wcagContrast } from "./inspectors/wcagContrast";
 
