@@ -32,20 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { makeCssOklchColorFromCssColor } from "./makeCssOklchColorFromCssColor";
-import { CssOklchColor } from "./CssOklchColor";
-import type { CssOklchColorData } from "./CssOklchColorData.type";
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssColor, makeCssOklchColorFromCssColor, type CssColor, type CssOklchColor } from "../index";
 
 export function makeCssOklchColor(
-    input: string|AnyCssColor,
+    input: string|CssColor,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
     }: DataGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssOklchColorData, DataGuaranteeOptions>[]
 ): CssOklchColor
 {
     // normalise to a CssColor class
@@ -54,14 +49,10 @@ export function makeCssOklchColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssOklchColor) {
+    if (input.colorModel === "oklch" && input.colorSpace === "OKLAB") {
         return input;
     }
 
     // convert it (if necessary) and return it
-    return makeCssOklchColorFromCssColor(
-        input,
-        { path, onError },
-        ...fnOpts,
-    );
+    return makeCssOklchColorFromCssColor(input);
 }

@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { WcagContrastRatings } from "../WcagContrastRatings/WcagContrastRatings.type";
+import type { WcagContrastRatings } from "../index";
 
 /**
  * wcagContrast works out whether the given contrastRatio meets

@@ -32,31 +32,26 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { CssCmykColor } from "./CssCmykColor";
-import type { CssCmykColorData } from "./CssCmykColorData.type";
-import { convertConversionModelToCmykChannelsData } from "./convertConversionModelToCmykChannelsData";
-import { makeCssCmykColorData } from "./makeCssCmykColorData";
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
+import { CMYK_MODEL_CONVERTER } from "../ConversionModels/Cmyk/CMYK_MODEL_CONVERTER";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import type { CssCmykColor } from "./CssCmykColor.type";
+import { makeCssCmykColorFromCmykColorModel } from "./makeCssCmykColorFromCmykColorModel";
 
 export function makeCssCmykColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssCmykColorData, TypeGuaranteeOptions>[]
-)
+): CssCmykColor
 {
-    return new CssCmykColor(
-        makeCssCmykColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToCmykChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+    // shorthand
+    const colorModel = CMYK_MODEL_CONVERTER.toColorModel(
+        prepForSrgb(model)
+    );
+
+    return makeCssCmykColorFromCmykColorModel(
+        colorName,
+        cssDefinition,
+        colorModel
     );
 }

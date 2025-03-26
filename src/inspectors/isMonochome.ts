@@ -32,17 +32,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { CssColor } from "../index";
 
 /**
  * isMonochrome() returns `true` if the given input color is black, white,
  * or a pure gray color.
  *
- * @param input
- * @returns
+ * @param input - the color to check
+ * @returns true if the color is monochrome, false otherwise
  */
-export function isMonochrome(input: AnyCssColor): boolean
+export function isMonochrome(input: CssColor): boolean
 {
-    const { red, green, blue } = input.rgb().channelsData();
+    const { red, green, blue } = input.rgb.channelsData;
     return red === green && green === blue;
 }

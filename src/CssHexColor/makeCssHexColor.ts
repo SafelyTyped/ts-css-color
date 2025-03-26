@@ -32,20 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { makeCssHexColorFromCssColor } from "./makeCssHexColorFromCssColor";
-import { CssHexColor } from "./CssHexColor";
-import type { CssHexColorData } from "./CssHexColorData.type";
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssColor, makeCssHexColorFromCssColor, type CssColor, type CssHexColor } from "../index";
 
 export function makeCssHexColor(
-    input: string|AnyCssColor,
+    input: string|CssColor,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
     }: DataGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHexColorData, DataGuaranteeOptions>[]
 ): CssHexColor
 {
     // normalise to a CssColor class
@@ -54,14 +49,10 @@ export function makeCssHexColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssHexColor) {
+    if (input.colorModel === "hex" && input.colorSpace === "sRGB") {
         return input;
     }
 
     // convert it (if necessary) and return it
-    return makeCssHexColorFromCssColor(
-        input,
-        { path, onError },
-        ...fnOpts,
-    );
+    return makeCssHexColorFromCssColor(input);
 }

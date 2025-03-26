@@ -34,21 +34,12 @@
 
 
 import { DEFAULT_DATA_PATH, searchDispatchMap, THROW_THE_ERROR, type DataGuaranteeOptions, type DispatchMap } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
-import { makeCssHslColorFromConversionModel } from "../CssHslColor/makeCssHslColorFromConversionModel";
-import { makeCssHsvColorFromConversionModel } from "../CssHsvColor/makeCssHsvColorFromConversionModel";
-import { makeCssHwbColorFromConversionModel } from "../CssHwbColor/makeCssHwbColorFromConversionModel";
-import { makeCssOklchColorFromConversionModel } from "../CssOklchColor/makeCssOklchColorFromConversionModel";
-import { makeCssRgbColorFromConversionModel } from "../CssRgbColor/makeCssRgbColorFromConversionModel";
-import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import type { SupportedCssColorFormat } from "../SupportedCssColorFormat/SupportedCssColorFormat.type";
-import type { AnyCssColor } from "./AnyCssColor.type";
+import { makeCssHslColorFromConversionModel, makeCssHsvColorFromConversionModel, makeCssHwbColorFromConversionModel, makeCssOklchColorFromConversionModel, makeCssRgbColorFromConversionModel, UnsupportedCssColorDefinitionError, type ConversionModel, type CssColor, type SupportedColorModel } from "../index";
 import type { CssColorFromConversionModelSmartConstructor } from "./CssColorFromConversionModelSmartConstructor.type";
 
-type UnsupportedCssColorFormats = "cmyk" | "hex" | "keyword";
+type UnsupportedColorModel = "cmyk" | "cssNamedColor" | "hex";
 
-const DISPATCH_MAP: DispatchMap<Exclude<SupportedCssColorFormat, UnsupportedCssColorFormats>, CssColorFromConversionModelSmartConstructor> = {
+const DISPATCH_MAP: DispatchMap<Exclude<SupportedColorModel, UnsupportedColorModel>, CssColorFromConversionModelSmartConstructor> = {
     "hsl": makeCssHslColorFromConversionModel,
     "hsv": makeCssHsvColorFromConversionModel,
     "hwb": makeCssHwbColorFromConversionModel,
@@ -82,15 +73,12 @@ export function makeCssColorFromConversionModel(
         onError = THROW_THE_ERROR,
         path = DEFAULT_DATA_PATH
     }: DataGuaranteeOptions = {},
-): AnyCssColor
+): CssColor
 {
     // shorthand
     const opts = { onError, path };
 
-    // if we're given a model that we do not support
-    //
-    // this code can only be reached if `mustBeConversionModel()`
-    // contains a bug
+    // this code is unreachable in practice
     /* c8 ignore start */
     const fallback = () => {
         const err = new UnsupportedCssColorDefinitionError({
@@ -103,12 +91,9 @@ export function makeCssColorFromConversionModel(
     };
     /* c8 ignore stop */
 
-    // robustness!
-    const vettedModel = mustBeConversionModel(model);
-
     // find out which function to call for the given model
-    const colorMaker = searchDispatchMap(DISPATCH_MAP, [vettedModel.mode], fallback);
+    const colorMaker = searchDispatchMap(DISPATCH_MAP, [model.mode], fallback);
 
     // call it
-    return colorMaker(colorName, cssDefinition, vettedModel, opts);
+    return colorMaker(colorName, cssDefinition, model, opts);
 }

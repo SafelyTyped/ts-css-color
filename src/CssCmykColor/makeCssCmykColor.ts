@@ -32,20 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { CssCmykColor } from "./CssCmykColor";
-import type { CssCmykColorData } from "./CssCmykColorData.type";
-import { makeCssCmykColorFromCssColor } from "./makeCssCmykColorFromCssColor";
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssCmykColorFromCssColor, makeCssColor, type CssCmykColor, type CssColor } from "../index";
 
 export function makeCssCmykColor(
-    input: string|AnyCssColor,
+    input: string|CssColor,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
     }: DataGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssCmykColorData, DataGuaranteeOptions>[]
 ): CssCmykColor
 {
     // normalise to a CssColor class
@@ -54,14 +49,10 @@ export function makeCssCmykColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssCmykColor) {
+    if (input.colorModel === "cmyk" && input.colorSpace === "CMYK") {
         return input;
     }
 
     // convert it
-    return makeCssCmykColorFromCssColor(
-        input,
-        { path, onError },
-        ...fnOpts,
-    );
+    return makeCssCmykColorFromCssColor(input);
 }

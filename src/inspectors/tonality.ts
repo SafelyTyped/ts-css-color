@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { CssColor } from "../index";
 import { luma } from "./luma";
 
 /**
@@ -47,7 +47,7 @@ export type Tonality = "light" | "dark" | "midtone";
  * @param input - the color to examine
  * @returns the calculated tonality
  */
-export function tonality(input: AnyCssColor): Tonality
+export function tonality(input: CssColor): Tonality
 {
     const y = luma(input);
 

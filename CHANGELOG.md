@@ -21,6 +21,37 @@ For each release, changes are grouped under these headings:
 
 The following changes have been completed, and will be included in the next tagged release.
 
+## v3.0.0
+
+Released Wednesday, 26th March 2025.
+
+### Backwards-Compatibility Breaks
+
+- `CssColor` is now a `type`, not a `class`
+  - all child classes are now sub-types of `CssColor`
+- `CssColor` methods are now static properties or getters
+- `CssColor.keyword` is now `CssColor.cssNamedColor`
+- `CssKeywordColor` class is completely gone
+- `OKLCH` color space is now `OKLAB`
+- color formats are now color modes
+- `CssExtendedColors` type is now `CssNamedColors`
+- `AnyCssColor` type is now just `CssColor` type
+
+### New
+
+- `CssColor.css` property provides the CSS definition in the current color model
+- `darkModeContrastRatio()` now accepts an optional `darkModeBg` parameter
+  - allows you to override the comparison color
+- `lightModeContrastRatio()` now accepts an optional `lightModeBg` parameter
+  - allows you to override the comparison color
+- `normaliseCssHexColorDefinitionFormat()` can now be used on regular strings too
+
+### Fixes
+
+- OKLCH -> RGB now has gamut clamping
+  - makes sure resulting RGB color is always valid
+- `validateCmykColorModel()` now validates K channel correctly
+
 ## v2.1.1
 
 Released Sunday, 2nd March 2025.

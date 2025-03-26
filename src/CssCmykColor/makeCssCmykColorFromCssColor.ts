@@ -32,31 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { CSS_CMYK_CONVERSIONS } from "./CSS_CMYK_CONVERSIONS";
-import type { CssCmykColorData } from "./CssCmykColorData.type";
-import { makeCssCmykColorFromConversionModel } from "./makeCssCmykColorFromConversionModel";
+import { makeCssCmykColorFromConversionModel, type CssColor } from "../index";
 
 export function makeCssCmykColorFromCssColor(
-    input: AnyCssColor,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssCmykColorData, TypeGuaranteeOptions>[]
+    input: CssColor,
 )
 {
-    // how to do the conversion
-    const converterFn = () => {
-        return makeCssCmykColorFromConversionModel(
-            input.name(),
-            input.definition(),
-            input.conversionModel(),
-            {path, onError},
-            ...fnOpts,
-        );
-    };
-
-    return CSS_CMYK_CONVERSIONS.convert(converterFn, input, fnOpts);
+    return makeCssCmykColorFromConversionModel(
+        input.name,
+        input.definition,
+        input.conversionModel,
+    );
 }

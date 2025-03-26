@@ -32,31 +32,26 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { convertConversionModelToHexColorDefinition } from "./convertConversionModelToHexColorDefinition";
-import { CssHexColor } from "./CssHexColor";
-import type { CssHexColorData } from "./CssHexColorData.type";
-import { makeCssHexColorData } from "./makeCssHexColorData";
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { HEX_MODEL_CONVERTER } from "../ConversionModels/Hex/HEX_MODEL_CONVERTER";
+import type { CssHexColor } from "./CssHexColor.type";
+import { makeCssHexColorFromHexColorModel } from "./makeCssHexColorFromHexColorModel";
 
 export function makeCssHexColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHexColorData, TypeGuaranteeOptions>[]
-)
+): CssHexColor
 {
-    return new CssHexColor(
-        makeCssHexColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToHexColorDefinition(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+    // shorthand
+    const colorModel = HEX_MODEL_CONVERTER.toColorModel(
+        prepForSrgb(model),
+    );
+
+    return makeCssHexColorFromHexColorModel(
+        colorName,
+        cssDefinition,
+        colorModel
     );
 }

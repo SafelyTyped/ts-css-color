@@ -33,7 +33,7 @@
 //
 
 import type { DataPath, ExtraPublicData } from "@safelytyped/core-types";
-import type { SupportedCssColorFormat } from "../../SupportedCssColorFormat/SupportedCssColorFormat.type";
+import type { SupportedColorModel } from "../../ColorModels/SupportedColorModel.type";
 
 /**
  * UnsupportedCssColorConversionData defines the data that every
@@ -57,6 +57,6 @@ export interface UnsupportedCssColorConversionData extends ExtraPublicData {
          * targetFormat holds the CSS color format that we could not
          * convert to.
          */
-        targetFormat: SupportedCssColorFormat
+        targetFormat: SupportedColorModel
     }
 }

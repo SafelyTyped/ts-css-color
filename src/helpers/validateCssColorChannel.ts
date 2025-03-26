@@ -32,8 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, HashMap, UnsupportedTypeError, type TypeValidatorOptions, type AppErrorOr, extendDataPath } from "@safelytyped/core-types";
-import { InvalidCssColorChannelValueError } from "../Errors/InvalidCssColorChannelValue/InvalidCssColorChannelValueError";
+import { DEFAULT_DATA_PATH, extendDataPath, HashMap, UnsupportedTypeError, type AppErrorOr, type TypeValidatorOptions } from "@safelytyped/core-types";
+import { InvalidCssColorChannelValueError } from "../index";
 
 /**
  * validateCssColorChannel() is a data validator. Use it to prove that:

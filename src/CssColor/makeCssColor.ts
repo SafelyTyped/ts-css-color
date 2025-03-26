@@ -32,19 +32,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { parse } from "culori";
 
-import { applyFunctionalOptions, DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataGuaranteeOptions, type DataPath, type FunctionalOption, type OnError } from "@safelytyped/core-types";
-import { mustBeConversionModel } from "../ConversionModel/mustBeConversionModel";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
-import { CssHexColor } from "../CssHexColor/CssHexColor";
-import { makeCssHexColorData } from "../CssHexColor/makeCssHexColorData";
-import { makeCssHexColorDefinition } from "../CssHexColor/makeCssHexColorDefinition";
-import { CssKeywordColor } from "../CssKeywordColor/CssKeywordColor";
-import { makeCssKeywordColorData } from "../CssKeywordColor/makeCssKeywordColorData";
-import { UnsupportedCssColorDefinitionError } from "../Errors/UnsupportedCssColorDefinition/UnsupportedCssColorDefinitionError";
-import type { AnyCssColor } from "./AnyCssColor.type";
-import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionModel";
+import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type DataPath, type OnError } from "@safelytyped/core-types";
+import { mustBeNonEmptyString } from "../helpers/mustBeNonEmptyString";
+import { CMYK_MODEL_CONVERTER, CSSNAMEDCOLOR_MODEL_CONVERTER, HEX_MODEL_CONVERTER, isCssNamedColor, makeCssCmykColorFromConversionModel, makeCssColorFromConversionModel, makeCssHexColorFromConversionModel, makeCssRgbColorFromConversionModel, mustBeConversionModel, parseCss, type CssColor } from "../index";
 
 /**
  * makeCssColor() is a smart constructor. Use it to convert a CSS definition
@@ -60,9 +51,6 @@ import { makeCssColorFromConversionModel } from "./makeCssColorFromConversionMod
  * @param onError -
  * We will call this error handler with an appropriate AppError if something
  * has gone wrong
- * @param fnOpts -
- * We will pass the newly-built {@link CssColor} to these functions, so
- * that you can make any additional changes before this function returns
  */
 export function makeCssColor(
     cssDefinition: string,
@@ -75,61 +63,52 @@ export function makeCssColor(
         onError?: OnError,
         path?: DataPath,
     } = {},
-    ...fnOpts: FunctionalOption<AnyCssColor, DataGuaranteeOptions>[]
-): AnyCssColor
+): CssColor
 {
-    // our return value
-    let retval: AnyCssColor;
-
     // shorthand
     const opts = { onError, path };
 
-    // special case - do we have a CSS keyword color?
-    if (cssDefinition in CSS_EXTENDED_COLORS_TO_HEX) {
-        retval = new CssKeywordColor(
-            makeCssKeywordColorData(colorName, cssDefinition, { path, onError })
+    // robustness
+    colorName = mustBeNonEmptyString(colorName);
+
+    // special case - do we have a CSS named color?
+    if (isCssNamedColor(cssDefinition)) {
+        return makeCssRgbColorFromConversionModel(
+            colorName,
+            cssDefinition,
+            CSSNAMEDCOLOR_MODEL_CONVERTER.parse(cssDefinition),
         );
     }
 
     // special case - do we have a CSS hex color?
-    else if (cssDefinition.startsWith("#")) {
-        retval = new CssHexColor(
-            makeCssHexColorData(
-                colorName,
-                cssDefinition,
-                makeCssHexColorDefinition(cssDefinition),
-                { path, onError }
-            )
+    if (cssDefinition.startsWith("#")) {
+        return makeCssHexColorFromConversionModel(
+            colorName,
+            cssDefinition,
+            HEX_MODEL_CONVERTER.parse(cssDefinition),
+        );
+    }
+
+    // special case - do we have a CMYK color?
+    //
+    // these are not supported by CSS at this time, so we have to
+    // handle them ourselves
+    if (cssDefinition.startsWith("color(--device-cmyk ")) {
+        return makeCssCmykColorFromConversionModel(
+            colorName,
+            cssDefinition,
+            CMYK_MODEL_CONVERTER.parse(cssDefinition),
         );
     }
 
     // general case - CSS color function
-    else {
-        // what are we looking at?
-        const model = parse(cssDefinition);
+    // what are we looking at?
+    const model = parseCss(cssDefinition);
 
-        // robustness!
-        if (!model) {
-            throw new UnsupportedCssColorDefinitionError({
-                public: {
-                    dataPath: path,
-                    colorDefinition: cssDefinition,
-                }
-            });
-        }
-
-        retval = makeCssColorFromConversionModel(
-            colorName,
-            cssDefinition,
-            mustBeConversionModel(model),
-            opts,
-        );
-    }
-
-    // all done
-    return applyFunctionalOptions(
-        retval,
+    return makeCssColorFromConversionModel(
+        colorName,
+        cssDefinition,
+        mustBeConversionModel(model),
         opts,
-        ...fnOpts
     );
 }

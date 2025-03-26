@@ -32,31 +32,16 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { CSS_HSV_CONVERSIONS } from "./CSS_HSV_CONVERSIONS";
-import type { CssHsvColorData } from "./CssHsvColorData.type";
-import { makeCssHsvColorFromConversionModel } from "./makeCssHsvColorFromConversionModel";
+import type { CssColor } from "../index";
+import { makeCssHsvColorFromConversionModel } from "../index";
 
 export function makeCssHsvColorFromCssColor(
-    input: AnyCssColor,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHsvColorData, TypeGuaranteeOptions>[]
+    input: CssColor,
 )
 {
-    // how to do the conversion
-    const converterFn = () => {
-        return makeCssHsvColorFromConversionModel(
-            input.name(),
-            input.definition(),
-            input.conversionModel(),
-            {path, onError},
-            ...fnOpts,
-        );
-    };
-
-    return CSS_HSV_CONVERSIONS.convert(converterFn, input, fnOpts);
+    return makeCssHsvColorFromConversionModel(
+        input.name,
+        input.definition,
+        input.conversionModel,
+    );
 }

@@ -1,6 +1,6 @@
 {
   "name": "@safelytyped/css-color",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Safe type for CSS color values",
   "repository": {
     "type": "git",
@@ -9,8 +9,16 @@
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js",
+      "default": "./lib/cjs/index.js"
+    }
+  },
   "scripts": {
-    "build": "npm run clean && tsc -b ./tsconfig-cjs.json ./tsconfig-esm.json ./tsconfig-types.json",
+    "build": "npm run clean && tsc -b ./tsconfig-cjs.json && tsc -b ./tsconfig-esm.json && tsc -b ./tsconfig-types.json",
     "lint": "npx eslint .",
     "prepublishOnly": "npm run test",
     "prepack": "npm run build && npm run lint && rimraf lib/**/_*",
@@ -40,6 +48,9 @@
     "LICENSE.md"
   ],
   "license": "BSD-3-Clause",
+  "sideEffects": [
+    "./lib/**/CssNamedColors.const.js"
+  ],
   "dependencies": {
     "@safelytyped/core-types": "^0.5.0",
     "@safelytyped/math-rounding": "^1.0.1",

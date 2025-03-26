@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { CssColor } from "../index";
 
 /**
  * luma() calculate's the given color's 'Y' (or luma) component from the
@@ -44,10 +44,10 @@ import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
  * NOTE that this formula is often mistakenly described as calculating the
  * YIQ of a color. It doesn't; it only calculates the 'Y' component.
  */
-export function luma(input: AnyCssColor): number
+export function luma(input: CssColor): number
 {
     // shorthand
-    const { red, green, blue } = input.rgb().channelsData();
+    const { red, green, blue } = input.rgb.channelsData;
 
     // calculate the value
     const luma = ((red*299)+(green*587)+(blue*114))/1000;

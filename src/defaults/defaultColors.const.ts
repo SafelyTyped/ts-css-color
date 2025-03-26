@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColors.const";
+import { CSS_NAMED_COLOR_TO_HEX, makeCssColor } from "../index";
 
 // this is a list of colors that we use in our operations
 //
@@ -42,5 +41,19 @@ import { CSS_EXTENDED_COLORS_TO_HEX } from "../CssExtendedColors/CssExtendedColo
 //
 // there's no need to export these outside the package
 
-export const BLACK = makeCssColor(CSS_EXTENDED_COLORS_TO_HEX.black);
-export const WHITE = makeCssColor(CSS_EXTENDED_COLORS_TO_HEX.white);
+/**
+ * defaultColors contains pre-made CssColor objects for commonly used colors.
+ * 
+ * These are used internally for contrast ratio calculations and other operations
+ * where black and white colors are needed.
+ */
+
+/**
+ * BLACK is a pre-made CssColor object for the color black (#000000).
+ */
+export const BLACK = makeCssColor(CSS_NAMED_COLOR_TO_HEX.black);
+
+/**
+ * WHITE is a pre-made CssColor object for the color white (#FFFFFF).
+ */
+export const WHITE = makeCssColor(CSS_NAMED_COLOR_TO_HEX.white);

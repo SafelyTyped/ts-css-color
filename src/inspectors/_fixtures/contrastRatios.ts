@@ -32,32 +32,32 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CSS_EXTENDED_COLORS_TO_HEX } from "@safelytyped/css-color";
+import { CSS_NAMED_COLOR_TO_HEX } from "@safelytyped/css-color";
 
 export const EXPECTED_CONTRAST_RATIOS: { a: string; b: string; expectedValue: number }[] = [
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.black,
-        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+        a: CSS_NAMED_COLOR_TO_HEX.black,
+        b: CSS_NAMED_COLOR_TO_HEX.white,
         expectedValue: 21,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.blue,
-        b: CSS_EXTENDED_COLORS_TO_HEX.yellow,
+        a: CSS_NAMED_COLOR_TO_HEX.blue,
+        b: CSS_NAMED_COLOR_TO_HEX.yellow,
         expectedValue: 8,
     },
     {
         a: "#1f8ceb",
-        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        b: CSS_NAMED_COLOR_TO_HEX.black,
         expectedValue: 6,
     },
     {
         a: "#ff8c00",
-        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        b: CSS_NAMED_COLOR_TO_HEX.black,
         expectedValue: 9,
     },
     {
         a: "#ffd500",
-        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        b: CSS_NAMED_COLOR_TO_HEX.black,
         expectedValue: 14.7,
     },
 ];

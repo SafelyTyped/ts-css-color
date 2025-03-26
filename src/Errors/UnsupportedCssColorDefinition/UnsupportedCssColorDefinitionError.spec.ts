@@ -33,9 +33,9 @@
 //
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+import { UnsupportedCssColorDefinitionError } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { UnsupportedCssColorDefinitionError } from "./UnsupportedCssColorDefinitionError";
 
 describe("UnsupportedCssColorDefinitionError", () => {
     describe(".constructor", () => {

@@ -32,31 +32,29 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { CssHwbColor } from "./CssHwbColor";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
-import { convertConversionModelToHwbChannelsData } from "./convertConversionModelToHwbChannelsData";
-import { makeCssHwbColorData } from "./makeCssHwbColorData";
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { HWB_MODEL_CONVERTER } from "../ConversionModels/Hwb/HWB_MODEL_CONVERTER";
+import type { CssHwbColor } from "./CssHwbColor.type";
+import { makeCssHwbColorFromHwbColorModel } from "./makeCssHwbColorFromHwbColorModel";
+
 
 export function makeCssHwbColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHwbColorData, TypeGuaranteeOptions>[]
-)
+): CssHwbColor
 {
-    return new CssHwbColor(
-        makeCssHwbColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToHwbChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+    // if we get our native conversion model, we need to avoid prepping it
+    // for sRGB, so that our range validation can work
+    const localConversionModel = model.mode === "hwb" ? model : prepForSrgb(model);
+    const colorModel = HWB_MODEL_CONVERTER.toColorModel(
+        localConversionModel,
+    );
+
+    return makeCssHwbColorFromHwbColorModel(
+        colorName,
+        cssDefinition,
+        colorModel,
     );
 }

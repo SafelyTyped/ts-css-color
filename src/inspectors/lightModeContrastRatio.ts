@@ -32,9 +32,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
 import { WHITE } from "../defaults/defaultColors.const";
-import { contrastRatio } from "./contrastRatio";
+import { contrastRatio, type CssColor } from "../index";
 
 /**
  * lightModeContrastRatio() calculates the contrast ratio of the given
@@ -42,10 +41,19 @@ import { contrastRatio } from "./contrastRatio";
  *
  * @param input -
  * the color to compare against white
+ * @param lightModeBg -
+ * the color to compare against, instead of using WHITE
  * @returns the calculated contrast ratio, which you can then use in other
  * functions such as {@link contrastLevels}
  */
-export function lightModeContrastRatio(input: AnyCssColor): number
+export function lightModeContrastRatio(
+    input: CssColor,
+    {
+        lightModeBg = WHITE
+    }: {
+        lightModeBg?: CssColor
+    } = {}
+): number
 {
-    return contrastRatio(input, WHITE);
+    return contrastRatio(input, lightModeBg);
 }

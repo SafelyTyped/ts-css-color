@@ -32,31 +32,28 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { CssRgbColor } from "./CssRgbColor";
-import type { CssRgbColorData } from "./CssRgbColorData.type";
-import { convertConversionModelToRgbChannelsData } from "./convertConversionModelToRgbChannelsData";
-import { makeCssRgbColorData } from "./makeCssRgbColorData";
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { RGB_MODEL_CONVERTER } from "../ConversionModels/Rgb/RGB_MODEL_CONVERTER";
+import type { CssRgbColor } from "./CssRgbColor.type";
+import { makeCssRgbColorFromRgbColorModel } from "./makeCssRgbColorFromRgbColorModel";
 
 export function makeCssRgbColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
-)
+): CssRgbColor
 {
-    return new CssRgbColor(
-        makeCssRgbColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToRgbChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+    // if we get our native conversion model, we need to avoid prepping it
+    // for sRGB, so that our range validation can work
+    const localConversionModel = model.mode === "rgb" ? model : prepForSrgb(model);
+    const colorModel = RGB_MODEL_CONVERTER.toColorModel(
+        localConversionModel,
+    );
+
+    return makeCssRgbColorFromRgbColorModel(
+        colorName,
+        cssDefinition,
+        colorModel,
     );
 }

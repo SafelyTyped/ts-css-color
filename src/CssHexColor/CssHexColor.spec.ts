@@ -32,1292 +32,133 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { DataGuaranteeOptions } from "@safelytyped/core-types";
-import { CssHexColor, makeCssHexColorData, makeCssHexColorDefinition, type CssCmykColorData, type CssHslColorData, type CssHsvColorData, type CssHwbColorData, type CssOklchColorData, type CssRgbColorData } from "@safelytyped/css-color";
+import { makeCssHexColor, makeCssHexColorFromHexColorModel, type CssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { CSS_CMYK_CONVERSIONS } from "../CssCmykColor/CSS_CMYK_CONVERSIONS";
-import { CSS_HSL_CONVERSIONS } from "../CssHslColor/CSS_HSL_CONVERSIONS";
-import { CSS_HSV_CONVERSIONS } from "../CssHsvColor/CSS_HSV_CONVERSIONS";
-import { CSS_HWB_CONVERSIONS } from "../CssHwbColor/CSS_HWB_CONVERSIONS";
-import { CSS_OKLCH_CONVERSIONS } from "../CssOklchColor/CSS_OKLCH_CONVERSIONS";
-import { CSS_RGB_CONVERSIONS } from "../CssRgbColor/CSS_RGB_CONVERSIONS";
-import { ValidCssHexColorData } from "./_fixtures/CssHexColorDataFixtures";
+import { type ValidCssColor } from "../_fixtures/CSS_COLOR_FIXTURES";
+import { CSS_HEX_COLOR_FIXTURES } from "../_fixtures/CSS_HEX_COLOR_FIXTURES";
+import { testCssColorConversionsToCssNamedColor, testCssColorConversionsToHex, testCssColorConversionsToTarget } from "../CssColor/ColorConversions.test";
 
-describe('CssHexColor', () => {
-    describe(".constructor", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("can be instantiated when given a valid CssHexColorData input " + validFixture.name, () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that we can make an instance of CssHexColor
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                )
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.be.instanceOf(CssHexColor);
-            });
-        });
-    });
-
+describe("CssHexColor", () => {
     // ================================================================
     //
-    // COLOR FORMAT CONVERSIONS
+    // COLOR CONVERSION TESTS
+    //
+    // Unfortunately, we can't just do these tests by calling a single,
+    // central function. It works from the command-line, but not from
+    // inside VS Code.
+    //
+    // The big downside is that we have to manually update these tests
+    // whenever we add new CssColor types.
     //
     // ----------------------------------------------------------------
 
-    describe(".rgb()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to RGB format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the RGB method (required by the base class)
-                // doesn't mess up the colors
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue.name()).eqls(validFixture.name);
-                expect(actualValue.definition()).eqls(validFixture.definition);
-                expect(actualValue.channelsData()).eqls(validFixture.rgbChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .rgb() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // -----------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .rgb() method preserves the
-                // original color definition, and does not replace it with the
-                // RGB definition
-                // -----------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
-        });
-
-        it("caches static conversions", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the RGB method will cache any static
-            // conversions (to speed up repeated conversions)
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+    describe(".cmyk", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
             );
-            const unit = new CssHexColor(inputValue);
 
-            // make sure that the cache is empty
-            CSS_RGB_CONVERSIONS.reset();
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.rgb();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(CSS_RGB_CONVERSIONS.has(actualValue)).to.be.true;
-        });
-
-        it("supports functional operators", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the RGB method will run any functional
-            // operators that are passed into it
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "cmyk",
+                (c: CssColor) => c.cmyk,
+                fixture.colorModels.cmyk,
+                fixture.css.cmyk,
             );
-            const unit = new CssHexColor(inputValue);
-
-            const f1 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.rgb({}, f1, f2);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
         });
     });
 
-    describe(".cmyk()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to CMYK format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .cmyk() method returns the CMYK
-                // equivalent of the current color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.cmyk();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.channelsData()).to.eql(validFixture.cmykChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .cmyk() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.cmyk();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .cmyk() method preserves the original
-                // color definition, and does not replace it with the HSL
-                // definition
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.cmyk();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
-        });
-
-        it("caches static conversions", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the `.cmyk()` method will cache any static
-            // conversions (to speed up repeated conversions)
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+    describe(".hsl", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
             );
-            const unit = new CssHexColor(inputValue);
-
-            // make sure that the cache is empty
-            CSS_CMYK_CONVERSIONS.reset();
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.cmyk();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(CSS_CMYK_CONVERSIONS.has(actualValue)).to.be.true;
-        });
-
-        it("supports functional operators", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the `.cmyk()` method will run any functional
-            // operators that are passed into it
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "hsl",
+                (c: CssColor) => c.hsl,
+                fixture.colorModels.hsl,
+                fixture.css.hsl,
             );
-            const unit = new CssHexColor(inputValue);
-
-            const f1 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssCmykColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.cmyk({}, f1, f2);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
         });
     });
 
-    describe(".hsl()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to HSL format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hsl() method returns the HSL equivalent
-                // of the current color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hsl();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.channelsData()).to.eql(validFixture.hslChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hsl() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hsl();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hsl() method preserves the original
-                // color definition, and does not replace it with the HSL
-                // definition
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hsl();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
-        });
-
-        it("caches static conversions", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the HSL method will cache any static
-            // conversions (to speed up repeated conversions)
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+    describe(".hsv", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
             );
-            const unit = new CssHexColor(inputValue);
-
-            // make sure that the cache is empty
-            CSS_HSL_CONVERSIONS.reset();
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.hsl();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(CSS_HSL_CONVERSIONS.has(actualValue)).to.be.true;
-        });
-
-        it("supports functional operators", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the HSL method will run any functional
-            // operators that are passed into it
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "hsv",
+                (c: CssColor) => c.hsv,
+                fixture.colorModels.hsv,
+                fixture.css.hsv,
             );
-            const unit = new CssHexColor(inputValue);
-
-            const f1 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssHslColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.hsl({}, f1, f2);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
         });
     });
 
-    describe(".hsv()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to HSV format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hsv() method returns the HSV equivalent
-                // of the current color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hsv();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.channelsData()).to.eql(validFixture.hsvChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hsv() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hsv();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hsv() method preserves the original
-                // color definition, and does not replace it with the HSV
-                // definition
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hsv();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
-        });
-
-        it("caches static conversions", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the .hsv() method will cache any static
-            // conversions (to speed up repeated conversions)
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+    describe(".hwb", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
             );
-            const unit = new CssHexColor(inputValue);
-
-            // make sure that the cache is empty
-            CSS_HSV_CONVERSIONS.reset();
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.hsv();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(CSS_HSV_CONVERSIONS.has(actualValue)).to.be.true;
-        });
-
-        it("supports functional operators", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the .hsv() method will run any functional
-            // operators that are passed into it
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "hwb",
+                (c: CssColor) => c.hwb,
+                fixture.colorModels.hwb,
+                fixture.css.hwb,
             );
-            const unit = new CssHexColor(inputValue);
-
-            const f1 = (x: CssHsvColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssHsvColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.hsv({}, f1, f2);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
         });
     });
 
-    describe(".hwb()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to HWB format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hwd() method returns the HSL equivalent
-                // of the current color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hwb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.channelsData()).to.eql(validFixture.hwbChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hwb() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hwb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .hwb() method preserves the original
-                // color definition, and does not replace it with the HSL
-                // definition
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.hwb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
-
-        });
-
-        it("caches static conversions", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the HWB method will cache any static
-            // conversions (to speed up repeated conversions)
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+    describe(".oklch", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
             );
-            const unit = new CssHexColor(inputValue);
-
-            // make sure that the cache is empty
-            CSS_HWB_CONVERSIONS.reset();
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.hwb();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(CSS_HWB_CONVERSIONS.has(actualValue)).to.be.true;
-        });
-
-        it("supports functional operators", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the HWB method will run any functional
-            // operators that are passed into it
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "oklch",
+                (c: CssColor) => c.oklch,
+                fixture.colorModels.oklch,
+                fixture.css.oklch,
             );
-            const unit = new CssHexColor(inputValue);
-
-            const f1 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssHwbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.hwb({}, f1, f2);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
         });
     });
 
-    describe(".oklch()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to OKLCH format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .oklch() method returns the OKLCH
-                // equivalent of the current color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.oklch();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.channelsData()).to.eql(validFixture.oklchChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .oklch() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.oklch();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .oklch() method preserves the original
-                // color definition, and does not replace it with the OKLCH
-                // definition
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.oklch();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
-        });
-
-        it("caches static conversions", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the OKLCH method will cache any static
-            // conversions (to speed up repeated conversions)
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+    describe(".rgb", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
             );
-            const unit = new CssHexColor(inputValue);
-
-            // make sure that the cache is empty
-            CSS_OKLCH_CONVERSIONS.reset();
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.oklch();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(CSS_OKLCH_CONVERSIONS.has(actualValue)).to.be.true;
-        });
-
-        it("supports functional operators", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the OKLCH method will run any functional
-            // operators that are passed into it
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
+            testCssColorConversionsToTarget(
+                colorConstructor,
+                fixture,
+                "rgb",
+                (c: CssColor) => c.rgb,
+                fixture.colorModels.rgb,
+                fixture.css.rgb,
             );
-            const unit = new CssHexColor(inputValue);
-
-            const f1 = (x: CssOklchColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssOklchColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.oklch({}, f1, f2);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
-        });
-    });
-
-    describe(".rgb()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] converts the original color to RGB format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .rgb() method returns the RGB
-                // equivalent of the current color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.channelsData()).to.eql(validFixture.rgbChannels);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color name", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .rgb() method preserves the
-                // original name of the test color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.name()).to.eql(validFixture.name);
-            });
-
-            it("[fixture " + validFixture.name + "] preserves the original color definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .rgb() method preserves the original
-                // color definition, and does not replace it with the HSL
-                // definition
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.rgb();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult.definition()).to.eql(validFixture.definition);
-            });
-        });
-
-        it("caches static conversions", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the RGB method will cache any static
-            // conversions (to speed up repeated conversions)
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
-            );
-            const unit = new CssHexColor(inputValue);
-
-            // make sure that the cache is empty
-            CSS_RGB_CONVERSIONS.reset();
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.rgb();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(CSS_RGB_CONVERSIONS.has(actualValue)).to.be.true;
-        });
-
-        it("supports functional operators", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the HSL method will run any functional
-            // operators that are passed into it
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
-            );
-            const unit = new CssHexColor(inputValue);
-
-            const f1 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.name = 'f1'; return x; };
-            const f2 = (x: CssRgbColorData, o?: DataGuaranteeOptions) => { x.definition = 'f2'; return x; }
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.rgb({}, f1, f2);
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue.name()).eqls('f1');
-            expect(actualValue.definition()).eqls('f2');
-
-            // make sure the original color object has not been altered
-            expect(unit.name()).eqls('red');
-            expect(unit.definition()).eqls('#ff0000');
-        });
-    });
-
-    // ================================================================
-    //
-    // COMPONENT VALUES
-    //
-    // ----------------------------------------------------------------
-
-    describe(".red()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the R channel as a number", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .red() returns the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.rgbChannels.red;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.red();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".green()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the G channel as a number", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .green() returns the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.rgbChannels.green;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.green();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".blue()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the B channel as a number", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .blue() returns the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.rgbChannels.blue;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.blue();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".alpha()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the A channel as a number", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .alpha() returns the channel data
-                // that was used to build this color in the first place
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.rgbChannels.alpha;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.alpha();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
         });
     });
 
@@ -1327,41 +168,88 @@ describe('CssHexColor', () => {
     //
     // ----------------------------------------------------------------
 
-    describe(".channelsData()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the RGBA channels as an object", () => {
+    describe(".hex", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
+            );
+
+            testCssColorConversionsToHex(colorConstructor, fixture);
+        });
+    });
+
+    describe(".cssName", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            const colorConstructor = (fixture: ValidCssColor) => makeCssHexColorFromHexColorModel(
+                fixture.name,
+                fixture.definition,
+                fixture.colorModels.hex,
+            );
+
+            testCssColorConversionsToCssNamedColor(colorConstructor, fixture);
+        });
+    });
+
+    describe(".channelsData", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            it("[fixture " + fixture.name + "] contains the HEX channels as an object", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
-                // this test proves that .channelsData() returns the channel data
+                // this test proves that .channelsData returns the channel data
                 // that was used to build this color in the first place
 
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
+                const unit = makeCssHexColor(fixture.definition);
+                const expectedValue = fixture.colorModels.hex;
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.channelsData();
+                const actualValue = unit.channelsData;
 
                 // ----------------------------------------------------------------
                 // test the results
 
-                expect(actualValue).to.eql(validFixture.rgbChannels);
+                expect(actualValue).to.eql(expectedValue);
+            });
+
+            it("[fixture " + fixture.name + "] contains the #RRGGBB representation of this color", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that .hex contains the channel data
+                // that was used to build this color in the first place
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                const unit = makeCssHexColor(fixture.definition);
+
+                // for readability
+                const expectedValue = fixture.colorModels.hex.hex;
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = unit.hex;
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue.length).to.eql(7);
+                expect(actualValue).to.eql(expectedValue);
             });
         });
     });
 
-    describe(".channelsTuple()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the RGB channels as an array", () => {
+    describe(".channelsTuple", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            it("[fixture " + fixture.name + "] returns the HEX channels as an array", () => {
                 // ----------------------------------------------------------------
                 // explain your test
 
@@ -1371,440 +259,30 @@ describe('CssHexColor', () => {
                 // ----------------------------------------------------------------
                 // setup your test
 
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
+                const unit = makeCssHexColor(fixture.definition);
 
                 const expectedValue = [
-                    validFixture.rgbChannels.red,
-                    validFixture.rgbChannels.green,
-                    validFixture.rgbChannels.blue,
+                    fixture.colorModels.hex.hex,
                 ];
 
                 // ----------------------------------------------------------------
                 // perform the change
 
-                const actualValue = unit.channelsTuple();
+                const actualValue = unit.channelsTuple;
 
                 // ----------------------------------------------------------------
                 // test the results
 
                 expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".hex()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the RGB channels as a CSS hex color", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .hex() returns the correct CSS
-                // hex color
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.hex;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.hex();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-                expect(actualValue.length).to.eql(7);
-            });
-        });
-    });
-
-    describe(".keyword()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the CSS color name (if available)", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .keyword() returns the correct CSS
-                // color name (if this color maps to one)
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.namedColor;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.keyword();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".toString()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the color's definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .toString() returns the original CSS
-                // definition for this color, even after converting to other
-                // formats
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.definition;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualRgbValue = unit.rgb().toString();
-                const actualHslValue = unit.hsl().toString();
-                const actualHwbValue = unit.rgb().toString();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualRgbValue).to.eql(expectedValue);
-                expect(actualHslValue).to.eql(expectedValue);
-                expect(actualHwbValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe("auto-conversion to number", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the color's definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the [Symbol.toPrimitive] auto convertor
-                // converts the color to a number
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // we're expecting the base-10 equivalent of the color's
-                // hex definition
-                const expectedValue = parseInt(validFixture.hex.substring(1), 16);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = +unit;
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe("auto-conversion to string", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the color's definition", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the [Symbol.toPrimitive] auto convertor
-                // converts the color to a string
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // for readability
-                const expectedValue = validFixture.definition;
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = "" + unit;
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(expectedValue);
-            });
-        });
-    });
-
-    describe(".css()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the CSS definition in HEX format", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .css() method returns a CSS
-                // HEX result - even though `.conversionModel()` returns
-                // an RGB model
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualResult = unit.css();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualResult).to.eql(validFixture.hex);
-            });
-        });
-    });
-
-    describe(".conversionModel()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns an RGB model", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .conversionModel() returns the
-                // expected conversion model
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.conversionModel();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue.mode).to.eql("rgb");
-            });
-
-            it("[fixture " + validFixture.name + "] returns the same conversion model as this.rgb().conversionModel() does", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that .conversionModel() returns the
-                // expected conversion model
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-                const expectedValue = unit.rgb().conversionModel();
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.conversionModel();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eqls(expectedValue);
-
             });
         });
     });
 
     // ================================================================
     //
-    // PROPERTIES
+    // COMPONENT VALUES
+    //
+    // CssHexColor currently has no separate component values.
     //
     // ----------------------------------------------------------------
-
-    describe(".name()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the named color", () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .name() method returns what it
-                // is supposed to
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.name();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(validFixture.name);
-            });
-        });
-    });
-
-    describe(".definition()", () => {
-        ValidCssHexColorData.forEach((validFixture) => {
-            it("[fixture " + validFixture.name + "] returns the color's original definition " + validFixture.definition, () => {
-                // ----------------------------------------------------------------
-                // explain your test
-
-                // this test proves that the .defintion() method returns what it
-                // is supposed to
-
-                // ----------------------------------------------------------------
-                // setup your test
-
-                const inputValue = makeCssHexColorData(
-                    validFixture.name,
-                    validFixture.definition,
-                    makeCssHexColorDefinition(validFixture.hex),
-                );
-                const unit = new CssHexColor(inputValue);
-
-                // ----------------------------------------------------------------
-                // perform the change
-
-                const actualValue = unit.definition();
-
-                // ----------------------------------------------------------------
-                // test the results
-
-                expect(actualValue).to.eql(validFixture.definition);
-            });
-        });
-    });
-
-    describe(".colorFormat()", () => {
-        it("returns 'hex'", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the .colorFormat() method returns the
-            // expected result
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
-            );
-            const unit = new CssHexColor(inputValue);
-
-            const expectedValue = "hex";
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.colorFormat();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue).to.eql(expectedValue);
-        });
-    });
-
-    describe(".colorSpace()", () => {
-        it("returns 'sRGB'", () => {
-            // ----------------------------------------------------------------
-            // explain your test
-
-            // this test proves that the .colorSpace() method returns the
-            // expected result
-
-            // ----------------------------------------------------------------
-            // setup your test
-
-            const inputValue = makeCssHexColorData(
-                "red",
-                "#ff0000",
-                makeCssHexColorDefinition("#ff0000"),
-            );
-            const unit = new CssHexColor(inputValue);
-
-            const expectedValue = "sRGB";
-
-            // ----------------------------------------------------------------
-            // perform the change
-
-            const actualValue = unit.colorSpace();
-
-            // ----------------------------------------------------------------
-            // test the results
-
-            expect(actualValue).to.eql(expectedValue);
-        });
-    });
 });

@@ -32,15 +32,16 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { AppError } from "@safelytyped/core-types";
-import { CssColor, makeCssColor } from "@safelytyped/css-color";
+import { AppError, isObject } from "@safelytyped/core-types";
+import { makeCssColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { InvalidCssColorDataParameters, ValidCssColorData } from "./_fixtures/CssColorDataFixtures";
+import { CSS_COLOR_FIXTURES } from "../_fixtures/CSS_COLOR_FIXTURES";
+import { INVALID_CSS_COLOR_DEFINITIONS } from "../_fixtures/INVALID_CSS_COLOR_DEFINITIONS";
 
 describe('makeCssColor()', () => {
-    ValidCssColorData.forEach((inputValue) => {
-        it("returns a CssColor object when given acceptable inputs: " + JSON.stringify(inputValue), () => {
+    CSS_COLOR_FIXTURES.forEach((fixture) => {
+        it(`[fixture ${fixture.name}] returns a CssColor object when given acceptable inputs`, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -54,17 +55,17 @@ describe('makeCssColor()', () => {
             // perform the change
 
             const actualResult = makeCssColor(
-                inputValue.definition,
-                { colorName: inputValue.name }
+                fixture.definition,
+                { colorName: fixture.name }
             );
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualResult).to.be.instanceOf(CssColor);
+            expect(isObject(actualResult)).to.be.true;
         });
 
-        it("returns a CssColor object with the given name: " + JSON.stringify(inputValue.name), () => {
+        it(`[fixture ${fixture.name}] returns a CssColor object with the given name`, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -79,17 +80,17 @@ describe('makeCssColor()', () => {
             // perform the change
 
             const actualResult = makeCssColor(
-                inputValue.definition,
-                { colorName: inputValue.name }
+                fixture.definition,
+                { colorName: fixture.name }
             );
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualResult.name()).eqls(inputValue.name);
+            expect(actualResult.name).eqls(fixture.name);
         });
 
-        it("returns a CssColor object with the given definition: " + JSON.stringify(inputValue.definition), () => {
+        it(`[fixture ${fixture.name}] returns a CssColor object with the given definition`, () => {
             // ----------------------------------------------------------------
             // explain your test
 
@@ -104,40 +105,35 @@ describe('makeCssColor()', () => {
             // perform the change
 
             const actualResult = makeCssColor(
-                inputValue.definition,
-                { colorName: inputValue.name }
+                fixture.definition,
+                { colorName: fixture.name }
             );
 
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualResult.definition()).eqls(inputValue.definition);
+            expect(actualResult.definition).eqls(fixture.definition);
         });
     });
 
-    InvalidCssColorDataParameters.forEach(({inputValue, description}) => {
-        it("throws an AppError when given invalid inputs where " + description, () => {
+    INVALID_CSS_COLOR_DEFINITIONS.forEach((fixture) => {
+        it(`[fixture ${fixture.name}] throws an AppError when given invalid CSS definition "${fixture.definition}"`, () => {
             // ----------------------------------------------------------------
             // explain your test
 
-            // this test proves that malformed / incomplete object will
-            // not pass validation
+            // this test proves that an invalid CSS definition will trigger
+            // an Error
 
             // ----------------------------------------------------------------
             // setup your test
 
-
-
             // ----------------------------------------------------------------
             // perform the change
 
-            let exceptionThrown = null;
-            let actualValue = null;
+            let exceptionThrown;
+
             try {
-                actualValue = makeCssColor(
-                    inputValue.definition,
-                    { colorName: inputValue.name },
-                );
+                makeCssColor(fixture.definition);
             }
             catch(e) {
                 exceptionThrown = e;
@@ -146,7 +142,6 @@ describe('makeCssColor()', () => {
             // ----------------------------------------------------------------
             // test the results
 
-            expect(actualValue).is.null;
             expect(exceptionThrown).is.instanceOf(AppError);
         });
     });
