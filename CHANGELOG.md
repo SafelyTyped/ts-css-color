@@ -28,6 +28,7 @@ The following changes have been completed, and will be included in the next tagg
 ### Deprecations
 
 - removed deprecated `shade()` function
+- removed deprecated `isDull()` function
 
 ## v3.0.0
 
