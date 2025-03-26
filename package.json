@@ -1,6 +1,6 @@
 {
   "name": "@safelytyped/css-color",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Safe type for CSS color values",
   "repository": {
     "type": "git",
