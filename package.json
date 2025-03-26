@@ -48,6 +48,9 @@
     "LICENSE.md"
   ],
   "license": "BSD-3-Clause",
+  "sideEffects": [
+    "./lib/**/CssNamedColors.const.js"
+  ],
   "dependencies": {
     "@safelytyped/core-types": "^0.5.0",
     "@safelytyped/math-rounding": "^1.0.1",
