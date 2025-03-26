@@ -33,9 +33,9 @@
 //
 
 import { DEFAULT_DATA_PATH } from "@safelytyped/core-types";
+import { InvalidCssColorDataError } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { InvalidCssColorDataError } from "./InvalidCssColorDataError";
 
 describe("InvalidCssColorDataError", () => {
     describe(".constructor", () => {

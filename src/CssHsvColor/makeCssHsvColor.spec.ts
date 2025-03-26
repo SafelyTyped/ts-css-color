@@ -32,66 +32,112 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { makeCssHsvColor } from "@safelytyped/css-color";
+import { makeCssColor, makeCssHsvColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { CssHsvColor } from "./CssHsvColor";
+import { CSS_COLOR_FIXTURES } from "../_fixtures/CSS_COLOR_FIXTURES";
+import { CSS_HSV_COLOR_FIXTURES } from "../_fixtures/CSS_HSV_COLOR_FIXTURES";
 
-const VALID_COLOR_CSS = [
-    {
-        description: "hex CSS definition",
-        inputValue: "#fff",
-    },
-    {
-        description: "CSS named color",
-        inputValue: "red",
-    },
-    {
-        description: "hsl() CSS definition",
-        inputValue: "hsl(359 100 100)",
-    },
-    // hsv() is currently unsupported by CSS
-    //
-    // it's not even part of the draft CSS Color 5 spec
-    // {
-    //     description: "hsv() CSS definition",
-    //     inputValue: "hsv(240 100% 50%)",
-    // },
-    {
-        description: "hwb() CSS definition",
-        inputValue: "hwb(359 100 100)"
-    },
-    {
-        description: "oklch() CSS definition",
-        inputValue: "oklch(0.5032 0 0)"
-    },
-    {
-        description: "rgb() CSS definition",
-        inputValue: "rgb(255, 255, 255)"
-    },
-];
+const OTHER_COLOR_FIXTURES = CSS_COLOR_FIXTURES.filter((fixture) => !CSS_HSV_COLOR_FIXTURES.includes(fixture));
 
 describe("makeCssHsvColor()", () => {
-    VALID_COLOR_CSS.forEach((fixture) => {
-        it("accepts " + fixture.description + ": " + fixture.inputValue, () => {
-            // ----------------------------------------------------------------
-            // explain your test
+    describe("(string input)", () => {
+        CSS_HSV_COLOR_FIXTURES.forEach((fixture) => {
+            it("accepts " + fixture.name + ": " + fixture.definition, () => {
+                // ----------------------------------------------------------------
+                // explain your test
 
-            // this test proves that makeCssHsvColor() accepts a range of
-            // input formats
+                // this test proves that this smart constructor accepts its
+                // native input format
 
-            // ----------------------------------------------------------------
-            // setup your test
+                // ----------------------------------------------------------------
+                // setup your test
 
-            // ----------------------------------------------------------------
-            // perform the change
+                // ----------------------------------------------------------------
+                // perform the change
 
-            const actualValue = makeCssHsvColor(fixture.inputValue);
+                const actualValue = makeCssHsvColor(fixture.definition);
 
-            // ----------------------------------------------------------------
-            // test the results
+                // ----------------------------------------------------------------
+                // test the results
 
-            expect(actualValue).to.be.instanceof(CssHsvColor);
+                expect(actualValue.colorModel).to.eql("hsv");
+            });
         });
+
+        OTHER_COLOR_FIXTURES.forEach((fixture) => {
+            it("accepts " + fixture.name + ": " + fixture.definition, () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that this smart constructor accepts all other
+                // supported input formats
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = makeCssHsvColor(fixture.definition);
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue.colorModel).to.eql("hsv");
+            });
+        });
+    });
+
+    describe("(CssColor input)", () => {
+        OTHER_COLOR_FIXTURES.forEach((fixture) => {
+            // we need this for what we show to the user
+            const inputValue = makeCssColor(fixture.definition);
+
+            it("accepts " + fixture.name + " (" + inputValue.colorModel + ")", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that this smart constructor accepts all other
+                // supported input formats
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = makeCssHsvColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue.colorModel).to.eql("hsv");
+            });
+        });
+    });
+
+    it("returns the same object if input is a CssHsvColor", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        //
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const expectedValue = makeCssHsvColor("red");
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualValue = makeCssHsvColor(expectedValue);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.equal(expectedValue);
     });
 });

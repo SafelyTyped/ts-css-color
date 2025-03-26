@@ -32,15 +32,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { tonality } from "./tonality";
+import { tonality, type CssColor } from "../index";
 
 /**
  * hasClearContrast() determines whether or not two given colors are
  * different from each other on a black-and-white scale.
  *
- * It's an alternative to the {@link contrastRatio}, useful for making
- * decisions outside of the WCAG approach.
+ * Combine this with {@link contrastRatio} to catch the color pairs that
+ * the WCAG 2.2 formula alone doesn't catch.
  *
  * @param a - a color to compare
  * @param b - the other color to compare against
@@ -51,8 +50,8 @@ import { tonality } from "./tonality";
  * - `false` if both colors are dark
  */
 export function hasClearContrast(
-    a: AnyCssColor,
-    b: AnyCssColor
+    a: CssColor,
+    b: CssColor
 ): boolean
 {
     const toneA = tonality(a);

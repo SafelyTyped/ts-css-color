@@ -32,31 +32,28 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { CssHslColor } from "./CssHslColor";
-import type { CssHslColorData } from "./CssHslColorData.type";
-import { convertConversionModelToHslChannelsData } from "./convertConversionModelToHslChannelsData";
-import { makeCssHslColorData } from "./makeCssHslColorData";
+import { prepForSrgb } from "../ColorSpaces/prepForSrgb";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { HSL_MODEL_CONVERTER } from "../ConversionModels/Hsl/HSL_MODEL_CONVERTER";
+import type { CssHslColor } from "./CssHslColor.type";
+import { makeCssHslColorFromHslColorModel } from "./makeCssHslColorFromHslColorModel";
 
 export function makeCssHslColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHslColorData, TypeGuaranteeOptions>[]
-)
+): CssHslColor
 {
-    return new CssHslColor(
-        makeCssHslColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToHslChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+    // if we get our native conversion model, we need to avoid prepping it
+    // for sRGB, so that our range validation can work
+    const localConversionModel = model.mode === "hsl" ? model : prepForSrgb(model);
+    const colorModel = HSL_MODEL_CONVERTER.toColorModel(
+        localConversionModel,
+    );
+
+    return makeCssHslColorFromHslColorModel(
+        colorName,
+        cssDefinition,
+        colorModel
     );
 }

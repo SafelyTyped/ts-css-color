@@ -32,59 +32,112 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { makeCssColor, makeCssOklchColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { CssOklchColor } from "./CssOklchColor";
-import { makeCssOklchColor } from "./makeCssOklchColor";
+import { CSS_COLOR_FIXTURES } from "../_fixtures/CSS_COLOR_FIXTURES";
+import { CSS_OKLCH_COLOR_FIXTURES } from "../_fixtures/CSS_OKLCH_COLOR_FIXTURES";
 
-const VALID_COLOR_CSS = [
-    {
-        description: "hex CSS definition",
-        inputValue: "#fff",
-    },
-    {
-        description: "CSS named color",
-        inputValue: "red",
-    },
-    {
-        description: "hsl() CSS definition",
-        inputValue: "hsl(359 100 100)",
-    },
-    {
-        description: "hwb() CSS definition",
-        inputValue: "hwb(359 100 100)"
-    },
-    {
-        description: "oklch() CSS definition",
-        inputValue: "oklch(0.5032 0 0)"
-    },
-    {
-        description: "rgb() CSS definition",
-        inputValue: "rgb(255, 255, 255)"
-    },
-];
+const OTHER_COLOR_FIXTURES = CSS_COLOR_FIXTURES.filter((fixture) => !CSS_OKLCH_COLOR_FIXTURES.includes(fixture));
 
 describe("makeCssOklchColor()", () => {
-    VALID_COLOR_CSS.forEach((fixture) => {
-        it("accepts " + fixture.description + ": " + fixture.inputValue, () => {
-            // ----------------------------------------------------------------
-            // explain your test
+    describe("(string input)", () => {
+        CSS_OKLCH_COLOR_FIXTURES.forEach((fixture) => {
+            it("accepts " + fixture.name + ": " + fixture.definition, () => {
+                // ----------------------------------------------------------------
+                // explain your test
 
-            // this test proves that makeCssOklchColor() accepts a range of
-            // input formats
+                // this test proves that this smart constructor accepts its
+                // native input format
 
-            // ----------------------------------------------------------------
-            // setup your test
+                // ----------------------------------------------------------------
+                // setup your test
 
-            // ----------------------------------------------------------------
-            // perform the change
+                // ----------------------------------------------------------------
+                // perform the change
 
-            const actualValue = makeCssOklchColor(fixture.inputValue);
+                const actualValue = makeCssOklchColor(fixture.definition);
 
-            // ----------------------------------------------------------------
-            // test the results
+                // ----------------------------------------------------------------
+                // test the results
 
-            expect(actualValue).to.be.instanceof(CssOklchColor);
+                expect(actualValue.colorModel).to.eql("oklch");
+            });
+        });
+
+        OTHER_COLOR_FIXTURES.forEach((fixture) => {
+            it("accepts " + fixture.name + ": " + fixture.definition, () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that this smart constructor accepts all other
+                // supported input formats
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = makeCssOklchColor(fixture.definition);
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue.colorModel).to.eql("oklch");
+            });
         });
     });
-})
+
+    describe("(CssColor input)", () => {
+        OTHER_COLOR_FIXTURES.forEach((fixture) => {
+            // we need this for what we show to the user
+            const inputValue = makeCssColor(fixture.definition);
+
+            it("accepts " + fixture.name + " (" + inputValue.colorModel + ")", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that this smart constructor accepts all other
+                // supported input formats
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = makeCssOklchColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue.colorModel).to.eql("oklch");
+            });
+        });
+    });
+
+    it("returns the same object if input is a CssOklchColor", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        //
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const expectedValue = makeCssOklchColor("red");
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualValue = makeCssOklchColor(expectedValue);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.equal(expectedValue);
+    });
+});

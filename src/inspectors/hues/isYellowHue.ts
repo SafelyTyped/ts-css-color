@@ -32,8 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../../CssColor/AnyCssColor.type";
-import { isHue } from "../isHue";
+import { isHue, type CssColor } from "../../index";
 
 /**
  * isYellowHue() returns true if the given `input` color is a yellow hue.
@@ -47,7 +46,7 @@ import { isHue } from "../isHue";
  * @deprecated Use `isHue(input, "yellow")` instead.
  */
 export function isYellowHue(
-    input: AnyCssColor
+    input: CssColor
 ): boolean
 {
     return isHue(input, "yellow");

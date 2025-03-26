@@ -32,51 +32,51 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { CSS_EXTENDED_COLORS_TO_HEX } from "@safelytyped/css-color";
+import { CSS_NAMED_COLOR_TO_HEX } from "@safelytyped/css-color";
 
 export const CONTRASTING_COLORS = [
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.white,
-        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        a: CSS_NAMED_COLOR_TO_HEX.white,
+        b: CSS_NAMED_COLOR_TO_HEX.black,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.black,
-        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+        a: CSS_NAMED_COLOR_TO_HEX.black,
+        b: CSS_NAMED_COLOR_TO_HEX.white,
     },
 ];
 
 export const NON_CONTRASTING_COLORS = [
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.black,
-        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        a: CSS_NAMED_COLOR_TO_HEX.black,
+        b: CSS_NAMED_COLOR_TO_HEX.black,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.white,
-        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+        a: CSS_NAMED_COLOR_TO_HEX.white,
+        b: CSS_NAMED_COLOR_TO_HEX.white,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.red,
-        b: CSS_EXTENDED_COLORS_TO_HEX.red,
+        a: CSS_NAMED_COLOR_TO_HEX.red,
+        b: CSS_NAMED_COLOR_TO_HEX.red,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.green,
-        b: CSS_EXTENDED_COLORS_TO_HEX.green,
+        a: CSS_NAMED_COLOR_TO_HEX.green,
+        b: CSS_NAMED_COLOR_TO_HEX.green,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.blue,
-        b: CSS_EXTENDED_COLORS_TO_HEX.blue,
+        a: CSS_NAMED_COLOR_TO_HEX.blue,
+        b: CSS_NAMED_COLOR_TO_HEX.blue,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.blue,
-        b: CSS_EXTENDED_COLORS_TO_HEX.black,
+        a: CSS_NAMED_COLOR_TO_HEX.blue,
+        b: CSS_NAMED_COLOR_TO_HEX.black,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.orange,
-        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+        a: CSS_NAMED_COLOR_TO_HEX.orange,
+        b: CSS_NAMED_COLOR_TO_HEX.white,
     },
     {
-        a: CSS_EXTENDED_COLORS_TO_HEX.yellow,
-        b: CSS_EXTENDED_COLORS_TO_HEX.white,
+        a: CSS_NAMED_COLOR_TO_HEX.yellow,
+        b: CSS_NAMED_COLOR_TO_HEX.white,
     },
     {
         a: "#888",

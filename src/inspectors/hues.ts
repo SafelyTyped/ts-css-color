@@ -33,8 +33,7 @@
 //
 
 import { HashMap } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { isMonochrome } from "./isMonochome";
+import { isMonochrome, type CssColor } from "../index";
 
 /**
  * Hue is a type. It represents all of the valid color hues that we
@@ -121,7 +120,7 @@ const CHROMA_HUES_MAP: HuesMap = {
  * @param input
  * @returns
  */
-export function hues(input: AnyCssColor): Hue[]
+export function hues(input: CssColor): Hue[]
 {
     // our return value
     let retval = grayHues(input);
@@ -144,13 +143,13 @@ export function hues(input: AnyCssColor): Hue[]
     return retval;
 }
 
-function grayHues(input: AnyCssColor): Hue[]
+function grayHues(input: CssColor): Hue[]
 {
     // our return value
     const retval: Hue[] = [];
 
     // what is the hue?
-    const { saturation, luminosity } = input.hsl().channelsData();
+    const { saturation, luminosity } = input.hsl.channelsData;
 
     // special case
     if (saturation < 15) {
@@ -171,10 +170,10 @@ function grayHues(input: AnyCssColor): Hue[]
     return retval;
 }
 
-function colorHues(input: AnyCssColor): Hue[]
+function colorHues(input: CssColor): Hue[]
 {
     // what is the hue?
-    const hue = input.hsl().hue();
+    const hue = input.hsl.hue;
 
     // our return value
     const filteredHuesMap = HashMap.filter(

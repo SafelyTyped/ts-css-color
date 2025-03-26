@@ -32,20 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions, type FunctionalOption } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { makeCssColor } from "../CssColor/makeCssColor";
-import { makeCssHwbColorFromCssColor } from "./makeCssHwbColorFromCssColor";
-import { CssHwbColor } from "./CssHwbColor";
-import type { CssHwbColorData } from "./CssHwbColorData.type";
+import { DEFAULT_DATA_PATH, isString, THROW_THE_ERROR, type DataGuaranteeOptions } from "@safelytyped/core-types";
+import { makeCssColor, makeCssHwbColorFromCssColor, type CssColor, type CssHwbColor } from "../index";
 
 export function makeCssHwbColor(
-    input: string|AnyCssColor,
+    input: string|CssColor,
     {
         path = DEFAULT_DATA_PATH,
         onError = THROW_THE_ERROR
     }: DataGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssHwbColorData, DataGuaranteeOptions>[]
 ): CssHwbColor
 {
     // normalise to a CssColor class
@@ -54,14 +49,10 @@ export function makeCssHwbColor(
     }
 
     // special case - no conversion needed
-    if (input instanceof CssHwbColor) {
+    if (input.colorModel === "hwb" && input.colorSpace === "sRGB") {
         return input;
     }
 
     // convert it (if necessary) and return it
-    return makeCssHwbColorFromCssColor(
-        input,
-        { path, onError },
-        ...fnOpts,
-    );
+    return makeCssHwbColorFromCssColor(input);
 }

@@ -32,31 +32,28 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { ConversionModel } from "../ConversionModel/ConversionModel.type";
-import { CssOklchColor } from "./CssOklchColor";
-import type { CssOklchColorData } from "./CssOklchColorData.type";
-import { convertConversionModelToOklchChannelsData } from "./convertConversionModelToOklchChannelsData";
-import { makeCssOklchColorData } from "./makeCssOklchColorData";
+import { prepForOklch } from "../ColorSpaces/prepForOklch";
+import type { ConversionModel } from "../ConversionModels/ConversionModel.type";
+import { OKLCH_MODEL_CONVERTER } from "../ConversionModels/Oklch/OKLCH_MODEL_CONVERTER";
+import type { CssOklchColor } from "./CssOklchColor.type";
+import { makeCssOklchColorFromOklchColorModel } from "./makeCssOklchColorFromOklchColorModel";
 
 export function makeCssOklchColorFromConversionModel(
     colorName: string,
     cssDefinition: string,
     model: ConversionModel,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssOklchColorData, TypeGuaranteeOptions>[]
-)
+): CssOklchColor
 {
-    return new CssOklchColor(
-        makeCssOklchColorData(
-            colorName,
-            cssDefinition,
-            convertConversionModelToOklchChannelsData(model),
-            { path, onError },
-            ...fnOpts,
-        ),
+    // if we get our native conversion model, we need to avoid prepping it
+    // for sRGB, so that our range validation can work
+    const localConversionModel = model.mode === "oklch" ? model : prepForOklch(model);
+    const colorModel = OKLCH_MODEL_CONVERTER.toColorModel(
+        localConversionModel,
+    );
+
+    return makeCssOklchColorFromOklchColorModel(
+        colorName,
+        cssDefinition,
+        colorModel,
     );
 }

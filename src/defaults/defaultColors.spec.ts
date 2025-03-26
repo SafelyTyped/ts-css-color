@@ -34,7 +34,6 @@
 
 import { expect } from "chai";
 import { describe } from "mocha";
-import { CssHexColor } from "../CssHexColor/CssHexColor";
 import { BLACK, WHITE } from "./defaultColors.const";
 
 describe("BLACK (internal const)", () => {
@@ -53,7 +52,7 @@ describe("BLACK (internal const)", () => {
         // ----------------------------------------------------------------
         // perform the change
 
-        const actualHexValue = BLACK.hex();
+        const actualHexValue = BLACK.hex;
 
         // ----------------------------------------------------------------
         // test the results
@@ -77,7 +76,8 @@ describe("BLACK (internal const)", () => {
         // ----------------------------------------------------------------
         // test the results
 
-        expect(BLACK).is.instanceOf(CssHexColor);
+        expect(BLACK.colorModel).to.eql("hex");
+        expect(BLACK.colorSpace).to.eql("sRGB");
     });
 });
 
@@ -97,7 +97,7 @@ describe("WHITE (internal const)", () => {
         // ----------------------------------------------------------------
         // perform the change
 
-        const actualHexValue = WHITE.hex();
+        const actualHexValue = WHITE.hex;
 
         // ----------------------------------------------------------------
         // test the results
@@ -121,6 +121,7 @@ describe("WHITE (internal const)", () => {
         // ----------------------------------------------------------------
         // test the results
 
-        expect(WHITE).is.instanceOf(CssHexColor);
+        expect(WHITE.colorModel).to.eql("hex");
+        expect(WHITE.colorSpace).to.eql("sRGB");
     });
 });

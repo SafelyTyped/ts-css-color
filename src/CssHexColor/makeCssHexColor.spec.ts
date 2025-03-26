@@ -32,86 +32,112 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+import { makeCssColor, makeCssHexColor } from "@safelytyped/css-color";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { CssHexColor } from "./CssHexColor";
-import { makeCssHexColor } from "./makeCssHexColor";
+import { CSS_COLOR_FIXTURES } from "../_fixtures/CSS_COLOR_FIXTURES";
+import { CSS_HEX_COLOR_FIXTURES } from "../_fixtures/CSS_HEX_COLOR_FIXTURES";
 
-const VALID_COLOR_CSS = [
-    {
-        description: "hex CSS definition",
-        inputValue: "#fff",
-        expectedHexValue: "#ffffff",
-    },
-    {
-        description: "CSS named color",
-        inputValue: "red",
-        expectedHexValue: "#ff0000",
-    },
-    {
-        description: "hsl() CSS definition",
-        inputValue: "hsl(359 100 100)",
-        expectedHexValue: "#ffffff",
-    },
-    {
-        description: "hwb() CSS definition",
-        inputValue: "hwb(359 100 100)",
-        expectedHexValue: "#808080",
-    },
-    {
-        description: "oklch() CSS definition",
-        inputValue: "oklch(0.5032 0 0)",
-        expectedHexValue: "#646464",
-    },
-    {
-        description: "rgb() CSS definition",
-        inputValue: "rgb(255, 255, 255)",
-        expectedHexValue: "#ffffff",
-    },
-];
+const OTHER_COLOR_FIXTURES = CSS_COLOR_FIXTURES.filter((fixture) => !CSS_HEX_COLOR_FIXTURES.includes(fixture));
 
 describe("makeCssHexColor()", () => {
-    VALID_COLOR_CSS.forEach((fixture) => {
-        it("accepts " + fixture.description + ": " + fixture.inputValue, () => {
-            // ----------------------------------------------------------------
-            // explain your test
+    describe("(string input)", () => {
+        CSS_HEX_COLOR_FIXTURES.forEach((fixture) => {
+            it("accepts " + fixture.name + ": " + fixture.definition, () => {
+                // ----------------------------------------------------------------
+                // explain your test
 
-            // this test proves that makeCssHexColor() accepts a range of
-            // input formats
+                // this test proves that this smart constructor accepts its
+                // native input format
 
-            // ----------------------------------------------------------------
-            // setup your test
+                // ----------------------------------------------------------------
+                // setup your test
 
-            // ----------------------------------------------------------------
-            // perform the change
+                // ----------------------------------------------------------------
+                // perform the change
 
-            const actualValue = makeCssHexColor(fixture.inputValue);
+                const actualValue = makeCssHexColor(fixture.definition);
 
-            // ----------------------------------------------------------------
-            // test the results
+                // ----------------------------------------------------------------
+                // test the results
 
-            expect(actualValue).to.be.instanceof(CssHexColor);
+                expect(actualValue.colorModel).to.eql("hex");
+            });
         });
 
-        it("produces the expected color from " + fixture.inputValue, () => {
-            // ----------------------------------------------------------------
-            // explain your test
+        OTHER_COLOR_FIXTURES.forEach((fixture) => {
+            it("accepts " + fixture.name + ": " + fixture.definition, () => {
+                // ----------------------------------------------------------------
+                // explain your test
 
-            // this test proves that makeCssHexColor produces a CSS Color
-            // that contains the data we expect
+                // this test proves that this smart constructor accepts all other
+                // supported input formats
 
-            // ----------------------------------------------------------------
-            // setup your test
+                // ----------------------------------------------------------------
+                // setup your test
 
-            // ----------------------------------------------------------------
-            // perform the change
+                // ----------------------------------------------------------------
+                // perform the change
 
-            const actualValue = makeCssHexColor(fixture.inputValue);
+                const actualValue = makeCssHexColor(fixture.definition);
 
-            // ----------------------------------------------------------------
-            // test the results
+                // ----------------------------------------------------------------
+                // test the results
 
-            expect(actualValue.hex()).to.eql(fixture.expectedHexValue);
+                expect(actualValue.colorModel).to.eql("hex");
+            });
         });
     });
-})
+
+    describe("(CssColor input)", () => {
+        OTHER_COLOR_FIXTURES.forEach((fixture) => {
+            // we need this for what we show to the user
+            const inputValue = makeCssColor(fixture.definition);
+
+            it("accepts " + fixture.name + " (" + inputValue.colorModel + ")", () => {
+                // ----------------------------------------------------------------
+                // explain your test
+
+                // this test proves that this smart constructor accepts all other
+                // supported input formats
+
+                // ----------------------------------------------------------------
+                // setup your test
+
+
+
+                // ----------------------------------------------------------------
+                // perform the change
+
+                const actualValue = makeCssHexColor(inputValue);
+
+                // ----------------------------------------------------------------
+                // test the results
+
+                expect(actualValue.colorModel).to.eql("hex");
+            });
+        });
+    });
+
+    it("returns the same object if input is a CssHexColor", () => {
+        // ----------------------------------------------------------------
+        // explain your test
+
+        //
+
+        // ----------------------------------------------------------------
+        // setup your test
+
+        const expectedValue = makeCssHexColor("red");
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        const actualValue = makeCssHexColor(expectedValue);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        expect(actualValue).to.equal(expectedValue);
+    });
+});

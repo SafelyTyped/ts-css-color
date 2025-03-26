@@ -32,7 +32,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
+import type { CssColor } from "../index";
 
 /**
  * relativeLuminance() calculates the WCAG relative luminance of the
@@ -46,9 +46,9 @@ import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
  * the color to calculate the relative luminance of
  * @returns the calculated relative luminance
  */
-export function relativeLuminance(input: AnyCssColor): number
+export function relativeLuminance(input: CssColor): number
 {
-    const { red, green, blue } = input.rgb().channelsData();
+    const { red, green, blue } = input.rgb.channelsData;
 
     // convert the channels to a number between 0-1
     const rsRGB = red / 255;

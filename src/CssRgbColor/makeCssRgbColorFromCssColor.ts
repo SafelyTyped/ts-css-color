@@ -32,31 +32,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-import { DEFAULT_DATA_PATH, THROW_THE_ERROR, type FunctionalOption, type TypeGuaranteeOptions } from "@safelytyped/core-types";
-import type { AnyCssColor } from "../CssColor/AnyCssColor.type";
-import { CSS_RGB_CONVERSIONS } from "./CSS_RGB_CONVERSIONS";
-import type { CssRgbColorData } from "./CssRgbColorData.type";
-import { makeCssRgbColorFromConversionModel } from "./makeCssRgbColorFromConversionModel";
+import { makeCssRgbColorFromConversionModel, type CssColor } from "../index";
 
 export function makeCssRgbColorFromCssColor(
-    input: AnyCssColor,
-    {
-        path = DEFAULT_DATA_PATH,
-        onError = THROW_THE_ERROR
-    }: TypeGuaranteeOptions = {},
-    ...fnOpts: FunctionalOption<CssRgbColorData, TypeGuaranteeOptions>[]
+    input: CssColor,
 )
 {
-    // how to do the conversion
-    const converterFn = () => {
-        return makeCssRgbColorFromConversionModel(
-            input.name(),
-            input.definition(),
-            input.conversionModel(),
-            {path, onError},
-            ...fnOpts,
-        );
-    };
-
-    return CSS_RGB_CONVERSIONS.convert(converterFn, input, fnOpts);
+    return makeCssRgbColorFromConversionModel(
+        input.name,
+        input.definition,
+        input.conversionModel,
+    );
 }
