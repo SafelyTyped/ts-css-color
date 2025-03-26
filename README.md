@@ -88,6 +88,13 @@ const myColor = makeCssColor("red");
   - [relativeLuminance()](#relativeluminance)
   - [tonality()](#tonality)
   - [wcagContrast()](#wcagcontrast)
+- [CSS Named Colors](#css-named-colors)
+  - [Quick Summary](#quick-summary)
+  - [CSS\_NAMED\_COLORS\_TO\_HEX](#css_named_colors_to_hex)
+  - [CSS\_HEX\_TO\_NAMED\_COLORS](#css_hex_to_named_colors)
+  - [isCssNamedColor()](#iscssnamedcolor)
+  - [mustBeCssNamedColor()](#mustbecssnamedcolor)
+  - [validateCssNamedColor()](#validatecssnamedcolor)
 
 ## Why Use CssColor?
 
@@ -933,24 +940,351 @@ const rgbColor2 = makeCssRgbColorFrRgbColorModel(channelData);
 
 ### contrastRatio()
 
+`contrastRatio()` calculates the WCAG 2.2 relative contrast between two colors.
+
+You don't need to pass in the the colors in any set order. This function will work regardless.
+
+```typescript
+import { makeCssColor, contrastRatio } from "@safelytyped/css-color";
+
+// outputs: 14.7
+console.log(
+    contrastRatio(
+        makeCssColor("#222"),
+        makeCssColor("#f6f6f6f"),
+    )
+);
+```
+
 ### darkModeContrastRatio()
+
+`darkModeContrastRatio()` calculates the WCAG 2.2 relative contrast of the given input color against a black (`#000`) background.
+
+```typescript
+import { makeCssColor, darkModeContrastRatio } from "@safelytyped/css-color";
+
+console.log(
+    darkModeContrastRatio(
+        makeCssColor("#f6f6f6")
+    )
+);
+```
+
+Using a different color as your dark mode background? You can pass that color in as an optional named parameter:
+
+```typescript
+import { makeCssColor, darkModeContrastRatio } from "@safelytyped/css-color";
+
+console.log(
+    darkModeContrastRatio(
+        makeCssColor("#f6f6f6"),
+        { darkModeBg: makeCssColor("#222") }
+    )
+);
+```
 
 ### hasClearContrast()
 
+`hasClearContrast()` determines whether or not two given colors are truly different from each other on a black-and-white scale.
+
+Combine this with [`contrastRatio()`](#contrastratio) to catch the color pairs that the WCAG 2.2 formula alone doesn't catch.
+
+```typescript
+import { makeCssColor, hasClearContrast } from "@safelytyped/css-color";
+
+// outputs: true
+console.log(
+    hasClearContrast(
+        makeCssColor("#222"),
+        makeCssColor("#f6f6f6")
+    )
+);
+
+// outputs: false
+console.log(
+    hasClearContrast(
+        makeCssColor("#222"),
+        makeCssColor("#fd7e14")
+    )
+);
+```
+
 ### isDark()
+
+`isDark()` returns `true` if the given input color is a dark color. It uses [`tonality()`](#tonality) to determine this.
+
+```typescript
+import { makeCssColor, isDark } from "@safelytyped/css-color";
+
+// outputs: true
+console.log(
+    isDark(
+        makeCssColor("#222")
+    )
+);
+```
 
 ### isLight()
 
+`isLight()` returns `true` if the given input color is a light color. It uses [`tonality()`](#tonality) to determine this.
+
+```typescript
+import { makeCssColor, isLight } from "@safelytyped/css-color";
+
+// outputs: true
+console.log(
+    isLight(
+        makeCssColor("#f6f6f6")
+    )
+);
+```
+
 ### isMidtone()
+
+`isMidtone()` returns `true` if the given input color is not a light color, and is not a dark color either. It uses [`tonality()`](#tonality) to determine this.
+
+```typescript
+import { makeCssColor, isMidtone } from "@safelytyped/css-color";
+
+// outputs: true
+console.log(
+    isMidtone(
+        makeCssColor("#fd7e14")
+    )
+);
+```
 
 ### isMonochrome()
 
+`isMonochrome()` returns `true` if the given input color is black, white, or a pure gray color.
+
+```typescript
+import { makeCssColor, isMonochrome } from "@safelytyped/css-color";
+
+// outputs: true
+console.log(
+    isMidtone(
+        makeCssColor("#222")
+    )
+);
+
+// outputs: false
+console.log(
+    isMidtone(
+        makeCssColor("#9CA3AF")
+    )
+);
+```
+
 ### lightModeContrastRatio()
+
+`lightModeContrastRatio()` calculates the WCAG 2.2 relative contrast of the given input color against a white (`#fff`) background.
+
+```typescript
+import { makeCssColor, lightModeContrastRatio } from "@safelytyped/css-color";
+
+console.log(
+    lightModeContrastRatio(
+        makeCssColor("#222")
+    )
+);
+```
+
+Using a different color as your light mode background? You can pass that color in as an optional named parameter:
+
+```typescript
+import { makeCssColor, lightModeContrastRatio } from "@safelytyped/css-color";
+
+console.log(
+    lightModeContrastRatio(
+        makeCssColor("#222"),
+        { lightModeBg: makeCssColor("#f6f6f6") }
+    )
+);
+```
 
 ### luma()
 
+`luma()` calculates the given color's "Y" component from the YIQ color space.
+
+YIQ is the old NTSC color space used on American TVs back in the day.
+
+This is based on [Brian Suda's formula](https://24ways.org/2010/calculating-color-contrast).
+
+```typescript
+import { makeCssColor, luma } from "@safelytyped/css-color";
+
+// outputs: 71.772
+console.log(
+    luma(
+        makeCssColor("#234f83")
+    )
+);
+```
+
 ### relativeLuminance()
+
+`relativeLuminance()` calculates the WCAG 2.2 relative luminance of the given input color.
+
+This is an alternative to the [`luma()`](#luma) value.
+
+This value is used in determining the [WCAG contrast ratings](#wcagcontrast).
+
+```typescript
+import { makeCssColor, relativeLuminance } from "@safelytyped/css-color";
+
+// outputs: 0.075
+console.log(
+    relativeLuminance(
+        makeCssColor("#234f83")
+    )
+);
+```
 
 ### tonality()
 
+`tonality()` uses the given color's [`luma()`](#luma) to work out whether the color is `light`, `dark`, or `midtone`.
+
+```typescript
+import { makeCssColor, tonality } from "@safelytyped/css-color";
+
+// outputs: light
+console.log(
+    tonality(
+        makeCssColor("#f6f6f6")
+    )
+);
+
+// outputs: dark
+console.log(
+    tonality(
+        makeCssColor("#222")
+    )
+);
+
+// outputs: midtone
+console.log(
+    tonality(
+        makeCssColor("#fd7e14")
+    )
+);
+```
+
 ### wcagContrast()
+
+`wcagContrast()` works out whether the given contrast ratio meets the WCAG 2.2 success criteria for accessibility.
+
+Here's the structure of the object returned by `wcagContrast()`:
+
+```typescript
+/**
+ * WcagContrastRatings is a map of known WCAG contrast criteria in their
+ * context:
+ *
+ * - A_normal - is this good enough for people with healthy vision? (based on ISO-9241)
+ * - AA_normal - is this good enough for AA rating for body text?
+ * - AA_large - is this good enough for AA rating for headlines?
+ * - AA_ui - is this good enough for AA rating for UI controls?
+ * - AAA_normal - is this good enough for AAA rating for body text?
+ * - AAA_large - is this good enough for AAA rating for headlines?
+ *
+ * NOTE that there is no AAA rating for UI controls at this time.
+ *
+ * See:
+ *
+ * - https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG/Perceivable/Color_contrast
+ * - https://www.w3.org/TR/WCAG21/#contrast-minimum
+ * - https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html
+ */
+export type WcagContrastRatings = {
+    /**
+     * is this good enough for people with healthy vision? (based on ISO-9241)
+     */
+    "A_normal": boolean,
+
+    /**
+     * is this good enough for the WCAG AA rating for body text?
+     */
+    "AA_normal": boolean,
+
+    /**
+     * is this good enough for the WCAG AA rating for headlines?
+     */
+    "AA_large": boolean,
+
+    /**
+     * is this good enough for the WCAG AA rating for UI controls?
+     */
+    "AA_ui": boolean,
+
+    /**
+     * is this good enough for the WCAG AAA rating for body text?
+     */
+    "AAA_normal": boolean,
+
+    /**
+     * is this good enough for the WCAG AAA rating for headlines?
+     */
+    "AAA_large": boolean,
+
+    /**
+     * what is the WCAG rating for headlines?
+     */
+    large: "AAA" | "AA" | "not accessible",
+
+    /**
+     * what is the WCAG rating for body text?
+     */
+    normal: "AAA" | "AA" | "A" | "not accessible",
+
+    /**
+     * what is the WCAG rating for UI controls?
+     */
+    ui: "AA" | "A" | "not accessible",
+};
+```
+
+Here's an example of how to use `wcagContrast()`:
+
+```typescript
+import {
+    makeCssColor,
+    contrastRatio,
+    wcagContrast
+} from "@safelytyped/css-color";
+
+// calculate the contrast ratio between our two colors
+const contrast = contrastRatio(
+    makeCssColor("#222"),
+    makeCssColor("#f6f6f6")
+);
+
+// outputs: {
+//     "A_normal": true,
+//     "AA_normal": true,
+//     "AA_large": true,
+//     "AA_ui": true,
+//     "AAA_normal": true,
+//     "AAA_large": true,
+//     "large": "AAA",
+//     "normal": "AAA",
+//     "ui": "AA"
+// },
+console.log(
+    wcagContrast(contrast)
+);
+```
+
+## CSS Named Colors
+
+### Quick Summary
+
+### CSS_NAMED_COLORS_TO_HEX
+
+### CSS_HEX_TO_NAMED_COLORS
+
+### isCssNamedColor()
+
+### mustBeCssNamedColor()
+
+### validateCssNamedColor()
