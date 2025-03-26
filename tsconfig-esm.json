@@ -1,8 +1,9 @@
 {
     "extends": "./tsconfig-build.json",
     "compilerOptions": {
-        "module": "esnext",
+        "module": "ESNext",
+        "moduleResolution": "node",
         "target": "ES2022",
-        "outDir": "./lib/esm",
+        "outDir": "./lib/esm"
     }
 }
